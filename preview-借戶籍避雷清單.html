@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>借戶籍避雷清單 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+  }
+
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 1px solid #E8E2D6;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 64px;
+    height: 64px;
+    display: block;
+    margin: 0 auto 8px;
+  }
+  .brand-header .brand-name {
+    font-size: 14px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent {
+    color: #D9342B;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    color: #B89968;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #6B6660;
+    line-height: 1.6;
+  }
+
+  .intro {
+    background: #FFF;
+    border-left: 4px solid #B89968;
+    padding: 18px 20px;
+    margin-bottom: 32px;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #4A463F;
+  }
+
+  .points {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .point-card {
+    background: #FFF;
+    border-radius: 12px;
+    padding: 22px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .point-number {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FAF8F4;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .point-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .point-body {
+    font-size: 15px;
+    color: #4A463F;
+    line-height: 1.7;
+  }
+  .point-body ul {
+    margin: 10px 0 0 18px;
+  }
+  .point-body li {
+    margin-bottom: 6px;
+  }
+  .point-example {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: #FAF6EC;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #6B6660;
+  }
+  .point-example::before {
+    content: "💡 ";
+  }
+
+  .conclusion {
+    background: #2C2A26;
+    color: #FAF8F4;
+    padding: 24px 22px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .cta-section {
+    margin-bottom: 32px;
+  }
+
+  .community-cta {
+    background: linear-gradient(135deg, #B89968 0%, #A38658 100%);
+    color: #FFF;
+    padding: 28px 22px;
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .community-cta .cta-eyebrow {
+    font-size: 13px;
+    opacity: 0.85;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .community-cta h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .community-cta p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF;
+    color: #2C2A26;
+    padding: 12px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 22px 22px;
+    border-radius: 16px;
+    text-align: center;
+  }
+  .card-cta .cta-eyebrow {
+    font-size: 13px;
+    color: #6B6660;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .card-cta h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .card-cta p {
+    font-size: 13px;
+    color: #6B6660;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FFF;
+    padding: 11px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .brand-footer {
+    text-align: center;
+    padding-top: 28px;
+    border-top: 1px solid #E8E2D6;
+  }
+  .brand-footer .footer-logo {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 0 auto 6px;
+    opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 12px;
+    color: #6B6660;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent {
+    color: #D9342B;
+    font-weight: 700;
+  }
+  .brand-footer .footer-date {
+    font-size: 11px;
+    color: #A89F92;
+  }
+
+  @media (min-width: 768px) {
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 34px; }
+    .point-title { font-size: 20px; }
+    .brand-header .brand-logo { width: 72px; height: 72px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <div class="header">
+      <div class="eyebrow">喵爸 LAZYPACK</div>
+      <h1>借戶籍避雷清單</h1>
+      <p class="subtitle">別讓一個善意,變成兩年後的稅單</p>
+    </div>
+
+    <div class="intro">
+      如果你曾經想過讓朋友、親戚把戶籍遷進來,或已經這樣做,這份清單請務必看完。一個沒做好的小動作,可能讓你未來賣房少了 400 萬免稅額。
+    </div>
+
+    <div class="points">
+
+      <div class="point-card">
+        <div class="point-number">1</div>
+        <div class="point-title">一個善意,兩年後變稅單</div>
+        <div class="point-body">
+          屋主只是讓朋友把戶籍遷進來報學區,自己也住在裡面、戶籍也在。
+          他以為這樣應該沒事,結果兩年後直接被稅務單位追繳綜合所得稅。
+          <div class="point-example">
+            系統不看你「實際上有沒有收租」,只看「設籍的人是不是你的直系親屬」。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">2</div>
+        <div class="point-title">系統的查核邏輯</div>
+        <div class="point-body">
+          只要設籍的人不是你的<strong>配偶、父母、小孩</strong>(直系親屬),
+          稅務系統就會「預設」——你跟對方之間有租賃關係,你有租金收入。
+          這不是看你心意,是看系統規則。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">3</div>
+        <div class="point-title">三大影響,一次說清楚</div>
+        <div class="point-body">
+          一旦被認定有租金收入,會同時觸發三件事:
+          <ul>
+            <li><strong>地價稅跳掉</strong>:從自用稅率變一般稅率,稅金可能從 2 變 10,差好幾倍</li>
+            <li><strong>被推算租金</strong>:稅務單位用附近行情幫你算「應該收多少」,然後課所得稅</li>
+            <li><strong>自住免稅額沒了</strong>:未來賣房可能拿不到「自住滿 6 年 400 萬免稅額」,這才是真正的大損失</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">4</div>
+        <div class="point-title">解法:無償借用契約 + 公證</div>
+        <div class="point-body">
+          要讓別人借戶籍又不踩雷,做這兩步:
+          <ul>
+            <li>簽一份「無償借用契約」,白紙黑字寫清楚雙方沒有租賃關係</li>
+            <li>拿到法院或民間公證人那邊「公證」,讓這份契約有公信力</li>
+          </ul>
+          這張公證文件,就是你對抗稅務認定的關鍵證明。做好它,借戶籍就不再是風險,而是可控的安排。
+        </div>
+      </div>
+
+    </div>
+
+    <div class="conclusion">
+      你以為只是幫忙,稅務會當成交易。
+    </div>
+
+    <div class="cta-section">
+
+      <div class="community-cta">
+        <div class="cta-eyebrow">JOIN THE COMMUNITY</div>
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+
+      <div class="card-cta">
+        <div class="cta-eyebrow">DIGITAL CARD</div>
+        <h3>想找喵爸聊聊?</h3>
+        <p>掃這張數位名片,LINE / 電話 / 服務範圍一次給你</p>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+
+    </div>
+
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.05.20</div>
+    </div>
+
+  </div>
+</body>
+</html>
