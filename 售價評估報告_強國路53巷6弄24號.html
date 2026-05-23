@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產售價評估報告單 - 桃園市中壢區強國路 53 巷 6 弄 24 號</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f5f1e8;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #1a1d26;
+    padding: 20px 0;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .sheet {
+    max-width: 820px; margin: 0 auto; background: #fff;
+    padding: 56px 56px 48px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .sheet::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #c0392b 0%, #d4a548 100%);
+  }
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 36px; border-bottom: 1px solid #e5dfd0; padding-bottom: 24px;
+  }
+  .brand {
+    font-family: 'Noto Serif TC', serif; font-weight: 900;
+    font-size: 28px; color: #1a1d26;
+  }
+  .doc-meta {
+    text-align: right; font-size: 11px; color: #8b7355;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .doc-no { font-size: 14px; color: #c0392b; margin-bottom: 4px; }
+
+  .title {
+    font-family: 'Noto Serif TC', serif; font-size: 30px; font-weight: 900;
+    text-align: center; margin-bottom: 36px; letter-spacing: 0.05em;
+  }
+
+  /* === 標的物件框 === */
+  .target-box {
+    background: #faf7ee; border: 1px solid #e5dfd0;
+    padding: 20px 24px; margin-bottom: 28px;
+  }
+  .field-row {
+    display: flex; align-items: center; padding: 8px 0;
+    border-bottom: 1px dashed #e5dfd0;
+  }
+  .field-row:last-child { border-bottom: none; }
+  .field-label {
+    min-width: 100px; font-size: 12px; color: #8b7355; letter-spacing: 0.12em;
+  }
+  .field-value { flex: 1; font-size: 16px; font-weight: 500; }
+  .field-value.big { font-size: 18px; font-weight: 700; }
+
+  /* === 區塊標題 === */
+  .section-title {
+    font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700;
+    margin: 36px 0 8px; padding-left: 12px; border-left: 4px solid #c0392b;
+  }
+  .section-sub {
+    font-size: 12px; color: #8b7355; margin: 0 0 14px 16px;
+    letter-spacing: 0.03em;
+  }
+
+  /* === 區域定位 === */
+  .location-card {
+    background: #faf7ee; border: 1px solid #e5dfd0;
+    padding: 22px 26px; margin-bottom: 12px;
+  }
+  .location-pivot-row { text-align: center; margin-bottom: 18px; }
+  .location-pivot {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700; font-size: 16px; color: #c0392b;
+    padding: 10px 22px; background: #fff;
+    border: 2px solid #c0392b; border-radius: 4px;
+    display: inline-block;
+  }
+  .location-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 28px;
+  }
+  .location-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px dashed #d8d0bd; font-size: 14px;
+  }
+  .location-item-name { color: #1a1d26; font-weight: 500; }
+  .location-item-dist {
+    color: #c0392b; font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 700;
+  }
+
+  /* === 建議售價區間(主秀) === */
+  .price-range-card {
+    background: linear-gradient(135deg, #c0392b 0%, #a92e22 100%);
+    color: #fff;
+    padding: 32px 28px; text-align: center;
+    margin-bottom: 16px;
+    border-radius: 4px;
+  }
+  .price-range-label {
+    font-size: 13px; letter-spacing: 0.18em;
+    opacity: 0.9; margin-bottom: 16px;
+  }
+  .price-range-unit-value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 38px; font-weight: 900; line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .price-range-unit-label {
+    font-size: 13px; opacity: 0.85; margin-bottom: 22px;
+  }
+  .price-range-divider {
+    width: 60px; height: 1px; background: rgba(255,255,255,0.4);
+    margin: 0 auto 22px;
+  }
+  .price-range-total-value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 26px; font-weight: 700; line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .price-range-total-label {
+    font-size: 12px; opacity: 0.85;
+  }
+
+  /* === 試算工具 === */
+  .calculator {
+    background: #1a1d26; color: #fff;
+    padding: 20px 24px; margin-bottom: 24px;
+    border-radius: 4px;
+  }
+  .calc-title {
+    font-size: 12px; color: #d4a548; letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .calc-row {
+    display: flex; align-items: center; gap: 12px;
+    flex-wrap: wrap;
+  }
+  .calc-input-group {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .calc-label { font-size: 14px; color: #d4d4d4; }
+
+  .calc-input {
+    width: 100px; padding: 8px 12px; font-size: 18px;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    background: #fff; color: #1a1d26;
+    border: 2px solid #d4a548; border-radius: 3px;
+    text-align: center;
+  }
+  .calc-input:focus { outline: none; border-color: #c0392b; }
+  .calc-arrow {
+    color: #d4a548; font-size: 18px; font-weight: 700;
+    margin: 0 4px;
+  }
+  .calc-result {
+    display: inline-flex; align-items: baseline; gap: 4px;
+  }
+  .calc-result-value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px; font-weight: 900; color: #d4a548;
+  }
+  .calc-result-unit { font-size: 13px; color: #d4d4d4; }
+  .calc-breakdown {
+    margin-top: 10px; font-size: 12px; color: #999;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* === 表格通用 === */
+  table {
+    width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 12px;
+  }
+  th {
+    background: #1a1d26; color: #d4a548; padding: 10px 8px;
+    text-align: left; font-weight: 500; font-size: 11px; letter-spacing: 0.08em;
+  }
+  td {
+    padding: 8px; border-bottom: 1px solid #f0ebde; color: #3a3a3a;
+    vertical-align: middle;
+  }
+  tr:nth-child(even) td { background: #faf7ee; }
+  .price-cell {
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #c0392b;
+  }
+  .star { color: #d4a548; font-weight: 700; }
+
+  /* === 漲跌幅小區塊 === */
+  .trend-strip {
+    display: flex; align-items: center; gap: 24px;
+    background: #faf7ee; padding: 14px 20px; margin-top: 16px;
+    border-left: 3px solid #d4a548;
+  }
+  .trend-strip-item {
+    flex: 1; text-align: center;
+  }
+  .trend-strip-label {
+    font-size: 11px; color: #8b7355; letter-spacing: 0.1em;
+  }
+  .trend-strip-value {
+    font-family: 'Noto Serif TC', serif; font-size: 18px;
+    font-weight: 700; margin-top: 4px;
+  }
+  .trend-up { color: #c0392b; }
+  .trend-down { color: #2e6b3d; }
+  .trend-flat { color: #8b7355; }
+
+  /* === 在售物件卡 === */
+  .listing-card {
+    display: grid; grid-template-columns: 1fr auto; gap: 4px 14px;
+    padding: 14px 18px; border: 1px solid #e5dfd0;
+    margin-bottom: 10px; background: #fff;
+    align-items: center;
+  }
+  .listing-card .title-line {
+    font-weight: 700; font-size: 14px; color: #1a1d26;
+  }
+  .listing-card .meta-line {
+    font-size: 12px; color: #8b7355; margin-top: 2px;
+  }
+  .listing-card .ask-price {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px; font-weight: 900; color: #c0392b;
+    text-align: right; line-height: 1.2;
+  }
+  .listing-card .ask-unit {
+    font-size: 11px; color: #8b7355; text-align: right; margin-top: 2px;
+  }
+
+  /* === 建議結語 === */
+  .meow-comment {
+    background: #fff8e8; border-left: 4px solid #d4a548;
+    padding: 18px 22px; margin: 28px 0 16px;
+    font-size: 14px; line-height: 1.85;
+  }
+  .meow-comment-title {
+    font-family: 'Noto Serif TC', serif; font-weight: 700;
+    color: #8b6914; margin-bottom: 10px; font-size: 15px;
+  }
+
+  /* === 簽名區 === */
+  .footer {
+    margin-top: 40px; padding-top: 22px; border-top: 2px solid #1a1d26;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .footer-brand {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px; color: #1a1d26;
+    font-weight: 900; margin-bottom: 8px;
+  }
+  .footer-role {
+    font-size: 13px; color: #1a1d26; font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .footer-name {
+    font-size: 13px; color: #1a1d26; font-weight: 500;
+    margin-bottom: 3px;
+  }
+  .footer-phone {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: #c0392b; font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .stamp {
+    width: 90px; height: 90px; border: 3px solid #c0392b; border-radius: 50%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    color: #c0392b; font-family: 'Noto Serif TC', serif; font-weight: 900;
+    font-size: 14px; transform: rotate(-8deg); opacity: 0.85;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet { box-shadow: none; padding: 32px; }
+    .section-title { page-break-after: avoid; }
+    .calculator { background: #f5f5f5; color: #1a1d26; }
+    .calc-title { color: #8b6914; }
+    .calc-label, .calc-result-unit { color: #555; }
+    .calc-result-value { color: #c0392b; }
+  }
+  @media (max-width: 720px) {
+    .sheet { padding: 28px 20px; }
+    .location-grid { grid-template-columns: 1fr; }
+    .listing-card { grid-template-columns: 1fr; }
+    .listing-card .ask-price, .listing-card .ask-unit { text-align: left; }
+    .calc-row { flex-direction: column; align-items: stretch; gap: 10px; }
+    .calc-input-group { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <!-- ============ 報頭 ============ -->
+    <div class="header">
+      <div>
+        <div class="brand">有巢氏房屋</div>
+      </div>
+      <div class="doc-meta">
+        <div class="doc-no">No. YS-2026-0523-001</div>
+        <div>製表日期 2026 / 05 / 23</div>
+      </div>
+    </div>
+
+    <div class="title">不動產售價評估報告單</div>
+
+    <!-- ============ ① 物件基本資料 ============ -->
+    <div class="target-box">
+      <div class="field-row">
+        <div class="field-label">標的地址</div>
+        <div class="field-value big">桃園市中壢區強國路 53 巷 6 弄 24 號</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">建物型態</div>
+        <div class="field-value">公寓 · RC 鋼筋混凝土造 · 集合住宅</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">屋齡 / 樓層</div>
+        <div class="field-value">37 年 · 1+2+夾層F / 共 5F</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">建坪 / 車位</div>
+        <div class="field-value">38.85 坪 · 無車位</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">資料樣本</div>
+        <div class="field-value">5 筆近期成交 + 4 筆在售物件</div>
+      </div>
+    </div>
+
+    <!-- ============ ② 區域定位 ============ -->
+    <div class="section-title">區域定位</div>
+    <div class="section-sub">本物件周邊主要生活機能,步行 / 開車距離一覽</div>
+    <div class="location-card">
+      <div class="location-pivot-row">
+        <div class="location-pivot">📍 本物件位置</div>
+      </div>
+      <div class="location-grid">
+        
+        <div class="location-item">
+          <span class="location-item-name">🏫 自立國小</span>
+          <span class="location-item-dist">緊鄰</span>
+        </div>
+        <div class="location-item">
+          <span class="location-item-name">🏫 自強國中</span>
+          <span class="location-item-dist">學區內</span>
+        </div>
+        <div class="location-item">
+          <span class="location-item-name">🚇 內壢車站</span>
+          <span class="location-item-dist">生活圈</span>
+        </div>
+        <div class="location-item">
+          <span class="location-item-name">🎓 元智 / 中原大學圈</span>
+          <span class="location-item-dist">租屋熱區</span>
+        </div>
+        <div class="location-item">
+          <span class="location-item-name">🛒 周邊超商 / 早餐店</span>
+          <span class="location-item-dist">生活機能成熟</span>
+        </div>
+        <div class="location-item">
+          <span class="location-item-name">🛣️ 中山高內壢交流道</span>
+          <span class="location-item-dist">便利</span>
+        </div>
+    
+      </div>
+    </div>
+
+    <!-- ============ ③ 建議售價區間(主秀) ============ -->
+    <div class="section-title">建議售價區間</div>
+    <div class="section-sub">依實價登錄樣本上下值推估,已扣除車位的純房單價</div>
+    <div class="price-range-card">
+      <div class="price-range-label">▍建議售價區間</div>
+      <div class="price-range-unit-value">22.1 ~ 29.3</div>
+      <div class="price-range-unit-label">萬 / 坪(純房,不含車位)</div>
+      <div class="price-range-divider"></div>
+      <div class="price-range-total-value">859 ~ 1,138 萬</div>
+      <div class="price-range-total-label">總價(含車位 0 萬)</div>
+    </div>
+
+    <!-- ============ ④ 試算工具 ============ -->
+    <div class="calculator">
+      <div class="calc-title">▍售價試算(可自行調整)</div>
+      <div class="calc-row">
+        <div class="calc-input-group">
+          <span class="calc-label">輸入單價</span>
+          <input type="number" class="calc-input" id="calcUnit" value="25" step="0.1">
+          <span class="calc-label">萬/坪</span>
+        </div>
+        <span class="calc-arrow">→</span>
+        <div class="calc-input-group">
+          <span class="calc-label">總價</span>
+          <span class="calc-result">
+            <span class="calc-result-value" id="calcTotal">—</span>
+            <span class="calc-result-unit">萬</span>
+          </span>
+        </div>
+      </div>
+      <div class="calc-breakdown" id="calcBreakdown">—</div>
+    </div>
+    <script>
+      // 試算邏輯:單價 × 純房坪數 + 車位價 = 含車位總價
+      const PURE_PING = 38.85;           // 純房坪數(建坪 − 車位坪數)
+      const PARKING_PRICE = 0;   // 車位市場價(萬,從樂居成交讀)
+      function recalc() {
+        const unit = parseFloat(document.getElementById('calcUnit').value) || 0;
+        const pureTotal = unit * PURE_PING;
+        const fullTotal = pureTotal + PARKING_PRICE;
+        document.getElementById('calcTotal').textContent =
+          fullTotal.toLocaleString('zh-TW', {maximumFractionDigits: 0});
+        document.getElementById('calcBreakdown').textContent =
+          `純房 ${unit} 萬 × ${PURE_PING} 坪 = ${pureTotal.toLocaleString('zh-TW', {maximumFractionDigits: 0})} 萬 + 車位 ${PARKING_PRICE} 萬 = ${fullTotal.toLocaleString('zh-TW', {maximumFractionDigits: 0})} 萬`;
+      }
+      document.getElementById('calcUnit').addEventListener('input', recalc);
+      recalc();
+    </script>
+
+    <!-- ============ ⑤ 建議 ============ -->
+    <div class="meow-comment">
+      <div class="meow-comment-title">▍建議</div>
+      這戶最大亮點是「1 樓 + 2 樓 + 夾層 + B1」的低層複層格局,在中壢老公寓市場屬於相對稀少的款,出入方便、不用爬樓梯,接受度廣;同弄 6 弄 9 號(同樣 1+2 樓)2023 年成交 23.5 萬/坪,是本案最直接的對照錨點,推算到 2026 年合理落點約 24~25 萬/坪。<br><br>
+    周邊路段(榮民路、立德西街、成功路)的 1 樓住家成交近一年落在 22~29 萬/坪之間,本案在學區、生活機能上跟這些樣本相當,**建議售價區間落在 22.1 ~ 29.3 萬/坪、總價 859 ~ 1,138 萬**。<br><br>
+    實際定價建議考量:屋況中等可從 25~26 萬/坪起跳(總價約 970~1,010 萬),屋況好或夾層有實際使用價值可挑戰 27 萬以上;若屋主想加速出脫,從 24 萬起跳會比較有競爭力。<br><br>
+    目前同路段在售開價 24.8~27.2 萬,本案類型(1+2樓)在市場上稀缺,**價格定位有機會比一般 2~5 樓單層公寓略高 5~10%**。
+    </div>
+
+    <!-- ============ ⑥ 近期成交樣本表 ============ -->
+    <div class="section-title">近期成交參考樣本</div>
+    <div class="section-sub">同社區、同路段近 2 年實價登錄(已拆車位)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>交易月</th>
+          <th>社區/門牌</th>
+          <th>屋齡</th>
+          <th>樓層</th>
+          <th>坪數</th>
+          <th>純房單價/坪</th>
+          <th>備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>2023/02</td>
+          <td>強國路 53 巷 6 弄 9 號 <span class="star">★同弄同類型</span></td>
+          <td>33.8 年</td>
+          <td>1+2F</td>
+          <td>38.38 坪</td>
+          <td class="price-cell">23.5 萬</td>
+          <td>時間校正後 24.7</td>
+        </tr>
+        <tr>
+          <td>2025/12</td>
+          <td>中壢區立德西街 56 巷 1 號</td>
+          <td>44.4 年</td>
+          <td>1F/5F</td>
+          <td>28.1 坪</td>
+          <td class="price-cell">21.4 萬</td>
+          <td>屋齡校正 22.1</td>
+        </tr>
+        <tr>
+          <td>2025/06</td>
+          <td>中壢區榮民路 750 巷 4 號</td>
+          <td>45.9 年</td>
+          <td>1F/5F</td>
+          <td>20.51 坪</td>
+          <td class="price-cell">29.1 萬</td>
+          <td>1F 條件佳</td>
+        </tr>
+        <tr>
+          <td>2025/03</td>
+          <td>中壢區成功路 79 巷 30 弄 23 號</td>
+          <td>43.4 年</td>
+          <td>1F/5F</td>
+          <td>18.71 坪</td>
+          <td class="price-cell">26.1 萬</td>
+          <td>屋齡校正 26.9</td>
+        </tr>
+        <tr>
+          <td>2024/12</td>
+          <td>中壢區榮民路 750 巷 6 號</td>
+          <td>44.4 年</td>
+          <td>1F/5F</td>
+          <td>20.51 坪</td>
+          <td class="price-cell">28.3 萬</td>
+          <td>屋齡校正 29.3</td>
+        </tr>
+    
+      </tbody>
+    </table>
+
+    <!-- 區域漲跌趨勢條 -->
+    <div class="trend-strip">
+      <div class="trend-strip-item">
+        <div class="trend-strip-label">本社區近一年</div>
+        <div class="trend-strip-value trend-flat">參考樣本少</div>
+      </div>
+      <div class="trend-strip-item">
+        <div class="trend-strip-label">本路段近一年</div>
+        <div class="trend-strip-value trend-up">+3 ~ 5%</div>
+      </div>
+      <div class="trend-strip-item">
+        <div class="trend-strip-label">本區域近一年</div>
+        <div class="trend-strip-value trend-up">+4.5%</div>
+      </div>
+    </div>
+
+    <!-- ============ ⑦ 同社區在售物件 ============ -->
+    <div class="section-title">同社區在售物件</div>
+    <div class="section-sub">同社區其他戶目前掛牌中的開價,看市場現況</div>
+    
+        <div class="listing-card">
+          <div>
+            <div class="title-line">中壢區富強西街 4 房 4 衛 · 2 樓</div>
+            <div class="meta-line">屋齡 34 年 · 建坪 29.73 坪 · 收租型 · 20 天前更新</div>
+          </div>
+          <div>
+            <div class="ask-price">798 萬</div>
+            <div class="ask-unit">26.8 萬/坪</div>
+          </div>
+        </div>
+        <div class="listing-card">
+          <div>
+            <div class="title-line">中壢區自強國中收租公寓 · 2 樓</div>
+            <div class="meta-line">屋齡 41.9 年 · 建坪 25.02 坪 · 同學區同型態</div>
+          </div>
+          <div>
+            <div class="ask-price">680 萬</div>
+            <div class="ask-unit">27.2 萬/坪</div>
+          </div>
+        </div>
+        <div class="listing-card">
+          <div>
+            <div class="title-line">中壢區榮民路電梯公寓 · 中樓層</div>
+            <div class="meta-line">屋齡 34.1 年 · 建坪 31.2 坪 · 稀有電梯款 · 1 個月前更新</div>
+          </div>
+          <div>
+            <div class="ask-price">788 萬</div>
+            <div class="ask-unit">25.3 萬/坪</div>
+          </div>
+        </div>
+        <div class="listing-card">
+          <div>
+            <div class="title-line">中壢區榮民路中正國 · 5 樓</div>
+            <div class="meta-line">屋齡 42.7 年 · 建坪 26.62 坪 · 純頂樓 · 12 天前更新</div>
+          </div>
+          <div>
+            <div class="ask-price">660 萬</div>
+            <div class="ask-unit">24.8 萬/坪</div>
+          </div>
+        </div>
+    
+
+    <!-- ============ ⑧ 周邊社區比較 ============ -->
+    <div class="section-title">周邊社區比較</div>
+    <div class="section-sub">同路段其他社區的成交均價、目前在售狀況</div>
+    <table>
+      <thead>
+        <tr>
+          <th>社區</th>
+          <th>距本物件</th>
+          <th>屋齡</th>
+          <th>近期成交均價</th>
+          <th>目前在售開價</th>
+          <th>備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>富強西街沿線(內壢車站旁)</td>
+          <td>步行 5~8 分</td>
+          <td>34~44 年</td>
+          <td class="price-cell">25~27 萬/坪</td>
+          <td>26~28 萬/坪</td>
+          <td>收租型多,屋況較舊</td>
+        </tr>
+        <tr>
+          <td>榮民路沿線(自強國中圈)</td>
+          <td>步行 8~12 分</td>
+          <td>42~46 年</td>
+          <td class="price-cell">24~29 萬/坪</td>
+          <td>25~32 萬/坪</td>
+          <td>學區佳,1 樓多為店面型</td>
+        </tr>
+        <tr>
+          <td>立德西街、成功路一帶</td>
+          <td>步行 10 分內</td>
+          <td>43~44 年</td>
+          <td class="price-cell">21~26 萬/坪</td>
+          <td>—</td>
+          <td>1F 住家型成交,可比性高</td>
+        </tr>
+    
+      </tbody>
+    </table>
+
+    <!-- ============ 簽名 ============ -->
+    <div class="footer">
+      <div>
+        <div class="footer-brand">有巢氏房屋</div>
+        <div class="footer-role">副店長 · 中壢專業房仲喵爸</div>
+        <div class="footer-name">黃舶瑋</div>
+        <div class="footer-phone">0925-842-111</div>
+      </div>
+      <div class="stamp">
+        喵爸<br>專業評估
+      </div>
+    </div>
+  </div>
+</body>
+</html>
