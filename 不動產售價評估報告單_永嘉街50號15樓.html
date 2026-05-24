@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不動產售價評估報告單 - 中壢區永嘉街50號15樓</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f5f1e8;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: #1a1d26;
+    padding: 20px 0;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .sheet {
+    max-width: 820px; margin: 0 auto; background: #fff;
+    padding: 56px 56px 48px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .sheet::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #c0392b 0%, #d4a548 100%);
+  }
+
+  /* Header */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 36px; border-bottom: 1px solid #e5dfd0; padding-bottom: 24px;
+  }
+  .brand {
+    font-family: 'Noto Serif TC', serif; font-weight: 900;
+    font-size: 26px; color: #1a1d26;
+  }
+  .doc-meta {
+    text-align: right; font-size: 11px; color: #8b7355;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .doc-no { font-size: 13px; color: #c0392b; margin-bottom: 4px; font-weight: 700; }
+
+  .title {
+    font-family: 'Noto Serif TC', serif; font-size: 30px; font-weight: 900;
+    text-align: center; margin-bottom: 36px; letter-spacing: 0.06em;
+  }
+
+  /* 物件基本資料 */
+  .target-box {
+    background: #faf7ee; border: 1px solid #e5dfd0;
+    padding: 20px 24px; margin-bottom: 28px;
+  }
+  .field-row {
+    display: flex; align-items: center; padding: 8px 0;
+    border-bottom: 1px dashed #e5dfd0;
+  }
+  .field-row:last-child { border-bottom: none; }
+  .field-label {
+    min-width: 100px; font-size: 12px; color: #8b7355; letter-spacing: 0.12em;
+  }
+  .field-value { flex: 1; font-size: 15px; font-weight: 500; }
+  .field-value.big { font-size: 17px; font-weight: 700; }
+
+  /* 區段標題 */
+  .section-title {
+    font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700;
+    margin: 32px 0 6px; padding-left: 12px; border-left: 4px solid #c0392b;
+  }
+  .section-sub {
+    font-size: 11px; color: #8b7355; padding-left: 16px; margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  /* 社區資料卡 */
+  .community-box {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid #e5dfd0; margin-bottom: 20px;
+  }
+  .community-item {
+    padding: 12px 16px; border-right: 1px solid #e5dfd0; border-bottom: 1px solid #e5dfd0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .community-item:nth-child(2n) { border-right: none; }
+  .community-item:nth-last-child(-n+2) { border-bottom: none; }
+  .community-item-label { color: #8b7355; font-size: 12px; }
+  .community-item-value { font-weight: 700; color: #1a1d26; }
+
+  /* 樂居走勢條 */
+  .trend-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 24px;
+  }
+  .trend-strip-item {
+    padding: 14px 12px; text-align: center;
+    background: #faf7ee; border: 1px solid #e5dfd0;
+  }
+  .trend-strip-label {
+    font-size: 11px; color: #8b7355; letter-spacing: 0.1em; margin-bottom: 6px;
+  }
+  .trend-strip-value {
+    font-family: 'Noto Serif TC', serif; font-weight: 700; font-size: 18px;
+    color: #c0392b;
+  }
+  .trend-strip-value.neutral { color: #1a1d26; }
+  .trend-strip-value.low { color: #6b7280; }
+
+  /* 建議成交區間 */
+  .price-zone {
+    background: linear-gradient(135deg, #c0392b 0%, #a92e22 100%);
+    color: #fff; padding: 28px 24px; margin-bottom: 18px;
+    text-align: center;
+  }
+  .price-zone-label {
+    font-size: 12px; letter-spacing: 0.2em; margin-bottom: 12px;
+    opacity: 0.85;
+  }
+  .price-zone-value {
+    font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 900;
+    line-height: 1.1; margin-bottom: 8px;
+  }
+  .price-zone-sub {
+    font-size: 13px; opacity: 0.9; letter-spacing: 0.05em;
+  }
+  .price-zone-divider {
+    width: 60px; height: 1px; background: rgba(255,255,255,0.3);
+    margin: 16px auto;
+  }
+  .price-zone-total {
+    font-family: 'Noto Serif TC', serif; font-size: 24px; font-weight: 700;
+    color: #d4a548; margin-bottom: 4px;
+  }
+  .price-zone-total-sub {
+    font-size: 11px; opacity: 0.75; letter-spacing: 0.05em;
+  }
+
+  /* 互動試算器 */
+  .calculator {
+    background: linear-gradient(135deg, #1a1d26 0%, #2a2f3d 100%);
+    padding: 24px 26px; color: #fff; margin-bottom: 28px;
+    border: 1px solid #1a1d26;
+  }
+  .calc-title {
+    font-size: 13px; color: #d4a548; letter-spacing: 0.15em;
+    margin-bottom: 14px; text-align: center;
+  }
+  .calc-input-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .calc-input-label { font-size: 13px; color: rgba(255,255,255,0.8); }
+  .calc-input {
+    width: 100px; padding: 8px 12px; font-size: 22px; font-weight: 700;
+    text-align: center; background: #fff; color: #c0392b;
+    border: 2px solid #d4a548; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .calc-input:focus { outline: none; border-color: #fff; }
+  .calc-unit { font-size: 13px; color: rgba(255,255,255,0.7); }
+
+  .calc-output {
+    text-align: center; padding-top: 14px;
+    border-top: 1px dashed rgba(212,165,72,0.3);
+  }
+  .calc-output-label { font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; margin-bottom: 4px; }
+  .calc-output-value {
+    font-family: 'Noto Serif TC', serif; font-size: 32px; font-weight: 900;
+    color: #d4a548; line-height: 1.1; margin-bottom: 6px;
+  }
+  .calc-output-formula {
+    font-size: 11px; color: rgba(255,255,255,0.55);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* 平面位置圖 */
+  .floor-plan-wrap {
+    margin-bottom: 24px; padding: 20px;
+    background: #faf7ee; border: 1px solid #e5dfd0;
+    text-align: center;
+  }
+  .floor-plan-wrap svg { max-width: 100%; height: auto; }
+  .floor-plan-note {
+    margin-top: 12px; font-size: 12px; color: #8b7355;
+  }
+
+  /* 樣本表 */
+  table {
+    width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 12px;
+  }
+  th {
+    background: #1a1d26; color: #d4a548; padding: 10px 8px;
+    text-align: left; font-weight: 500; font-size: 11px; letter-spacing: 0.08em;
+  }
+  td {
+    padding: 8px; border-bottom: 1px solid #f0ebde; color: #3a3a3a;
+  }
+  tr:nth-child(even) td { background: #faf7ee; }
+  .price-cell {
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #c0392b;
+  }
+  .star { color: #d4a548; font-weight: 700; }
+
+  /* 同社區在售卡片 */
+  .listing-grid {
+    display: grid; grid-template-columns: 1fr; gap: 10px;
+    margin-bottom: 24px;
+  }
+  .listing-card {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px; border: 1px solid #e5dfd0; background: #fff;
+    transition: background 0.15s;
+  }
+  .listing-card:hover { background: #faf7ee; }
+  .listing-card .title-line {
+    font-weight: 700; font-size: 14px; margin-bottom: 4px; color: #1a1d26;
+  }
+  .listing-card .meta-line {
+    font-size: 12px; color: #8b7355;
+  }
+  .listing-card .ask-price {
+    font-family: 'Noto Serif TC', serif; font-weight: 900;
+    font-size: 20px; color: #c0392b; text-align: right;
+  }
+  .listing-card .ask-unit {
+    font-size: 11px; color: #8b7355; text-align: right; margin-top: 2px;
+  }
+  .listing-card.self {
+    border: 2px solid #d4a548; background: #fff8e1;
+  }
+  .listing-card.self .title-line::before {
+    content: '★ '; color: #d4a548;
+  }
+
+  /* 建議 */
+  .recommend {
+    background: #faf7ee; border-left: 4px solid #d4a548;
+    padding: 20px 24px; margin-bottom: 24px;
+  }
+  .recommend-title {
+    font-family: 'Noto Serif TC', serif; font-weight: 700;
+    font-size: 16px; color: #8b6914; margin-bottom: 10px;
+  }
+  .recommend p { font-size: 13px; line-height: 1.8; margin-bottom: 8px; }
+  .recommend p:last-child { margin-bottom: 0; }
+
+  /* 評估說明 */
+  .disclaimer {
+    margin-top: 28px; padding: 14px 18px; background: #faf7ee;
+    border-left: 3px solid #8b7355; font-size: 11px; color: #8b7355;
+    line-height: 1.8;
+  }
+  .disclaimer strong { color: #c0392b; }
+
+  /* Footer */
+  .footer {
+    margin-top: 36px; padding-top: 20px; border-top: 2px solid #1a1d26;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .signature-brand {
+    font-family: 'Noto Serif TC', serif; font-size: 18px; color: #1a1d26;
+    font-weight: 900; margin-bottom: 6px;
+  }
+  .signature-name {
+    font-size: 14px; color: #1a1d26; font-weight: 700; margin-bottom: 2px;
+  }
+  .signature-name-en {
+    font-size: 13px; color: #3a3a3a; margin-bottom: 2px;
+  }
+  .signature-info {
+    font-size: 12px; color: #8b7355;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;
+  }
+  .stamp {
+    width: 80px; height: 80px; border: 3px solid #c0392b; border-radius: 50%;
+    transform: rotate(-8deg); opacity: 0.85;
+  }
+
+  /* 列印優化 */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet { box-shadow: none; padding: 32px; max-width: 100%; }
+    .calculator { background: #2a2f3d !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .price-zone { background: #c0392b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    th { background: #1a1d26 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <div class="brand">有巢氏房屋</div>
+      </div>
+      <div class="doc-meta">
+        <div class="doc-no">No. YS-2026-0524-001</div>
+        <div>製表日期 2026.05.24</div>
+      </div>
+    </div>
+
+    <!-- 標題 -->
+    <div class="title">不動產售價評估報告單</div>
+
+    <!-- ============ ① 物件基本資料 ============ -->
+    <div class="target-box">
+      <div class="field-row">
+        <div class="field-label">物件地址</div>
+        <div class="field-value big">桃園市中壢區永嘉街50號15樓</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">社區名稱</div>
+        <div class="field-value">龍騰MRT</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">建物型態</div>
+        <div class="field-value">電梯大樓・RC 構造・集合住宅</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">屋齡 / 樓層</div>
+        <div class="field-value">2.8 年・15F / 共 15F（頂樓）</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">建坪</div>
+        <div class="field-value">23.74 坪（主建 17.39 + 陽台 1.15 + 公設 5.20）</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">車位</div>
+        <div class="field-value">坡道平面車位 1 個（地下三層 B09，22.158 坪）</div>
+      </div>
+      <div class="field-row">
+        <div class="field-label">屋況</div>
+        <div class="field-value">毛胚屋（買方可自由規劃裝潢風格）</div>
+      </div>
+    </div>
+
+    <!-- ============ ② 社區基本資料 ============ -->
+    <div class="section-title">社區基本資料</div>
+    <div class="section-sub">資料來源：樂居・內政部不動產交易實價登錄</div>
+    <div class="community-box">
+      <div class="community-item">
+        <span class="community-item-label">總戶數</span>
+        <span class="community-item-value">142 戶</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">總樓高</span>
+        <span class="community-item-value">15F、19F 雙棟</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">屋齡</span>
+        <span class="community-item-value">2 年（新成屋帶）</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">管理費</span>
+        <span class="community-item-value">120 元/坪/月</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">公設比</span>
+        <span class="community-item-value">33 ~ 34%</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">構造</span>
+        <span class="community-item-value">RC 鋼筋混凝土</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">車位類別</span>
+        <span class="community-item-value">坡道平面、坡道機械</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">車位數量</span>
+        <span class="community-item-value">64 個</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">國小學區</span>
+        <span class="community-item-value">興國國小</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">國中學區</span>
+        <span class="community-item-value">興南國中</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">建設公司</span>
+        <span class="community-item-value">龍鎮建設</span>
+      </div>
+      <div class="community-item">
+        <span class="community-item-label">營造公司</span>
+        <span class="community-item-value">士豐營造</span>
+      </div>
+    </div>
+
+    <!-- ============ ③ 棟別位置圖 ============ -->
+    <div class="section-title">棟別位置圖</div>
+    <div class="section-sub">本戶位置：B 棟・永嘉街 50 號</div>
+    <div class="floor-plan-wrap">
+      <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+        <!-- 背景 -->
+        <rect x="0" y="0" width="600" height="400" fill="#ffffff"/>
+
+        <!-- 中美路二段標籤（北側） -->
+        <rect x="60" y="20" width="280" height="14" fill="#d4a548"/>
+        <text x="200" y="14" font-size="13" fill="#8b6914" text-anchor="middle" font-weight="700">中美路二段</text>
+
+        <!-- A 棟上排 A1/A2/A3 -->
+        <g>
+          <rect x="60" y="50" width="80" height="70" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="100" y="80" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">A3</text>
+          <text x="100" y="102" font-size="11" fill="#3a3a3a" text-anchor="middle">107號</text>
+        </g>
+        <g>
+          <rect x="160" y="50" width="80" height="70" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="200" y="80" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">A2</text>
+          <text x="200" y="102" font-size="11" fill="#3a3a3a" text-anchor="middle">105號</text>
+        </g>
+        <g>
+          <rect x="260" y="50" width="80" height="70" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="300" y="80" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">A1</text>
+          <text x="300" y="102" font-size="11" fill="#3a3a3a" text-anchor="middle">103號</text>
+        </g>
+
+        <!-- A 棟梯間 -->
+        <rect x="160" y="130" width="180" height="24" fill="#d4a548" rx="3"/>
+        <text x="250" y="147" font-size="12" fill="#8b6914" text-anchor="middle" font-weight="700">梯間</text>
+
+        <!-- A 棟下排 A5/A6/A7 -->
+        <g>
+          <rect x="60" y="164" width="80" height="70" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="100" y="194" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">A5</text>
+          <text x="100" y="216" font-size="11" fill="#3a3a3a" text-anchor="middle">107號-1</text>
+        </g>
+        <g>
+          <rect x="160" y="164" width="80" height="70" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="200" y="194" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">A6</text>
+          <text x="200" y="216" font-size="11" fill="#3a3a3a" text-anchor="middle">105號-1</text>
+        </g>
+        <g>
+          <rect x="260" y="164" width="80" height="70" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="300" y="194" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">A7</text>
+          <text x="300" y="216" font-size="11" fill="#3a3a3a" text-anchor="middle">103號-1</text>
+        </g>
+
+        <!-- 北方指南針 -->
+        <g transform="translate(450, 110)">
+          <circle cx="0" cy="0" r="32" fill="none" stroke="#d4a548" stroke-width="2.5"/>
+          <path d="M 0,-22 L 6,8 L 0,2 L -6,8 Z" fill="#c0392b"/>
+          <text x="0" y="24" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="900">北</text>
+        </g>
+
+        <!-- B 棟上方 B5 + 梯間 -->
+        <g>
+          <rect x="340" y="244" width="100" height="70" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="390" y="274" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">B5</text>
+          <text x="390" y="296" font-size="11" fill="#3a3a3a" text-anchor="middle">永嘉街52號</text>
+        </g>
+        <rect x="450" y="244" width="110" height="70" fill="#d4a548" rx="3"/>
+        <text x="505" y="285" font-size="12" fill="#8b6914" text-anchor="middle" font-weight="700">梯間</text>
+
+        <!-- B 棟下排 B1（本戶）/B2/B3 -->
+        <g>
+          <!-- B1 本戶高亮 -->
+          <rect x="340" y="324" width="80" height="60" fill="#fff8e1" stroke="#c0392b" stroke-width="3.5" rx="6"/>
+          <text x="380" y="350" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">B1</text>
+          <text x="380" y="370" font-size="10" fill="#1a1d26" text-anchor="middle" font-weight="700">永嘉街50號</text>
+          <!-- 本戶標籤 -->
+          <rect x="298" y="307" width="64" height="18" fill="#c0392b" rx="2"/>
+          <text x="330" y="320" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">本戶</text>
+        </g>
+        <g>
+          <rect x="430" y="324" width="80" height="60" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="470" y="350" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">B2</text>
+          <text x="470" y="370" font-size="10" fill="#3a3a3a" text-anchor="middle">永嘉街48號</text>
+        </g>
+        <g>
+          <rect x="520" y="324" width="80" height="60" fill="#fff" stroke="#1a1d26" stroke-width="2" rx="6"/>
+          <text x="560" y="350" font-size="20" fill="#c0392b" text-anchor="middle" font-weight="900">B3</text>
+          <text x="560" y="370" font-size="10" fill="#3a3a3a" text-anchor="middle">永嘉街46號</text>
+        </g>
+
+        <!-- 永嘉街標籤（南側） -->
+        <rect x="340" y="390" width="260" height="8" fill="#d4a548"/>
+      </svg>
+      <div class="floor-plan-note">★ 紅框為本戶位置（B1・永嘉街 50 號）</div>
+    </div>
+
+    <!-- ============ ④ 建議成交區間 ============ -->
+    <div class="section-title">建議成交區間</div>
+    <div class="section-sub">已扣車位呈現純房單價，避免合併單價誤導</div>
+
+    <div class="price-zone">
+      <div class="price-zone-label">▍純房單價區間</div>
+      <div class="price-zone-value">48 ~ 52 萬 / 坪</div>
+      <div class="price-zone-sub">建坪 23.74 坪・不含車位</div>
+
+      <div class="price-zone-divider"></div>
+
+      <div class="price-zone-total">總價 1,320 ~ 1,415 萬</div>
+      <div class="price-zone-total-sub">已加計車位 180 萬</div>
+    </div>
+
+    <!-- ============ ⑤ 互動試算器 ============ -->
+    <div class="calculator">
+      <div class="calc-title">▍ 客戶試算 · 輸入單價自動算總價</div>
+      <div class="calc-input-row">
+        <span class="calc-input-label">純房單價</span>
+        <input type="number" class="calc-input" id="unitInput" value="50" min="30" max="80" step="0.5">
+        <span class="calc-unit">萬 / 坪</span>
+      </div>
+      <div class="calc-output">
+        <div class="calc-output-label">含車位總價</div>
+        <div class="calc-output-value" id="totalOutput">1,367 萬</div>
+        <div class="calc-output-formula" id="formulaOutput">純房 50 × 23.74 = 1,187 萬 + 車位 180 = 1,367 萬</div>
+      </div>
+    </div>
+
+    <!-- ============ ⑥ 樂居社區成交走勢 ============ -->
+    <div class="section-title">樂居社區成交走勢</div>
+    <div class="section-sub">本社區（龍騰MRT）歷史成交價區間</div>
+    <div class="trend-strip">
+      <div class="trend-strip-item">
+        <div class="trend-strip-label">一年成交均價</div>
+        <div class="trend-strip-value">47.1 萬</div>
+      </div>
+      <div class="trend-strip-item">
+        <div class="trend-strip-label">歷史最高</div>
+        <div class="trend-strip-value">49.28 萬</div>
+      </div>
+      <div class="trend-strip-item">
+        <div class="trend-strip-label">平均成交</div>
+        <div class="trend-strip-value neutral">32.9 萬</div>
+      </div>
+      <div class="trend-strip-item">
+        <div class="trend-strip-label">歷史最低</div>
+        <div class="trend-strip-value low">27.13 萬</div>
+      </div>
+    </div>
+
+    <!-- ============ ⑦ 近期成交樣本 ============ -->
+    <div class="section-title">近期成交樣本</div>
+    <div class="section-sub">本社區（龍騰MRT）近一年成交，含車位拆算為純房單價</div>
+    <table>
+      <thead>
+        <tr>
+          <th>交易月</th>
+          <th>門牌</th>
+          <th>樓層</th>
+          <th>建坪</th>
+          <th>含車總價</th>
+          <th>車位扣值</th>
+          <th>純房單價</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>114/05</td>
+          <td><span class="star">★</span> 永嘉街52號（同棟）</td>
+          <td>5F</td>
+          <td>21.02</td>
+          <td>990 萬</td>
+          <td>無車位</td>
+          <td class="price-cell">47.1 萬</td>
+        </tr>
+        <tr>
+          <td>113/05</td>
+          <td>中美路105號</td>
+          <td>18F</td>
+          <td>27.96</td>
+          <td>1,558 萬</td>
+          <td>180 萬</td>
+          <td class="price-cell">49.3 萬</td>
+        </tr>
+        <tr>
+          <td>113/04</td>
+          <td>中美路105號之1</td>
+          <td>19F</td>
+          <td>33.59</td>
+          <td>1,800 萬</td>
+          <td>180 萬</td>
+          <td class="price-cell">48.2 萬</td>
+        </tr>
+        <tr>
+          <td>113/03</td>
+          <td>中美路105號</td>
+          <td>15F</td>
+          <td>27.96</td>
+          <td>1,417 萬</td>
+          <td>180 萬</td>
+          <td class="price-cell">44.2 萬</td>
+        </tr>
+        <tr>
+          <td>113/05</td>
+          <td>中美路107號</td>
+          <td>10F</td>
+          <td>27.80</td>
+          <td>1,280 萬</td>
+          <td>100 萬</td>
+          <td class="price-cell">42.5 萬</td>
+        </tr>
+        <tr>
+          <td>113/04</td>
+          <td>中美路103號</td>
+          <td>15F</td>
+          <td>29.36</td>
+          <td>1,360 萬</td>
+          <td>180 萬</td>
+          <td class="price-cell">40.2 萬</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ============ ⑧ 同社區在售物件 ============ -->
+    <div class="section-title">同社區在售物件</div>
+    <div class="section-sub">591／樂居 同社區其他戶目前掛牌中，可參考屋主期待價位階</div>
+    <div class="listing-grid">
+
+      <div class="listing-card">
+        <div>
+          <div class="title-line">15F · 老街溪3分鐘露臺2房</div>
+          <div class="meta-line">27.96 坪 · 2房2廳1衛 · 含露臺 · 含車位</div>
+        </div>
+        <div>
+          <div class="ask-price">1,388 萬</div>
+          <div class="ask-unit">49.6 萬／坪</div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div>
+          <div class="title-line">14F · A22捷運旁高樓視野</div>
+          <div class="meta-line">49.96 坪 · 2房1廳1衛 · 含車位</div>
+        </div>
+        <div>
+          <div class="ask-price">1,498 萬</div>
+          <div class="ask-unit">30.0 萬／坪</div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div>
+          <div class="title-line">14F · 邊間 廁所開窗</div>
+          <div class="meta-line">27.80 坪 · 2房2廳1衛</div>
+        </div>
+        <div>
+          <div class="ask-price">1,288 萬</div>
+          <div class="ask-unit">46.3 萬／坪</div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div>
+          <div class="title-line">12F · 高樓景觀兩房車</div>
+          <div class="meta-line">43.31 坪 · 2房2廳1衛 · 含車位</div>
+        </div>
+        <div>
+          <div class="ask-price">1,358 萬</div>
+          <div class="ask-unit">31.4 萬／坪</div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div>
+          <div class="title-line">7F · 核心捷運稀有優質美兩房</div>
+          <div class="meta-line">19.48 坪 · 2房1廳1衛 · 小坪數</div>
+        </div>
+        <div>
+          <div class="ask-price">998 萬</div>
+          <div class="ask-unit">51.2 萬／坪</div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div>
+          <div class="title-line">1F · A22黃金店面</div>
+          <div class="meta-line">25.00 坪 · 開放式格局・店面</div>
+        </div>
+        <div>
+          <div class="ask-price">2,258 萬</div>
+          <div class="ask-unit">店面行情另計</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============ ⑨ 建議 ============ -->
+    <div class="recommend">
+      <div class="recommend-title">▍建議</div>
+      <p>本戶位於龍騰MRT社區頂樓（15F），屋齡 2.8 年屬新成屋帶，搭配坡道平面車位、近 A22 老街溪站三分鐘步行範圍，整體條件具有市場競爭力。毛胚屋對買方而言是「自由規劃裝潢」的賣點，預算與風格不受前屋主裝潢牽制。</p>
+      <p>同社區近一年成交均價 47.1 萬／坪，最高來到 49.28 萬／坪。本戶頂樓高樓視野具備溢價條件，純房單價合理區間落在 48 ~ 52 萬／坪，含車位總價 1,320 ~ 1,415 萬。</p>
+      <p>目前同社區共 6 戶在售，直接競品為 15F 同樓層的 1,388 萬戶（49.6 萬／坪），本戶在頂樓視野與毛胚自由度上各有優勢，定價時可參酌調整。建議帶看前先確認屋頂防水保固與社區頂樓使用權細節，以利現場說明。</p>
+    </div>
+
+    <!-- ============ 評估說明 ============ -->
+    <div class="disclaimer">
+      <strong>評估說明</strong>　
+      1. 本評估價依據內政部不動產交易實價登錄公開資料，以本社區（龍騰MRT）近一年成交為基礎。
+      2. 單價已扣除車位費用，呈現「純房單價」，避免被含車位的合併單價誤導。
+      3. 在售物件資料來自 591／樂居，僅供參考屋主期待價，實際成交多低於開價。
+      4. 本評估報告為買賣雙方議價之參考工具，非正式不動產鑑定報告。
+    </div>
+
+    <!-- Footer 簽名 -->
+    <div class="footer">
+      <div>
+        <div class="signature-brand">有巢氏房屋</div>
+        <div class="signature-name">副店長・中壢專業房仲喵爸</div>
+        <div class="signature-name-en">黃舶瑋</div>
+        <div class="signature-info">0925-842-111</div>
+      </div>
+      <div class="stamp"></div>
+    </div>
+
+  </div>
+
+<script>
+  const KOREA = 23.74;
+  const CARPARK = 180;
+  const input = document.getElementById('unitInput');
+  const totalOut = document.getElementById('totalOutput');
+  const formulaOut = document.getElementById('formulaOutput');
+
+  function recalc() {
+    const unit = parseFloat(input.value) || 0;
+    const netPrice = unit * KOREA;
+    const total = netPrice + CARPARK;
+    totalOut.textContent = total.toLocaleString('zh-TW', {maximumFractionDigits: 0}) + ' 萬';
+    formulaOut.textContent = `純房 ${unit} × ${KOREA} = ${netPrice.toLocaleString('zh-TW', {maximumFractionDigits: 0})} 萬 + 車位 ${CARPARK} = ${total.toLocaleString('zh-TW', {maximumFractionDigits: 0})} 萬`;
+  }
+
+  input.addEventListener('input', recalc);
+  recalc();
+</script>
+</body>
+</html>
