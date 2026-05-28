@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>房子給小孩，怎麼還保有選擇權 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent {
+    color: #D9342B;
+  }
+
+  /* === 主標題區 === */
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle {
+    font-size: 17px;
+    color: #6B6660;
+    line-height: 1.6;
+  }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF;
+    border-left: 5px solid #D9342B;
+    padding: 20px 22px;
+    margin-bottom: 36px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A463F;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 重點區塊 === */
+  .points {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .point-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .point-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #D9342B;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: #D9342B;
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .point-body {
+    font-size: 16px;
+    color: #4A463F;
+    line-height: 1.75;
+  }
+  .point-body strong {
+    color: #D9342B;
+    font-weight: 700;
+  }
+  .point-body ul {
+    margin: 12px 0 0 20px;
+  }
+  .point-body li {
+    margin-bottom: 8px;
+  }
+  .point-example {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #FFF5E0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before {
+    content: "💡 ";
+  }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent {
+    color: #FFD06A;
+  }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section {
+    margin-bottom: 36px;
+  }
+
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF;
+    padding: 32px 24px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .community-cta p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF;
+    color: #2C2A26;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 26px 24px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .card-cta h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FFF;
+    padding: 13px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 2px solid #FCE4E1;
+  }
+  .brand-footer .footer-logo {
+    width: 44px;
+    height: 44px;
+    display: block;
+    margin: 0 auto 8px;
+    opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px;
+    color: #6B6660;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent {
+    color: #D9342B;
+    font-weight: 700;
+  }
+  .brand-footer .footer-date {
+    font-size: 12px;
+    color: #A89F92;
+  }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed;
+    right: 16px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active {
+    transform: scale(0.92);
+  }
+  .floating-actions .fab-line {
+    background: #06C755;
+  }
+  .floating-actions .fab-phone {
+    background: #D9342B;
+  }
+  .floating-actions a svg {
+    width: 28px;
+    height: 28px;
+    fill: #FFF;
+  }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>房子給小孩<span class="highlight">怎麼還保有選擇權</span></h1>
+      <p class="subtitle">送出去其實可以拿回來，關鍵在你怎麼給。</p>
+    </div>
+
+    <!-- 引言 -->
+    <div class="intro">
+      很多人一提到房屋贈與，第一個念頭就是「送了就沒了」。所以要嘛不敢給，要嘛給了之後開始後悔。但其實房子贈與有兩種做法，真正聰明的做法不是「給或不給」，而是給出去的同時，還保有選擇權。
+    </div>
+
+    <!-- 影片重點 -->
+    <div class="points">
+
+      <div class="point-card">
+        <div class="point-number">01</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">先打破一個迷思</div>
+        <div class="point-body">
+          很多人以為房子一旦送出去就拿不回來，所以不是不敢給，就是給了開始後悔。事實上，房子贈與不是只有一種做法，懂得分辨，才有反悔的空間。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">02</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">第一種：一般贈與</div>
+        <div class="point-body">
+          這是最常見、也最直覺的做法。<strong>給了就是給了</strong>，房子過戶到對方名下之後，你想反悔，幾乎拿不回來。這也是讓很多父母不敢出手的原因。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">03</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">第二種：附有負擔的贈與（關鍵）</div>
+        <div class="point-body">
+          白話講，就是我可以把房子給你，但我會附帶一個條件。例如：<strong>你必須讓我住到最後一天</strong>。只要對方違反條件，你就能依法把房子拿回來。
+          <ul>
+            <li>偷偷把房子賣掉。</li>
+            <li>拿去貸款。</li>
+            <li>甚至把你趕走。</li>
+          </ul>
+          <div class="point-example">
+            一旦對方違反當初約定的條件，你可以依法「撤銷贈與」，房子直接拿回。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">04</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">關鍵第二步：合約＋預告登記</div>
+        <div class="point-body">
+          光是附條件還不夠，你一定要再做一件事：<strong>簽一份合約，並設定「預告登記」</strong>。這個動作的意思是——這間房子未來任何買賣、貸款、轉移，都必須經過你同意，不然根本「動不了」。
+          <div class="point-example">
+            預告登記就像在房子上加一道鎖，少了你點頭，對方什麼都過不了戶。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">05</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">為什麼父母會在意這件事</div>
+        <div class="point-body">
+          現實一點講，父母不是不信任小孩，是怕老了之後，連一個可以回去的地方都沒有。<strong>給出去的同時還保有選擇權</strong>，才是真正照顧到自己、也照顧到關係的安排。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      贈與不是<span class="accent">放棄</span>，而是有條件的<span class="accent">安排</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.05.28</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
