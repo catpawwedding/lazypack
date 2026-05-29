@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>大內壢全民健走活動 ｜ 報名後臺</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root{
+    --ink:#13201b;--muted:#67786f;--line:#dde7e1;--paper:#ffffff;
+    --green:#1f7a5c;--green-deep:#0f4a37;--green-soft:#e7f3ec;
+    --coral:#f2734f;--coral-deep:#d8542f;--bad:#c4392c;--bad-bg:#fbe9e7;
+    --bg:#0f4a37;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;font-family:"Noto Sans TC",system-ui,sans-serif;color:var(--ink);
+    background:linear-gradient(160deg,#0f4a37,#13322a);min-height:100vh;line-height:1.6;font-size:16px}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 16px 60px}
+  .top{color:#cfe8dc;text-align:center;margin-bottom:22px}
+  .top .tag{font-size:13px;letter-spacing:.1em;opacity:.8}
+  .top h1{color:#fff;font-size:22px;margin:6px 0 0;font-weight:900}
+
+  .panel{background:var(--paper);border-radius:18px;box-shadow:0 20px 50px -20px rgba(0,0,0,.5);padding:26px 22px}
+
+  /* gate */
+  #gate{max-width:420px;margin:6vh auto 0}
+  #gate p{color:var(--muted);font-size:14.5px;margin:0 0 18px}
+  label{display:block;font-weight:700;margin-bottom:8px}
+  .pwrow{display:flex;gap:10px}
+  input[type=password],input[type=text]{flex:1;font-family:inherit;font-size:17px;
+    border:2px solid var(--line);border-radius:12px;padding:13px 14px;width:100%}
+  input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 4px rgba(31,122,92,.13)}
+  .btn{font-family:inherit;font-weight:900;font-size:16px;color:#fff;border:none;cursor:pointer;
+    background:linear-gradient(180deg,var(--green),var(--green-deep));border-radius:12px;padding:13px 20px;
+    transition:transform .1s,filter .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn:disabled{filter:grayscale(.4) opacity(.6);cursor:not-allowed}
+  .btn.excel{background:linear-gradient(180deg,#1f8a55,#157243)}
+  .gate-err{display:none;color:var(--bad);background:var(--bad-bg);border-radius:10px;
+    padding:10px 12px;font-size:14px;font-weight:600;margin-top:14px}
+  .gate-err.show{display:block}
+
+  /* dashboard */
+  #dash{display:none}
+  #dash.show{display:block}
+  .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .stat{font-size:15px;color:var(--muted)}
+  .stat b{font-size:30px;color:var(--green-deep);font-weight:900;margin-right:4px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap}
+  .btn.ghost{background:#fff;color:var(--green-deep);border:2px solid var(--line)}
+
+  .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px;max-height:62vh}
+  table{border-collapse:collapse;width:100%;font-size:14px;white-space:nowrap}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+  th{background:var(--green-soft);color:var(--green-deep);font-weight:700;position:sticky;top:0}
+  tr:nth-child(even) td{background:#fafdfb}
+  td.no{font-weight:700;color:var(--coral-deep)}
+  .empty{text-align:center;color:var(--muted);padding:40px}
+  .note{color:var(--muted);font-size:12.5px;margin-top:16px;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="tag">報名後臺 · 限授權人員</div>
+    <h1>大內壢全民健走活動</h1>
+  </div>
+
+  <!-- 密碼關卡 -->
+  <div class="panel" id="gate">
+    <label for="pw">請輸入後臺密碼</label>
+    <p>此頁包含報名者個人資料，僅供授權人員存取。</p>
+    <div class="pwrow">
+      <input type="password" id="pw" placeholder="輸入密碼" autocomplete="off">
+      <button class="btn" id="enterBtn">進入</button>
+    </div>
+    <div class="gate-err" id="gateErr">密碼錯誤，請再試一次。</div>
+  </div>
+
+  <!-- 名單後臺 -->
+  <div class="panel" id="dash">
+    <div class="bar">
+      <div class="stat"><b id="cnt">0</b>位報名者</div>
+      <div class="actions">
+        <button class="btn ghost" id="refreshBtn">重新整理</button>
+        <button class="btn excel" id="excelBtn">⬇ 下載 Excel</button>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table id="tbl">
+        <thead><tr>
+          <th>編號</th><th>姓名</th><th>身分證字號</th><th>出生年月日</th><th>電話</th><th>地址</th><th>報名時間</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <p class="note">資料即時讀取自報名系統。下載的 Excel 含個資，請妥善保管。</p>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = "https://eeokpaogxvaihsilthzh.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_UwjHultlWa9TqsL4ZBdLlA_XR7Qj2Ha";
+  const $ = s => document.querySelector(s);
+  let PW = "";       // 進入後暫存於記憶體，用於重新整理
+  let DATA = [];
+
+  async function fetchData(pw){
+    const r = await fetch(SUPABASE_URL+"/rest/v1/rpc/export_health_walk",{
+      method:"POST",
+      headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY,"Content-Type":"application/json"},
+      body:JSON.stringify({p_password:pw})
+    });
+    return await r.json();
+  }
+
+  function render(){
+    $("#cnt").textContent = DATA.length;
+    const tb = $("#tbody");
+    if(!DATA.length){
+      tb.innerHTML = '<tr><td colspan="7" class="empty">目前還沒有人報名</td></tr>';
+      return;
+    }
+    tb.innerHTML = DATA.map(r=>`<tr>
+      <td class="no">${r.registration_no}</td>
+      <td>${esc(r.full_name)}</td>
+      <td>${esc(r.national_id)}</td>
+      <td>${esc(r.birth_date)}</td>
+      <td>${esc(r.phone)}</td>
+      <td>${esc(r.address)}</td>
+      <td>${esc(r.created_at)}</td>
+    </tr>`).join("");
+  }
+  function esc(s){return String(s==null?"":s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+  async function enter(){
+    const pw = $("#pw").value;
+    if(!pw) return;
+    $("#enterBtn").disabled=true; $("#enterBtn").textContent="…";
+    $("#gateErr").classList.remove("show");
+    try{
+      const res = await fetchData(pw);
+      if(res && res.status==="ok"){
+        PW = pw; DATA = res.rows||[];
+        $("#gate").style.display="none";
+        $("#dash").classList.add("show");
+        render();
+      } else {
+        $("#gateErr").classList.add("show");
+      }
+    }catch(e){
+      $("#gateErr").textContent="連線發生問題，請稍後再試。";
+      $("#gateErr").classList.add("show");
+    }
+    $("#enterBtn").disabled=false; $("#enterBtn").textContent="進入";
+  }
+
+  async function refresh(){
+    $("#refreshBtn").disabled=true; $("#refreshBtn").textContent="讀取中…";
+    try{
+      const res = await fetchData(PW);
+      if(res && res.status==="ok"){ DATA=res.rows||[]; render(); }
+    }catch(e){}
+    $("#refreshBtn").disabled=false; $("#refreshBtn").textContent="重新整理";
+  }
+
+  function downloadExcel(){
+    const header = ["報名編號","姓名","身分證字號","出生年月日","電話","地址","報名時間"];
+    const aoa = [header].concat(DATA.map(r=>[
+      r.registration_no, r.full_name, r.national_id, r.birth_date, r.phone, r.address, r.created_at
+    ]));
+    const ws = XLSX.utils.aoa_to_sheet(aoa);
+    ws["!cols"] = [{wch:8},{wch:12},{wch:14},{wch:13},{wch:13},{wch:30},{wch:18}];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "報名名單");
+    const today = new Date().toISOString().slice(0,10);
+    XLSX.writeFile(wb, "大內壢健走報名名單_"+today+".xlsx");
+  }
+
+  $("#enterBtn").addEventListener("click", enter);
+  $("#pw").addEventListener("keydown", e=>{ if(e.key==="Enter") enter(); });
+  $("#refreshBtn").addEventListener("click", refresh);
+  $("#excelBtn").addEventListener("click", downloadExcel);
+</script>
+</body>
+</html>
