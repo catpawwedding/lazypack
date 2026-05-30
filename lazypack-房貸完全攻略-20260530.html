@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>房貸完全攻略 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4; color: #2C2A26; line-height: 1.75;
+    -webkit-font-smoothing: antialiased; font-size: 16px;
+  }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 120px; }
+
+  .brand-header { text-align: center; padding: 16px 0 28px; border-bottom: 2px solid #FCE4E1; margin-bottom: 28px; }
+  .brand-header .brand-logo { width: 72px; height: 72px; display: block; margin: 0 auto 10px; }
+  .brand-header .brand-name { font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px; }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  .header { text-align: center; margin-bottom: 22px; }
+  .header h1 { font-size: 32px; font-weight: 800; color: #2C2A26; line-height: 1.3; margin-bottom: 14px; }
+  .header h1 .highlight { background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%); padding: 0 4px; }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero { background: linear-gradient(160deg, #FFF7EC 0%, #FCEDE6 100%); border-radius: 20px; padding: 22px; margin-bottom: 30px; display: flex; justify-content: center; }
+  .hero svg { width: 100%; max-width: 320px; height: auto; display: block; }
+
+  .intro { background: #FFF; border-left: 5px solid #D9342B; padding: 20px 22px; margin-bottom: 32px; border-radius: 6px; font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card { background: #FFF; border-radius: 14px; padding: 24px 24px 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+
+  /* 卡片頂部:數字 + 主題圖示 */
+  .point-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+  .point-number { font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1; letter-spacing: -1px; margin-bottom: 8px; font-family: "Helvetica Neue", "Arial", sans-serif; }
+  .point-number-bar { display: block; width: 36px; height: 3px; background: #D9342B; border-radius: 2px; }
+  .point-icon { flex-shrink: 0; width: 52px; height: 52px; border-radius: 14px; background: #FFF1EE; display: flex; align-items: center; justify-content: center; color: #D9342B; }
+  .point-icon svg { width: 28px; height: 28px; }
+
+  .point-title { font-size: 20px; font-weight: 700; color: #2C2A26; margin-bottom: 12px; line-height: 1.4; }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example { margin-top: 14px; padding: 14px 16px; background: #FFF5E0; border-radius: 10px; font-size: 15px; color: #6B5230; border-left: 3px solid #F5B946; }
+  .point-example::before { content: "💡 "; }
+
+  /* === 鑑價缺口對比視覺 === */
+  .gap-viz { margin-top: 16px; background: #FBF7F1; border-radius: 12px; padding: 18px 16px 16px; }
+  .gap-row { margin-bottom: 12px; }
+  .gap-row:last-of-type { margin-bottom: 0; }
+  .gap-label { font-size: 13px; color: #6B6660; margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .gap-label b { color: #2C2A26; font-weight: 700; }
+  .gap-bar { height: 18px; border-radius: 9px; }
+  .gap-bar.full { width: 100%; background: linear-gradient(90deg, #C9A876, #B89968); }
+  .gap-bar.appraise { width: 90%; background: linear-gradient(90deg, #E36A5F, #D9342B); position: relative; }
+  .gap-note { margin-top: 12px; font-size: 14px; color: #D9342B; font-weight: 700; text-align: center; }
+
+  /* 流程時間軸 */
+  .flow { margin: 14px 0 0; padding: 0; list-style: none; }
+  .flow li { position: relative; padding: 0 0 15px 26px; font-size: 15px; color: #4A463F; line-height: 1.6; }
+  .flow li::before { content: ""; position: absolute; left: 3px; top: 6px; width: 9px; height: 9px; background: #D9342B; border-radius: 50%; }
+  .flow li::after { content: ""; position: absolute; left: 7px; top: 15px; width: 1px; height: calc(100% - 11px); background: #E5C9C5; }
+  .flow li:last-child { padding-bottom: 0; }
+  .flow li:last-child::after { display: none; }
+  .flow li b { color: #2C2A26; font-weight: 700; }
+
+  .conclusion { background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%); color: #FAF8F4; padding: 28px 24px; border-radius: 14px; text-align: center; font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 40px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .conclusion .accent { color: #FFD06A; }
+
+  .cta-section { margin-bottom: 36px; }
+  .community-cta { background: linear-gradient(135deg, #D9342B 0%, #B89968 100%); color: #FFF; padding: 32px 24px; border-radius: 18px; text-align: center; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2); }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button { display: inline-block; background: #FFF; color: #2C2A26; padding: 14px 32px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .card-cta { background: #FFF; border: 2px solid #2C2A26; color: #2C2A26; padding: 26px 24px; border-radius: 18px; text-align: center; }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button { display: inline-block; background: #2C2A26; color: #FFF; padding: 13px 30px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 15px; }
+
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85; }
+  .brand-footer .footer-name { font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px; }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  .floating-actions { position: fixed; right: 16px; bottom: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+  .floating-actions a { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none; transition: transform 0.2s; }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .hero svg { max-width: 360px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <div class="header">
+      <h1>房貸<span class="highlight">完全攻略</span></h1>
+      <p class="subtitle">從你能貸多少,到撥款入袋,一條龍看懂房貸怎麼走。</p>
+    </div>
+
+    <!-- Hero 插圖:房子 + 鑰匙 + 利率標籤 -->
+    <div class="hero">
+      <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="房子與房貸示意插圖">
+        <!-- 地面 -->
+        <line x1="30" y1="150" x2="290" y2="150" stroke="#E0CBB6" stroke-width="2" stroke-linecap="round"/>
+        <!-- 房子主體 -->
+        <rect x="78" y="86" width="120" height="64" rx="4" fill="#F3E4D0" stroke="#9A7B57" stroke-width="2.5"/>
+        <!-- 屋頂 -->
+        <path d="M70 88 L138 44 L206 88 Z" fill="#D9342B" stroke="#B5261E" stroke-width="2.5" stroke-linejoin="round"/>
+        <!-- 門 -->
+        <rect x="124" y="112" width="28" height="38" rx="2" fill="#B89968" stroke="#8A6E48" stroke-width="2"/>
+        <circle cx="146" cy="132" r="2" fill="#FFF7EC"/>
+        <!-- 窗 -->
+        <rect x="162" y="104" width="24" height="24" rx="2" fill="#FFF7EC" stroke="#8A6E48" stroke-width="2"/>
+        <line x1="174" y1="104" x2="174" y2="128" stroke="#8A6E48" stroke-width="1.5"/>
+        <line x1="162" y1="116" x2="186" y2="116" stroke="#8A6E48" stroke-width="1.5"/>
+        <!-- 利率標籤吊牌 -->
+        <line x1="232" y1="52" x2="232" y2="78" stroke="#9A7B57" stroke-width="2"/>
+        <rect x="208" y="78" width="48" height="34" rx="6" fill="#FFD06A" stroke="#E0A93A" stroke-width="2"/>
+        <text x="232" y="101" font-family="Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#7A5A18" text-anchor="middle">%</text>
+        <!-- 鑰匙 -->
+        <circle cx="66" cy="124" r="9" fill="none" stroke="#D9342B" stroke-width="3"/>
+        <line x1="73" y1="131" x2="86" y2="144" stroke="#D9342B" stroke-width="3" stroke-linecap="round"/>
+        <line x1="80" y1="138" x2="84" y2="134" stroke="#D9342B" stroke-width="3" stroke-linecap="round"/>
+        <!-- 硬幣 -->
+        <ellipse cx="250" cy="150" rx="11" ry="4" fill="#F5B946" stroke="#E0A93A" stroke-width="1.5"/>
+        <ellipse cx="250" cy="145" rx="11" ry="4" fill="#FFD06A" stroke="#E0A93A" stroke-width="1.5"/>
+        <ellipse cx="250" cy="140" rx="11" ry="4" fill="#FFD06A" stroke="#E0A93A" stroke-width="1.5"/>
+      </svg>
+    </div>
+
+    <div class="intro">
+      房貸最可怕的不是利率高,是你「以為自己繳得起」。這份攻略帶你把房貸從頭走到尾:算清楚能貸多少、把自己準備好、找銀行問對問題、看懂流程、撥款後也不慌。買房不是上了牌桌才開始學規則,看完你才坐得穩。
+    </div>
+
+    <div class="points">
+
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">01</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2.5" width="14" height="19" rx="2"/><line x1="8" y1="6.5" x2="16" y2="6.5"/>
+              <circle cx="8.5" cy="11" r="0.5" fill="currentColor"/><circle cx="12" cy="11" r="0.5" fill="currentColor"/><circle cx="15.5" cy="11" r="0.5" fill="currentColor"/>
+              <circle cx="8.5" cy="14.5" r="0.5" fill="currentColor"/><circle cx="12" cy="14.5" r="0.5" fill="currentColor"/><circle cx="15.5" cy="14.5" r="0.5" fill="currentColor"/>
+              <circle cx="8.5" cy="18" r="0.5" fill="currentColor"/><circle cx="12" cy="18" r="0.5" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">先算清楚:我能貸多少、月繳多少</div>
+        <div class="point-body">
+          銀行貸的是<strong>鑑價</strong>,不是你的出價;月繳也別只算今天的低利率。
+          <ul>
+            <li>鑑價可能低於成交價,中間缺口要自己用現金補。</li>
+            <li>月付金把利率多加 1～2% 重算,繳得起才叫安全。</li>
+            <li>寬限期只是延後壓力,要算寬限結束後的月付金。</li>
+          </ul>
+          <div class="gap-viz" aria-label="成交價與銀行鑑價落差示意">
+            <div class="gap-row">
+              <div class="gap-label"><span>你的成交價</span><b>1,500 萬</b></div>
+              <div class="gap-bar full"></div>
+            </div>
+            <div class="gap-row">
+              <div class="gap-label"><span>銀行鑑價</span><b>1,350 萬</b></div>
+              <div class="gap-bar appraise"></div>
+            </div>
+            <div class="gap-note">↓ 中間 150 萬缺口,要自己補。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">02</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l7 2.5v5.5c0 4.3-3 7-7 8.5-4-1.5-7-4.2-7-8.5V5.5z"/>
+              <path d="M8 12h2l1.3-2.6 2 4.2 1-1.6H16"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">申貸前:把財務體質整理乾淨</div>
+        <div class="point-body">
+          銀行也在看你「是不是長期缺現金」,買房前 3～6 個月就要顧。
+          <ul>
+            <li>信用卡別只繳最低,也別短期內狂查聯徵。</li>
+            <li>備好財力證明:存款、薪轉、扣繳憑單。</li>
+            <li>名下其他貸款會吃掉額度,能清先清。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">03</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5h16v11h-9l-4 3.5V16H4z"/>
+              <path d="M9.4 9.2a2.6 2.6 0 0 1 4.2 1.9c0 1.5-2 1.6-2 3"/>
+              <circle cx="11.6" cy="15" r="0.6" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">找銀行:這幾題照著問就好</div>
+        <div class="point-body">
+          別只比利率,同樣利率底下條件差很多。建議同時問 2～3 家:
+          <ul>
+            <li>利率怎麼組成、之後會跳到多少。</li>
+            <li>能貸幾成,用鑑價還是成交價算。</li>
+            <li>年限、寬限期各幾年。</li>
+            <li>有沒有綁約、提前還款違約金。</li>
+            <li>開辦費、帳管費怎麼算、誰付。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">04</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 21V4"/><path d="M6 4.5h11l-2.2 3 2.2 3H6"/>
+              <circle cx="6" cy="21" r="1.4" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">看懂流程:從簽約到撥款不慌</div>
+        <div class="point-body">
+          知道接下來會發生什麼,你就不會被進度牽著走。大致這樣走:
+          <ul class="flow">
+            <li><b>簽約 / 用印</b>:確定價格與付款條件。</li>
+            <li><b>送件申貸</b>:備齊財力文件交給銀行。</li>
+            <li><b>鑑價 / 照會</b>:銀行估價、再次確認你的條件。</li>
+            <li><b>核貸通知</b>:這時才知道實際成數,缺口自己補。</li>
+            <li><b>對保</b>:確認利率、年限、寬限期後簽署。</li>
+            <li><b>設定 → 撥款</b>:設定抵押權後撥款,完成交屋。</li>
+          </ul>
+          <div class="point-example">最容易出事的是「核貸成數不如預期」,所以第 01 點的缺口要提早備好。</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">05</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="13.5" r="7"/><path d="M12 10v3.5l2.5 1.5"/>
+              <path d="M4.5 5.5l2.5-2.2M19.5 5.5l-2.5-2.2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">撥款後:房貸不是繳了就放著</div>
+        <div class="point-body">
+          很多人撥款完就不管,結果幾年後被月付金嚇到。<strong>提早規劃</strong>才不會慌。
+          <ul>
+            <li>寬限期到期前先準備,別等翻倍才想辦法。</li>
+            <li>升息時定期檢視月繳,評估要不要調整。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">06</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 4v15"/><path d="M6.5 7.5h11"/>
+              <path d="M6.5 7.5L3.5 13.5h6z"/><path d="M17.5 7.5l-3 6h6z"/>
+              <path d="M8.5 19.5h7"/><circle cx="12" cy="4" r="1.2" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">想轉貸省利息:先算幾年回本</div>
+        <div class="point-body">
+          別家利率少一點很心動,但轉貸要花<strong>設定費、代書費、塗銷費、開辦費</strong>,加起來有時超過 10 萬。
+          <ul>
+            <li>雜費加總,跟每年省的利息比,算幾年回本。</li>
+            <li>先看原貸款有沒有綁約、提前清償違約金。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="conclusion">
+      買房不是上了<span class="accent">牌桌</span>才開始學規則。先看懂銀行怎麼算,你才坐得<span class="accent">穩</span>。
+    </div>
+
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.05.30</div>
+    </div>
+
+  </div>
+
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
