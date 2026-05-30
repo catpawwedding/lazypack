@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信用分數養成懶人包 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero-art {
+    background: linear-gradient(160deg, #FFF7EC, #FCEDE6);
+    border-radius: 18px;
+    padding: 22px 20px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .hero-art svg { width: 100%; max-width: 340px; height: auto; display: block; margin: 0 auto; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF;
+    border-left: 5px solid #D9342B;
+    padding: 20px 22px;
+    margin-bottom: 36px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A463F;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 26px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .point-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .point-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #D9342B;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: #D9342B;
+    margin-top: 12px;
+    border-radius: 2px;
+  }
+  .point-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #FFF1EE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .point-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: #D9342B;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .point-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #FFF5E0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 信用好 vs 信用差 對比 === */
+  .compare { margin-top: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .compare-box { border-radius: 12px; padding: 16px 18px; }
+  .compare-box .cb-label { font-size: 15px; font-weight: 800; margin-bottom: 10px; letter-spacing: 0.5px; }
+  .compare-box .cb-row { font-size: 14px; line-height: 1.6; margin-bottom: 4px; }
+  .compare-good { background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%); color: #FAF8F4; }
+  .compare-good .cb-label { color: #FFD06A; }
+  .compare-bad { background: #FCEDE6; color: #6B5230; border: 1.5px solid #F4C9BF; }
+  .compare-bad .cb-label { color: #D9342B; }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF;
+    padding: 32px 24px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF;
+    color: #2C2A26;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 26px 24px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FFF;
+    padding: 13px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85; }
+  .brand-footer .footer-name { font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px; }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed;
+    right: 16px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+    .compare { flex-direction: row; }
+    .compare-box { flex: 1; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>信用分數<span class="highlight">養成懶人包</span></h1>
+      <p class="subtitle">別等到急著用錢那天,才後悔當初沒經營。</p>
+    </div>
+
+    <!-- Hero 插圖 -->
+    <div class="hero-art">
+      <svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="信用分數上升示意圖">
+        <!-- 信用卡 -->
+        <rect x="30" y="78" width="150" height="92" rx="12" fill="#2C2A26"/>
+        <rect x="46" y="98" width="26" height="20" rx="4" fill="#F5B946"/>
+        <rect x="46" y="132" width="100" height="7" rx="3.5" fill="#B89968"/>
+        <rect x="46" y="146" width="64" height="7" rx="3.5" fill="#6B6660"/>
+        <circle cx="150" cy="150" r="13" fill="#D9342B" opacity="0.9"/>
+        <circle cx="135" cy="150" r="13" fill="#B89968" opacity="0.75"/>
+        <!-- 上升箭頭 -->
+        <polyline points="196,150 232,112 258,134 304,70" fill="none" stroke="#D9342B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="280,70 304,70 304,94" fill="none" stroke="#D9342B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- 小盾牌打勾 -->
+        <path d="M232 28 l22 7 v15 c0 14 -11 22 -22 26 c-11 -4 -22 -12 -22 -26 v-15 z" fill="#B89968"/>
+        <polyline points="223,52 230,59 243,44" fill="none" stroke="#FFF7EC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- 引言 -->
+    <div class="intro">
+      很多人平常根本不看信用分數,直到要貸款買房、買車、創業,才被銀行一句「條件不符」打回票。這份幫你搞懂分數怎麼算,平常又該怎麼養。
+    </div>
+
+    <!-- 重點 -->
+    <div class="points">
+
+      <!-- 01 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">01</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>
+          </div>
+        </div>
+        <div class="point-title">信用好的人,不是比較有錢</div>
+        <div class="point-body">
+          信用好不代表你錢多,而是<strong>銀行願意把錢借給你</strong>。當別人在煩惱「能不能借到錢」,你是在選「哪一家條件比較好」,差距就在這裡。
+          <div class="compare">
+            <div class="compare-box compare-good">
+              <div class="cb-label">信用好</div>
+              <div class="cb-row">銀行主動核貸。</div>
+              <div class="cb-row">利率較低、額度較高。</div>
+              <div class="cb-row">選擇權在你手上。</div>
+            </div>
+            <div class="compare-box compare-bad">
+              <div class="cb-label">信用差</div>
+              <div class="cb-row">一句「條件不符」被打回。</div>
+              <div class="cb-row">利率變高、額度變低。</div>
+              <div class="cb-row">能不能借都難說。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">02</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="9" y1="16" x2="9.01" y2="16"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+        </div>
+        <div class="point-title">信用分數怎麼來的,拆給你看</div>
+        <div class="point-body">
+          分數不是黑箱,主要看這幾個面向:
+          <ul>
+            <li><strong>繳款紀錄</strong>:卡費、貸款有沒有準時繳,這是最關鍵的一塊。</li>
+            <li><strong>額度使用率</strong>:刷掉的金額占總額度多少,刷太滿會被當成資金吃緊。</li>
+            <li><strong>信用歷史長度</strong>:跟銀行往來越久、紀錄越穩,越加分。</li>
+            <li>近期申辦與被查次數:短期內一直辦卡、辦貸款,會被當成急著用錢。</li>
+            <li>信用工具種類:有沒有正常使用不同的信用產品。</li>
+          </ul>
+          <div class="point-example">
+            各項實際占比聯徵中心沒有完全公開,確切權重依個案而定,別被網路上「精確趴數」誤導。
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">03</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 21v-7"/><path d="M12 14c-3.5 0-5.5-2-5.5-5.5C10 8.5 12 10.5 12 14z"/><path d="M12 14c3.5 0 5.5-2 5.5-5.5C14 8.5 12 10.5 12 14z"/></svg>
+          </div>
+        </div>
+        <div class="point-title">平常這樣做,分數自己會長</div>
+        <div class="point-body">
+          信用是養出來的,平常把這幾件事做好就好:
+          <ul>
+            <li><strong>每一筆都準時繳</strong>:卡費、貸款設自動扣款,絕不遲繳。</li>
+            <li>額度別刷太滿:盡量讓使用率維持在低檔,不要每張卡都接近刷爆。</li>
+            <li>舊卡別急著剪:往來越久越加分,剪掉反而縮短信用歷史。</li>
+            <li>不要短期密集申辦:辦卡、辦貸款集中在同一段時間,容易被當成缺錢。</li>
+            <li>定期檢視自己的聯徵:早點抓出錯誤或被冒用的紀錄。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">04</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3 L22 20 H2 Z"/><line x1="12" y1="10" x2="12" y2="14"/><line x1="12" y1="17.5" x2="12.01" y2="17.5"/></svg>
+          </div>
+        </div>
+        <div class="point-title">這些動作,正在偷偷扣你的分</div>
+        <div class="point-body">
+          有些事你以為沒差,其實都被記下來:
+          <ul>
+            <li><strong>遲繳、忘記繳</strong>:一次遲繳就會留紀錄,影響比你想的久。</li>
+            <li>動用預借現金:容易被解讀成你手頭很緊。</li>
+            <li>只繳最低、滾循環利息:等於告訴銀行你還款有壓力。</li>
+            <li>到處比貸款、短期被查很多次:查詢次數也會被看見。</li>
+            <li>隨便幫人作保:別人的債,會變成你的信用包袱。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">05</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16" y1="16" x2="21" y2="21"/></svg>
+          </div>
+        </div>
+        <div class="point-title">先搞清楚自己現在幾分</div>
+        <div class="point-body">
+          要養之前,先知道現況。個人信用報告由<strong>聯合徵信中心</strong>管理:
+          <ul>
+            <li>查詢方式:線上(自然人憑證 / 行動裝置認證)、臨櫃或郵寄都可以。</li>
+            <li>每年有免費查詢的額度,建議至少一年看一次。</li>
+            <li>看到不對的紀錄(被冒用、資料錯誤)可以申請更正。</li>
+            <li>實際分數高低與貸款條件,仍以各家銀行依你的個案評估為準。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      信用不是分數,是你的<span class="accent">金融通行證</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.05.30</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
