@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>借戶籍避雷清單 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero-illustration {
+    background: linear-gradient(160deg, #FFF7EC, #FCEDE6);
+    border-radius: 18px;
+    padding: 26px 24px;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+  .hero-illustration svg { width: 100%; max-width: 360px; height: auto; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF;
+    border-left: 5px solid #D9342B;
+    padding: 20px 22px;
+    margin-bottom: 36px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A463F;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 26px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .point-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .point-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #D9342B;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: #D9342B;
+    margin-top: 10px;
+    border-radius: 2px;
+  }
+  .point-icon {
+    width: 46px;
+    height: 46px;
+    background: #FFF1EE;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .point-icon svg { width: 26px; height: 26px; stroke: #D9342B; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .point-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #FFF5E0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 下載按鈕 === */
+  .download-box {
+    margin-top: 18px;
+    padding: 18px 16px;
+    background: #FBF7F1;
+    border: 1px dashed #D9342B;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .download-box .dl-title { font-size: 14px; color: #6B6660; margin-bottom: 12px; }
+  .download-btn {
+    display: inline-block;
+    background: #D9342B;
+    color: #FFF;
+    padding: 14px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 3px 10px rgba(217,52,43,0.25);
+  }
+  .download-box .dl-sub { margin-top: 10px; font-size: 12px; color: #A89F92; }
+
+  /* === 對比長條(地價稅) === */
+  .bar-compare {
+    margin-top: 18px;
+    background: #FBF7F1;
+    border-radius: 12px;
+    padding: 18px 16px 16px;
+  }
+  .bar-row { margin-bottom: 14px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-label {
+    font-size: 14px;
+    color: #6B6660;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .bar-label b { font-size: 18px; font-weight: 800; font-family: "Helvetica Neue","Arial",sans-serif; }
+  .bar-track { height: 16px; background: #ECE6DB; border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; }
+  .bar-fill.safe { width: 18%; background: #B89968; }
+  .bar-fill.risk { width: 90%; background: #D9342B; }
+  .bar-note { margin-top: 12px; font-size: 13px; color: #A89F92; text-align: center; }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF;
+    padding: 32px 24px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF;
+    color: #2C2A26;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 26px 24px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FFF;
+    padding: 13px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85; }
+  .brand-footer .footer-name { font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px; }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed;
+    right: 16px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>借戶籍<span class="highlight">避雷清單</span></h1>
+      <p class="subtitle">別讓一個善意,變成兩年後的稅單。</p>
+    </div>
+
+    <!-- Hero 插圖 -->
+    <div class="hero-illustration">
+      <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="房子、戶籍文件與警示插圖">
+        <!-- 房子 -->
+        <path d="M70 95 L120 58 L170 95 Z" fill="none" stroke="#D9342B" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="82" y="95" width="76" height="62" rx="4" fill="#FFF" stroke="#2C2A26" stroke-width="3"/>
+        <rect x="96" y="112" width="20" height="20" rx="2" fill="#FCE4E1" stroke="#2C2A26" stroke-width="2"/>
+        <rect x="126" y="112" width="20" height="45" rx="2" fill="#B89968"/>
+        <!-- 戶籍文件 -->
+        <rect x="195" y="62" width="92" height="110" rx="6" fill="#FFF" stroke="#2C2A26" stroke-width="3"/>
+        <line x1="210" y1="84" x2="272" y2="84" stroke="#B89968" stroke-width="4" stroke-linecap="round"/>
+        <line x1="210" y1="102" x2="272" y2="102" stroke="#E0D8C8" stroke-width="4" stroke-linecap="round"/>
+        <line x1="210" y1="118" x2="272" y2="118" stroke="#E0D8C8" stroke-width="4" stroke-linecap="round"/>
+        <line x1="210" y1="134" x2="248" y2="134" stroke="#E0D8C8" stroke-width="4" stroke-linecap="round"/>
+        <!-- 印章 -->
+        <circle cx="262" cy="148" r="17" fill="none" stroke="#D9342B" stroke-width="3"/>
+        <circle cx="262" cy="148" r="9" fill="#D9342B" opacity="0.18"/>
+        <!-- 警示 -->
+        <path d="M150 168 L168 168 L159 150 Z" fill="#F5B946" stroke="#2C2A26" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="159" y1="157" x2="159" y2="162" stroke="#2C2A26" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="159" cy="166" r="1.4" fill="#2C2A26"/>
+      </svg>
+    </div>
+
+    <!-- 引言 -->
+    <div class="intro">
+      你以為只是借個戶籍幫朋友報學區,其實在稅務眼裡,這可能是一筆「租賃關係」。這份清單幫你看懂雷在哪、怎麼自保,別讓一個小忙,賠掉未來賣房的 400 萬免稅額。
+    </div>
+
+    <!-- 重點 -->
+    <div class="points">
+
+      <!-- 01 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">01</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+          </div>
+        </div>
+        <div class="point-title">一個善意,怎麼變成兩年後的稅單</div>
+        <div class="point-body">
+          有位屋主只是讓朋友把戶籍遷進來報學區,自己也住在裡面、戶籍也在,以為這樣應該沒事。結果<strong>兩年後被稅務單位追繳綜合所得稅</strong>。
+          <div class="point-example">
+            關鍵在查核邏輯:系統不看你「實際上有沒有收租」,只看「設籍的人是不是你的直系親屬」。只要不是配偶、父母、子女,系統就預設你有租金收入。
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">02</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 L21 19 L3 19 Z"/><line x1="12" y1="10" x2="12" y2="14"/><circle cx="12" cy="16.5" r="0.6" fill="#D9342B" stroke="none"/></svg>
+          </div>
+        </div>
+        <div class="point-title">三大雷區,一次看懂</div>
+        <div class="point-body">
+          一旦被認定有租金收入,會同時觸發三件事:
+          <ul>
+            <li><strong>地價稅跳掉</strong>:從自用住宅稅率變一般稅率,稅金可能差好幾倍。</li>
+            <li><strong>被推算租金</strong>:稅務單位用附近租金行情幫你算「應該收多少」,再課所得稅。</li>
+            <li><strong>自住免稅額沒了</strong>:未來賣房可能拿不到「自住滿 6 年 400 萬免稅額」,這才是真正的大損失。</li>
+          </ul>
+          <div class="bar-compare" aria-label="地價稅稅率對比">
+            <div class="bar-row">
+              <div class="bar-label"><span>自用住宅稅率</span><b>2‰</b></div>
+              <div class="bar-track"><div class="bar-fill safe"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label"><span>一般用地稅率</span><b>10‰</b></div>
+              <div class="bar-track"><div class="bar-fill risk"></div></div>
+            </div>
+            <div class="bar-note">同一間房,稅率可能差到 5 倍。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">03</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 L19 6 V11 C19 16 12 21 12 21 C12 21 5 16 5 11 V6 Z"/><path d="M9 11.5 L11 13.5 L15 9"/></svg>
+          </div>
+        </div>
+        <div class="point-title">自保動作:把善意變成可控的安排</div>
+        <div class="point-body">
+          要借,就別只靠口頭。先簽一份<strong>無償借用契約</strong>,白紙黑字寫明「無償提供設籍、沒有租金往來」,這是你日後對抗稅務認定的基礎證明。
+          <div class="point-example">
+            至於需不需要做公證,實務上認定權在主管機關的承辦人員、依個案審定。借之前先向你戶籍所在地的稅捐稽徵機關問清楚怎麼認定,別自己先猜。
+          </div>
+          <div class="download-box">
+            <div class="dl-title">喵爸幫你準備好契約範本,直接下載填寫。</div>
+            <a href="house-loan-contract.docx" class="download-btn" download>↓ 下載無償借用契約範本</a>
+            <div class="dl-sub">Word 檔,實際使用前建議再請專業確認。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div>
+            <div class="point-number">04</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8 L9.5 9.5 L12 6.5"/><path d="M8 14 L9.5 15.5 L12 12.5"/><line x1="14" y1="8" x2="17" y2="8"/><line x1="14" y1="14" x2="17" y2="14"/></svg>
+          </div>
+        </div>
+        <div class="point-title">借戶籍前,先過這張清單</div>
+        <div class="point-body">
+          答應之前,把這幾項先想清楚:
+          <ul>
+            <li><strong>誰設籍</strong>:配偶、父母、子女這類直系親屬相對單純,非直系親屬風險最高。</li>
+            <li><strong>先立字據</strong>:簽無償借用契約,寫明無償、無租金往來。</li>
+            <li><strong>保留無收租證據</strong>:確保沒有任何金流往來,別讓帳面看起來像在收租。</li>
+            <li><strong>先問清楚認定方式</strong>:需不需要公證、怎麼認定,事先請教當地稽徵機關。</li>
+            <li><strong>借出後別放著</strong>:每年留意地價稅單有沒有從自用變一般,有異常早處理。</li>
+            <li><strong>衡量值不值得</strong>:為了報學區這類目的,賠上未來賣房免稅額,先算清楚再答應。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      你以為只是<span class="accent">幫忙</span>,稅務會當成<span class="accent">交易</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.05.30</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
