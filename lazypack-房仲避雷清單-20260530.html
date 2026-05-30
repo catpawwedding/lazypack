@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>房仲避雷清單 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero {
+    background: linear-gradient(160deg, #FFF7EC, #FCEDE6);
+    border-radius: 18px;
+    padding: 18px 16px 12px;
+    margin-bottom: 32px;
+  }
+  .hero svg { width: 100%; height: auto; display: block; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF;
+    border-left: 5px solid #D9342B;
+    padding: 20px 22px;
+    margin-bottom: 36px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A463F;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 24px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .point-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .point-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #D9342B;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: #FFF1EE;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .point-icon svg {
+    width: 24px; height: 24px;
+    fill: none; stroke: #D9342B;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .point-number-bar {
+    display: block;
+    width: 36px; height: 3px;
+    background: #D9342B;
+    margin: 10px 0 16px;
+    border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #FFF5E0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 自我檢查視覺化 === */
+  .selfcheck {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .selfcheck h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #2C2A26;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .selfcheck .sc-sub {
+    font-size: 14px;
+    color: #6B6660;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .sc-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-top: 1px solid #F0EAE0;
+  }
+  .sc-row:first-of-type { border-top: none; }
+  .sc-badge {
+    flex-shrink: 0;
+    width: 58px; height: 34px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    color: #FFF;
+  }
+  .sc-1 { background: #F5B946; }
+  .sc-2 { background: #E07B39; }
+  .sc-3 { background: #D9342B; }
+  .sc-text { font-size: 15px; color: #4A463F; line-height: 1.6; }
+  .sc-text strong { color: #2C2A26; }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF;
+    padding: 32px 24px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF; color: #2C2A26;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700; font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 26px 24px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26; color: #FFF;
+    padding: 13px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85; }
+  .brand-footer .footer-name { font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px; }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed; right: 16px; bottom: 20px;
+    display: flex; flex-direction: column; gap: 12px;
+    z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>房仲<span class="highlight">避雷清單</span></h1>
+      <p class="subtitle">帶看不是看房子，是看這個房仲值不值得信。</p>
+    </div>
+
+    <!-- Hero 插圖 -->
+    <div class="hero">
+      <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="放大鏡審視房子的插圖">
+        <!-- 地面淡影 -->
+        <ellipse cx="300" cy="178" rx="210" ry="14" fill="#E9C9A8" opacity="0.45"/>
+        <!-- 房子 -->
+        <g>
+          <polygon points="150,70 255,70 202,32" fill="#D9342B"/>
+          <rect x="158" y="70" width="90" height="80" rx="4" fill="#FFFFFF" stroke="#B89968" stroke-width="3"/>
+          <rect x="172" y="92" width="26" height="26" rx="3" fill="#FFF1EE" stroke="#B89968" stroke-width="2.5"/>
+          <rect x="210" y="108" width="24" height="42" rx="3" fill="#B89968"/>
+          <circle cx="214" cy="130" r="2.4" fill="#FFF"/>
+        </g>
+        <!-- 問號泡泡 -->
+        <g>
+          <circle cx="120" cy="56" r="17" fill="#FFFFFF" stroke="#F5B946" stroke-width="3"/>
+          <text x="120" y="63" font-size="22" font-weight="800" text-anchor="middle" fill="#E07B39" font-family="Arial, sans-serif">?</text>
+        </g>
+        <!-- 放大鏡 -->
+        <g>
+          <circle cx="370" cy="98" r="56" fill="#FFFFFF" opacity="0.55"/>
+          <circle cx="370" cy="98" r="56" fill="none" stroke="#2C2A26" stroke-width="8"/>
+          <line x1="412" y1="140" x2="470" y2="178" stroke="#2C2A26" stroke-width="13" stroke-linecap="round"/>
+          <!-- 鏡中打勾 / 打叉,代表「審視通過或不通過」 -->
+          <path d="M348 98 l14 14 l24 -28" fill="none" stroke="#D9342B" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 引言 -->
+    <div class="intro">
+      99% 的買方不知道，房仲帶看時的某些行為，其實是在唬你。這份清單把 5 個訊號講清楚，帶看現場拿出來一條一條對，中了幾個，你心裡自然有底。
+    </div>
+
+    <!-- 5 個訊號 -->
+    <div class="points">
+
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">01</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h3"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">帶看前，沒幫你把成本算清楚</div>
+        <div class="point-body">
+          他直接帶你去看房，但決定你「買不買得起」的這幾件事，<strong>一條都沒問、沒講</strong>：
+          <ul>
+            <li>你的薪轉多少。</li>
+            <li>你的負債比有沒有算過。</li>
+            <li>貸款條件幫你評估了沒，能貸幾成。</li>
+            <li>這間房子的銀行估價，有沒有跟你講。</li>
+          </ul>
+          <div class="point-example">真正幫你的房仲，帶看前會先幫你把「買得起、貸得下來、買得划算」算清楚，而不是讓你先愛上房子，才發現貸不下來。</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">02</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8.5" y1="12" x2="8.5" y2="12"/><line x1="12" y1="12" x2="12" y2="12"/><line x1="15.5" y1="12" x2="15.5" y2="12"/><line x1="8.5" y1="16" x2="8.5" y2="16"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">問稅，他當場答不出來</div>
+        <div class="point-body">
+          你問「買這間、之後養這間，要繳什麼稅、能省什麼」，他說「我去問問看」。站在<strong>買方立場</strong>，這些他帶看當下就該講清楚：
+          <ul>
+            <li>過戶要繳的契稅、印花稅，先抓進你的預算。</li>
+            <li>買了以後，房屋稅、地價稅記得申請「自用住宅」優惠稅率，能省一筆。</li>
+            <li>要符合什麼條件、要不要設籍，好房仲會主動提醒你去辦。</li>
+          </ul>
+          <div class="point-example">好房仲帶看當下就把「買進成本 + 之後能省的稅」算給你聽，不是只讓你看房子漂不漂亮。</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">03</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 10v3l2 2"/><path d="M5 3 2.5 5.5"/><path d="M19 3l2.5 2.5"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">現場狂催，這間很搶手</div>
+        <div class="point-body">
+          帶看現場一直跟你說「這間很搶手」「已經有兩組在看了」「已經有人出價」。問題是，這件事你<strong>根本無法驗證</strong>。這是房仲用來縮短你決策時間最常見的話術。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">04</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="16" x2="12" y2="16"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">屋況漏水，屋主說沒問題</div>
+        <div class="point-body">
+          你問屋況、問漏水歷史，他只丟一句「屋主說沒問題」就帶過。<strong>沒查產權、沒看謄本、沒問管委會</strong>，拿屋主的話當自己的答案。這不是服務，是把風險轉包給你。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">05</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4"/><path d="M10 8l-4 4 4 4"/><line x1="6" y1="12" x2="15" y2="12"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">你說再想想，他就消失</div>
+        <div class="point-body">
+          帶看結束你說「我再想想」，他<strong>立刻消失</strong>，三個月後你再問，他說「那間賣掉了」。真正幫你的房仲，不成交也會繼續維護你，不是你有需求他才出現。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 自我檢查視覺化 -->
+    <div class="selfcheck">
+      <h3>中了幾條？</h3>
+      <div class="sc-sub">帶看完，誠實對一下這份清單。</div>
+      <div class="sc-row">
+        <div class="sc-badge sc-1">1–2</div>
+        <div class="sc-text">先<strong>留意</strong>，再多觀察他幾次。</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-badge sc-2">3</div>
+        <div class="sc-text">建議認真<strong>考慮換</strong>一個房仲。</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-badge sc-3">4–5</div>
+        <div class="sc-text">別猶豫，這個房仲<strong>沒在幫你</strong>。</div>
+      </div>
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      房子可以再找，遇到不對的<span class="accent">房仲</span>，賠掉的是你的<span class="accent">時間跟血汗錢</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.05.30</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
