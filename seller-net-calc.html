@@ -639,22 +639,42 @@
     </div>
   </div>
 
-  <!-- 服務費用計算方式 -->
+  <!-- A. 服務費用計算方式（影響實拿）-->
   <div class="section">
     <h3 class="section-title">服務費用計算方式 <span class="tag">影響實拿</span></h3>
+    <p style="font-size:12px; color:var(--ink-soft); margin:-8px 0 12px;">賣方實際付的服務費，會從實拿扣掉</p>
     <div class="seg" id="svcSeg">
       <button class="seg-btn active" onclick="setSvcMode('p4')">預設 4%</button>
       <button class="seg-btn" onclick="setSvcMode('manual')">手動輸入</button>
-      <button class="seg-btn" onclick="setSvcMode('cap3')">不列舉（3% 上限30萬）</button>
     </div>
     <div id="svcManualWrap" style="display:none; margin-top:12px;">
       <div class="field">
         <label>服務費金額 <span class="hint">萬</span></label>
-        <input type="number" id="svcManual" step="0.01" placeholder="直接輸入服務費（萬）" oninput="recalc()" />
+        <input type="number" id="svcManual" step="0.01" placeholder="例如實付 20 萬就填 20" oninput="recalc()" />
       </div>
     </div>
     <div id="svcInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
       服務費 = 成交總價 × 4%
+    </div>
+  </div>
+
+  <!-- B. 房地合一可認列移轉費用（影響稅基）-->
+  <div class="section">
+    <h3 class="section-title">房地合一可認列移轉費用 <span class="tag gray">影響稅基</span></h3>
+    <p style="font-size:12px; color:var(--ink-soft); margin:-8px 0 12px;">算房地合一稅時可從稅基扣除的金額（抵稅用，不是真的支出）</p>
+    <div class="seg" id="moveSeg">
+      <button class="seg-btn active" onclick="setMoveMode('same')">同服務費</button>
+      <button class="seg-btn" onclick="setMoveMode('manual')">手動輸入</button>
+      <button class="seg-btn" onclick="setMoveMode('cap3')">3% 上限30萬</button>
+    </div>
+    <div id="moveManualWrap" style="display:none; margin-top:12px;">
+      <div class="field">
+        <label>可認列移轉費用 <span class="hint">萬</span></label>
+        <input type="number" id="moveManual" step="0.01" placeholder="直接輸入可認列金額（萬）" oninput="recalc()" />
+      </div>
+    </div>
+    <div id="moveInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:#f5f6f8; border-radius:8px; color:var(--ink-soft);">
+      可認列移轉費用 = 同服務費金額
     </div>
   </div>
 
@@ -1019,26 +1039,47 @@ const FIXED = {
 
 let selfUse = false;
 let lastEditedPrice = null; // 'total' | 'unit'，記錄最後動的欄位
-let svcMode = 'p4'; // 'p4'=4% | 'manual'=手動 | 'cap3'=3%上限30萬
+let svcMode = 'p4'; // 'p4'=4% | 'manual'=手動
+let moveMode = 'same'; // 'same'=同服務費 | 'manual'=手動 | 'cap3'=3%上限30萬
 
 function setSvcMode(mode) {
   svcMode = mode;
   const seg = document.getElementById('svcSeg');
   seg.querySelectorAll('.seg-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['p4','manual','cap3'][i] === mode);
+    b.classList.toggle('active', ['p4','manual'][i] === mode);
   });
   document.getElementById('svcManualWrap').style.display = mode === 'manual' ? 'block' : 'none';
   recalc();
 }
 
-// 依模式算服務費（回傳萬）
+function setMoveMode(mode) {
+  moveMode = mode;
+  const seg = document.getElementById('moveSeg');
+  seg.querySelectorAll('.seg-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['same','manual','cap3'][i] === mode);
+  });
+  document.getElementById('moveManualWrap').style.display = mode === 'manual' ? 'block' : 'none';
+  recalc();
+}
+
+// A. 服務費（影響實拿，回傳萬）
 function calcServiceFee(total) {
   if (svcMode === 'manual') {
     return v('svcManual');
-  } else if (svcMode === 'cap3') {
-    return Math.min(total * 0.03, 30);
   } else {
     return total * 0.04;
+  }
+}
+
+// B. 可認列移轉費用（影響稅基，回傳萬）
+function calcMoveFee(total, serviceFee) {
+  if (moveMode === 'manual') {
+    return v('moveManual');
+  } else if (moveMode === 'cap3') {
+    return Math.min(total * 0.03, 30);
+  } else {
+    // same：同服務費
+    return serviceFee;
   }
 }
 
@@ -1192,21 +1233,30 @@ function recalc() {
   const reg = FIXED.reg;
   const clr = FIXED.clr;
   const escrow = total * FIXED.escrowRate;
-  const service = calcServiceFee(total);
+  const service = calcServiceFee(total);       // A：影響實拿
+  const moveFee = calcMoveFee(total, service); // B：影響稅基
 
-  // 更新服務費說明文字
+  // 更新服務費說明文字（A）
   const svcInfo = document.getElementById('svcInfo');
   if (svcMode === 'p4') {
     svcInfo.innerHTML = total > 0
       ? `服務費 = 成交總價 <b>${fmt(total)}</b> 萬 × 4% = <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`
       : '服務費 = 成交總價 × 4%';
-  } else if (svcMode === 'cap3') {
-    const raw = total * 0.03;
-    svcInfo.innerHTML = total > 0
-      ? `服務費 = 成交總價 <b>${fmt(total)}</b> 萬 × 3% = ${fmt(raw)} 萬 → 取 <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬${raw > 30 ? '（已達 30 萬上限）' : '（未達上限）'}`
-      : '服務費 = 成交總價 × 3%（上限 30 萬）';
   } else {
     svcInfo.innerHTML = `服務費 = 手動輸入 <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`;
+  }
+
+  // 更新可認列移轉費用說明文字（B）
+  const moveInfo = document.getElementById('moveInfo');
+  if (moveMode === 'same') {
+    moveInfo.innerHTML = `可認列移轉費用 = 同服務費 <b style="color:var(--gold-deep)">${fmt(moveFee)}</b> 萬`;
+  } else if (moveMode === 'cap3') {
+    const raw = total * 0.03;
+    moveInfo.innerHTML = total > 0
+      ? `可認列 = 成交總價 <b>${fmt(total)}</b> 萬 × 3% = ${fmt(raw)} 萬 → 取 <b style="color:var(--gold-deep)">${fmt(moveFee)}</b> 萬${raw > 30 ? '（已達 30 萬上限）' : '（未達上限）'}`
+      : '可認列 = 成交總價 × 3%（上限 30 萬）';
+  } else {
+    moveInfo.innerHTML = `可認列移轉費用 = 手動輸入 <b style="color:var(--gold-deep)">${fmt(moveFee)}</b> 萬`;
   }
 
   // 房地合一稅
@@ -1214,7 +1264,7 @@ function recalc() {
   const buyCost = v('buyCost');
   let houseTax = 0;
   if (hold && !hold.error && buyPrice > 0) {
-    let base = total - buyPrice - buyCost - service; // 稅基（萬）
+    let base = total - buyPrice - buyCost - moveFee; // 稅基（萬）：扣可認列移轉費用(B)
     if (selfUse && hold.years >= 6) {
       base = Math.max(0, base - 400); // 免稅額 400 萬
     }
@@ -1251,7 +1301,7 @@ function setResult(r) {
   document.getElementById('r_net').textContent = fmt(r.net);
   document.getElementById('d_esc').textContent = fmt(r.escrow);
   document.getElementById('d_svc').textContent = fmt(r.service);
-  const svcLabelMap = { p4: '服務費（成交價 × 4%）', manual: '服務費（手動輸入）', cap3: '服務費（3% 上限30萬）' };
+  const svcLabelMap = { p4: '服務費（成交價 × 4%）', manual: '服務費（手動輸入）' };
   const dl = document.getElementById('d_svc_label');
   if (dl) dl.textContent = svcLabelMap[svcMode];
   document.getElementById('d_land').textContent = fmt(r.landTax);
@@ -1295,14 +1345,24 @@ function reverseCalc() {
   const { houseArea, parkP } = getHouseInfo();
   const r = hold.rate;
   const e = FIXED.escrowRate;
-  // 反推時服務費率依模式：manual 視為固定金額，cap3/p4 為比例
-  let s, svcFixed = 0;
+  // === A 服務費（影響實拿）===
+  // p4 → X*0.04（比例）；manual → 固定金額 svcFixed
+  let sA, svcFixed = 0;
   if (svcMode === 'manual') {
-    s = 0; svcFixed = v('svcManual');
-  } else if (svcMode === 'cap3') {
-    s = 0.03;
+    sA = 0; svcFixed = v('svcManual');
   } else {
-    s = 0.04;
+    sA = 0.04;
+  }
+  // === B 可認列移轉費用（影響稅基）===
+  // same → 等於 A；manual → moveFixed；cap3 → X*0.03（忽略30萬上限的反推極端情況）
+  let sB, moveFixed = 0;
+  if (moveMode === 'manual') {
+    sB = 0; moveFixed = v('moveManual');
+  } else if (moveMode === 'cap3') {
+    sB = 0.03;
+  } else {
+    // same：B 等於 A
+    sB = sA; moveFixed = svcFixed;
   }
   const buyPrice = v('buyPrice');
   const buyCost = v('buyCost');
@@ -1312,9 +1372,9 @@ function reverseCalc() {
   const selfDeduct = (selfUse && hold.years >= 6) ? 400 : 0;
 
   // 假設稅基為正
-  const Cr = (buyPrice + buyCost + selfDeduct) * r;
+  const Cr = (buyPrice + buyCost + moveFixed + selfDeduct) * r;
   const RHS = target + run + reg + clr + landTax + loan + svcFixed - Cr;
-  const denom = (1 - e - s) - (1 - s) * r;
+  const denom = (1 - e - sA) - (1 - sB) * r;
 
   if (Math.abs(denom) < 1e-9) {
     document.getElementById('rv_total').textContent = '無解';
@@ -1325,12 +1385,12 @@ function reverseCalc() {
   }
   let X = RHS / denom;
 
-  // 驗算稅基，若計算出來稅基 <= 0，代表房地合一稅 = 0，用簡化式重算
-  let base = X - buyPrice - buyCost - X * s - svcFixed - selfDeduct;
+  // 驗算稅基（用 B 的移轉費用），若 <= 0 則房地合一稅 = 0，用簡化式重算
+  let base = X - buyPrice - buyCost - (X * sB + moveFixed) - selfDeduct;
   let note = '';
   if (base <= 0) {
-    // 房地合一稅 = 0，重算
-    X = (target + run + reg + clr + landTax + loan + svcFixed) / (1 - e - s);
+    // 房地合一稅 = 0，重算（實拿只扣 A 服務費）
+    X = (target + run + reg + clr + landTax + loan + svcFixed) / (1 - e - sA);
     note = '＊本情境房地合一稅基 ≤ 0，無需繳房地合一稅';
   }
 
@@ -1358,7 +1418,9 @@ function resetAll() {
   document.getElementById('selfUseSwitch').classList.remove('on');
   document.getElementById('reverseOut').style.display = 'none';
   document.getElementById('svcManual').value = '';
+  document.getElementById('moveManual').value = '';
   setSvcMode('p4');
+  setMoveMode('same');
   recalc();
 }
 
