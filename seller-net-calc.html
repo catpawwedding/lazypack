@@ -639,6 +639,25 @@
     </div>
   </div>
 
+  <!-- 服務費用計算方式 -->
+  <div class="section">
+    <h3 class="section-title">服務費用計算方式 <span class="tag">影響實拿</span></h3>
+    <div class="seg" id="svcSeg">
+      <button class="seg-btn active" onclick="setSvcMode('p4')">預設 4%</button>
+      <button class="seg-btn" onclick="setSvcMode('manual')">手動輸入</button>
+      <button class="seg-btn" onclick="setSvcMode('cap3')">不列舉（3% 上限30萬）</button>
+    </div>
+    <div id="svcManualWrap" style="display:none; margin-top:12px;">
+      <div class="field">
+        <label>服務費金額 <span class="hint">萬</span></label>
+        <input type="number" id="svcManual" step="0.01" placeholder="直接輸入服務費（萬）" oninput="recalc()" />
+      </div>
+    </div>
+    <div id="svcInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
+      服務費 = 成交總價 × 4%
+    </div>
+  </div>
+
   <!-- 售價區塊 (雙向連動) -->
   <div class="section">
     <h3 class="section-title">想賣的價格 <span class="tag">雙向連動</span></h3>
@@ -681,7 +700,7 @@
       <div class="detail-row"><span class="name">代書費（潤筆）</span><span class="num"><span id="d_run">0.10</span> 萬</span></div>
       <div class="detail-row"><span class="name">實價登錄費</span><span class="num"><span id="d_reg">0.20</span> 萬</span></div>
       <div class="detail-row"><span class="name">履保費（成交價 × 萬分之三）</span><span class="num"><span id="d_esc">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">服務費（成交價 × 4%）</span><span class="num"><span id="d_svc">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name"><span id="d_svc_label">服務費（成交價 × 4%）</span></span><span class="num"><span id="d_svc">—</span> 萬</span></div>
       <div class="detail-row"><span class="name">塗銷費 + 稅籍資料</span><span class="num"><span id="d_clr">0.60</span> 萬</span></div>
       <div class="detail-row"><span class="name">土增稅</span><span class="num"><span id="d_land">—</span> 萬</span></div>
       <div class="detail-row"><span class="name">房地合一稅</span><span class="num"><span id="d_houseTax">—</span> 萬</span></div>
@@ -1000,6 +1019,28 @@ const FIXED = {
 
 let selfUse = false;
 let lastEditedPrice = null; // 'total' | 'unit'，記錄最後動的欄位
+let svcMode = 'p4'; // 'p4'=4% | 'manual'=手動 | 'cap3'=3%上限30萬
+
+function setSvcMode(mode) {
+  svcMode = mode;
+  const seg = document.getElementById('svcSeg');
+  seg.querySelectorAll('.seg-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['p4','manual','cap3'][i] === mode);
+  });
+  document.getElementById('svcManualWrap').style.display = mode === 'manual' ? 'block' : 'none';
+  recalc();
+}
+
+// 依模式算服務費（回傳萬）
+function calcServiceFee(total) {
+  if (svcMode === 'manual') {
+    return v('svcManual');
+  } else if (svcMode === 'cap3') {
+    return Math.min(total * 0.03, 30);
+  } else {
+    return total * 0.04;
+  }
+}
 
 // ------- 輔助：取值 -------
 function v(id) {
@@ -1151,7 +1192,22 @@ function recalc() {
   const reg = FIXED.reg;
   const clr = FIXED.clr;
   const escrow = total * FIXED.escrowRate;
-  const service = total * FIXED.serviceRate;
+  const service = calcServiceFee(total);
+
+  // 更新服務費說明文字
+  const svcInfo = document.getElementById('svcInfo');
+  if (svcMode === 'p4') {
+    svcInfo.innerHTML = total > 0
+      ? `服務費 = 成交總價 <b>${fmt(total)}</b> 萬 × 4% = <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`
+      : '服務費 = 成交總價 × 4%';
+  } else if (svcMode === 'cap3') {
+    const raw = total * 0.03;
+    svcInfo.innerHTML = total > 0
+      ? `服務費 = 成交總價 <b>${fmt(total)}</b> 萬 × 3% = ${fmt(raw)} 萬 → 取 <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬${raw > 30 ? '（已達 30 萬上限）' : '（未達上限）'}`
+      : '服務費 = 成交總價 × 3%（上限 30 萬）';
+  } else {
+    svcInfo.innerHTML = `服務費 = 手動輸入 <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`;
+  }
 
   // 房地合一稅
   const buyPrice = v('buyPrice');
@@ -1195,6 +1251,9 @@ function setResult(r) {
   document.getElementById('r_net').textContent = fmt(r.net);
   document.getElementById('d_esc').textContent = fmt(r.escrow);
   document.getElementById('d_svc').textContent = fmt(r.service);
+  const svcLabelMap = { p4: '服務費（成交價 × 4%）', manual: '服務費（手動輸入）', cap3: '服務費（3% 上限30萬）' };
+  const dl = document.getElementById('d_svc_label');
+  if (dl) dl.textContent = svcLabelMap[svcMode];
   document.getElementById('d_land').textContent = fmt(r.landTax);
   document.getElementById('d_houseTax').textContent = fmt(r.houseTaxVal);
   document.getElementById('d_loan').textContent = fmt(r.loan);
@@ -1236,7 +1295,15 @@ function reverseCalc() {
   const { houseArea, parkP } = getHouseInfo();
   const r = hold.rate;
   const e = FIXED.escrowRate;
-  const s = FIXED.serviceRate;
+  // 反推時服務費率依模式：manual 視為固定金額，cap3/p4 為比例
+  let s, svcFixed = 0;
+  if (svcMode === 'manual') {
+    s = 0; svcFixed = v('svcManual');
+  } else if (svcMode === 'cap3') {
+    s = 0.03;
+  } else {
+    s = 0.04;
+  }
   const buyPrice = v('buyPrice');
   const buyCost = v('buyCost');
   const landTax = v('landTax');
@@ -1246,7 +1313,7 @@ function reverseCalc() {
 
   // 假設稅基為正
   const Cr = (buyPrice + buyCost + selfDeduct) * r;
-  const RHS = target + run + reg + clr + landTax + loan - Cr;
+  const RHS = target + run + reg + clr + landTax + loan + svcFixed - Cr;
   const denom = (1 - e - s) - (1 - s) * r;
 
   if (Math.abs(denom) < 1e-9) {
@@ -1259,11 +1326,11 @@ function reverseCalc() {
   let X = RHS / denom;
 
   // 驗算稅基，若計算出來稅基 <= 0，代表房地合一稅 = 0，用簡化式重算
-  let base = X - buyPrice - buyCost - X * s - selfDeduct;
+  let base = X - buyPrice - buyCost - X * s - svcFixed - selfDeduct;
   let note = '';
   if (base <= 0) {
     // 房地合一稅 = 0，重算
-    X = (target + run + reg + clr + landTax + loan) / (1 - e - s);
+    X = (target + run + reg + clr + landTax + loan + svcFixed) / (1 - e - s);
     note = '＊本情境房地合一稅基 ≤ 0，無需繳房地合一稅';
   }
 
@@ -1290,6 +1357,8 @@ function resetAll() {
   selfUse = false;
   document.getElementById('selfUseSwitch').classList.remove('on');
   document.getElementById('reverseOut').style.display = 'none';
+  document.getElementById('svcManual').value = '';
+  setSvcMode('p4');
   recalc();
 }
 
