@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>東京五天四夜行程｜2026/6/16 - 6/20</title>
+  <style>
+    :root {
+      --bg: #f7f3ee;
+      --card: #ffffff;
+      --ink: #2b2520;
+      --muted: #6f655f;
+      --line: #e6ddd4;
+      --accent: #9b5c35;
+      --accent-2: #d8a25f;
+      --soft: #fff7ec;
+      --rain: #eaf1f4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC",
+        "Microsoft JhengHei", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 18px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #2f241d 0%, #7f4f32 52%, #d8a25f 100%);
+      color: white;
+      padding: 34px 28px;
+      border-radius: 28px;
+      box-shadow: 0 14px 40px rgba(62, 43, 31, 0.18);
+      margin-bottom: 24px;
+    }
+
+    .hero .eyebrow {
+      letter-spacing: 0.12em;
+      font-size: 13px;
+      opacity: 0.88;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.18;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 17px;
+      opacity: 0.94;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 22px 0 0;
+    }
+
+    .meta {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 13px 14px;
+      border-radius: 18px;
+      backdrop-filter: blur(6px);
+    }
+
+    .meta b {
+      display: block;
+      font-size: 13px;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .meta span {
+      display: block;
+      margin-top: 3px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .notice {
+      background: var(--rain);
+      border: 1px solid #d7e3e8;
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+
+    .notice strong {
+      color: #31566b;
+    }
+
+    .section-title {
+      margin: 34px 0 14px;
+      font-size: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 18px 0 26px;
+    }
+
+    .summary a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .summary-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 15px 14px;
+      min-height: 112px;
+      transition: 0.18s ease;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(62, 43, 31, 0.11);
+    }
+
+    .summary-card .day-no {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .summary-card .title {
+      margin-top: 6px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .summary-card .area {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .hotel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .hotel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .hotel-card {
+      background: var(--soft);
+      border: 1px solid #f0dfc8;
+      border-radius: 20px;
+      padding: 17px;
+    }
+
+    .hotel-card h3 {
+      margin: 0 0 8px;
+      color: var(--accent);
+    }
+
+    .hotel-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .day-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 24px;
+      margin: 18px 0;
+      box-shadow: 0 10px 30px rgba(62, 43, 31, 0.06);
+    }
+
+    .day-head {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      width: 70px;
+      height: 70px;
+      border-radius: 22px;
+      display: grid;
+      place-items: center;
+      background: #2f241d;
+      color: #fff;
+      font-weight: 900;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .badge span {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      opacity: 0.8;
+    }
+
+    .day-head h2 {
+      margin: 0 0 6px;
+      font-size: 25px;
+      line-height: 1.35;
+    }
+
+    .day-head p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .route {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 0;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: #fbfaf8;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 14px;
+      color: #4f453f;
+    }
+
+    .time-block {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .time-block:last-child {
+      border-bottom: 0;
+    }
+
+    .time {
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .time-block h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
+
+    .time-block p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .highlight {
+      background: var(--soft);
+      border-left: 5px solid var(--accent-2);
+      padding: 13px 15px;
+      border-radius: 14px;
+      margin-top: 14px;
+      color: #4d3b2e;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      color: var(--accent);
+    }
+
+    ul {
+      padding-left: 22px;
+      margin: 10px 0 0;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    .footer-note {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .print-btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: white;
+      color: #2f241d;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    @media (max-width: 820px) {
+      .meta-grid,
+      .summary,
+      .hotel-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .day-head {
+        flex-direction: column;
+      }
+
+      .time-block {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      .hero,
+      .day-card,
+      .hotel,
+      .box,
+      .notice {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .summary,
+      .print-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">TOKYO 5 DAYS 4 NIGHTS</div>
+      <h1>東京五天四夜行程</h1>
+      <p class="subtitle">
+        主軸：老東京、祭典、雨季花景、江戶市場、現代藝術、藝伎表演。
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta">
+          <b>日期</b>
+          <span>2026/6/16 - 6/20</span>
+        </div>
+        <div class="meta">
+          <b>天數</b>
+          <span>五天四夜</span>
+        </div>
+        <div class="meta">
+          <b>住宿建議</b>
+          <span>赤坂／神樂坂</span>
+        </div>
+        <div class="meta">
+          <b>行程調性</b>
+          <span>懂東京版</span>
+        </div>
+      </div>
+
+      <a class="print-btn" href="javascript:window.print()">列印／存成 PDF</a>
+    </section>
+
+    <section class="notice">
+      <strong>行程提醒：</strong>
+      6 月東京屬梅雨季，這份行程刻意把雨天也好玩的點排進去。
+      核心不是硬塞景點，而是把季節、文化、動線接起來。
+    </section>
+
+    <h2 class="section-title">五天總覽</h2>
+    <section class="summary">
+      <a href="#day1">
+        <div class="summary-card">
+          <div class="day-no">DAY 1</div>
+          <div class="title">抵達東京，進入江戶氣場</div>
+          <div class="area">赤坂、日枝神社、神樂坂</div>
+        </div>
+      </a>
+      <a href="#day2">
+        <div class="summary-card">
+          <div class="day-no">DAY 2</div>
+          <div class="title">老東京慢走＋歌舞伎</div>
+          <div class="area">谷根千、銀座、東銀座</div>
+        </div>
+      </a>
+      <a href="#day3">
+        <div class="summary-card">
+          <div class="day-no">DAY 3</div>
+          <div class="title">雨天高級版</div>
+          <div class="area">豐洲市場、麻布台、東京鐵塔</div>
+        </div>
+      </a>
+      <a href="#day4">
+        <div class="summary-card">
+          <div class="day-no">DAY 4</div>
+          <div class="title">北鎌倉紫陽花＋海線</div>
+          <div class="area">北鎌倉、長谷寺、江之電</div>
+        </div>
+      </a>
+      <a href="#day5">
+        <div class="summary-card">
+          <div class="day-no">DAY 5</div>
+          <div class="title">藝伎表演＋職人街收尾</div>
+          <div class="area">藏前、合羽橋、淺草</div>
+        </div>
+      </a>
+    </section>
+
+    <section class="hotel">
+      <h2 class="section-title" style="margin-top:0;">住宿建議</h2>
+      <p>
+        不建議住新宿車站正中心。方便歸方便，但太吵、太觀光、晚上品質也比較混。
+        這趟建議住赤坂／溜池山王、神樂坂／飯田橋、日本橋／京橋／東京車站周邊。
+      </p>
+
+      <div class="hotel-grid">
+        <div class="hotel-card">
+          <h3>首選｜赤坂／溜池山王</h3>
+          <p>地鐵強、吃的多、晚上安全，去銀座、六本木、表參道、東京車站都順。</p>
+        </div>
+        <div class="hotel-card">
+          <h3>第二選｜神樂坂／飯田橋</h3>
+          <p>保留石板巷、料亭感、小酒館與法式餐廳，氣質比新宿更成熟。</p>
+        </div>
+        <div class="hotel-card">
+          <h3>第三選｜日本橋／京橋</h3>
+          <p>適合成田進出、行李多、想讓交通最省腦的人。</p>
+        </div>
+      </div>
+
+      <div class="highlight">
+        訂房條件：離地鐵 5 分鐘內、房間 18㎡ 以上、可寄放行李、Google 評價 4.2 以上。
+      </div>
+    </section>
+
+    <section class="day-card" id="day1">
+      <div class="day-head">
+        <div class="badge"><span>DAY</span>1</div>
+        <div>
+          <h2>6/16（二）抵達東京：先進入江戶東京氣場</h2>
+          <p>第一天不急著衝百貨，先用祭典與老街區開場。</p>
+          <div class="route">
+            <span class="pill">飯店放行李</span>
+            <span class="pill">赤坂日枝神社</span>
+            <span class="pill">山王祭尾聲</span>
+            <span class="pill">神樂坂晚餐</span>
+            <span class="pill">荒木町小酒館</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">下午</div>
+        <div>
+          <h3>飯店放行李 → 赤坂日枝神社／山王祭尾聲</h3>
+          <p>
+            這日期剛好撞到山王祭尾聲。第一天不排觀光芭樂點，直接從東京的歷史感開始。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">晚上</div>
+        <div>
+          <h3>神樂坂晚餐</h3>
+          <p>
+            找小料理、蕎麥、串燒、壽喜燒或居酒屋。重點不是名店，而是低調、有生活感。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">加碼</div>
+        <div>
+          <h3>荒木町／四谷三丁目小酒館</h3>
+          <p>
+            比黃金街成熟，不是觀光拍照區，比較像東京中年人真正喝一杯的地方。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="day-card" id="day2">
+      <div class="day-head">
+        <div class="badge"><span>DAY</span>2</div>
+        <div>
+          <h2>6/17（三）老東京慢走：谷根千＋歌舞伎座</h2>
+          <p>這天主軸是老東京生活感，不是霓虹燈東京。</p>
+          <div class="route">
+            <span class="pill">根津神社</span>
+            <span class="pill">谷中靈園</span>
+            <span class="pill">夕陽階梯</span>
+            <span class="pill">谷中銀座</span>
+            <span class="pill">歌舞伎座</span>
+            <span class="pill">有樂町高架下</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">上午</div>
+        <div>
+          <h3>根津神社 → 谷中 → 千駄木</h3>
+          <p>
+            谷根千保留老東京窄巷、木造房子、神社、老咖啡館與復古甜點店。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">下午</div>
+        <div>
+          <h3>銀座／東銀座 → 歌舞伎座</h3>
+          <p>
+            不一定要看整場，第一次接觸可以看單幕席，比較剛好，也比較不會坐到懷疑人生。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">晚上</div>
+        <div>
+          <h3>銀座巷弄晚餐 → 有樂町高架下</h3>
+          <p>
+            可以吃蕎麥、天婦羅、鰻魚飯或站食壽司。吃完走到有樂町高架下，看東京上班族下班後的樣子。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="day-card" id="day3">
+      <div class="day-head">
+        <div class="badge"><span>DAY</span>3</div>
+        <div>
+          <h2>6/18（四）雨天高級版：豐洲市場＋麻布台 teamLab</h2>
+          <p>這天如果下雨，反而剛好。市場、室內展、東京鐵塔夜景都適合雨天。</p>
+          <div class="route">
+            <span class="pill">豐洲市場</span>
+            <span class="pill">千客萬來</span>
+            <span class="pill">足湯</span>
+            <span class="pill">teamLab Borderless</span>
+            <span class="pill">東京鐵塔</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">早上</div>
+        <div>
+          <h3>豐洲市場／千客萬來</h3>
+          <p>
+            早餐吃市場壽司或海鮮丼，中段在千客萬來邊走邊吃，尾段可以泡足湯看海灣。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">下午</div>
+        <div>
+          <h3>teamLab Borderless 麻布台 Hills</h3>
+          <p>
+            雨天排室內展很聰明。這個點有未來東京感，跟早上的江戶市場形成反差。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">晚上</div>
+        <div>
+          <h3>麻布台 → 東京鐵塔 → 赤坂</h3>
+          <p>
+            雨天晚上看東京鐵塔，地面反光會很有電影感。這天不要硬塞太多點。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="day-card" id="day4">
+      <div class="day-head">
+        <div class="badge"><span>DAY</span>4</div>
+        <div>
+          <h2>6/19（五）離開東京半步：北鎌倉紫陽花＋江之電海線</h2>
+          <p>6 月雨季最強的景，是紫陽花。這天要拍出雨季日本的質感。</p>
+          <div class="route">
+            <span class="pill">北鎌倉</span>
+            <span class="pill">明月院／淨智寺</span>
+            <span class="pill">長谷寺</span>
+            <span class="pill">江之電</span>
+            <span class="pill">七里濱</span>
+            <span class="pill">惠比壽／中目黑</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">上午</div>
+        <div>
+          <h3>東京出發 → 北鎌倉</h3>
+          <p>
+            先走明月院或淨智寺，讓整天從安靜寺院感開始。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">下午</div>
+        <div>
+          <h3>長谷寺 → 江之電 → 稻村崎／七里濱</h3>
+          <p>
+            不是單純打卡江之島，而是用紫陽花、寺院、電車與海線做出完整季節感。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">晚上</div>
+        <div>
+          <h3>回東京吃惠比壽或中目黑</h3>
+          <p>
+            看完海線與寺院，晚上回惠比壽吃小居酒屋，整體質感會比較完整。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="day-card" id="day5">
+      <div class="day-head">
+        <div class="badge"><span>DAY</span>5</div>
+        <div>
+          <h2>6/20（六）最後一天：淺草藝伎表演＋藏前職人街</h2>
+          <p>最後一天不硬趕，用職人街與傳統表演收尾。</p>
+          <div class="route">
+            <span class="pill">藏前</span>
+            <span class="pill">合羽橋</span>
+            <span class="pill">淺草文化觀光中心</span>
+            <span class="pill">藝伎表演</span>
+            <span class="pill">機場</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">上午</div>
+        <div>
+          <h3>藏前／合羽橋</h3>
+          <p>
+            藏前有咖啡、文具、皮件、小職人店。合羽橋可以買廚具、杯盤、刀具，比機場伴手禮更有味道。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">下午</div>
+        <div>
+          <h3>淺草藝伎 Ozashiki Odori</h3>
+          <p>
+            這比單純去雷門拍照更有層次。雷門可以拍，但真正主菜是看懂淺草的文化。
+          </p>
+        </div>
+      </div>
+
+      <div class="time-block">
+        <div class="time">傍晚</div>
+        <div>
+          <h3>回飯店拿行李 → 機場</h3>
+          <p>
+            如果是晚班機，可以最後補東京車站地下街或日本橋伴手禮。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div class="box">
+        <h3>這趟最值得討論的亮點</h3>
+        <ul>
+          <li>山王祭尾聲：不是每天都有的東京代表性祭典。</li>
+          <li>梅雨季紫陽花：下雨反而更漂亮。</li>
+          <li>淺草藝伎表演：剛好卡到 6/20 週六場次。</li>
+          <li>豐洲市場＋teamLab：江戶市場與未來東京放同一天。</li>
+          <li>谷根千＋神樂坂：不是觀光東京，是生活裡的東京。</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h3>先處理的事項</h3>
+        <ul>
+          <li>飯店先鎖赤坂／溜池山王。</li>
+          <li>teamLab Borderless 門票先買。</li>
+          <li>6/20 淺草藝伎表演先看票。</li>
+          <li>鎌倉長谷寺紫陽花路線，提前確認是否需預約或加購入場票。</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      備註：本版先不修改行程內容，主要用來給朋友快速看懂與討論。後續可再依班機、預算、同行人數調整成逐小時版本。
+    </p>
+  </main>
+</body>
+</html>
