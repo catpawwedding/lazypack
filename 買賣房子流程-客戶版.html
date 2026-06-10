@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>買賣房子，到底在幹嘛？｜中壢專業房仲喵爸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EFEDE4;
+    --ink:#2C2823;
+    --ink-soft:#6E665A;
+    --pine:#21534A;
+    --pine-deep:#173B34;
+    --honey:#E0982C;
+    --honey-soft:#F7E7C7;
+    --brick:#C46A47;
+    --card:#FFFFFF;
+    --line:#E2DDD0;
+    --shadow:0 18px 40px -22px rgba(35,55,48,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Noto Sans TC",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+
+  /* ---------- 標頭 ---------- */
+  .topbar{display:flex;align-items:center;gap:10px;padding:22px 0 6px}
+  .topbar .paw{width:30px;height:30px;flex:none}
+  .topbar b{font-weight:900;font-size:.95rem;letter-spacing:.02em}
+  .topbar span{color:var(--ink-soft);font-size:.82rem}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:34px 0 18px}
+  .eyebrow{
+    display:inline-block;font-weight:700;font-size:.8rem;letter-spacing:.16em;
+    color:var(--pine);background:#fff;border:1.5px solid var(--line);
+    padding:6px 14px;border-radius:999px;
+  }
+  .hero h1{
+    font-weight:900;line-height:1.25;margin:18px 0 14px;
+    font-size:clamp(2rem,7vw,3.2rem);letter-spacing:-.01em;
+  }
+  .hero h1 em{font-style:normal;color:var(--pine);position:relative;white-space:nowrap}
+  .hero h1 em::after{
+    content:"";position:absolute;left:-2px;right:-2px;bottom:.08em;height:.34em;
+    background:var(--honey-soft);z-index:-1;border-radius:4px;
+  }
+  .lede{font-size:clamp(1.05rem,2.6vw,1.25rem);color:var(--ink-soft);max-width:34em}
+  .lede b{color:var(--ink);font-weight:700}
+
+  /* ---------- 路徑總覽 ---------- */
+  .path{
+    background:var(--pine);color:#fff;border-radius:24px;
+    padding:30px 24px 26px;margin:30px 0 14px;box-shadow:var(--shadow);
+  }
+  .path .ptitle{font-weight:700;font-size:.95rem;opacity:.85;margin-bottom:20px;text-align:center}
+  .path .ptitle b{color:#fff;background:rgba(255,255,255,.14);padding:3px 10px;border-radius:999px}
+  .steps{
+    list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+    position:relative;align-items:start;
+  }
+  .steps .trail{
+    position:absolute;top:30px;left:12%;right:12%;height:2px;
+    background:repeating-linear-gradient(90deg,rgba(255,255,255,.45) 0 8px,transparent 8px 16px);
+    z-index:0;
+  }
+  .steps li{position:relative;z-index:1;text-align:center}
+  .steps .dot{
+    width:60px;height:60px;margin:0 auto 12px;border-radius:50%;
+    background:#fff;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 0 rgba(0,0,0,.12);
+  }
+  .steps .dot svg{width:30px;height:30px}
+  .steps .n{font-family:"Baloo 2",cursive;font-weight:700;color:var(--honey);font-size:.8rem;display:block;margin-bottom:3px}
+  .steps .nm{font-weight:700;font-size:1.05rem;display:block}
+  .steps .sub{font-size:.78rem;opacity:.8;display:block;margin-top:2px}
+
+  /* ---------- 卡片區 ---------- */
+  .cards{display:flex;flex-direction:column;gap:18px;margin:26px 0 8px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:22px;
+    padding:26px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--pine);
+  }
+  .chead{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .badge{
+    font-family:"Baloo 2",cursive;font-weight:800;font-size:1.5rem;color:#fff;
+    background:var(--pine);width:48px;height:48px;border-radius:14px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .chead h2{font-size:1.5rem;font-weight:900;letter-spacing:.01em}
+  .chead .tag{
+    margin-left:auto;font-size:.74rem;font-weight:700;color:var(--pine);
+    background:var(--honey-soft);padding:5px 11px;border-radius:999px;white-space:nowrap;
+  }
+  .plain{
+    font-size:1.12rem;font-weight:700;color:var(--ink);
+    background:#FBF8F1;border:1px dashed var(--line);border-radius:14px;
+    padding:13px 16px;margin:10px 0 18px;
+  }
+  .plain::before{content:"白話講 → ";color:var(--brick);font-size:.95rem}
+  .row{display:flex;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
+  .row:first-of-type{border-top:none}
+  .row .k{
+    flex:none;width:78px;font-weight:700;font-size:.9rem;color:var(--pine);
+    display:flex;align-items:center;gap:6px;
+  }
+  .row .v{font-size:1rem;color:var(--ink)}
+  .row .v ul{margin:0;padding-left:1.1em}
+  .row .v li{margin:2px 0}
+  .money{background:#FBF3E2;border-radius:12px}
+  .money .k{color:var(--honey)}
+  .money .v b{color:var(--brick)}
+
+  /* ---------- 安心盒 ---------- */
+  .safe{
+    background:var(--pine-deep);color:#fff;border-radius:22px;
+    padding:28px 26px;margin:26px 0;box-shadow:var(--shadow);
+  }
+  .safe h3{font-size:1.35rem;font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+  .safe h3 svg{width:26px;height:26px;flex:none}
+  .safe p{opacity:.92}
+  .safe p b{color:var(--honey);font-weight:700}
+
+  /* ---------- FAQ ---------- */
+  .faq{margin:26px 0}
+  .faq h3{font-size:1.5rem;font-weight:900;text-align:center;margin-bottom:18px}
+  details{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:4px 20px;margin-bottom:12px;
+  }
+  summary{
+    font-weight:700;font-size:1.05rem;padding:14px 0;cursor:pointer;list-style:none;
+    display:flex;align-items:center;gap:10px;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"Q";font-family:"Baloo 2",cursive;font-weight:800;color:var(--honey);font-size:1.2rem}
+  summary::after{content:"+";margin-left:auto;color:var(--ink-soft);font-size:1.4rem;transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:0 0 16px 26px;color:var(--ink-soft);line-height:1.8}
+
+  /* ---------- CTA ---------- */
+  .cta{
+    background:var(--honey);border-radius:24px;padding:34px 26px;text-align:center;
+    margin:30px 0;box-shadow:var(--shadow);
+  }
+  .cta .paw{width:42px;height:42px;margin:0 auto 8px;display:block}
+  .cta h3{font-size:clamp(1.4rem,4vw,1.8rem);font-weight:900;color:var(--pine-deep);margin-bottom:6px}
+  .cta p{color:#6b4a1c;font-weight:500;margin-bottom:20px}
+  .btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;
+    padding:13px 26px;border-radius:999px;font-size:1.02rem;transition:transform .15s,box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn-line{background:var(--pine);color:#fff;box-shadow:0 8px 0 var(--pine-deep)}
+  .btn-line:hover{box-shadow:0 6px 0 var(--pine-deep)}
+  .btn-tel{background:#fff;color:var(--pine);box-shadow:0 8px 0 #d9c9a3}
+  .btn-tel:hover{box-shadow:0 6px 0 #d9c9a3}
+
+  footer{text-align:center;padding:10px 0 50px;color:var(--ink-soft);font-size:.84rem}
+  footer .note{font-size:.78rem;opacity:.8;max-width:30em;margin:6px auto 0}
+
+  /* ---------- 動畫 ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:560px){
+    .steps{grid-template-columns:repeat(2,1fr);gap:18px 8px}
+    .steps .trail{display:none}
+    .chead .tag{margin-left:0;width:100%;order:3;margin-top:4px;text-align:center}
+    .chead{flex-wrap:wrap}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="paw" viewBox="0 0 100 100">
+    <ellipse cx="50" cy="68" rx="24" ry="20" fill="currentColor"/>
+    <ellipse cx="26" cy="44" rx="9" ry="12" fill="currentColor"/>
+    <ellipse cx="44" cy="33" rx="9" ry="13" fill="currentColor"/>
+    <ellipse cx="66" cy="35" rx="9" ry="13" fill="currentColor"/>
+    <ellipse cx="80" cy="50" rx="8" ry="11" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <svg class="paw" style="color:var(--pine)" aria-hidden="true"><use href="#paw"/></svg>
+    <b>中壢專業房仲喵爸</b><span>· 有巢氏房屋</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">買房賣房不用怕</span>
+    <h1>買賣房子，<br>其實就 <em>走過 4 關</em></h1>
+    <p class="lede">很多人怕買賣房子，是因為<b>不知道接下來會發生什麼事</b>。<br>別擔心，整個過程就 4 個步驟，跟著貓腳印走一遍，你就全懂了。</p>
+  </section>
+
+  <!-- 路徑總覽 -->
+  <section class="path reveal">
+    <div class="ptitle">從簽約到拿鑰匙，<b>大約 1～2 個月</b></div>
+    <ul class="steps">
+      <span class="trail"></span>
+      <li>
+        <div class="dot"><svg style="color:var(--pine)"><use href="#paw"/></svg></div>
+        <span class="n">STEP 1</span><span class="nm">簽約</span><span class="sub">講好就簽</span>
+      </li>
+      <li>
+        <div class="dot"><svg style="color:var(--pine)"><use href="#paw"/></svg></div>
+        <span class="n">STEP 2</span><span class="nm">用印</span><span class="sub">蓋章報稅</span>
+      </li>
+      <li>
+        <div class="dot"><svg style="color:var(--pine)"><use href="#paw"/></svg></div>
+        <span class="n">STEP 3</span><span class="nm">完稅</span><span class="sub">繳稅貸款</span>
+      </li>
+      <li>
+        <div class="dot"><svg style="color:var(--honey)"><use href="#paw"/></svg></div>
+        <span class="n">STEP 4</span><span class="nm">交屋</span><span class="sub">拿到鑰匙</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 卡片 -->
+  <div class="cards">
+
+    <!-- 1 簽約 -->
+    <section class="card reveal">
+      <div class="chead">
+        <div class="badge">1</div>
+        <h2>簽約</h2>
+        <span class="tag">第 0 天</span>
+      </div>
+      <p class="plain">買賣雙方把條件談好，白紙黑字簽下去。</p>
+      <div class="row">
+        <div class="k">在幹嘛</div>
+        <div class="v">把房子的現況、付款時間、誰幾號搬、總價，全部講清楚，再請代書（幫忙跑流程的專業人員）一起簽〈不動產買賣契約書〉。</div>
+      </div>
+      <div class="row">
+        <div class="k">你要做</div>
+        <div class="v">
+          <ul>
+            <li>帶<b>身分證、印章</b>到場（本人不到要附授權書）</li>
+            <li>賣方多帶：<b>土地、建物權狀</b></li>
+            <li>準備一點代書費（約 1,000 元）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row money">
+        <div class="k">錢</div>
+        <div class="v">簽完 3～7 天，買方付 <b>簽約款（約總價 10%）</b>，匯進「履約保證專戶」保管。同時，買方開始辦貸款。</div>
+      </div>
+    </section>
+
+    <!-- 2 用印 -->
+    <section class="card reveal">
+      <div class="chead">
+        <div class="badge">2</div>
+        <h2>用印</h2>
+        <span class="tag">＋約 1～2 週</span>
+      </div>
+      <p class="plain">蓋章、報稅，這筆交易正式算數。</p>
+      <div class="row">
+        <div class="k">在幹嘛</div>
+        <div class="v">代書拿雙方的印鑑去政府機關蓋章、申報該繳的稅。這一步等於替交易「蓋上正式確認的章」。</div>
+      </div>
+      <div class="row">
+        <div class="k">你要做</div>
+        <div class="v">
+          <ul>
+            <li>賣方去戶政事務所申請<b>印鑑證明</b>（帶身分證、印章，說「不動產登記」用，申請一份）</li>
+            <li>買方繼續配合銀行辦貸款</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row money">
+        <div class="k">錢</div>
+        <div class="v">買方再付 <b>用印款（約總價 10%）</b>，一樣匯進履約保證專戶。</div>
+      </div>
+    </section>
+
+    <!-- 3 完稅 -->
+    <section class="card reveal">
+      <div class="chead">
+        <div class="badge">3</div>
+        <h2>完稅</h2>
+        <span class="tag">＋約 2～4 週</span>
+      </div>
+      <p class="plain">稅都繳清、貸款也下來了，準備交屋。</p>
+      <div class="row">
+        <div class="k">在幹嘛</div>
+        <div class="v">代書幫忙把各種稅費繳清；買方的貸款核准、不夠的部分用現金補上；賣方的舊貸款也會被還掉、塗銷。</div>
+      </div>
+      <div class="row">
+        <div class="k">你要做</div>
+        <div class="v">
+          <ul>
+            <li>交屋前一起<b>檢查房子</b>：水龍頭、馬桶會不會通、開關插座、門窗、有沒有留下垃圾或雜物</li>
+            <li>拍下水錶、電錶、瓦斯錶，方便日後各付各的</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row money">
+        <div class="k">錢</div>
+        <div class="v">買方付 <b>完稅款</b>，銀行也準備撥款。</div>
+      </div>
+    </section>
+
+    <!-- 4 交屋 -->
+    <section class="card reveal" style="--pine:#1c6356">
+      <div class="chead">
+        <div class="badge" style="background:var(--honey)">4</div>
+        <h2>交屋</h2>
+        <span class="tag">最後一步 🔑</span>
+      </div>
+      <p class="plain">銀貨兩訖，鑰匙到手，房子是你的了！</p>
+      <div class="row">
+        <div class="k">在幹嘛</div>
+        <div class="v">代書把最後的錢和稅算清楚（房屋稅、地價稅、管理費，誰住的時間誰付），再把<b>權狀</b>交給買方。</div>
+      </div>
+      <div class="row">
+        <div class="k">你要做</div>
+        <div class="v">
+          <ul>
+            <li>賣方交出<b>鑰匙、信箱鑰匙、門禁晶片、車位遙控器</b></li>
+            <li>買賣雙方簽收，拿好各自的收據、發票</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row money">
+        <div class="k">錢</div>
+        <div class="v">尾款（貸款撥款）匯給賣方，<b>剩餘價金入帳，交易完成</b>。</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 安心盒 -->
+  <section class="safe reveal">
+    <h3><svg style="color:var(--honey)"><use href="#paw"/></svg>我的錢會不會被誰捲走？</h3>
+    <p>不會。整個過程的錢都放在<b>「履約保證專戶」</b>——一個中立的第三方保管帳戶。錢不會經過房仲或代書的口袋，要等到該完成的步驟都完成，錢才會放行。<b>該給的時候才給、該拿的時候才拿</b>，雙方都安心。</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq reveal">
+    <h3>大家最常問的問題</h3>
+    <details>
+      <summary>整個流程要多久？</summary>
+      <p>一般大約 1～2 個月，主要看貸款審核的速度。如果文件齊全、雙方配合，會更快；遇到比較複雜的狀況才會拉長。</p>
+    </details>
+    <details>
+      <summary>「代書」是做什麼的？</summary>
+      <p>代書（正式名稱是地政士）是負責跑公家機關、報稅、辦過戶的專業人員。簽約、用印、繳稅、交屋這些手續，都由代書幫雙方處理，不用自己摸索。</p>
+    </details>
+    <details>
+      <summary>我要先準備哪些證件？</summary>
+      <p>最基本的是<b>身分證和印章</b>。賣方還要準備土地與建物權狀、印鑑證明；買方辦貸款時會用到雙證件、收入證明、戶籍謄本。每一步該帶什麼，喵爸都會提前提醒你。</p>
+    </details>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta reveal">
+    <svg class="paw" style="color:var(--pine)" aria-hidden="true"><use href="#paw"/></svg>
+    <h3>還有不懂的，直接問喵爸</h3>
+    <p>買賣房子是人生大事，有問題不用憋著，一句話就能問。</p>
+    <div class="btns">
+      <a class="btn btn-line" href="https://line.me/ti/p/M-tek5DmH6">加 LINE 問喵爸</a>
+      <a class="btn btn-tel" href="tel:0925842111">打電話 0925-842-111</a>
+    </div>
+  </section>
+
+  <footer>
+    中壢專業房仲喵爸 · 有巢氏房屋
+    <p class="note">本頁為流程說明，幫助你快速了解買賣房子的步驟。實際付款比例、時間與細節，以雙方簽訂的契約為準。</p>
+  </footer>
+
+</div>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
