@@ -276,6 +276,10 @@
           <button class="btn" id="removeBtn" disabled>移除塗抹處</button>
           <button class="btn" id="undoBtn" disabled>復原上一步</button>
         </div>
+        <button class="btn primary" id="downloadBtn2" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          下載修好的照片
+        </button>
       </div>
     </div>
     <div class="credit">本智能體製作人：中壢專業房仲喵爸／黃舶瑋　0925-842-111</div>
@@ -517,7 +521,7 @@
   function enableUI(on){
     $('paneLight').classList.toggle('locked',!on);
     $('paneRemove').classList.toggle('locked',!on);
-    ['autoAllBtn','autoLightBtn','autoLevelBtn','resetBtn','downloadBtn','newBtn'].forEach(id=>$(id).disabled=!on);
+    ['autoAllBtn','autoLightBtn','autoLevelBtn','resetBtn','downloadBtn','downloadBtn2','newBtn'].forEach(id=>$(id).disabled=!on);
     $('removeBtn').disabled=!on||!endpoint();
     $('oneClickBtn').disabled=!on||!endpoint();
     refreshSetupNotice();
@@ -631,7 +635,7 @@
   function maskHasContent(){const d=mctx.getImageData(0,0,mask.width,mask.height).data;for(let i=3;i<d.length;i+=4)if(d[i]>10)return true;return false;}
   function targetSize(){
     let w=imgFull.width,h=imgFull.height;
-    const long=Math.max(w,h),scale=Math.min(1,1536/long);
+    const long=Math.max(w,h),scale=Math.min(1,2048/long);
     w=Math.max(256,Math.round(w*scale/16)*16);
     h=Math.max(256,Math.round(h*scale/16)*16);
     return{w,h};
@@ -726,20 +730,62 @@
   window.addEventListener('paste',e=>{const it=[...(e.clipboardData.files||[])];if(it[0])loadFile(it[0]);});
 
   /* ---------- export ---------- */
-  $('downloadBtn').addEventListener('click',()=>{
-    if(!hasImage)return;$('downloadBtn').disabled=true;toast('輸出中…');
+  /* ---------- export: fixed 2368x1792 (landscape) / 1792x2368 (portrait), PNG 32-bit, 96 dpi ---------- */
+  const CRC_TABLE=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+  function crc32(bytes){let c=0xFFFFFFFF;for(let i=0;i<bytes.length;i++)c=CRC_TABLE[(c^bytes[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+  function pngWith96Dpi(buf){
+    // 在 IHDR 後插入 pHYs 區塊：96 dpi = 3780 pixels/meter
+    const src=new Uint8Array(buf);
+    const ppm=3780;
+    const data=new Uint8Array(9);
+    const dv=new DataView(data.buffer);
+    dv.setUint32(0,ppm);dv.setUint32(4,ppm);data[8]=1;
+    const typeAndData=new Uint8Array(13);
+    typeAndData.set([0x70,0x48,0x59,0x73],0);   // 'pHYs'
+    typeAndData.set(data,4);
+    const crc=crc32(typeAndData);
+    const chunk=new Uint8Array(21);
+    const cv=new DataView(chunk.buffer);
+    cv.setUint32(0,9);chunk.set(typeAndData,4);cv.setUint32(17,crc);
+    // IHDR = 8(簽名)+4(長度)+4(型別)+13(資料)+4(CRC) = 33 bytes
+    const insertAt=33;
+    const out=new Uint8Array(src.length+21);
+    out.set(src.subarray(0,insertAt),0);
+    out.set(chunk,insertAt);
+    out.set(src.subarray(insertAt),insertAt+21);
+    return new Blob([out],{type:'image/png'});
+  }
+  function doDownload(btn){
+    if(!hasImage)return;
+    btn.disabled=true;toast('輸出中…');
     setTimeout(()=>{try{
-      const fdata=imgFull.getContext('2d').getImageData(0,0,imgFull.width,imgFull.height);
-      const buf=document.createElement('canvas');buf.width=imgFull.width;buf.height=imgFull.height;
-      buf.getContext('2d').putImageData(processTone(fdata),0,0);
-      const geom=getGeomCanvas(buf);
-      const out=document.createElement('canvas');out.width=geom.width;out.height=geom.height;
-      const octx=out.getContext('2d');octx.fillStyle='#000';octx.fillRect(0,0,out.width,out.height);octx.drawImage(geom,0,0);
-      out.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);
-        a.download='修圖_'+new Date().toISOString().slice(0,16).replace(/[-:T]/g,'')+'.jpg';a.click();
-        setTimeout(()=>URL.revokeObjectURL(a.href),1000);$('downloadBtn').disabled=false;toast('已下載');},'image/jpeg',0.92);
-    }catch(err){$('downloadBtn').disabled=false;toast('輸出失敗，照片可能太大');}},30);
-  });
+      const baked=bakedFullCanvas();
+      const land=baked.width>=baked.height;
+      const TW=land?2368:1792, TH=land?1792:2368;
+      const out=document.createElement('canvas');out.width=TW;out.height=TH;
+      const octx=out.getContext('2d');
+      octx.imageSmoothingEnabled=true;octx.imageSmoothingQuality='high';
+      octx.fillStyle='#000';octx.fillRect(0,0,TW,TH);
+      const sc=Math.max(TW/baked.width,TH/baked.height);
+      const dw=baked.width*sc,dh=baked.height*sc;
+      octx.drawImage(baked,(TW-dw)/2,(TH-dh)/2,dw,dh);
+      out.toBlob(async b=>{
+        try{
+          const buf=await b.arrayBuffer();
+          const blob=pngWith96Dpi(buf);
+          const a=document.createElement('a');
+          a.href=URL.createObjectURL(blob);
+          a.download='修圖_'+new Date().toISOString().slice(0,16).replace(/[-:T]/g,'')+'.png';
+          a.click();
+          setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+          toast('已下載 '+TW+'\u00d7'+TH+' PNG');
+        }catch(e){toast('輸出失敗');}
+        finally{btn.disabled=false;}
+      },'image/png');
+    }catch(err){btn.disabled=false;toast('輸出失敗，照片可能太大');}},30);
+  }
+  $('downloadBtn').addEventListener('click',()=>doDownload($('downloadBtn')));
+  $('downloadBtn2').addEventListener('click',()=>doDownload($('downloadBtn2')));
 
   window.addEventListener('resize',()=>{if(hasImage){positionHandle();sizeBrushCursor();}});
   refreshSetupNotice();
