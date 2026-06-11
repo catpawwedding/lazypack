@@ -86,31 +86,32 @@
   .pane.on{display:block}
   .pane.locked{opacity:.4;pointer-events:none;filter:grayscale(.3)}
 
-  .row{padding:13px 0 4px;border-bottom:1px solid #2a313d}
+  .row{padding:7px 0 2px;border-bottom:1px solid #2a313d}
   .row:last-child{border-bottom:none}
-  .row .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
-  .row label{font-size:13.5px;font-weight:600}
-  .row .hint{font-size:11px;color:var(--muted);font-weight:500;margin-top:-4px;margin-bottom:8px}
-  .row .val{font-size:12px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:42px;text-align:right}
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background:var(--panel-2);outline:none;cursor:pointer}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:var(--text);border:3px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.4)}
-  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--text);border:3px solid var(--panel)}
+  .row .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+  .row label{font-size:12px;font-weight:600}
+  .row .hint{font-size:10px;color:var(--muted);font-weight:500;margin-top:-2px;margin-bottom:4px}
+  .row .val{font-size:11px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:38px;text-align:right}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:4px;background:var(--panel-2);outline:none;cursor:pointer;margin:2px 0 4px}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--text);border:2px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.4)}
+  input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--text);border:2px solid var(--panel)}
   input.rm::-webkit-slider-thumb{background:var(--remove)} input.rm::-moz-range-thumb{background:var(--remove)}
 
   .toggles{display:flex;gap:8px;padding:14px 0 4px;flex-wrap:wrap}
-  .auto-zone{padding:12px 0 10px;border-bottom:1px solid #2a313d}
-  .auto-main{width:100%;font-family:inherit;font-size:14px;font-weight:700;color:var(--accent-ink);
-    background:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:12px;cursor:pointer;transition:.15s;
+  .auto-zone{padding:10px 0 8px;border-bottom:1px solid #2a313d}
+  .auto-main{width:100%;font-family:inherit;font-size:13px;font-weight:700;color:var(--accent-ink);
+    background:var(--accent);border:1px solid var(--accent);border-radius:9px;padding:10px;cursor:pointer;transition:.15s;
     display:flex;align-items:center;justify-content:center;gap:8px}
   .auto-main:hover{filter:brightness(1.05)}
   .auto-main:disabled{opacity:.4;cursor:not-allowed}
-  .auto-main svg{width:16px;height:16px}
-  .auto-pair{display:flex;gap:8px;margin-top:8px}
-  .auto-sub{flex:1;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text);
-    background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:10px 8px;cursor:pointer;transition:.15s}
+  .auto-main svg{width:15px;height:15px}
+  .auto-pair{display:flex;gap:7px;margin-top:7px}
+  .auto-sub{flex:1;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--text);
+    background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:8px 6px;cursor:pointer;transition:.15s}
   .auto-sub:hover{border-color:var(--accent);color:var(--accent)}
   .auto-sub:disabled{opacity:.4;cursor:not-allowed}
-  .auto-zone .toggles{padding:10px 0 0}
+  .auto-zone .toggles{padding:8px 0 0}
+  .auto-zone .chip{padding:7px 8px;font-size:11.5px;min-width:104px}
   .chip{flex:1;min-width:118px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:var(--panel-2);
     border:1px solid transparent;border-radius:9px;padding:9px 10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
   .chip[aria-pressed=true]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
@@ -209,7 +210,8 @@
       </div>
       <div class="row"><div class="top"><label>水平校正（左右）</label><span class="val" id="vAngle">0°</span></div><input type="range" id="angle" min="-100" max="100" value="0"></div>
       <div class="row"><div class="top"><label>垂直校正（上下）</label><span class="val" id="vVert">0</span></div>
-        <div class="hint">修正牆面、門窗往內倒的傾斜</div><input type="range" id="vert" min="-100" max="100" value="0"></div>
+        <input type="range" id="vert" min="-100" max="100" value="0"></div>
+      <div class="row"><div class="top"><label>旋轉</label><span class="val" id="vRotate">0°</span></div><input type="range" id="rotate" min="-45" max="45" value="0"></div>
       <div class="row"><div class="top"><label>曝光</label><span class="val" id="vExposure">0</span></div><input type="range" id="exposure" min="-100" max="100" value="0"></div>
       <div class="row"><div class="top"><label>亮度</label><span class="val" id="vBrightness">0</span></div><input type="range" id="brightness" min="-100" max="100" value="0"></div>
       <div class="row"><div class="top"><label>對比</label><span class="val" id="vContrast">0</span></div><input type="range" id="contrast" min="-100" max="100" value="0"></div>
@@ -276,7 +278,7 @@
   const S = {
     blackPoint:0, whitePoint:255, wbR:1, wbG:1, wbB:1, autoWB:true,
     exposure:0, brightness:0, contrast:0, warmth:0,
-    sharpen:35, angle:0, vert:0, grid:false, split:1
+    sharpen:35, angle:0, vert:0, rotate:0, grid:false, split:1
   };
 
   let srcPreview=null, srcPreviewData=null, imgFull=null;
@@ -421,7 +423,7 @@
   /* ---------- geometry: vertical keystone + roll ---------- */
   function coverScale(w,h,deg){const r=Math.abs(deg*Math.PI/180),c=Math.cos(r),s=Math.sin(r);return Math.max((w*c+h*s)/w,(w*s+h*c)/h);}
   function getGeomCanvas(src){
-    const w=src.width,h=src.height,vert=S.vert,deg=S.angle/100*MAXDEG;
+    const w=src.width,h=src.height,vert=S.vert,deg=S.angle/100*MAXDEG+S.rotate;
     let ks=src;
     if(Math.abs(vert)>0.5){
       ks=document.createElement('canvas');ks.width=w;ks.height=h;const kc=ks.getContext('2d');
@@ -473,6 +475,7 @@
     $('sharpen').value=S.sharpen;$('vSharpen').textContent=S.sharpen;
     $('angle').value=S.angle;$('vAngle').textContent=(S.angle/100*MAXDEG).toFixed(1)+'°';
     $('vert').value=S.vert;$('vVert').textContent=S.vert;
+    $('rotate').value=S.rotate;$('vRotate').textContent=S.rotate+'\u00b0';
     $('wbChip').setAttribute('aria-pressed',S.autoWB);
     $('gridChip').setAttribute('aria-pressed',S.grid);$('grid').classList.toggle('on',S.grid);
   }
@@ -495,21 +498,21 @@
     $(id).addEventListener('input',e=>{
       S[key]=parseInt(e.target.value,10);
       $('v'+id.charAt(0).toUpperCase()+id.slice(1)).textContent=fmt?fmt(S[key]):S[key];
-      if(key!=='angle'&&key!=='vert')toneDirty=true;
+      if(key!=='angle'&&key!=='vert'&&key!=='rotate')toneDirty=true;
       requestAnimationFrame(render);
     });
   }
   bindSlider('exposure','exposure');bindSlider('brightness','brightness');bindSlider('contrast','contrast');
   bindSlider('warmth','warmth');bindSlider('sharpen','sharpen');
-  bindSlider('angle','angle',v=>(v/100*MAXDEG).toFixed(1)+'°');bindSlider('vert','vert');
+  bindSlider('angle','angle',v=>(v/100*MAXDEG).toFixed(1)+'°');bindSlider('vert','vert');bindSlider('rotate','rotate',v=>v+'°');
   $('brush').addEventListener('input',e=>{$('vBrush').textContent=e.target.value;sizeBrushCursor();});
 
   $('wbChip').addEventListener('click',()=>{S.autoWB=!S.autoWB;syncSliders();toneDirty=true;render();});
   $('gridChip').addEventListener('click',()=>{S.grid=!S.grid;$('grid').classList.toggle('on',S.grid);$('gridChip').setAttribute('aria-pressed',S.grid);});
-  $('autoAllBtn').addEventListener('click',()=>{S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=35;S.autoWB=true;autoAnalyse();autoStraighten();syncSliders();toneDirty=true;render();toast('已全自動：調光＋水平垂直校正');});
+  $('autoAllBtn').addEventListener('click',()=>{S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=35;S.rotate=0;S.autoWB=true;autoAnalyse();autoStraighten();syncSliders();toneDirty=true;render();toast('已全自動：調光＋水平垂直校正');});
   $('autoLightBtn').addEventListener('click',()=>{S.brightness=0;S.contrast=0;S.warmth=0;S.autoWB=true;autoAnalyse();syncSliders();toneDirty=true;render();toast('已自動白平衡調光');});
   $('autoLevelBtn').addEventListener('click',()=>{autoStraighten();syncSliders();render();toast('已自動水平垂直校正');});
-  $('resetBtn').addEventListener('click',()=>{S.blackPoint=0;S.whitePoint=255;S.wbR=S.wbG=S.wbB=1;S.autoWB=false;S.exposure=0;S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=0;S.angle=0;S.vert=0;syncSliders();toneDirty=true;render();toast('已回到原圖');});
+  $('resetBtn').addEventListener('click',()=>{S.blackPoint=0;S.whitePoint=255;S.wbR=S.wbG=S.wbB=1;S.autoWB=false;S.exposure=0;S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=0;S.angle=0;S.vert=0;S.rotate=0;syncSliders();toneDirty=true;render();toast('已回到原圖');});
 
   /* ---------- mode switch ---------- */
   function setMode(m){
@@ -581,7 +584,7 @@
   }
   function neutralizeSettings(){
     S.blackPoint=0;S.whitePoint=255;S.wbR=S.wbG=S.wbB=1;S.autoWB=false;
-    S.exposure=0;S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=0;S.angle=0;S.vert=0;
+    S.exposure=0;S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=0;S.angle=0;S.vert=0;S.rotate=0;
   }
   function buildOpenAIInputs(useMask){
     const {w,h}=targetSize();
