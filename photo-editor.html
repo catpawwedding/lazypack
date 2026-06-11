@@ -635,7 +635,7 @@
   function maskHasContent(){const d=mctx.getImageData(0,0,mask.width,mask.height).data;for(let i=3;i<d.length;i+=4)if(d[i]>10)return true;return false;}
   function targetSize(){
     let w=imgFull.width,h=imgFull.height;
-    const long=Math.max(w,h),scale=Math.min(1,2048/long);
+    const long=Math.max(w,h),scale=Math.min(1,1536/long);
     w=Math.max(256,Math.round(w*scale/16)*16);
     h=Math.max(256,Math.round(h*scale/16)*16);
     return{w,h};
