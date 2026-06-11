@@ -140,6 +140,28 @@
   .btn.danger{background:var(--remove);color:#2a0808;border-color:var(--remove);font-size:14px;padding:13px}
   .btn.danger:hover{filter:brightness(1.05);border-color:var(--remove)}
 
+  /* login */
+  .login-overlay{position:fixed;inset:0;background:rgba(10,12,16,.92);backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;z-index:100}
+  .login-overlay.off{display:none}
+  .login-card{width:min(360px,90%);background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:28px 26px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .login-card .mark{margin:0 auto 14px}
+  .login-card h2{font-size:17px;font-weight:700;text-align:center;margin-bottom:4px}
+  .login-card p{font-size:12px;color:var(--muted);text-align:center;margin-bottom:18px}
+  .login-field{margin-bottom:12px}
+  .login-field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  .login-field input{width:100%;font-family:inherit;font-size:14px;color:var(--text);background:#0e1116;
+    border:1px solid var(--line);border-radius:9px;padding:11px 12px;outline:none}
+  .login-field input:focus{border-color:var(--accent)}
+  .login-keep{display:flex;align-items:center;gap:8px;margin:14px 0 16px;cursor:pointer;user-select:none}
+  .login-keep input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+  .login-keep span{font-size:13px;color:var(--text)}
+  .login-btn{width:100%;font-family:inherit;font-size:14px;font-weight:700;color:var(--accent-ink);
+    background:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:12px;cursor:pointer;transition:.15s}
+  .login-btn:hover{filter:brightness(1.05)}
+  .login-btn:disabled{opacity:.5;cursor:wait}
+  .login-err{font-size:12px;color:var(--remove);text-align:center;margin-top:10px;min-height:16px}
   .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--line);
     color:var(--text);font-size:13px;font-weight:600;padding:11px 18px;border-radius:11px;opacity:0;pointer-events:none;transition:.25s;z-index:50;
     box-shadow:0 12px 30px rgba(0,0,0,.4);display:flex;align-items:center;gap:9px;max-width:80vw}
@@ -163,6 +185,7 @@
   <div class="brand"><h1>房屋照片修圖</h1><p>中壢專業房仲喵爸 · 自動調光＋雜物移除</p></div>
   <div class="header-spacer"></div>
   <button class="ghost-btn" id="newBtn" disabled>換一張</button>
+  <button class="ghost-btn" id="logoutBtn">登出</button>
 </header>
 
 <main>
@@ -259,6 +282,18 @@
   </aside>
 </main>
 
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-7h6v7"/></svg></div>
+    <h2>房屋照片修圖</h2>
+    <p>請登入後使用</p>
+    <div class="login-field"><label>帳號</label><input id="loginUser" type="text" autocomplete="username" spellcheck="false"></div>
+    <div class="login-field"><label>密碼</label><input id="loginPass" type="password" autocomplete="current-password"></div>
+    <label class="login-keep"><input type="checkbox" id="loginKeep"><span>保持登入（這台電腦記住我）</span></label>
+    <button class="login-btn" id="loginBtn">登入</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
 <div class="toast" id="toast"><span class="d"></span><span id="toastMsg"></span></div>
 
 <script>
@@ -488,6 +523,32 @@
     refreshSetupNotice();
   }
   function endpoint(){return REMOVE_ENDPOINT.trim();}
+  /* ---------- login ---------- */
+  const AUTH_KEY='pe_auth';
+  function getAuth(){try{const raw=localStorage.getItem(AUTH_KEY)||sessionStorage.getItem(AUTH_KEY);return raw?JSON.parse(atob(raw)):null;}catch(e){return null;}}
+  function setAuth(u,p,keep){const raw=btoa(JSON.stringify({u,p}));try{(keep?localStorage:sessionStorage).setItem(AUTH_KEY,raw);}catch(e){}}
+  function clearAuth(){try{localStorage.removeItem(AUTH_KEY);sessionStorage.removeItem(AUTH_KEY);}catch(e){}}
+  function showLogin(){$('loginOverlay').classList.remove('off');setTimeout(()=>$('loginUser').focus(),50);}
+  function hideLogin(){$('loginOverlay').classList.add('off');}
+  async function tryLogin(){
+    const u=$('loginUser').value.trim(),p=$('loginPass').value,keep=$('loginKeep').checked;
+    if(!u||!p){$('loginErr').textContent='帳號密碼都要填';return;}
+    const ep=endpoint();
+    if(!ep){$('loginErr').textContent='後端網址尚未設定';return;}
+    $('loginBtn').disabled=true;$('loginErr').textContent='';
+    try{
+      const res=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'login',user:u,pass:p})});
+      const data=await res.json().catch(()=>({}));
+      if(res.ok&&data.ok){setAuth(u,p,keep);hideLogin();toast('登入成功');}
+      else{$('loginErr').textContent=data.error||'帳號或密碼錯誤';}
+    }catch(e){$('loginErr').textContent='連不上伺服器，稍後再試';}
+    finally{$('loginBtn').disabled=false;}
+  }
+  $('loginBtn').addEventListener('click',tryLogin);
+  $('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')tryLogin();});
+  $('loginUser').addEventListener('keydown',e=>{if(e.key==='Enter')$('loginPass').focus();});
+  $('logoutBtn').addEventListener('click',()=>{clearAuth();location.reload();});
+  if(getAuth())hideLogin();else showLogin();
   function refreshSetupNotice(){
     const ok=!!endpoint();
     $('setupNotice').style.display=ok?'none':'block';
@@ -613,14 +674,18 @@
     const ep=endpoint();
     if(!ep){toast('還沒設定後端網址（看雜物移除分頁的說明）');setMode('remove');return;}
     if(useMask&&!maskHasContent()){toast('先用筆刷把要補修的地方塗滿');return;}
+    const auth=getAuth();
+    if(!auth){showLogin();return;}
     $('busy').classList.add('on');
     $('busyMsg').textContent=useMask?'局部補修中…約 10～30 秒':'AI 判讀並清除雜物中…約 10～30 秒';
     $('removeBtn').disabled=true;$('oneClickBtn').disabled=true;
     try{
       const payload=buildOpenAIInputs(useMask);
+      payload.user=auth.u;payload.pass=auth.p;
       const res=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       const data=await res.json().catch(()=>({}));
       const out=data.image||data.url;
+      if(res.status===401){clearAuth();showLogin();throw new Error('請重新登入');}
       if(!res.ok||!out)throw new Error(data.error||('伺服器回應 '+res.status));
       const cleaned=await loadImg(out);
       undoStack.push({img:imgFull,s:{...S}});        // 快照：影像＋當時的設定
