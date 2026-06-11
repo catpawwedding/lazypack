@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>房屋照片修圖｜中壢專業房仲喵爸</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14171d; --stage:#0e1116; --panel:#1d222c; --panel-2:#252b37;
+    --line:#333b49; --text:#eaeef4; --muted:#94a0b1;
+    --accent:#e8a341; --accent-ink:#2a1d08; --accent-soft:rgba(232,163,65,.14);
+    --remove:#ff6b6b; --remove-soft:rgba(255,107,107,.15);
+    --good:#5bd6a6; --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{font-family:'Inter','Noto Sans TC',system-ui,-apple-system,sans-serif;
+    background:var(--ink);color:var(--text);display:flex;flex-direction:column;min-height:100dvh;overflow:hidden}
+  header{flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:13px 20px;border-bottom:1px solid var(--line)}
+  .mark{width:34px;height:34px;border-radius:9px;flex:0 0 auto;background:linear-gradient(150deg,var(--accent),#c9791f);
+    display:grid;place-items:center;color:var(--accent-ink);box-shadow:0 0 0 1px rgba(255,255,255,.06) inset}
+  .mark svg{width:19px;height:19px}
+  .brand h1{font-size:15px;font-weight:700;line-height:1.1}
+  .brand p{font-size:11.5px;color:var(--muted);font-weight:500;margin-top:2px}
+  .header-spacer{flex:1}
+  .ghost-btn{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:transparent;
+    border:1px solid var(--line);border-radius:9px;padding:7px 13px;cursor:pointer;transition:.16s}
+  .ghost-btn:hover{color:var(--text);border-color:#46506180}
+  .ghost-btn:disabled{opacity:.35;cursor:not-allowed}
+
+  main{flex:1;display:flex;min-height:0}
+  .stage-wrap{flex:1;min-width:0;background:var(--stage);position:relative;display:grid;place-items:center;padding:22px}
+  .stage{position:relative;max-width:100%;max-height:100%;display:none;line-height:0}
+  .stage.on{display:block}
+  canvas#view{max-width:100%;max-height:calc(100dvh - 130px);border-radius:6px;display:block;
+    box-shadow:0 18px 50px rgba(0,0,0,.5);touch-action:none}
+  body[data-mode=light] canvas#view{cursor:ew-resize}
+  body[data-mode=remove] canvas#view{cursor:none}
+  canvas#mask{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.5;border-radius:6px}
+  body[data-mode=light] canvas#mask{display:none}
+
+  .grid{position:absolute;inset:0;pointer-events:none;display:none;border-radius:6px;overflow:hidden}
+  .grid.on{display:block}
+  .grid::before{content:"";position:absolute;left:33.33%;right:33.33%;top:0;bottom:0;
+    border-left:1px solid rgba(255,255,255,.3);border-right:1px solid rgba(255,255,255,.3)}
+  .grid::after{content:"";position:absolute;top:33.33%;bottom:33.33%;left:0;right:0;
+    border-top:1px solid rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.3)}
+  .handle{position:absolute;top:0;bottom:0;width:2px;background:rgba(255,255,255,.9);transform:translateX(-1px);
+    pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,.5);display:none}
+  body[data-mode=light] .handle.on{display:block}
+  .handle .knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;
+    background:rgba(20,23,29,.85);border:2px solid #fff;display:grid;place-items:center}
+  .handle .knob svg{width:16px;height:16px;color:#fff}
+  .tag{position:absolute;top:12px;font-size:10.5px;font-weight:700;letter-spacing:1px;padding:4px 9px;border-radius:6px;
+    color:#fff;background:rgba(20,23,29,.7);opacity:0;transition:.15s}
+  .tag.before{left:12px} .tag.after{right:12px;color:var(--accent)}
+  .brush-cursor{position:absolute;border:2px solid #fff;border-radius:50%;pointer-events:none;display:none;
+    transform:translate(-50%,-50%);box-shadow:0 0 0 1px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.5) inset;mix-blend-mode:difference}
+  body[data-mode=remove] .brush-cursor.on{display:block}
+  .busy{position:absolute;inset:0;background:rgba(14,17,22,.78);display:none;align-items:center;justify-content:center;
+    flex-direction:column;gap:14px;border-radius:6px;z-index:5}
+  .busy.on{display:flex}
+  .spin{width:34px;height:34px;border:3px solid rgba(255,255,255,.2);border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .busy span{font-size:13px;color:var(--text);font-weight:600}
+
+  .drop{width:min(560px,90%);border:1.5px dashed #3a4454;border-radius:var(--radius);padding:54px 30px;text-align:center;
+    cursor:pointer;transition:.18s;background:rgba(255,255,255,.012)}
+  .drop.hot{border-color:var(--accent);background:var(--accent-soft)}
+  .drop .ic{width:54px;height:54px;margin:0 auto 18px;border-radius:13px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent)}
+  .drop .ic svg{width:26px;height:26px}
+  .drop h2{font-size:19px;font-weight:700;margin-bottom:8px}
+  .drop p{font-size:13.5px;color:var(--muted);line-height:1.6}
+  .drop .cta{display:inline-block;margin-top:18px;font-size:13px;font-weight:600;color:var(--accent-ink);background:var(--accent);padding:9px 18px;border-radius:9px}
+
+  aside{flex:0 0 326px;background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+  .tabs{display:flex;padding:12px 14px 0;gap:6px}
+  .tab{flex:1;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--muted);background:transparent;
+    border:1px solid var(--line);border-radius:10px 10px 0 0;border-bottom:none;padding:11px;cursor:pointer;transition:.15s}
+  .tab[aria-selected=true]{color:var(--text);background:var(--panel-2)}
+  body[data-mode=remove] .tab.remove[aria-selected=true]{color:var(--remove)}
+  .pane{flex:1;overflow-y:auto;padding:6px 18px 18px;display:none}
+  .pane.on{display:block}
+  .pane.locked{opacity:.4;pointer-events:none;filter:grayscale(.3)}
+
+  .row{padding:13px 0 4px;border-bottom:1px solid #2a313d}
+  .row:last-child{border-bottom:none}
+  .row .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+  .row label{font-size:13.5px;font-weight:600}
+  .row .hint{font-size:11px;color:var(--muted);font-weight:500;margin-top:-4px;margin-bottom:8px}
+  .row .val{font-size:12px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;min-width:42px;text-align:right}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background:var(--panel-2);outline:none;cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:var(--text);border:3px solid var(--panel);box-shadow:0 1px 4px rgba(0,0,0,.4)}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--text);border:3px solid var(--panel)}
+  input.rm::-webkit-slider-thumb{background:var(--remove)} input.rm::-moz-range-thumb{background:var(--remove)}
+
+  .toggles{display:flex;gap:8px;padding:14px 0 4px;flex-wrap:wrap}
+  .auto-zone{padding:12px 0 10px;border-bottom:1px solid #2a313d}
+  .auto-main{width:100%;font-family:inherit;font-size:14px;font-weight:700;color:var(--accent-ink);
+    background:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:12px;cursor:pointer;transition:.15s;
+    display:flex;align-items:center;justify-content:center;gap:8px}
+  .auto-main:hover{filter:brightness(1.05)}
+  .auto-main:disabled{opacity:.4;cursor:not-allowed}
+  .auto-main svg{width:16px;height:16px}
+  .auto-pair{display:flex;gap:8px;margin-top:8px}
+  .auto-sub{flex:1;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--text);
+    background:var(--panel-2);border:1px solid var(--line);border-radius:9px;padding:10px 8px;cursor:pointer;transition:.15s}
+  .auto-sub:hover{border-color:var(--accent);color:var(--accent)}
+  .auto-sub:disabled{opacity:.4;cursor:not-allowed}
+  .auto-zone .toggles{padding:10px 0 0}
+  .chip{flex:1;min-width:118px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--muted);background:var(--panel-2);
+    border:1px solid transparent;border-radius:9px;padding:9px 10px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
+  .chip[aria-pressed=true]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+  .chip .sw{width:14px;height:14px;border-radius:4px;border:1.5px solid currentColor;display:grid;place-items:center}
+  .chip[aria-pressed=true] .sw{background:var(--accent);border-color:var(--accent)}
+  .chip .sw svg{width:10px;height:10px;color:var(--accent-ink);opacity:0}
+  .chip[aria-pressed=true] .sw svg{opacity:1}
+
+  .notice{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:14px;margin-top:8px}
+  .notice h4{font-size:13px;font-weight:700;margin-bottom:7px;color:var(--accent)}
+  .notice p{font-size:12px;color:var(--muted);line-height:1.6}
+  .notice code{font-family:'Inter',monospace;background:#0e1116;padding:1px 5px;border-radius:4px;color:#cfd6e0;font-size:11px}
+  .ep-input{width:100%;margin-top:10px;font-family:'Inter',monospace;font-size:11.5px;color:var(--text);background:#0e1116;
+    border:1px solid var(--line);border-radius:8px;padding:9px 10px;outline:none}
+  .ep-input:focus{border-color:var(--accent)}
+
+  .panel-foot{flex:0 0 auto;padding:14px 18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+  .btn-row{display:flex;gap:9px}
+  .btn{font-family:inherit;font-weight:600;border-radius:10px;cursor:pointer;transition:.15s;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--text);font-size:13px;padding:10px;flex:1}
+  .btn:hover{border-color:#46506180}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .btn.primary{color:var(--accent-ink);background:var(--accent);border-color:var(--accent);font-size:14px;padding:13px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .btn.primary:hover{filter:brightness(1.05);border-color:var(--accent)}
+  .btn.primary svg{width:17px;height:17px}
+  .btn.danger{background:var(--remove);color:#2a0808;border-color:var(--remove);font-size:14px;padding:13px}
+  .btn.danger:hover{filter:brightness(1.05);border-color:var(--remove)}
+
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--line);
+    color:var(--text);font-size:13px;font-weight:600;padding:11px 18px;border-radius:11px;opacity:0;pointer-events:none;transition:.25s;z-index:50;
+    box-shadow:0 12px 30px rgba(0,0,0,.4);display:flex;align-items:center;gap:9px;max-width:80vw}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast .d{width:7px;height:7px;border-radius:50%;background:var(--good);flex:0 0 auto}
+  .credit{flex:0 0 auto;padding:8px 18px;font-size:11px;color:#5b6573;text-align:center;border-top:1px solid var(--line)}
+
+  @media (max-width:860px){
+    main{flex-direction:column}
+    .stage-wrap{flex:1;padding:14px}
+    canvas#view{max-height:calc(100dvh - 440px)}
+    aside{flex:0 0 auto;border-left:none;border-top:1px solid var(--line);max-height:50dvh}
+    .drop{padding:38px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body data-mode="light">
+<header>
+  <div class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-7h6v7"/></svg></div>
+  <div class="brand"><h1>房屋照片修圖</h1><p>中壢專業房仲喵爸 · 自動調光＋雜物移除</p></div>
+  <div class="header-spacer"></div>
+  <button class="ghost-btn" id="newBtn" disabled>換一張</button>
+</header>
+
+<main>
+  <div class="stage-wrap" id="stageWrap">
+    <div class="drop" id="drop">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5"/><path d="M12 5v12"/></svg></div>
+      <h2>把房屋照片丟進來</h2>
+      <p>放開的瞬間自動調好白平衡、曝光、對比<br>再用「雜物移除」塗掉不要的東西，滿意了直接下載</p>
+      <span class="cta">選擇照片</span>
+    </div>
+    <div class="stage" id="stage">
+      <canvas id="view"></canvas>
+      <canvas id="mask"></canvas>
+      <div class="grid" id="grid"></div>
+      <div class="handle" id="handle"><div class="knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5"/><path d="M16 7l5 5-5 5"/></svg></div></div>
+      <div class="tag before" id="tagBefore">原圖</div>
+      <div class="tag after" id="tagAfter">修圖後</div>
+      <div class="brush-cursor" id="brushCursor"></div>
+      <div class="busy" id="busy"><div class="spin"></div><span id="busyMsg">移除中…</span></div>
+    </div>
+    <input type="file" id="file" accept="image/*" hidden>
+  </div>
+
+  <aside>
+    <div class="tabs">
+      <button class="tab" id="tabLight" aria-selected="true">調光</button>
+      <button class="tab remove" id="tabRemove" aria-selected="false">雜物移除</button>
+    </div>
+
+    <!-- LIGHT pane -->
+    <div class="pane on locked" id="paneLight">
+      <div class="auto-zone">
+        <button class="auto-main" id="autoAllBtn" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+          一鍵全自動（調光＋校正）
+        </button>
+        <div class="auto-pair">
+          <button class="auto-sub" id="autoLightBtn" disabled>自動白平衡調光</button>
+          <button class="auto-sub" id="autoLevelBtn" disabled>自動水平垂直校正</button>
+        </div>
+        <div class="toggles">
+          <button class="chip" id="wbChip" aria-pressed="true"><span class="sw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>自動白平衡</button>
+          <button class="chip" id="gridChip" aria-pressed="false"><span class="sw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>顯示格線</button>
+        </div>
+      </div>
+      <div class="row"><div class="top"><label>水平校正（左右）</label><span class="val" id="vAngle">0°</span></div><input type="range" id="angle" min="-100" max="100" value="0"></div>
+      <div class="row"><div class="top"><label>垂直校正（上下）</label><span class="val" id="vVert">0</span></div>
+        <div class="hint">修正牆面、門窗往內倒的傾斜</div><input type="range" id="vert" min="-100" max="100" value="0"></div>
+      <div class="row"><div class="top"><label>曝光</label><span class="val" id="vExposure">0</span></div><input type="range" id="exposure" min="-100" max="100" value="0"></div>
+      <div class="row"><div class="top"><label>亮度</label><span class="val" id="vBrightness">0</span></div><input type="range" id="brightness" min="-100" max="100" value="0"></div>
+      <div class="row"><div class="top"><label>對比</label><span class="val" id="vContrast">0</span></div><input type="range" id="contrast" min="-100" max="100" value="0"></div>
+      <div class="row"><div class="top"><label>色溫（黃 ↔ 藍）</label><span class="val" id="vWarmth">0</span></div><input type="range" id="warmth" min="-100" max="100" value="0"></div>
+      <div class="row"><div class="top"><label>清晰度</label><span class="val" id="vSharpen">35</span></div><input type="range" id="sharpen" min="0" max="100" value="35"></div>
+    </div>
+
+    <!-- REMOVE pane -->
+    <div class="pane locked" id="paneRemove">
+      <div class="notice" id="setupNotice">
+        <h4>還沒接上去除引擎（只要設定一次）</h4>
+        <p>用文字編輯器打開這個 HTML 檔，找到最上面標 ★ 的 <code>REMOVE_ENDPOINT</code>，把你部署好的 Supabase Edge Function 網址貼進引號裡存檔即可。部署方式看後端檔案的註解。</p>
+      </div>
+      <div class="row" style="border-bottom:none"><div class="hint" style="margin-top:10px">按下方「一鍵雜物移除」，AI 會自己判讀畫面裡的臨時雜物（紙箱、塑膠袋、桌面零散小物、電線）並清掉，不會動家具、櫃體、門窗跟屋況。清完如果還有漏的，再用下面的筆刷塗起來局部補修。</div></div>
+      <div class="row" style="border-bottom:none;padding-top:4px">
+        <div class="top"><label style="color:var(--remove)">局部補修（選用）</label><span class="val" id="vBrush" style="color:var(--remove)">40</span></div>
+        <div class="hint">把漏掉或修壞的地方塗滿，按「移除塗抹處」單獨重修那一塊</div>
+        <input type="range" class="rm" id="brush" min="8" max="160" value="40">
+      </div>
+      <div class="toggles" style="padding-top:6px">
+        <button class="chip" id="eraseChip" aria-pressed="false"><span class="sw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg></span>橡皮擦</button>
+        <button class="chip" id="clearMaskChip" style="color:var(--muted)">清除塗抹</button>
+      </div>
+    </div>
+
+    <div class="panel-foot">
+      <!-- light footer -->
+      <div id="footLight" style="display:flex;flex-direction:column;gap:9px">
+        <button class="btn" id="resetBtn" disabled>全部歸零（回到原圖）</button>
+        <button class="btn primary" id="downloadBtn" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          下載修好的照片
+        </button>
+      </div>
+      <!-- remove footer -->
+      <div id="footRemove" style="display:none;flex-direction:column;gap:9px">
+        <button class="btn danger" id="oneClickBtn" disabled>一鍵雜物移除</button>
+        <div class="btn-row">
+          <button class="btn" id="removeBtn" disabled>移除塗抹處</button>
+          <button class="btn" id="undoBtn" disabled>復原上一步</button>
+        </div>
+      </div>
+    </div>
+    <div class="credit">本智能體製作人：中壢專業房仲喵爸／黃舶瑋　0925-842-111</div>
+  </aside>
+</main>
+
+<div class="toast" id="toast"><span class="d"></span><span id="toastMsg"></span></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     ★ 只要填一次：把你部署好的 Supabase Edge Function 網址貼進引號裡
+       例： "https://abcdwxyz.supabase.co/functions/v1/remove-object"
+       填好存檔，「一鍵雜物移除」就直接能用，不用再在畫面上輸入。
+     ============================================================ */
+  const REMOVE_ENDPOINT = "https://eeokpaogxvaihsilthzh.supabase.co/functions/v1/remove-object";
+
+  const $ = id => document.getElementById(id);
+  const PREVIEW_MAX = 1500, FULL_MAX = 3200, MAXDEG = 8;
+
+  const S = {
+    blackPoint:0, whitePoint:255, wbR:1, wbG:1, wbB:1, autoWB:true,
+    exposure:0, brightness:0, contrast:0, warmth:0,
+    sharpen:35, angle:0, vert:0, grid:false, split:1
+  };
+
+  let srcPreview=null, srcPreviewData=null, imgFull=null;
+  let adjPreview=document.createElement('canvas');
+  let toneDirty=true, hasImage=false, mode="light";
+  let undoStack=[];                 // {full canvas} snapshots for removal undo
+
+  const view=$('view'), vctx=view.getContext('2d');
+  const mask=$('mask'), mctx=mask.getContext('2d');
+
+  const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+  const fit=(w,h,max)=>{const s=Math.min(1,max/Math.max(w,h));return[Math.max(1,Math.round(w*s)),Math.max(1,Math.round(h*s))]};
+
+  function toast(msg){$('toastMsg').textContent=msg;const t=$('toast');t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('on'),2200);}
+
+  /* ---------- load ---------- */
+  function loadFile(file){
+    if(!file||!file.type.startsWith('image/')){toast('這不是圖片檔');return;}
+    const img=new Image();
+    img.onload=()=>{setupImage(img);URL.revokeObjectURL(img.src);};
+    img.onerror=()=>toast('照片讀取失敗，換一張試試');
+    img.src=URL.createObjectURL(file);
+  }
+  function drawToCanvas(img,max){
+    const [w,h]=fit(img.naturalWidth||img.width,img.naturalHeight||img.height,max);
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(img,0,0,w,h);return c;
+  }
+  function setupImage(img){
+    imgFull=drawToCanvas(img,FULL_MAX);
+    rebuildPreviewFromFull();
+    undoStack=[];
+    hasImage=true;
+    S.brightness=0; S.contrast=0; S.warmth=0; S.sharpen=35; S.split=1;
+    autoAnalyse();      // 曝光、白平衡、色階
+    autoStraighten();   // 水平(左右) + 垂直(上下)
+    syncSliders(); enableUI(true);
+    $('drop').style.display='none'; $('stage').classList.add('on');
+    toneDirty=true; render(); toast('已自動：曝光＋白平衡＋水平校正');
+  }
+  function rebuildPreviewFromFull(){
+    srcPreview=drawToCanvas(imgFull,PREVIEW_MAX);
+    srcPreviewData=srcPreview.getContext('2d').getImageData(0,0,srcPreview.width,srcPreview.height);
+    adjPreview.width=srcPreview.width; adjPreview.height=srcPreview.height;
+    mask.width=srcPreview.width; mask.height=srcPreview.height;
+    clearMask();
+    toneDirty=true;
+  }
+
+  /* ---------- auto analysis: levels + white balance + EXPOSURE ---------- */
+  function autoAnalyse(){
+    const [w,h]=fit(srcPreview.width,srcPreview.height,256);
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(srcPreview,0,0,w,h);
+    const d=c.getContext('2d').getImageData(0,0,w,h).data;
+    const hist=new Array(256).fill(0);let sR=0,sG=0,sB=0,n=0;
+    for(let i=0;i<d.length;i+=4){const r=d[i],g=d[i+1],b=d[i+2];const l=(r*0.299+g*0.587+b*0.114)|0;hist[l]++;sR+=r;sG+=g;sB+=b;n++;}
+    const lo=n*0.004,hi=n*0.996;let cum=0,bp=0,wp=255;
+    for(let i=0;i<256;i++){cum+=hist[i];if(cum>=lo){bp=i;break;}}
+    cum=0;for(let i=0;i<256;i++){cum+=hist[i];if(cum>=hi){wp=i;break;}}
+    bp=clamp(bp,0,40);wp=clamp(wp,215,255);
+    if(wp-bp<60){bp=clamp(bp-10,0,40);wp=clamp(wp+10,215,255);}
+    S.blackPoint=bp;S.whitePoint=wp;
+    const mR=sR/n,mG=sG/n,mB=sB/n,gray=(mR+mG+mB)/3;
+    S.wbR=clamp(gray/(mR||1),0.85,1.18);
+    S.wbG=clamp(gray/(mG||1),0.90,1.12);
+    S.wbB=clamp(gray/(mB||1),0.85,1.18);
+    // auto exposure: estimate mean luma AFTER wb+levels, push toward target
+    const span=Math.max(1,wp-bp),ls=255/span;let sum=0;
+    for(let i=0;i<d.length;i+=4){
+      const r=clamp((d[i]*S.wbR-bp)*ls,0,255);
+      const g=clamp((d[i+1]*S.wbG-bp)*ls,0,255);
+      const b=clamp((d[i+2]*S.wbB-bp)*ls,0,255);
+      sum+=r*0.299+g*0.587+b*0.114;
+    }
+    const meanAfter=sum/n||1, target=132;
+    const factor=clamp(target/meanAfter,0.62,2.2);
+    S.exposure=Math.round(clamp(Math.log2(factor)/0.9*100,-70,90));
+  }
+
+  /* ---------- auto straighten: roll (左右) + keystone (上下) ---------- */
+  function autoStraighten(){
+    const [w,h]=fit(srcPreview.width,srcPreview.height,440);
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(srcPreview,0,0,w,h);
+    const im=c.getContext('2d').getImageData(0,0,w,h).data;
+    const g=new Float32Array(w*h);
+    for(let i=0,p=0;i<im.length;i+=4,p++)g[p]=im[i]*0.299+im[i+1]*0.587+im[i+2]*0.114;
+    const RAD=180/Math.PI,cx=w/2;
+    let rollSum=0,rollW=0,rollN=0,ksScore=0,ksW=0,ksN=0;
+    for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
+      const o=y*w+x;
+      const gx=(g[o-w+1]+2*g[o+1]+g[o+w+1])-(g[o-w-1]+2*g[o-1]+g[o+w-1]);
+      const gy=(g[o+w-1]+2*g[o+w]+g[o+w+1])-(g[o-w-1]+2*g[o-w]+g[o-w+1]);
+      const mag=Math.sqrt(gx*gx+gy*gy);
+      if(mag<70)continue;
+      const a=Math.atan2(gy,gx)*RAD;
+      // roll: fold gradient angle to [-45,45], keep near-axis structural edges
+      let m=((a%90)+90)%90; if(m>45)m-=90;
+      if(Math.abs(m)<9){rollSum+=m*mag;rollW+=mag;rollN++;}
+      // keystone: near-vertical lines => gradient near horizontal (a near 0 / ±180)
+      const dv=Math.min(Math.abs(a),Math.abs(Math.abs(a)-180));
+      if(dv<16){
+        let t=(Math.abs(a)<90)?a:(a>0?a-180:a+180);
+        if(Math.abs(t)<16){ksScore+=mag*t*Math.sign(cx-x);ksW+=mag;ksN++;}
+      }
+    }
+    let roll=rollW>0?rollSum/rollW:0;
+    if(rollN<600)roll=0;
+    S.angle=Math.round(clamp(-roll,-MAXDEG,MAXDEG)/MAXDEG*100);
+    let vert=ksW>0?(ksScore/ksW)*5.5:0;
+    vert=clamp(vert,-24,24);
+    if(ksN<600||Math.abs(vert)<3.5)vert=0;
+    S.vert=Math.round(vert);
+  }
+
+  /* ---------- tone pipeline ---------- */
+  function processTone(srcData){
+    const out=new ImageData(srcData.width,srcData.height);
+    const s=srcData.data,o=out.data;
+    const wbR=S.autoWB?S.wbR:1,wbG=S.autoWB?S.wbG:1,wbB=S.autoWB?S.wbB:1;
+    const bp=S.blackPoint,span=Math.max(1,S.whitePoint-S.blackPoint),lscale=255/span;
+    const gain=Math.pow(2,(S.exposure/100)*0.9),lift=(S.brightness/100)*55,cf=1+(S.contrast/100)*0.65,warm=(S.warmth/100)*34;
+    function lut(mult,wadd){const t=new Uint8ClampedArray(256);for(let v=0;v<256;v++){let x=v*mult;x=(x-bp)*lscale;x=x*gain+lift;x=(x-128)*cf+128;x+=wadd;t[v]=x<0?0:(x>255?255:x);}return t;}
+    const lr=lut(wbR,warm),lg=lut(wbG,0),lb=lut(wbB,-warm);
+    for(let i=0;i<s.length;i+=4){o[i]=lr[s[i]];o[i+1]=lg[s[i+1]];o[i+2]=lb[s[i+2]];o[i+3]=s[i+3];}
+    if(S.sharpen>0)unsharp(out,(S.sharpen/100)*1.1);
+    return out;
+  }
+  function unsharp(img,amount){
+    const w=img.width,h=img.height,d=img.data,blur=new Uint8ClampedArray(d.length);
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      const idx=(y*w+x)*4;
+      for(let ch=0;ch<3;ch++){let sum=0,cnt=0;
+        for(let dy=-1;dy<=1;dy++){const yy=y+dy;if(yy<0||yy>=h)continue;
+          for(let dx=-1;dx<=1;dx++){const xx=x+dx;if(xx<0||xx>=w)continue;sum+=d[(yy*w+xx)*4+ch];cnt++;}}
+        blur[idx+ch]=sum/cnt;}
+    }
+    for(let i=0;i<d.length;i+=4)for(let ch=0;ch<3;ch++){const v=d[i+ch]+amount*(d[i+ch]-blur[i+ch]);d[i+ch]=v<0?0:(v>255?255:v);}
+  }
+
+  /* ---------- geometry: vertical keystone + roll ---------- */
+  function coverScale(w,h,deg){const r=Math.abs(deg*Math.PI/180),c=Math.cos(r),s=Math.sin(r);return Math.max((w*c+h*s)/w,(w*s+h*c)/h);}
+  function getGeomCanvas(src){
+    const w=src.width,h=src.height,vert=S.vert,deg=S.angle/100*MAXDEG;
+    let ks=src;
+    if(Math.abs(vert)>0.5){
+      ks=document.createElement('canvas');ks.width=w;ks.height=h;const kc=ks.getContext('2d');
+      const a=(Math.abs(vert)/100)*0.20,N=Math.min(h,160),bh=h/N;
+      for(let i=0;i<N;i++){const y=i*bh,mid=(y+bh/2)/h;
+        const scale=vert>0?1+a*(1-mid):1+a*mid;const dw=w*scale,dx=(w-dw)/2;
+        kc.drawImage(src,0,y,w,bh,dx,y,dw,bh+1);}
+    }
+    if(Math.abs(deg)<0.01)return ks;
+    const out=document.createElement('canvas');out.width=w;out.height=h;const oc=out.getContext('2d');
+    const sc=coverScale(w,h,deg);
+    oc.translate(w/2,h/2);oc.rotate(deg*Math.PI/180);oc.scale(sc,sc);oc.drawImage(ks,-w/2,-h/2,w,h);
+    return out;
+  }
+
+  /* ---------- render ---------- */
+  function buildAdjPreview(){adjPreview.getContext('2d').putImageData(processTone(srcPreviewData),0,0);toneDirty=false;}
+  function render(){
+    if(!hasImage)return;
+    if(toneDirty)buildAdjPreview();
+    const w=srcPreview.width,h=srcPreview.height;
+    if(view.width!==w||view.height!==h){view.width=w;view.height=h;}
+    vctx.clearRect(0,0,w,h);
+    if(mode==="remove"){
+      vctx.drawImage(getGeomCanvas(adjPreview),0,0);   // 跟調光分頁看到的一模一樣
+      return;
+    }
+    const adj=getGeomCanvas(adjPreview);
+    vctx.drawImage(adj,0,0);
+    if(S.split<0.999){
+      vctx.save();vctx.beginPath();vctx.rect(0,0,w*S.split,h);vctx.clip();
+      vctx.drawImage(getGeomCanvas(srcPreview),0,0);vctx.restore();
+    }
+    positionHandle();
+  }
+  function positionHandle(){
+    const showSplit=mode==="light"&&S.split<0.999,handle=$('handle');
+    handle.classList.toggle('on',showSplit);
+    $('tagBefore').style.opacity=showSplit?'1':'0';$('tagAfter').style.opacity=showSplit?'1':'0';
+    if(showSplit){const rect=view.getBoundingClientRect();handle.style.left=(S.split*rect.width)+'px';}
+  }
+
+  /* ---------- UI sync ---------- */
+  function syncSliders(){
+    $('exposure').value=S.exposure;$('vExposure').textContent=S.exposure;
+    $('brightness').value=S.brightness;$('vBrightness').textContent=S.brightness;
+    $('contrast').value=S.contrast;$('vContrast').textContent=S.contrast;
+    $('warmth').value=S.warmth;$('vWarmth').textContent=S.warmth;
+    $('sharpen').value=S.sharpen;$('vSharpen').textContent=S.sharpen;
+    $('angle').value=S.angle;$('vAngle').textContent=(S.angle/100*MAXDEG).toFixed(1)+'°';
+    $('vert').value=S.vert;$('vVert').textContent=S.vert;
+    $('wbChip').setAttribute('aria-pressed',S.autoWB);
+    $('gridChip').setAttribute('aria-pressed',S.grid);$('grid').classList.toggle('on',S.grid);
+  }
+  function enableUI(on){
+    $('paneLight').classList.toggle('locked',!on);
+    $('paneRemove').classList.toggle('locked',!on);
+    ['autoAllBtn','autoLightBtn','autoLevelBtn','resetBtn','downloadBtn','newBtn'].forEach(id=>$(id).disabled=!on);
+    $('removeBtn').disabled=!on||!endpoint();
+    $('oneClickBtn').disabled=!on||!endpoint();
+    refreshSetupNotice();
+  }
+  function endpoint(){return REMOVE_ENDPOINT.trim();}
+  function refreshSetupNotice(){
+    const ok=!!endpoint();
+    $('setupNotice').style.display=ok?'none':'block';
+    if(hasImage){$('removeBtn').disabled=!ok;$('oneClickBtn').disabled=!ok;}
+  }
+
+  function bindSlider(id,key,fmt){
+    $(id).addEventListener('input',e=>{
+      S[key]=parseInt(e.target.value,10);
+      $('v'+id.charAt(0).toUpperCase()+id.slice(1)).textContent=fmt?fmt(S[key]):S[key];
+      if(key!=='angle'&&key!=='vert')toneDirty=true;
+      requestAnimationFrame(render);
+    });
+  }
+  bindSlider('exposure','exposure');bindSlider('brightness','brightness');bindSlider('contrast','contrast');
+  bindSlider('warmth','warmth');bindSlider('sharpen','sharpen');
+  bindSlider('angle','angle',v=>(v/100*MAXDEG).toFixed(1)+'°');bindSlider('vert','vert');
+  $('brush').addEventListener('input',e=>{$('vBrush').textContent=e.target.value;sizeBrushCursor();});
+
+  $('wbChip').addEventListener('click',()=>{S.autoWB=!S.autoWB;syncSliders();toneDirty=true;render();});
+  $('gridChip').addEventListener('click',()=>{S.grid=!S.grid;$('grid').classList.toggle('on',S.grid);$('gridChip').setAttribute('aria-pressed',S.grid);});
+  $('autoAllBtn').addEventListener('click',()=>{S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=35;S.autoWB=true;autoAnalyse();autoStraighten();syncSliders();toneDirty=true;render();toast('已全自動：調光＋水平垂直校正');});
+  $('autoLightBtn').addEventListener('click',()=>{S.brightness=0;S.contrast=0;S.warmth=0;S.autoWB=true;autoAnalyse();syncSliders();toneDirty=true;render();toast('已自動白平衡調光');});
+  $('autoLevelBtn').addEventListener('click',()=>{autoStraighten();syncSliders();render();toast('已自動水平垂直校正');});
+  $('resetBtn').addEventListener('click',()=>{S.blackPoint=0;S.whitePoint=255;S.wbR=S.wbG=S.wbB=1;S.autoWB=false;S.exposure=0;S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=0;S.angle=0;S.vert=0;syncSliders();toneDirty=true;render();toast('已回到原圖');});
+
+  /* ---------- mode switch ---------- */
+  function setMode(m){
+    mode=m;document.body.dataset.mode=m;
+    $('tabLight').setAttribute('aria-selected',m==='light');
+    $('tabRemove').setAttribute('aria-selected',m==='remove');
+    $('paneLight').classList.toggle('on',m==='light');
+    $('paneRemove').classList.toggle('on',m==='remove');
+    $('footLight').style.display=m==='light'?'flex':'none';
+    $('footRemove').style.display=m==='remove'?'flex':'none';
+    if(m==='light')S.split=1;
+    render();
+  }
+  $('tabLight').addEventListener('click',()=>setMode('light'));
+  $('tabRemove').addEventListener('click',()=>setMode('remove'));
+
+  /* ---------- mask painting ---------- */
+  function clearMask(){if(mask.width)mctx.clearRect(0,0,mask.width,mask.height);}
+  let painting=false,erase=false,lastPt=null;
+  $('eraseChip').addEventListener('click',()=>{erase=!erase;$('eraseChip').setAttribute('aria-pressed',erase);});
+  $('clearMaskChip').addEventListener('click',()=>{clearMask();toast('已清除塗抹');});
+  function maskPt(e){const r=view.getBoundingClientRect();return{x:(e.clientX-r.left)/r.width*mask.width,y:(e.clientY-r.top)/r.height*mask.height,rw:r.width};}
+  function brushRadiusCanvas(rw){return parseInt($('brush').value,10)/2*(mask.width/rw);}
+  function paintAt(p){
+    mctx.globalCompositeOperation=erase?'destination-out':'source-over';
+    mctx.fillStyle='rgba(255,80,80,1)';
+    const rad=brushRadiusCanvas(p.rw);
+    if(lastPt){const dx=p.x-lastPt.x,dy=p.y-lastPt.y,dist=Math.hypot(dx,dy),steps=Math.max(1,dist/(rad/2));
+      for(let i=0;i<=steps;i++){const x=lastPt.x+dx*i/steps,y=lastPt.y+dy*i/steps;mctx.beginPath();mctx.arc(x,y,rad,0,7);mctx.fill();}}
+    else{mctx.beginPath();mctx.arc(p.x,p.y,rad,0,7);mctx.fill();}
+    lastPt=p;
+  }
+  // pointer handling on view (mode-aware)
+  view.addEventListener('pointerdown',e=>{
+    view.setPointerCapture(e.pointerId);
+    if(mode==='remove'){painting=true;lastPt=null;paintAt(maskPt(e));}
+    else{splitDrag=true;setSplitFromX(e.clientX);}
+  });
+  view.addEventListener('pointermove',e=>{
+    if(mode==='remove'){moveCursor(e);if(painting)paintAt(maskPt(e));}
+    else if(splitDrag)setSplitFromX(e.clientX);
+  });
+  view.addEventListener('pointerup',()=>{painting=false;splitDrag=false;lastPt=null;});
+  view.addEventListener('pointerleave',()=>{$('brushCursor').classList.remove('on');});
+  view.addEventListener('pointerenter',e=>{if(mode==='remove')$('brushCursor').classList.add('on');});
+  view.addEventListener('dblclick',()=>{if(mode==='light'){S.split=1;positionHandle();}});
+  function moveCursor(e){const c=$('brushCursor'),wrap=$('stage').getBoundingClientRect();c.classList.add('on');c.style.left=(e.clientX-wrap.left)+'px';c.style.top=(e.clientY-wrap.top)+'px';}
+  function sizeBrushCursor(){const r=view.getBoundingClientRect(),sz=parseInt($('brush').value,10)*(r.width/ (mask.width||r.width));const c=$('brushCursor');c.style.width=sz+'px';c.style.height=sz+'px';}
+
+  /* ---------- split compare ---------- */
+  let splitDrag=false;
+  function setSplitFromX(x){const r=view.getBoundingClientRect();S.split=clamp((x-r.left)/r.width,0,1);positionHandle();}
+
+  /* ---------- removal: send to backend ---------- */
+  function maskHasContent(){const d=mctx.getImageData(0,0,mask.width,mask.height).data;for(let i=3;i<d.length;i+=4)if(d[i]>10)return true;return false;}
+  function targetSize(){
+    let w=imgFull.width,h=imgFull.height;
+    const long=Math.max(w,h),scale=Math.min(1,1536/long);
+    w=Math.max(256,Math.round(w*scale/16)*16);
+    h=Math.max(256,Math.round(h*scale/16)*16);
+    return{w,h};
+  }
+  function bakedFullCanvas(){
+    // 把目前的調光＋水平校正「烤」進全解析度影像，送出去的就是你眼前看到的
+    const fdata=imgFull.getContext('2d').getImageData(0,0,imgFull.width,imgFull.height);
+    const buf=document.createElement('canvas');buf.width=imgFull.width;buf.height=imgFull.height;
+    buf.getContext('2d').putImageData(processTone(fdata),0,0);
+    return getGeomCanvas(buf);
+  }
+  function neutralizeSettings(){
+    S.blackPoint=0;S.whitePoint=255;S.wbR=S.wbG=S.wbB=1;S.autoWB=false;
+    S.exposure=0;S.brightness=0;S.contrast=0;S.warmth=0;S.sharpen=0;S.angle=0;S.vert=0;
+  }
+  function buildOpenAIInputs(useMask){
+    const {w,h}=targetSize();
+    const baked=bakedFullCanvas();
+    const ic=document.createElement('canvas');ic.width=w;ic.height=h;
+    ic.getContext('2d').drawImage(baked,0,0,w,h);
+    const image=ic.toDataURL('image/jpeg',0.9);
+    const payload={image,size:w+'x'+h,mode:useMask?'mask':'auto'};
+    if(useMask){
+      const mc=document.createElement('canvas');mc.width=w;mc.height=h;
+      const tmp=document.createElement('canvas');tmp.width=w;tmp.height=h;
+      tmp.getContext('2d').drawImage(mask,0,0,w,h);
+      const md=tmp.getContext('2d').getImageData(0,0,w,h);
+      const mx=mc.getContext('2d'),base=mx.createImageData(w,h);
+      for(let i=0;i<base.data.length;i+=4){
+        const painted=md.data[i+3]>10;
+        base.data[i]=0;base.data[i+1]=0;base.data[i+2]=0;
+        base.data[i+3]=painted?0:255;                            // 透明=要修補的區域(OpenAI 規格)
+      }
+      mx.putImageData(base,0,0);
+      payload.mask=mc.toDataURL('image/png');
+    }
+    return payload;
+  }
+  async function doRemoval(useMask){
+    const ep=endpoint();
+    if(!ep){toast('還沒設定後端網址（看雜物移除分頁的說明）');setMode('remove');return;}
+    if(useMask&&!maskHasContent()){toast('先用筆刷把要補修的地方塗滿');return;}
+    $('busy').classList.add('on');
+    $('busyMsg').textContent=useMask?'局部補修中…約 10～30 秒':'AI 判讀並清除雜物中…約 10～30 秒';
+    $('removeBtn').disabled=true;$('oneClickBtn').disabled=true;
+    try{
+      const payload=buildOpenAIInputs(useMask);
+      const res=await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const data=await res.json().catch(()=>({}));
+      const out=data.image||data.url;
+      if(!res.ok||!out)throw new Error(data.error||('伺服器回應 '+res.status));
+      const cleaned=await loadImg(out);
+      undoStack.push({img:imgFull,s:{...S}});        // 快照：影像＋當時的設定
+      if(undoStack.length>5)undoStack.shift();
+      imgFull=drawToCanvas(cleaned,FULL_MAX);
+      neutralizeSettings();                          // 調光已烤進影像，歸零避免疊兩次
+      clearMask();
+      syncSliders();
+      rebuildPreviewFromFull();
+      $('undoBtn').disabled=false;
+      render();toast(useMask?'已補修，檢查一下效果':'已清除雜物，整張檢查一遍再收');
+    }catch(err){toast('移除失敗：'+err.message);}
+    finally{
+      $('busy').classList.remove('on');
+      const ok=!!endpoint();
+      $('removeBtn').disabled=!ok;$('oneClickBtn').disabled=!ok;
+    }
+  }
+  function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.crossOrigin='anonymous';i.onload=()=>res(i);i.onerror=()=>rej(new Error('結果圖讀取失敗'));i.src=src;});}
+  $('removeBtn').addEventListener('click',()=>doRemoval(true));
+  $('oneClickBtn').addEventListener('click',()=>doRemoval(false));
+  $('undoBtn').addEventListener('click',()=>{
+    if(!undoStack.length)return;
+    const snap=undoStack.pop();
+    imgFull=snap.img;Object.assign(S,snap.s);
+    syncSliders();rebuildPreviewFromFull();render();
+    $('undoBtn').disabled=!undoStack.length;toast('已復原上一步');
+  });
+
+  /* ---------- file input / dropzone ---------- */
+  $('drop').addEventListener('click',()=>$('file').click());
+  $('file').addEventListener('change',e=>{if(e.target.files[0])loadFile(e.target.files[0]);e.target.value='';});
+  $('newBtn').addEventListener('click',()=>$('file').click());
+  const sw=$('stageWrap');
+  ['dragenter','dragover'].forEach(ev=>sw.addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('hot');}));
+  ['dragleave','drop'].forEach(ev=>sw.addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('hot');}));
+  sw.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)loadFile(f);});
+  window.addEventListener('paste',e=>{const it=[...(e.clipboardData.files||[])];if(it[0])loadFile(it[0]);});
+
+  /* ---------- export ---------- */
+  $('downloadBtn').addEventListener('click',()=>{
+    if(!hasImage)return;$('downloadBtn').disabled=true;toast('輸出中…');
+    setTimeout(()=>{try{
+      const fdata=imgFull.getContext('2d').getImageData(0,0,imgFull.width,imgFull.height);
+      const buf=document.createElement('canvas');buf.width=imgFull.width;buf.height=imgFull.height;
+      buf.getContext('2d').putImageData(processTone(fdata),0,0);
+      const geom=getGeomCanvas(buf);
+      const out=document.createElement('canvas');out.width=geom.width;out.height=geom.height;
+      const octx=out.getContext('2d');octx.fillStyle='#000';octx.fillRect(0,0,out.width,out.height);octx.drawImage(geom,0,0);
+      out.toBlob(b=>{const a=document.createElement('a');a.href=URL.createObjectURL(b);
+        a.download='修圖_'+new Date().toISOString().slice(0,16).replace(/[-:T]/g,'')+'.jpg';a.click();
+        setTimeout(()=>URL.revokeObjectURL(a.href),1000);$('downloadBtn').disabled=false;toast('已下載');},'image/jpeg',0.92);
+    }catch(err){$('downloadBtn').disabled=false;toast('輸出失敗，照片可能太大');}},30);
+  });
+
+  window.addEventListener('resize',()=>{if(hasImage){positionHandle();sizeBrushCursor();}});
+  refreshSetupNotice();
+})();
+</script>
+</body>
+</html>
