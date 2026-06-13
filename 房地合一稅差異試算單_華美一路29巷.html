@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>房地合一稅試算單｜現在賣 vs 明年自住賣</title>
+<style>
+  :root{
+    --paper:#F6F5F1;
+    --card:#FFFFFF;
+    --ink:#1B2A2C;
+    --ink-soft:#4A5A5B;
+    --line:#DCD9D0;
+    --line-strong:#C3BFB2;
+    --brass:#9A7426;
+    --clay:#A8472E;     /* 方案A：稅較高 */
+    --clay-bg:#F8EDE8;
+    --green:#2F6B4F;    /* 方案B：稅較低 */
+    --green-bg:#EAF1EC;
+    --warn:#9A3B2A;
+    --warn-bg:#FBEEE9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:"Noto Sans TC","PingFang TC","PingFang SC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.65;
+    padding:20px 14px 60px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+
+  /* ---- Header ---- */
+  header{
+    border-top:3px solid var(--ink);
+    padding-top:18px;margin-bottom:22px;
+  }
+  .eyebrow{
+    font-size:12px;letter-spacing:.22em;color:var(--brass);
+    font-weight:700;text-transform:uppercase;margin-bottom:8px;
+  }
+  h1{
+    font-size:clamp(22px,5.2vw,30px);font-weight:800;letter-spacing:-.01em;
+    line-height:1.25;margin-bottom:12px;
+  }
+  .meta{
+    display:flex;flex-wrap:wrap;gap:6px 22px;
+    font-size:13px;color:var(--ink-soft);
+    padding-top:10px;border-top:1px solid var(--line);
+  }
+  .meta b{color:var(--ink);font-weight:600}
+
+  /* ---- Section ---- */
+  section{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:18px 16px;margin-bottom:16px;
+  }
+  .sec-label{
+    display:flex;align-items:baseline;gap:9px;margin-bottom:14px;
+  }
+  .sec-num{
+    font-size:12px;font-weight:800;color:var(--brass);
+    border:1.5px solid var(--brass);border-radius:50%;
+    width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;flex:none;
+  }
+  .sec-label h2{font-size:16px;font-weight:700;letter-spacing:.01em}
+  .sec-hint{font-size:12.5px;color:var(--ink-soft);margin-top:-6px;margin-bottom:12px}
+
+  /* ---- Acquisition rows ---- */
+  .rowline{
+    display:flex;justify-content:space-between;gap:12px;
+    padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;
+  }
+  .rowline:last-child{border-bottom:none}
+  .rowline .k{color:var(--ink-soft)}
+  .rowline .v{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+  .tag{
+    display:inline-block;font-size:11px;font-weight:700;
+    padding:1px 7px;border-radius:4px;background:var(--green-bg);color:var(--green);
+    margin-left:6px;vertical-align:middle;
+  }
+
+  /* ---- Editable inputs ---- */
+  .field{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:10px 0;border-bottom:1px solid var(--line);
+  }
+  .field:last-child{border-bottom:none}
+  .field label{font-size:14px;color:var(--ink);flex:1}
+  .field label small{display:block;font-size:11.5px;color:var(--ink-soft);font-weight:400;margin-top:1px}
+  .field .ipt{display:flex;align-items:center;gap:4px}
+  .field .ipt .pre{color:var(--ink-soft);font-size:13px}
+  input[type=text]{
+    font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);
+    text-align:right;width:130px;border:none;border-bottom:1.5px solid var(--line-strong);
+    background:transparent;padding:4px 2px;font-variant-numeric:tabular-nums;
+  }
+  input.small{width:64px}
+  input[type=text]:focus{outline:none;border-bottom-color:var(--brass);background:#FCFAF4}
+  .unit{font-size:13px;color:var(--ink-soft)}
+
+  /* ---- Scenario compare ---- */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:540px){.compare{grid-template-columns:1fr}}
+  .plan{border-radius:12px;padding:16px 14px;border:1px solid var(--line)}
+  .plan.a{background:var(--clay-bg);border-color:#E7CFC6}
+  .plan.b{background:var(--green-bg);border-color:#CFE0D4}
+  .plan h3{font-size:14px;font-weight:700;margin-bottom:2px}
+  .plan .sub{font-size:12px;color:var(--ink-soft);margin-bottom:12px;min-height:18px}
+  .plan .calc{font-size:12.5px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+  .plan .calc div{display:flex;justify-content:space-between;padding:3px 0}
+  .plan .big{
+    margin-top:12px;padding-top:12px;border-top:1px dashed var(--line-strong);
+  }
+  .plan .big .lbl{font-size:12px;color:var(--ink-soft)}
+  .plan .big .amt{font-size:clamp(26px,7vw,34px);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+  .plan.a .amt{color:var(--clay)}
+  .plan.b .amt{color:var(--green)}
+  .plan .big .amt small{font-size:15px;font-weight:700}
+
+  /* ---- Diff banner ---- */
+  .diff{
+    margin-top:14px;background:var(--ink);color:#fff;border-radius:12px;
+    padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  }
+  .diff .t{font-size:13px;color:#C9D4D1}
+  .diff .t b{color:#fff;font-weight:700}
+  .diff .n{font-size:clamp(26px,7vw,36px);font-weight:800;color:#E8C77A;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .diff .n small{font-size:16px}
+
+  /* ---- Checklist ---- */
+  .check{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line);cursor:pointer;align-items:flex-start}
+  .check:last-of-type{border-bottom:none}
+  .check input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--green);cursor:pointer}
+  .check .ctext{font-size:13.5px}
+  .check .ctext b{font-weight:700}
+  .check .ctext small{display:block;color:var(--ink-soft);font-size:12px;margin-top:1px}
+  .verdict{
+    margin-top:14px;border-radius:10px;padding:12px 14px;font-size:13.5px;font-weight:600;
+  }
+  .verdict.ok{background:var(--green-bg);color:var(--green);border:1px solid #CFE0D4}
+  .verdict.no{background:var(--warn-bg);color:var(--warn);border:1px solid #EED2C8}
+
+  /* ---- Notes ---- */
+  .note-list{list-style:none;font-size:13px;color:var(--ink-soft)}
+  .note-list li{padding:7px 0 7px 18px;position:relative;border-bottom:1px dashed var(--line)}
+  .note-list li:last-child{border-bottom:none}
+  .note-list li::before{content:"›";position:absolute;left:2px;color:var(--brass);font-weight:700}
+  .note-list li b{color:var(--ink);font-weight:600}
+
+  footer{
+    margin-top:24px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:11.5px;color:var(--ink-soft);line-height:1.7;
+  }
+  .brand{font-weight:700;color:var(--ink);font-size:13px;margin-bottom:4px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">房地合一稅 · 決策試算</div>
+    <h1>現在賣 vs 明年自住賣<br>稅負差異試算單</h1>
+    <div class="meta">
+      <span><b>標的</b>　桃園市中壢區華美一路29巷12號</span>
+      <span><b>土地</b>　農民段 1110 地號</span>
+      <span><b>製表</b>　中壢專業房仲喵爸</span>
+    </div>
+  </header>
+
+  <!-- 1 取得背景 -->
+  <section>
+    <div class="sec-label"><span class="sec-num">1</span><h2>取得背景</h2></div>
+    <div class="sec-hint">分兩次贈與取得，各 1/2，皆為 105 年後取得 → 兩半都適用新制房地合一。</div>
+    <div class="rowline"><span class="k">A 半｜109 年 2 月 贈與</span><span class="v">房屋 1/2 ＋ 土地持分<span class="tag">新制</span></span></div>
+    <div class="rowline"><span class="k">B 半｜110 年 1 月 贈與</span><span class="v">房屋 1/2 ＋ 土地持分<span class="tag">新制</span></span></div>
+    <div class="rowline"><span class="k">持有期間（現在賣）</span><span class="v">A 半約 6 年 4 月／B 半約 5 年 5 月</span></div>
+    <div class="rowline"><span class="k">適用稅率（非自住）</span><span class="v">持有 &gt;5 年≤10 年 → 20%</span></div>
+  </section>
+
+  <!-- 2 取得成本 -->
+  <section>
+    <div class="sec-label"><span class="sec-num">2</span><h2>取得成本（CPI 調整後）</h2></div>
+    <div class="sec-hint">受贈取得＝（受贈時房屋評定現值＋公告土地現值）× 消費者物價指數。CPI 採 115 年 5 月稅務專用表。</div>
+    <div class="rowline"><span class="k">B 半 110/1（確定）<br><small style="color:var(--ink-soft)">(311,650＋1,669,282)×1.128</small></span><span class="v">2,234,491</span></div>
+    <div class="rowline"><span class="k">A 半 109/2（現值估算）<br><small style="color:var(--ink-soft)">(約315,000＋約1,635,000)×1.138</small></span><span class="v">2,219,100</span></div>
+    <div class="rowline"><span class="k" style="font-weight:600;color:var(--ink)">取得成本合計</span><span class="v" style="color:var(--brass)">4,453,591</span></div>
+  </section>
+
+  <!-- 3 可調整數字 -->
+  <section>
+    <div class="sec-label"><span class="sec-num">3</span><h2>可調整數字</h2></div>
+    <div class="sec-hint">藍底欄位可直接點改，下方稅額即時重算。土增稅與土地漲價總數額補進來後，兩方案稅額都會再降。</div>
+
+    <div class="field">
+      <label>成交價</label>
+      <div class="ipt"><span class="pre">NT$</span><input type="text" id="price" value="28,000,000"></div>
+    </div>
+    <div class="field">
+      <label>取得成本（CPI 後）<small>A 半含估算，待 109 現值補正</small></label>
+      <div class="ipt"><span class="pre">NT$</span><input type="text" id="cost" value="4,453,591"></div>
+    </div>
+    <div class="field">
+      <label>仲介服務費<small>核實認定（需發票），超過 30 萬上限故走核實</small></label>
+      <div class="ipt"><input type="text" id="feerate" class="small" value="4"><span class="unit">%</span></div>
+    </div>
+    <div class="field">
+      <label>受贈時房屋契稅<small>按房屋評定現值 6%（估）</small></label>
+      <div class="ipt"><span class="pre">NT$</span><input type="text" id="deed" value="37,600"></div>
+    </div>
+    <div class="field">
+      <label>賣方代書費／履保費<small>估，待單據</small></label>
+      <div class="ipt"><span class="pre">NT$</span><input type="text" id="scrivener" value="20,000"></div>
+    </div>
+    <div class="field">
+      <label>受贈時土地增值稅<small>兩次受贈當年繳的，翻繳納證明可列費用</small></label>
+      <div class="ipt"><span class="pre">NT$</span><input type="text" id="oldlvit" value="0"></div>
+    </div>
+    <div class="field">
+      <label>本次土地漲價總數額<small>從本次出售土增稅單抓，獨立扣除項</small></label>
+      <div class="ipt"><span class="pre">NT$</span><input type="text" id="landinc" value="0"></div>
+    </div>
+  </section>
+
+  <!-- 4 兩方案比較 -->
+  <section>
+    <div class="sec-label"><span class="sec-num">4</span><h2>兩方案稅額比較</h2></div>
+    <div class="compare">
+      <div class="plan a">
+        <h3>方案 A｜現在賣</h3>
+        <div class="sub">稅率 20%，不適用自住</div>
+        <div class="calc">
+          <div><span>課稅所得</span><span id="incomeA">22,368,809</span></div>
+          <div><span>× 稅率</span><span>20%</span></div>
+        </div>
+        <div class="big">
+          <div class="lbl">應納稅額（概估上限）</div>
+          <div class="amt"><span id="taxA">4,473,762</span></div>
+          <div class="lbl" id="taxA_w">約 447 萬</div>
+        </div>
+      </div>
+      <div class="plan b">
+        <h3>方案 B｜明年賣＋自住</h3>
+        <div class="sub">400 萬免稅，超過部分 10%</div>
+        <div class="calc">
+          <div><span>課稅所得</span><span id="incomeB">22,368,809</span></div>
+          <div><span>− 自住免稅</span><span>4,000,000</span></div>
+          <div><span>× 稅率</span><span>10%</span></div>
+        </div>
+        <div class="big">
+          <div class="lbl">應納稅額（概估上限）</div>
+          <div class="amt"><span id="taxB">1,836,881</span></div>
+          <div class="lbl" id="taxB_w">約 184 萬</div>
+        </div>
+      </div>
+    </div>
+    <div class="diff">
+      <div class="t">等到明年符合自住再賣，<br><b>可省下房地合一稅約</b></div>
+      <div class="n"><span id="diff">2,636,881</span></div>
+    </div>
+  </section>
+
+  <!-- 5 自住四條件 -->
+  <section>
+    <div class="sec-label"><span class="sec-num">5</span><h2>自住四條件檢核</h2></div>
+    <div class="sec-hint">方案 B 的前提。四項全中才成立——勾選確認屋主實際狀況。</div>
+
+    <label class="check"><input type="checkbox" class="cond">
+      <span class="ctext"><b>設籍＋實際居住，連續滿 6 年</b>
+      <small>本人或配偶、未成年子女。設籍日與實住都要滿 6 年，差幾天都不行。</small></span></label>
+
+    <label class="check"><input type="checkbox" class="cond">
+      <span class="ctext"><b>持有滿 6 年（等 B 半）</b>
+      <small>B 半 110/1 取得，須到 116 年 1 月才滿 6 年 → 賣點要在 2027 年初之後。</small></span></label>
+
+    <label class="check"><input type="checkbox" class="cond">
+      <span class="ctext"><b>交易前 6 年內未出租、營業、執行業務</b>
+      <small>中間有一段出租，連續自住即中斷，資格作廢。</small></span></label>
+
+    <label class="check"><input type="checkbox" class="cond">
+      <span class="ctext"><b>6 年內未用過自住優惠</b>
+      <small>本人＋配偶＋未成年子女合計 6 年限一次。靠子女設籍者，賣時子女不得已滿 18 歲。</small></span></label>
+
+    <div class="verdict no" id="verdict">尚未全部符合 — 方案 B 暫不成立。請先確認屋主是否真的設籍居住於此。</div>
+  </section>
+
+  <!-- 6 注意事項 -->
+  <section>
+    <div class="sec-label"><span class="sec-num">6</span><h2>注意事項 / 待補</h2></div>
+    <ul class="note-list">
+      <li>本表兩方案稅額均為<b>「上限」</b>：尚未扣「受贈時土增稅」與「本次土地漲價總數額」，補進後兩版同步下降，差距仍約 240～260 萬。</li>
+      <li><b>A 半 109 年現值為估算</b>（房約 31.5 萬、地約 163.5 萬）。正式申報請用 109 年實際房屋評定現值＋109 年期公告土地現值（翻 109 年贈與稅申報書）。</li>
+      <li>因屬<b>贈與取得（非繼承）</b>，持有期間不能併計贈與人，也沒有舊制土地免稅；自住 6 年須屋主自己累積。</li>
+      <li>最關鍵：<b>屋主是否實際設籍並居住於此？</b>若僅持有、未自住，等再久也無法用自住優惠，反而白等。</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="brand">中壢專業房仲喵爸</div>
+    本試算單為依現有資料之概估，僅供決策參考，非正式稅務意見。實際稅額以申報當期國稅局核定之現值、消費者物價指數、土地漲價總數額及自住認定為準。建議正式申報前洽地政士或國稅局複核。
+  </footer>
+
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const num = id => {
+    const v = parseFloat(($(id).value || '0').replace(/[^0-9.\-]/g,''));
+    return isNaN(v) ? 0 : v;
+  };
+  const wan = n => {
+    const w = n/10000;
+    return '約 ' + (w>=1000 ? (w/10000).toFixed(2).replace(/\.?0+$/,'')+' 億' : Math.round(w)+' 萬');
+  };
+
+  function calc(){
+    const price = num('price');
+    const cost  = num('cost');
+    const fee   = price * num('feerate')/100;
+    const deed  = num('deed');
+    const scr   = num('scrivener');
+    const oldlvit = num('oldlvit');
+    const landinc = num('landinc');
+
+    const expenses = fee + deed + scr + oldlvit;
+    const income = Math.max(0, price - cost - expenses - landinc);
+
+    const taxA = income * 0.20;
+    const exempt = 4000000;
+    const taxB = Math.max(0, income - exempt) * 0.10;
+    const diff = Math.max(0, taxA - taxB);
+
+    $('incomeA').textContent = fmt(income);
+    $('incomeB').textContent = fmt(income);
+    $('taxA').textContent = fmt(taxA);
+    $('taxB').textContent = fmt(taxB);
+    $('taxA_w').textContent = wan(taxA);
+    $('taxB_w').textContent = wan(taxB);
+    $('diff').textContent = fmt(diff);
+  }
+
+  function reformat(el){
+    const raw = el.value.replace(/[^0-9.]/g,'');
+    if(el.id==='feerate'){ el.value = raw; return; }
+    if(raw==='') { el.value=''; return; }
+    el.value = parseFloat(raw).toLocaleString('en-US');
+  }
+
+  document.querySelectorAll('input[type=text]').forEach(el=>{
+    el.addEventListener('input', calc);
+    el.addEventListener('blur', ()=>{ reformat(el); calc(); });
+  });
+
+  function verdict(){
+    const all = [...document.querySelectorAll('.cond')];
+    const done = all.filter(c=>c.checked).length;
+    const v = $('verdict');
+    if(done===all.length){
+      v.className='verdict ok';
+      v.textContent='四條件全部符合 — 方案 B 成立，可主張自住 400 萬免稅＋10%。';
+    }else{
+      v.className='verdict no';
+      v.textContent='尚未全部符合（已勾 '+done+'/4）— 方案 B 暫不成立。請先確認屋主是否真的設籍居住於此。';
+    }
+  }
+  document.querySelectorAll('.cond').forEach(c=>c.addEventListener('change',verdict));
+
+  calc();
+</script>
+</body>
+</html>
