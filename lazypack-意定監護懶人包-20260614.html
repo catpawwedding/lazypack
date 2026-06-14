@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>意定監護懶人包 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero {
+    margin: 4px auto 32px;
+    max-width: 320px;
+  }
+  .hero svg { width: 100%; height: auto; display: block; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF;
+    border-left: 5px solid #D9342B;
+    padding: 20px 22px;
+    margin-bottom: 36px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A463F;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 重點區塊 === */
+  .points {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .point-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .point-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #D9342B;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: #D9342B;
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #FFF5E0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 對比視覺(法定 vs 意定) === */
+  .compare {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .compare-col {
+    flex: 1;
+    border-radius: 12px;
+    padding: 16px 14px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .compare-col h4 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .compare-col p { margin-bottom: 6px; }
+  .compare-col p:last-child { margin-bottom: 0; }
+  .compare-legal {
+    background: #F1EEE9;
+    color: #6B6660;
+    border: 1px solid #E3DED6;
+  }
+  .compare-legal h4 { color: #6B6660; }
+  .compare-self {
+    background: #FCEDEC;
+    color: #4A463F;
+    border: 1px solid #F5C9C5;
+  }
+  .compare-self h4 { color: #D9342B; }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF;
+    padding: 32px 24px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p {
+    font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF;
+    color: #2C2A26;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 26px 24px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FFF;
+    padding: 13px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 2px solid #FCE4E1;
+  }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px; display: block;
+    margin: 0 auto 8px; opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed;
+    right: 16px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none; transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>意定監護<span class="highlight">懶人包</span></h1>
+      <p class="subtitle">趁你還清楚的時候，先決定「萬一倒下，誰替你做主」。</p>
+    </div>
+
+    <!-- Hero 插圖 -->
+    <div class="hero" aria-hidden="true">
+      <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="320" height="180" rx="16" fill="#FFFFFF"/>
+        <!-- 文件 -->
+        <rect x="34" y="34" width="100" height="120" rx="8" fill="#FCEDEC" stroke="#F5C9C5" stroke-width="2"/>
+        <rect x="50" y="56" width="68" height="7" rx="3.5" fill="#D9342B"/>
+        <rect x="50" y="74" width="56" height="5" rx="2.5" fill="#D8CFC4"/>
+        <rect x="50" y="86" width="64" height="5" rx="2.5" fill="#D8CFC4"/>
+        <rect x="50" y="98" width="48" height="5" rx="2.5" fill="#D8CFC4"/>
+        <rect x="50" y="110" width="60" height="5" rx="2.5" fill="#D8CFC4"/>
+        <!-- 印章 -->
+        <circle cx="104" cy="130" r="17" fill="none" stroke="#D9342B" stroke-width="3"/>
+        <text x="104" y="135" font-size="13" font-weight="800" fill="#D9342B" text-anchor="middle" font-family="PingFang TC, Microsoft JhengHei, sans-serif">公證</text>
+        <!-- 兩個人(你 + 你信任的人) -->
+        <circle cx="206" cy="74" r="18" fill="#F5B946"/>
+        <path d="M178 130 a28 28 0 0 1 56 0 z" fill="#F5B946"/>
+        <circle cx="258" cy="86" r="15" fill="#B89968"/>
+        <path d="M236 132 a22 22 0 0 1 44 0 z" fill="#B89968"/>
+        <!-- 連結線 -->
+        <path d="M134 96 C156 96 156 92 178 92" stroke="#D9342B" stroke-width="2.5" stroke-dasharray="4 4" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- 引言 -->
+    <div class="intro">
+      影片裡那個中風的客戶，問題不是「能不能救」，而是「誰能替他做決定」。法院最後指定的，是那位平常幾乎沒聯絡的哥哥。這份懶人包，就是要讓你在還清楚的時候，把這個決定權，先牢牢握在自己手上。
+    </div>
+
+    <!-- 重點 -->
+    <div class="points">
+
+      <div class="point-card">
+        <div class="point-number">01</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">法定監護 vs 意定監護，差在「誰來指定」</div>
+        <div class="point-body">
+          一樣是失能後有人替你做決定，差別在於：<strong>這個人是法院挑的，還是你自己挑的</strong>。
+          <div class="compare">
+            <div class="compare-col compare-legal">
+              <h4>法定監護</h4>
+              <p>你倒下後，法院才介入。</p>
+              <p>由法院從親屬中指定。</p>
+              <p>可能是你不熟、不信任的人。</p>
+            </div>
+            <div class="compare-col compare-self">
+              <h4>意定監護</h4>
+              <p>趁你清楚時，先寫好。</p>
+              <p>由你自己指定。</p>
+              <p>就算不是家人也可以。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">02</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">它能幫你先決定的，不只是「誰」</div>
+        <div class="point-body">
+          意定監護不是只指定一個人，而是把「你想要怎麼被照顧」整套寫清楚：
+          <ul>
+            <li><strong>誰當監護人</strong>：你信任的人，家人、朋友都可以，也可以指定一個以上。</li>
+            <li><strong>醫療怎麼處理</strong>：要不要積極治療、復健要不要繼續，先講明白。</li>
+            <li><strong>生活怎麼安排</strong>：請看護還是住機構，照你希望的生活品質走。</li>
+            <li><strong>財產怎麼管理</strong>：誰能動你的錢、能動到什麼程度，先框好範圍。</li>
+          </ul>
+          <div class="point-example">
+            最現實的一點：每多花一筆醫療費，將來能分的財產就少一筆。把「我要怎麼被照顧」白紙黑字寫死，就是不讓別人替你做不利於你的決定。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">03</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">動手前，先想清楚這四件事</div>
+        <div class="point-body">
+          寫之前，把這幾題在心裡先過一遍，越細越好：
+          <ul>
+            <li><strong>主選誰、備選誰</strong>：第一人選若不能勝任，誰接手。</li>
+            <li><strong>醫療底線</strong>：哪些治療你要、哪些你不要，先設好。</li>
+            <li><strong>照顧方式</strong>：在家、看護、機構，你的偏好順序。</li>
+            <li><strong>財產權限</strong>：監護人能處理哪些、不能碰哪些，講清楚。</li>
+          </ul>
+          <div class="point-example">
+            寫得越具體，將來爭議越少。模糊的一句「好好照顧我」，到了現場每個人解讀都不一樣。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">04</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">關鍵一步：一定要公證才算數</div>
+        <div class="point-body">
+          這份文件不是自己寫一寫、簽個名就生效，<strong>必須經過公證</strong>，而且設定後沒有期限限制，一直有效到你需要的那天。大致流程是：
+          <ul>
+            <li>想清楚上面那四件事，把內容擬好。</li>
+            <li>和你要指定的監護人一起，到公證處或找民間公證人。</li>
+            <li>由公證人作成公證書，文件才正式生效。</li>
+          </ul>
+          <div class="point-example">
+            實際需要帶的文件、費用、流程細節，會依個案不同，建議直接問公證人或專業人士確認，才不會白跑一趟。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">05</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">最好的時機，是「還用不到」的現在</div>
+        <div class="point-body">
+          很多人會說「我們家不會啦」，但真正出事的那一刻，<strong>決定權已經不在你手上</strong>了。意定監護只有一個前提——你還清楚、還能判斷。一旦失能，就只剩法定監護這條路，由不得你。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      意外不可怕，可怕的是你<span class="accent">失去選擇權</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.06.14</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
