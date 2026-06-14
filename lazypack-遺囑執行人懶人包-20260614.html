@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遺囑執行人懶人包 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle {
+    font-size: 17px;
+    color: #6B6660;
+    line-height: 1.6;
+  }
+
+  /* === Hero 插圖 === */
+  .hero {
+    background: linear-gradient(160deg, #FFF7EC, #FCEDE6);
+    border-radius: 18px;
+    padding: 22px 16px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .hero svg { width: 100%; max-width: 340px; height: auto; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF;
+    border-left: 5px solid #D9342B;
+    padding: 20px 22px;
+    margin-bottom: 28px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A463F;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 對比視覺化 === */
+  .compare {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .compare-card {
+    flex: 1;
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .compare-card.bad { background: #FBE9E7; border: 1.5px solid #F1B5AE; }
+  .compare-card.good { background: #FBF4E7; border: 1.5px solid #E3CFA0; }
+  .compare-icon { margin-bottom: 10px; }
+  .compare-icon svg { width: 40px; height: 40px; }
+  .compare-label {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .compare-card.bad .compare-label { color: #D9342B; }
+  .compare-card.good .compare-label { color: #B08838; }
+  .compare-desc {
+    font-size: 13.5px;
+    color: #4A463F;
+    line-height: 1.6;
+  }
+  .compare-result {
+    margin-top: 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+  .compare-card.bad .compare-result { color: #D9342B; }
+  .compare-card.good .compare-result { color: #B08838; }
+
+  /* === 重點區塊 === */
+  .points {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 36px;
+  }
+  .point-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 26px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .point-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .point-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #D9342B;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: #D9342B;
+    margin-top: 12px;
+    border-radius: 2px;
+  }
+  .point-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #FFF1EE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .point-icon svg { width: 26px; height: 26px; }
+  .point-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .point-body {
+    font-size: 16px;
+    color: #4A463F;
+    line-height: 1.75;
+  }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #FFF5E0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF;
+    padding: 32px 24px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF;
+    color: #2C2A26;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 26px 24px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FFF;
+    padding: 13px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 2px solid #FCE4E1;
+  }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px;
+    display: block; margin: 0 auto 8px;
+    opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660;
+    letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed;
+    right: 16px; bottom: 20px;
+    display: flex; flex-direction: column;
+    gap: 12px; z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>遺囑執行人<span class="highlight">懶人包</span></h1>
+      <p class="subtitle">立好遺囑只是第一步，真正讓資產動得了的，是這個角色。</p>
+    </div>
+
+    <!-- Hero 插圖：遺囑卷軸 + 印章 + 鑰匙 -->
+    <div class="hero">
+      <svg viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="遺囑文件、印章與鑰匙">
+        <!-- 文件 -->
+        <rect x="78" y="34" width="120" height="120" rx="8" fill="#FFFFFF" stroke="#B89968" stroke-width="2.5"/>
+        <line x1="96" y1="60" x2="180" y2="60" stroke="#D9342B" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="96" y1="78" x2="170" y2="78" stroke="#E3CFA0" stroke-width="3" stroke-linecap="round"/>
+        <line x1="96" y1="92" x2="180" y2="92" stroke="#E3CFA0" stroke-width="3" stroke-linecap="round"/>
+        <line x1="96" y1="106" x2="160" y2="106" stroke="#E3CFA0" stroke-width="3" stroke-linecap="round"/>
+        <line x1="96" y1="120" x2="176" y2="120" stroke="#E3CFA0" stroke-width="3" stroke-linecap="round"/>
+        <!-- 印章 -->
+        <circle cx="178" cy="128" r="20" fill="#FBE9E7" stroke="#D9342B" stroke-width="2.5"/>
+        <circle cx="178" cy="128" r="12" fill="none" stroke="#D9342B" stroke-width="2"/>
+        <text x="178" y="133" font-size="11" font-weight="700" fill="#D9342B" text-anchor="middle" font-family="PingFang TC, sans-serif">章</text>
+        <!-- 鑰匙 -->
+        <g transform="rotate(28 236 96)">
+          <circle cx="236" cy="74" r="16" fill="none" stroke="#B89968" stroke-width="6"/>
+          <rect x="232" y="88" width="8" height="46" rx="3" fill="#B89968"/>
+          <rect x="240" y="116" width="14" height="7" rx="2" fill="#B89968"/>
+          <rect x="240" y="128" width="10" height="7" rx="2" fill="#B89968"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 引言 -->
+    <div class="intro">
+      很多人以為，遺囑寫好就沒事了。但只要繼承人裡有一個人不配合，銀行就一句「請全體繼承人到齊」，帳戶、股票、房子立刻全部卡住。這份幫你一次看懂：誰能把卡住的局解開，以及生前該怎麼先安排好。
+    </div>
+
+    <!-- 對比視覺化：沒指定 vs 有指定 -->
+    <div class="compare">
+      <div class="compare-card bad">
+        <div class="compare-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="11" width="14" height="9" rx="2" stroke="#D9342B" stroke-width="2"/>
+            <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#D9342B" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="compare-label">沒指定執行人</div>
+        <div class="compare-desc">要全體繼承人同意才能動。</div>
+        <div class="compare-result">一人不配合就卡死。</div>
+      </div>
+      <div class="compare-card good">
+        <div class="compare-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" stroke="#B08838" stroke-width="2"/>
+            <path d="M8 12l2.5 2.5L16 9" stroke="#B08838" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="compare-label">有指定執行人</div>
+        <div class="compare-desc">執行人可依法處理資產。</div>
+        <div class="compare-result">不必每個人點頭。</div>
+      </div>
+    </div>
+
+    <!-- 重點 -->
+    <div class="points">
+
+      <!-- 01 -->
+      <div class="point-card">
+        <div class="point-card-head">
+          <div>
+            <div class="point-number">01</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="11" width="14" height="9" rx="2" stroke="#D9342B" stroke-width="2"/>
+              <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#D9342B" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">立好遺囑，為什麼還會卡住</div>
+        <div class="point-body">
+          真正的問題，往往不是遺囑怎麼寫，而是<strong>有人不配合</strong>。
+          全體繼承人裡，只要一個人說「我不同意」，不蓋章、不簽字、不出面，銀行就一句話：請全體繼承人到齊。
+          然後帳戶卡住、股票動不了、房子不能處理。錢明明是家人的，卻像被凍結一樣。
+          <div class="point-example">
+            遺產糾紛從來不是因為錢少，而是因為程序卡住。
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="point-card">
+        <div class="point-card-head">
+          <div>
+            <div class="point-number">02</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="9" cy="8" r="3" stroke="#D9342B" stroke-width="2"/>
+              <path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="#D9342B" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="18" cy="9" r="2.2" stroke="#D9342B" stroke-width="2"/>
+              <path d="M16 17l4-4M19 11l1.5 1.5" stroke="#D9342B" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">遺囑執行人，憑什麼他能動</div>
+        <div class="point-body">
+          這時候，真正關鍵的角色只有一個，<strong>遺囑執行人</strong>。
+          只要遺囑裡有指定遺囑執行人，其他人不配合也沒關係。他可以依法處理遺產、要求金融機構交付款項，不需要每一個繼承人都點頭。
+          換句話說，他不是繼承人之一去「喬」，而是一個有法律地位、能把事情推動下去的角色。
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="point-card">
+        <div class="point-card-head">
+          <div>
+            <div class="point-number">03</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3l7 3v5c0 4.2-2.9 7.4-7 8.5C7.9 18.4 5 15.2 5 11V6l7-3z" stroke="#D9342B" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M9 11.5l2 2 4-4" stroke="#D9342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">執行人的職權，一次看清</div>
+        <div class="point-body">
+          指定了執行人，他在執行期間能做這幾件事：
+          <ul>
+            <li><strong>管理遺產</strong>：執行期間遺產由執行人管理，繼承人不能擅自處分。</li>
+            <li><strong>處理資產</strong>：依遺囑內容，向銀行、地政等單位辦理必要的交付與過戶。</li>
+            <li><strong>排除妨礙</strong>：繼承人不得妨礙執行人執行職務，這是他能「動得了」的關鍵。</li>
+          </ul>
+          <div class="point-example">
+            能做到哪一步、會不會被卡，仍要看遺囑內容與個案，建議找律師確認。
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="point-card">
+        <div class="point-card-head">
+          <div>
+            <div class="point-number">04</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 6h9a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H8l-4 3V6z" stroke="#D9342B" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M18 9h2v9l-3-2h-4" stroke="#D9342B" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">誰來當，兩個方向可以選</div>
+        <div class="point-body">
+          很多人會問：會不會沒人敢當遺囑執行人？會。因為要面對家人、面對銀行、面對程序，壓力很大。
+          所以這個角色，有兩個方向可以挑：
+          <ul>
+            <li><strong>信任的家人</strong>：熟悉狀況，但要承受家族內部的壓力。</li>
+            <li><strong>專業人士</strong>：律師、地政士等第三方，中立、懂程序，必要時可依法主張權利。</li>
+          </ul>
+          <div class="point-example">
+            怕家人下不了手，就把這個角色交給專業，讓制度替家人擋掉衝突。
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="point-card">
+        <div class="point-card-head">
+          <div>
+            <div class="point-number">05</div>
+            <span class="point-number-bar"></span>
+          </div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="5" width="16" height="15" rx="2" stroke="#D9342B" stroke-width="2"/>
+              <path d="M4 9h16M8 3v4M16 3v4" stroke="#D9342B" stroke-width="2" stroke-linecap="round"/>
+              <path d="M8.5 14l2 2 3.5-3.5" stroke="#D9342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="point-title">生前該做的，把執行權一起安排好</div>
+        <div class="point-body">
+          資產規劃不是只寫遺囑，而是一定要懂「遺囑執行人」。生前可以先做這三件事：
+          <ul>
+            <li>在遺囑裡<strong>明確指定</strong>遺囑執行人，寫清楚是誰。</li>
+            <li>評估要找家人還是專業人士，必要時請律師協助擬定。</li>
+            <li>把分配內容（遺囑）和執行安排（執行人）一起規劃，不要只做一半。</li>
+          </ul>
+          <div class="point-example">
+            遺囑形式、特留分、執行人報酬等細節依個案而定，建議找律師或地政士確認。
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      遺囑決定<span class="accent">分給誰</span>，遺囑執行人決定<span class="accent">拿不拿得到</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群，主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規，歡迎加入以及討論哦！</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.06.14</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
