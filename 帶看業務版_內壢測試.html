@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帶看控場｜明天 · 內壢 4 間</title>
+<style>
+  :root{
+    --ink:#1a2b22; --paper:#f4f1e8; --card:#fffdf7;
+    --green:#2f6b4d; --green-d:#234f39; --gold:#c69a3e;
+    --line:#e0dac9; --muted:#7a7567; --red:#b5462f;
+    --shadow:0 2px 12px rgba(35,79,57,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth;}
+  body{font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+    background:var(--paper);color:var(--ink);line-height:1.6;padding-bottom:40px;}
+  .wrap{max-width:560px;margin:0 auto;padding:0 16px;}
+
+  header{background:linear-gradient(135deg,var(--green-d),var(--green));
+    color:#fff;padding:24px 0 20px;margin-bottom:8px;border-radius:0 0 22px 22px;box-shadow:var(--shadow);}
+  header .wrap{display:flex;flex-direction:column;gap:3px;}
+  .eyebrow{font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:700;}
+  header h1{font-size:22px;font-weight:800;letter-spacing:.5px;}
+  header .sub{font-size:13px;opacity:.88;margin-top:2px;}
+  .tag-live{display:inline-block;margin-top:8px;background:rgba(255,255,255,.16);
+    color:#fff;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:20px;}
+
+  .strip{display:flex;gap:8px;overflow-x:auto;padding:14px 0 6px;}
+  .strip::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:8px 12px;font-size:13px;font-weight:700;
+    color:var(--green-d);box-shadow:var(--shadow);white-space:nowrap;text-decoration:none;display:block;}
+  .chip span{color:var(--muted);font-weight:500;margin-left:5px;}
+  .chip.tap{border-color:var(--gold);}
+  .chip.info{background:#eef1ec;color:var(--muted);font-weight:600;box-shadow:none;}
+  .tap-hint{font-size:11px;color:var(--muted);margin:2px 0 0;padding-left:2px;}
+
+  .ctrl{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);}
+  .ctrl h3{font-size:13px;letter-spacing:1px;color:var(--green-d);font-weight:800;margin-bottom:10px;}
+  .ctrl .line{display:flex;justify-content:space-between;font-size:13.5px;padding:5px 0;border-bottom:1px dashed var(--line);}
+  .ctrl .line:last-child{border-bottom:0;}
+  .ctrl .line b{color:var(--ink);font-weight:700;}
+  .ctrl .line span{color:var(--muted);}
+
+  .rail{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);}
+  .rail h3{font-size:13px;letter-spacing:1px;color:var(--green-d);font-weight:800;margin-bottom:10px;}
+  .rail .r{display:flex;gap:10px;font-size:13.5px;padding:6px 0;align-items:flex-start;}
+  .rail .t{font-weight:800;color:var(--green-d);width:48px;flex:0 0 48px;}
+  .rail .d{color:var(--ink);}
+  .rail .d small{color:var(--muted);}
+  .rail .key{color:var(--red);font-weight:700;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:18px;margin:14px 0;box-shadow:var(--shadow);position:relative;overflow:hidden;scroll-margin-top:12px;}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gold);}
+  .num{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;
+    background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;}
+  .time-badge{display:inline-block;background:#eef4ef;color:var(--green-d);
+    font-weight:800;font-size:14px;padding:3px 11px;border-radius:8px;margin-bottom:8px;}
+  .time-badge.lock{background:#fbe9e4;color:var(--red);}
+  .card h2{font-size:18px;font-weight:800;margin-bottom:3px;padding-right:34px;}
+  .price{color:var(--gold);font-weight:800;font-size:17px;margin-bottom:4px;}
+  .addr{font-size:13.5px;color:var(--muted);margin-bottom:6px;}
+  .meta{font-size:12.5px;color:var(--muted);margin-bottom:12px;}
+  .meta b{color:var(--ink);font-weight:700;}
+
+  .nav-btn{display:flex;align-items:center;justify-content:center;gap:7px;
+    background:var(--green);color:#fff;text-decoration:none;padding:11px;border-radius:11px;
+    font-weight:700;font-size:15px;margin-bottom:10px;transition:.15s;}
+  .nav-btn:active{transform:scale(.98);background:var(--green-d);}
+
+  .poi-label{font-size:11px;color:var(--muted);font-weight:700;margin:2px 0 7px;letter-spacing:1px;}
+  .poi{display:flex;flex-direction:column;gap:6px;margin-bottom:6px;}
+  .poi .item{background:#f6f3ea;border:1px solid var(--line);border-radius:10px;padding:8px 11px;display:block;text-decoration:none;color:var(--ink);}
+  .poi a.item:active{background:#ece5d4;transform:scale(.98);}
+  .poi .top{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;}
+  .poi .ico{font-size:15px;flex:0 0 auto;}
+  .poi .ds{font-size:12px;color:var(--green-d);font-weight:700;margin-top:3px;padding-left:22px;}
+
+  .intern{background:#fbf7ec;border:1px dashed var(--gold);border-radius:12px;padding:11px 13px;margin-top:4px;font-size:13px;}
+  .intern .t{font-weight:800;color:var(--green-d);margin-bottom:6px;font-size:12px;letter-spacing:1px;}
+  .intern .row{display:flex;gap:6px;margin-bottom:4px;color:var(--ink);align-items:flex-start;}
+  .intern .row b{color:var(--red);font-weight:700;white-space:nowrap;flex:0 0 auto;}
+  .intern .sell{color:var(--green-d);}
+  .intern .sell b{color:var(--green-d);}
+
+  .keycard{background:#fff;border:1.5px solid var(--red);border-radius:16px;
+    padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);scroll-margin-top:12px;}
+  .keycard h3{font-size:14px;color:var(--red);font-weight:800;margin-bottom:8px;display:flex;gap:6px;align-items:center;}
+  .keycard p{font-size:13px;margin-bottom:8px;color:var(--ink);}
+  .keycard p b{color:var(--red);}
+  .keycard a{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--red);
+    color:var(--red);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:700;font-size:13.5px;}
+
+  footer{text-align:center;font-size:12px;color:var(--muted);margin-top:22px;line-height:1.9;}
+  footer b{color:var(--green-d);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">MEOWDAD 帶看控場</div>
+    <h1>明天帶看控場版</h1>
+    <div class="sub">內壢 · 共 4 間 · 從龍慈路 75 號出發</div>
+    <span class="tag-live">🚗 車程為 Google 地圖實算</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="strip">
+    <div class="chip info">13:30 <span>出發</span></div>
+    <a class="chip tap" href="#key-borrow">13:46 <span>借鑰匙 ▾</span></a>
+    <a class="chip tap" href="#c1">14:00 <span>大學社區 ▾</span></a>
+    <a class="chip tap" href="#c2">14:25 <span>自立國宅 ▾</span></a>
+    <a class="chip tap" href="#key-return">14:52 <span>還鑰匙 ▾</span></a>
+    <a class="chip tap" href="#c3">15:00 <span>微笑城堡 ▾</span></a>
+    <a class="chip tap" href="#c4">15:30 <span>海華 ▾</span></a>
+  </div>
+  <p class="tap-hint">👆 點時間框可直接跳到那一間</p>
+
+  <div class="ctrl">
+    <h3>📊 帶看總控表</h3>
+    <div class="line"><span>出發時間</span><b>13:30</b></div>
+    <div class="line"><span>出發地址</span><b>中壢區龍慈路 75 號</b></div>
+    <div class="line"><span>第一間（定死）</span><b>14:00 · 大學社區</b></div>
+    <div class="line"><span>鑰匙節點</span><b>忠孝路 永慶忠孝吉富 借/還（僅 ② 自立）</b></div>
+    <div class="line"><span>每間停留</span><b>20 分鐘</b></div>
+    <div class="line"><span>總間數</span><b>4 間</b></div>
+  </div>
+
+  <div class="rail">
+    <h3>⏰ 時間軸</h3>
+    <div class="r"><div class="t">13:30</div><div class="d">從 <b>龍慈路 75 號</b> 出發<br><small>→ 忠孝路約 16 分</small></div></div>
+    <div class="r"><div class="t">13:46</div><div class="d"><span class="key">借鑰匙</span>：忠孝路 永慶忠孝吉富（借 ② 自立國宅）<br><small>→ 大學社區約 6 分</small></div></div>
+    <div class="r"><div class="t">14:00</div><div class="d"><b>① 大學社區</b>　停 20 分<br><small class="key">出租中，房客約 14:00，準時</small><br><small>→ 自立國宅約 3 分</small></div></div>
+    <div class="r"><div class="t">14:25</div><div class="d"><b>② 自立國宅</b>　停 20 分<br><small>空屋，鑰匙已隨身　→ 還鑰匙約 7 分</small></div></div>
+    <div class="r"><div class="t">14:52</div><div class="d"><span class="key">還鑰匙（先還）</span>：回忠孝路 永慶忠孝吉富，等下有同事/客戶要看自立<br><small>→ 微笑城堡約 5 分</small></div></div>
+    <div class="r"><div class="t">15:00</div><div class="d"><b>③ 微笑城堡</b>　停 20 分<br><small class="key">開發/屋主開門，先約好到場</small><br><small>→ 海華約 10 分</small></div></div>
+    <div class="r"><div class="t">15:30</div><div class="d"><b>④ 海華巴黎廣場</b>　停 20 分<br><small class="key">自用，洽開發開門，先約好到場</small></div></div>
+  </div>
+
+  <!-- KEY NODE: 借 -->
+  <div class="keycard" id="key-borrow">
+    <h3>🔑 借鑰匙 · 13:46</h3>
+    <p>進場前順路先借 <b>② 自立國宅</b> 的鑰匙<br>
+       地點：忠孝路 永慶忠孝吉富加盟店</p>
+    <a target="_blank" href="https://maps.google.com/?q=中壢區忠孝路 永慶忠孝吉富加盟店">📍 導航到鑰匙店</a>
+  </div>
+
+  <!-- CARD 1 -->
+  <div class="card" id="c1">
+    <div class="num">1</div>
+    <div class="time-badge lock">14:00 房客時段</div>
+    <h2>內壢後站大學社區</h2>
+    <div class="price">1,058 萬</div>
+    <div class="addr">中壢區富村街 30 巷 13 號 11 樓</div>
+    <div class="meta">電梯大樓 · <b>2 房 2 廳 2 衛</b> · 屋齡 29 年 · 含車位（地下2層 133）</div>
+    <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區富村街30巷13號">📍 導航到這間</a>
+    <div class="poi-label">周邊機能（點開地圖，距離同客戶訊息）</div>
+    <div class="poi">
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區興仁國小"><div class="top"><span class="ico">🏫</span>興仁國小</div><div class="ds">640m・走路9分・騎車4分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強國中"><div class="top"><span class="ico">🏫</span>自強國中</div><div class="ds">430m・走路6分・騎車3分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強公園"><div class="top"><span class="ico">🌳</span>自強公園</div><div class="ds">350m・走路5分・騎車1分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區成功市場"><div class="top"><span class="ico">🛒</span>內壢成功市場</div><div class="ds">820m・走路13分・騎車4分</div></a>
+    </div>
+    <div class="intern">
+      <div class="t">控場小抄（我自己看）</div>
+      <div class="row"><b>現狀：</b>出租中 — 房客約 14:00，準時到，別讓客戶在門口等</div>
+      <div class="row"><b>鑰匙：</b>不用借（房客/開發開門）</div>
+      <div class="row sell"><b>主打：</b>高樓層景觀、三改二格局、近內壢後站商圈、含平面車位</div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card" id="c2">
+    <div class="num">2</div>
+    <div class="time-badge">14:25</div>
+    <h2>內壢後站自立國宅</h2>
+    <div class="price">1,288 萬</div>
+    <div class="addr">中壢區榮安一街 476 號 2 樓</div>
+    <div class="meta">電梯大樓 · <b>3 房 2 廳 2 衛</b> · 屋齡 22 年 · 含車位（地下1層 A417）</div>
+    <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區榮安一街476號">📍 導航到這間</a>
+    <div class="poi-label">周邊機能（點開地圖，距離同客戶訊息）</div>
+    <div class="poi">
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區自立國小"><div class="top"><span class="ico">🏫</span>自立國小</div><div class="ds">560m・走路7分・騎車2分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強國中"><div class="top"><span class="ico">🏫</span>自強國中</div><div class="ds">1.1km・走路15分・騎車4分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強公園"><div class="top"><span class="ico">🌳</span>自強公園</div><div class="ds">800m・走路11分・騎車3分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區成功市場"><div class="top"><span class="ico">🛒</span>內壢成功市場</div><div class="ds">1.6km・走路22分・騎車6分</div></a>
+    </div>
+    <div class="intern">
+      <div class="t">控場小抄（我自己看）</div>
+      <div class="row"><b>現狀：</b>空屋，鑰匙到就能進</div>
+      <div class="row"><b>鑰匙：</b>進場前已在忠孝路永慶忠孝吉富借好（隨身）；<b>看完立刻先還</b>（等下有人要看自立）</div>
+      <div class="row sell"><b>主打：</b>3 房美裝、室內坪數大、格局方正、3 個陽台、高 CP 值</div>
+    </div>
+  </div>
+
+  <!-- KEY NODE: 還（先還）-->
+  <div class="keycard" id="key-return">
+    <h3>🔑 還鑰匙 · 14:52（先還）</h3>
+    <p>看完 <b>② 自立國宅</b> 後<b>立刻先還</b>鑰匙（等下有同事/客戶要看自立），再去 ③ 微笑<br>
+       地點：忠孝路 永慶忠孝吉富加盟店</p>
+    <a target="_blank" href="https://maps.google.com/?q=中壢區忠孝路 永慶忠孝吉富加盟店">📍 導航到鑰匙店</a>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card" id="c3">
+    <div class="num">3</div>
+    <div class="time-badge">15:00</div>
+    <h2>內壢前站微笑城堡</h2>
+    <div class="price">1,480 萬</div>
+    <div class="addr">中壢區長興街 23-1 號 10 樓</div>
+    <div class="meta">電梯大樓 · <b>2 房 2 廳 1 衛</b> · 屋齡 13 年 · 含車位（汽 地下2層 103 + 機 地下1層 174）</div>
+    <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區長興街23號">📍 導航到這間</a>
+    <div class="poi-label">周邊機能（點開地圖，距離同客戶訊息）</div>
+    <div class="poi">
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區元生國小"><div class="top"><span class="ico">🏫</span>元生國小</div><div class="ds">590m・走路8分・騎車4分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區內壢國中"><div class="top"><span class="ico">🏫</span>內壢國中</div><div class="ds">480m・走路6分・騎車2分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區元生公園"><div class="top"><span class="ico">🌳</span>元生公園</div><div class="ds">630m・走路8分・騎車4分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區成功市場"><div class="top"><span class="ico">🛒</span>內壢成功市場</div><div class="ds">1.3km・走路18分・騎車5分</div></a>
+    </div>
+    <div class="intern">
+      <div class="t">控場小抄（我自己看）</div>
+      <div class="row"><b>現狀：</b>空屋</div>
+      <div class="row"><b>開門：</b>不用借鑰匙，開發/屋主開門 — 記得先約好到場時間</div>
+      <div class="row sell"><b>主打：</b>內壢前站高指名稀有釋出、周邊商家林立、質感裝潢即可入住、高樓視野</div>
+    </div>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card" id="c4">
+    <div class="num">4</div>
+    <div class="time-badge">15:30</div>
+    <h2>海華巴黎廣場</h2>
+    <div class="price">1,050 萬</div>
+    <div class="addr">中壢區九和一街 57 號 19 樓之 1</div>
+    <div class="meta">電梯大樓 · <b>2 房 2 廳 1 衛</b> · 屋齡 20 年 · SOGO 蛋黃區</div>
+    <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區九和一街57號">📍 導航到這間</a>
+    <div class="poi-label">周邊機能（點開地圖，距離同客戶訊息）</div>
+    <div class="poi">
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區新街國小"><div class="top"><span class="ico">🏫</span>新街國小</div><div class="ds">510m・走路7分・騎車3分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區中壢國中"><div class="top"><span class="ico">🏫</span>中壢國中</div><div class="ds">1.4km・走路21分・騎車7分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區六和公園"><div class="top"><span class="ico">🌳</span>六和公園</div><div class="ds">330m・走路5分・騎車2分</div></a>
+      <a class="item" target="_blank" href="https://maps.google.com/?q=桃園市中壢區興國生鮮市場"><div class="top"><span class="ico">🛒</span>興國生鮮市場</div><div class="ds">630m・走路9分・騎車3分</div></a>
+    </div>
+    <div class="intern">
+      <div class="t">控場小抄（我自己看）</div>
+      <div class="row"><b>現狀：</b>自用（屋主住）</div>
+      <div class="row"><b>開門：</b>不用借鑰匙，帶看洽開發 — 先跟開發約好到場時間</div>
+      <div class="row sell"><b>主打：</b>SOGO 蛋黃區、近 A21 捷運＋中壢火車站、高樓層、格局方正</div>
+    </div>
+  </div>
+
+  <footer>
+    <b>中壢專業房仲喵爸／黃舶瑋</b><br>
+    電話：0925-842-111
+  </footer>
+
+</div>
+</body>
+</html>
