@@ -55,12 +55,10 @@
 
   .poi-label{font-size:11px;color:var(--muted);font-weight:700;margin:2px 0 7px;letter-spacing:1px;}
   .poi{display:flex;flex-direction:column;gap:6px;}
-  .poi a{display:flex;align-items:center;gap:8px;background:#f6f3ea;border:1px solid var(--line);
-    border-radius:10px;padding:8px 11px;text-decoration:none;color:var(--ink);font-size:13px;transition:.15s;}
-  .poi a:active{background:#ece5d4;transform:scale(.98);}
+  .poi .item{background:#f6f3ea;border:1px solid var(--line);border-radius:10px;padding:8px 11px;}
+  .poi .top{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);}
   .poi .ico{font-size:15px;flex:0 0 auto;}
-  .poi .nm{font-weight:700;}
-  .poi .ds{margin-left:auto;color:var(--green-d);font-weight:700;font-size:12.5px;white-space:nowrap;}
+  .poi .ds{font-size:12px;color:var(--green-d);font-weight:700;margin-top:3px;padding-left:22px;}
 
   footer{text-align:center;font-size:12px;color:var(--muted);margin-top:22px;line-height:1.9;}
   footer b{color:var(--green-d);}
@@ -79,7 +77,7 @@
 <div class="wrap">
 
   <div class="hi">
-    陳小姐您好 😊 明天的看屋順序幫您排好了，<b>點下方時間</b>可跳到該間，<b>點周邊機能</b>直接開地圖看位置與距離。明天準時與您會合 🙌
+    陳小姐您好 😊 明天的看屋順序幫您排好了，<b>點下方時間</b>可跳到該間；每間下方是周邊機能與到各點的<b>走路 / 騎車時間</b>，給您參考生活圈。明天準時與您會合 🙌
   </div>
 
   <div class="strip">
@@ -99,12 +97,12 @@
     <div class="addr">中壢區富村街 30 巷 13 號 11 樓</div>
     <div class="meta">電梯大樓 · <b>2 房 2 廳 2 衛</b> · 屋齡 29 年 · 含車位</div>
     <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區富村街30巷13號">📍 導航到這間</a>
-    <div class="poi-label">周邊機能（點開地圖）</div>
+    <div class="poi-label">周邊機能（生活圈距離）</div>
     <div class="poi">
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區興仁國小"><span class="ico">🏫</span><span class="nm">興仁國小</span><span class="ds">走路9分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強國中"><span class="ico">🏫</span><span class="nm">自強國中</span><span class="ds">走路6分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強公園"><span class="ico">🌳</span><span class="nm">自強公園</span><span class="ds">走路5分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區成功市場"><span class="ico">🛒</span><span class="nm">內壢成功市場</span><span class="ds">走路13分</span></a>
+      <div class="item"><div class="top"><span class="ico">🏫</span>興仁國小</div><div class="ds">640m・走路9分・騎車4分</div></div>
+      <div class="item"><div class="top"><span class="ico">🏫</span>自強國中</div><div class="ds">430m・走路6分・騎車3分</div></div>
+      <div class="item"><div class="top"><span class="ico">🌳</span>自強公園</div><div class="ds">350m・走路5分・騎車1分</div></div>
+      <div class="item"><div class="top"><span class="ico">🛒</span>內壢成功市場</div><div class="ds">820m・走路13分・騎車4分</div></div>
     </div>
   </div>
 
@@ -117,12 +115,12 @@
     <div class="addr">中壢區榮安一街 476 號 2 樓</div>
     <div class="meta">電梯大樓 · <b>3 房 2 廳 2 衛</b> · 屋齡 22 年 · 含車位</div>
     <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區榮安一街476號">📍 導航到這間</a>
-    <div class="poi-label">周邊機能（點開地圖）</div>
+    <div class="poi-label">周邊機能（生活圈距離）</div>
     <div class="poi">
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區自立國小"><span class="ico">🏫</span><span class="nm">自立國小</span><span class="ds">走路7分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強國中"><span class="ico">🏫</span><span class="nm">自強國中</span><span class="ds">走15分/騎4分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區自強公園"><span class="ico">🌳</span><span class="nm">自強公園</span><span class="ds">走路11分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區成功市場"><span class="ico">🛒</span><span class="nm">內壢成功市場</span><span class="ds">走22分/騎6分</span></a>
+      <div class="item"><div class="top"><span class="ico">🏫</span>自立國小</div><div class="ds">560m・走路7分・騎車2分</div></div>
+      <div class="item"><div class="top"><span class="ico">🏫</span>自強國中</div><div class="ds">1.1km・走路15分・騎車4分</div></div>
+      <div class="item"><div class="top"><span class="ico">🌳</span>自強公園</div><div class="ds">800m・走路11分・騎車3分</div></div>
+      <div class="item"><div class="top"><span class="ico">🛒</span>內壢成功市場</div><div class="ds">1.6km・走路22分・騎車6分</div></div>
     </div>
   </div>
 
@@ -135,12 +133,12 @@
     <div class="addr">中壢區長興街 23-1 號 10 樓</div>
     <div class="meta">電梯大樓 · <b>2 房 2 廳 1 衛</b> · 屋齡 13 年 · 含車位</div>
     <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區長興街23號">📍 導航到這間</a>
-    <div class="poi-label">周邊機能（點開地圖）</div>
+    <div class="poi-label">周邊機能（生活圈距離）</div>
     <div class="poi">
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區元生國小"><span class="ico">🏫</span><span class="nm">元生國小</span><span class="ds">走路8分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區內壢國中"><span class="ico">🏫</span><span class="nm">內壢國中</span><span class="ds">走路6分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區元生公園"><span class="ico">🌳</span><span class="nm">元生公園</span><span class="ds">走路8分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區成功市場"><span class="ico">🛒</span><span class="nm">內壢成功市場</span><span class="ds">走18分/騎5分</span></a>
+      <div class="item"><div class="top"><span class="ico">🏫</span>元生國小</div><div class="ds">590m・走路8分・騎車4分</div></div>
+      <div class="item"><div class="top"><span class="ico">🏫</span>內壢國中</div><div class="ds">480m・走路6分・騎車2分</div></div>
+      <div class="item"><div class="top"><span class="ico">🌳</span>元生公園</div><div class="ds">630m・走路8分・騎車4分</div></div>
+      <div class="item"><div class="top"><span class="ico">🛒</span>內壢成功市場</div><div class="ds">1.3km・走路18分・騎車5分</div></div>
     </div>
   </div>
 
@@ -153,12 +151,12 @@
     <div class="addr">中壢區九和一街 57 號 19 樓之 1</div>
     <div class="meta">電梯大樓 · <b>2 房 2 廳 1 衛</b> · 屋齡 20 年 · SOGO 蛋黃區</div>
     <a class="nav-btn" target="_blank" href="https://maps.google.com/?q=中壢區九和一街57號">📍 導航到這間</a>
-    <div class="poi-label">周邊機能（點開地圖）</div>
+    <div class="poi-label">周邊機能（生活圈距離）</div>
     <div class="poi">
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區新街國小"><span class="ico">🏫</span><span class="nm">新街國小</span><span class="ds">走路7分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區中壢國中"><span class="ico">🏫</span><span class="nm">中壢國中</span><span class="ds">走21分/騎7分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區六和公園"><span class="ico">🌳</span><span class="nm">六和公園</span><span class="ds">走路5分</span></a>
-      <a target="_blank" href="https://maps.google.com/?q=桃園市中壢區興國生鮮市場"><span class="ico">🛒</span><span class="nm">興國生鮮市場</span><span class="ds">走路9分</span></a>
+      <div class="item"><div class="top"><span class="ico">🏫</span>新街國小</div><div class="ds">510m・走路7分・騎車3分</div></div>
+      <div class="item"><div class="top"><span class="ico">🏫</span>中壢國中</div><div class="ds">1.4km・走路21分・騎車7分</div></div>
+      <div class="item"><div class="top"><span class="ico">🌳</span>六和公園</div><div class="ds">330m・走路5分・騎車2分</div></div>
+      <div class="item"><div class="top"><span class="ico">🛒</span>興國生鮮市場</div><div class="ds">630m・走路9分・騎車3分</div></div>
     </div>
   </div>
 
