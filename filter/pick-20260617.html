@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幫您篩選的物件｜中壢專業房仲喵爸</title>
+<style>
+  :root{
+    --navy:#0f2540; --navy2:#1b3a64; --blue:#2f6fed; --ink:#1c2530;
+    --soft:#5b6b7d; --line:#e6ebf2; --bg:#f4f7fb; --gold:#e8a13a;
+    --ok:#1f9d57; --okbg:#e8f7ee; --warn:#c9772a; --warnbg:#fdf3e6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:560px;margin:0 auto;padding:0 16px 56px}
+  /* header */
+  .hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:0 0 26px 26px;padding:30px 22px 26px;text-align:center;box-shadow:0 10px 28px rgba(15,37,64,.18)}
+  .brand{font-size:14px;letter-spacing:1px;opacity:.85;margin-bottom:14px}
+  .brand b{color:var(--gold)}
+  .hello{font-size:23px;font-weight:800;margin-bottom:8px}
+  .hero p{font-size:14.5px;opacity:.92}
+  .cond{display:inline-flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:16px}
+  .cond span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:5px 11px;border-radius:999px;font-size:12.5px}
+  /* section title */
+  .sec{display:flex;align-items:center;gap:8px;margin:28px 4px 14px;font-weight:800;font-size:16px}
+  .sec .dot{width:9px;height:9px;border-radius:50%;background:var(--ok)}
+  .sec.bk .dot{background:var(--warn)}
+  .sec small{font-weight:500;color:var(--soft);font-size:12.5px}
+  /* card */
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 17px 17px;margin-bottom:16px;box-shadow:0 4px 16px rgba(20,40,70,.05)}
+  .card.bk{background:#fffdf9;border-color:#f0e2cc}
+  .badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:9px}
+  .badge.ok{color:var(--ok);background:var(--okbg)}
+  .badge.bk{color:var(--warn);background:var(--warnbg)}
+  .pname{font-size:18.5px;font-weight:800;margin-bottom:3px}
+  .paddr{font-size:13px;color:var(--soft);margin-bottom:10px}
+  .price{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:13px}
+  .price b{font-size:23px;color:var(--blue)}
+  /* distance rows */
+  .dist{border-top:1px dashed var(--line);padding-top:11px;margin-bottom:6px}
+  .row{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px}
+  .row .ic{width:26px;height:26px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--bg);border-radius:8px;font-size:15px}
+  .row .lab{color:var(--soft);width:52px;flex:none;font-size:13px}
+  .row .val{font-weight:600;flex:1}
+  .row .val .pt{color:var(--ink)}
+  .row .min{font-weight:800;color:var(--ok)}
+  .card.bk .min{color:var(--warn)}
+  .note{font-size:12.5px;color:var(--soft);background:var(--bg);border-radius:10px;padding:9px 11px;margin-top:10px}
+  .note b{color:var(--ink)}
+  /* buttons */
+  .acts{margin-top:14px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:13px;font-size:15.5px;font-weight:800;text-decoration:none}
+  .line{background:#06c755;color:#fff;box-shadow:0 6px 16px rgba(6,199,85,.28)}
+  .map{background:#fff;color:var(--navy);border:1.5px solid var(--line);margin-top:9px;font-weight:700;font-size:14px}
+  .hint{text-align:center;font-size:12px;color:var(--warn);margin-top:8px;font-weight:600}
+  /* footer */
+  .foot{margin-top:30px;text-align:center;color:var(--soft);font-size:12.5px;line-height:1.9}
+  .foot .fb{display:inline-block;margin-top:10px;background:var(--navy);color:#fff;padding:11px 22px;border-radius:12px;font-weight:800;text-decoration:none;font-size:14.5px}
+  .disc{font-size:11px;color:#9aa7b5;margin-top:16px;text-align:center;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="brand">🐱 中壢專業房仲 <b>喵爸</b></div>
+  <div class="hello">您好，這是幫您篩出來的物件 👇</div>
+  <p>我把每一間到<b>公車站、國小、市場</b>的路線，<br>一條一條用「實際走路」幫您量出來，符合條件的才留下。</p>
+  <div class="cond">
+    <span>🚌 公車站 走路 ≤10 分</span>
+    <span>🏫 國小 走路 ≤10 分</span>
+    <span>🛒 市場採買 走路 ≤10 分</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sec"><span class="dot"></span>符合條件的物件 <small>2 間 · 三項都達標</small></div>
+
+  <!-- 物件 1 -->
+  <div class="card">
+    <span class="badge ok">✅ 三項全達標</span>
+    <div class="pname">內壢前站・內壢高中旁透天</div>
+    <div class="paddr">📍 中壢區成章三街34巷5號</div>
+    <div class="price">總價 <b>1,298</b> 萬</div>
+    <div class="dist">
+      <div class="row"><span class="ic">🚌</span><span class="lab">公車站</span><span class="val"><span class="pt">福華街口站</span> · 199 公尺</span><span class="min">走 3 分</span></div>
+      <div class="row"><span class="ic">🏫</span><span class="lab">國小</span><span class="val"><span class="pt">內壢國小</span> · 607 公尺</span><span class="min">走 9 分</span></div>
+      <div class="row"><span class="ic">🛒</span><span class="lab">採買</span><span class="val"><span class="pt">家樂福（成章一街）</span> · 257 公尺</span><span class="min">走 4 分</span></div>
+    </div>
+    <div class="note"><b>生活圈：</b>近內壢火車站、內壢高中、內壢交流道，採買交通都方便。</div>
+    <div class="acts">
+      <a class="btn line" href="https://line.me/ti/p/M-tek5DmH6">💬 我想看這間</a>
+      <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E4%B8%AD%E5%A3%A2%E5%8D%80%E6%88%90%E7%AB%A0%E4%B8%89%E8%A1%9734%E5%B7%B75%E8%99%9F" target="_blank">🗺️ 看地圖位置</a>
+      <div class="hint">⤴ 傳訊時請註明：「我想看<b>內壢高中旁</b>這間」</div>
+    </div>
+  </div>
+
+  <!-- 物件 2 -->
+  <div class="card">
+    <span class="badge ok">✅ 三項全達標</span>
+    <div class="pname">龍岡國小・活巷透天</div>
+    <div class="paddr">📍 中壢區龍岡路二段226巷43弄14號</div>
+    <div class="price">總價 <b>1,280</b> 萬</div>
+    <div class="dist">
+      <div class="row"><span class="ic">🚌</span><span class="lab">公車站</span><span class="val"><span class="pt">中興莊站</span> · 447 公尺</span><span class="min">走 6 分</span></div>
+      <div class="row"><span class="ic">🏫</span><span class="lab">國小</span><span class="val"><span class="pt">龍岡國小</span> · 265 公尺</span><span class="min">走 4 分</span></div>
+      <div class="row"><span class="ic">🛒</span><span class="lab">採買</span><span class="val"><span class="pt">全聯（環東店）</span> · 613 公尺</span><span class="min">走 9 分</span></div>
+    </div>
+    <div class="note"><b>亮點：</b>國小就在隔壁巷子（走路 4 分鐘），小孩上學最近；6 房透天，三代同堂好用。</div>
+    <div class="acts">
+      <a class="btn line" href="https://line.me/ti/p/M-tek5DmH6">💬 我想看這間</a>
+      <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E4%B8%AD%E5%A3%A2%E5%8D%80%E9%BE%8D%E5%B2%A1%E8%B7%AF%E4%BA%8C%E6%AE%B5226%E5%B7%B743%E5%BC%8414%E8%99%9F" target="_blank">🗺️ 看地圖位置</a>
+      <div class="hint">⤴ 傳訊時請註明：「我想看<b>龍岡國小</b>這間」</div>
+    </div>
+  </div>
+
+  <div class="sec bk"><span class="dot"></span>備案物件 <small>差一點點 · 可考慮</small></div>
+
+  <!-- 備案 -->
+  <div class="card bk">
+    <span class="badge bk">⚠️ 學校稍遠，其餘很近</span>
+    <div class="pname">內壢後站・華勛商圈臨馬路透天</div>
+    <div class="paddr">📍 中壢區晉元路208號</div>
+    <div class="price">總價 <b>1,298</b> 萬</div>
+    <div class="dist">
+      <div class="row"><span class="ic">🚌</span><span class="lab">公車站</span><span class="val"><span class="pt">晉元路站</span> · 127 公尺</span><span class="min">走 2 分</span></div>
+      <div class="row"><span class="ic">🏫</span><span class="lab">國小</span><span class="val"><span class="pt">華勛國小</span> · 841 公尺</span><span class="min">走 12 分</span></div>
+      <div class="row"><span class="ic">🛒</span><span class="lab">採買</span><span class="val"><span class="pt">自由聯盟超市（晉元）</span> · 304 公尺</span><span class="min">走 4 分</span></div>
+    </div>
+    <div class="note"><b>為什麼列備案：</b>公車、採買都超近，只有走路到國小比標準多 2 分鐘。如果學校這條可以放寬一點，這間其實很值得看。</div>
+    <div class="acts">
+      <a class="btn line" href="https://line.me/ti/p/M-tek5DmH6">💬 這間我也想了解</a>
+      <a class="btn map" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E4%B8%AD%E5%A3%A2%E5%8D%80%E6%99%89%E5%85%83%E8%B7%AF208%E8%99%9F" target="_blank">🗺️ 看地圖位置</a>
+      <div class="hint">⤴ 傳訊時請註明：「我想看<b>華勛商圈</b>這間」</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    以上距離皆為實際路網「走路」實測，現場以實際狀況為準。<br>
+    有任何想看、想問的，直接 LINE 我，我幫您安排 👇
+    <br><a class="fb" href="https://line.me/ti/p/M-tek5DmH6">💬 加 LINE 找喵爸</a>
+    <div class="disc">中壢專業房仲喵爸 ｜ 用心幫您把生活圈一條一條走過<br>本表為物件初步篩選參考，實際交易條件以現場及契約為準</div>
+  </div>
+
+</div>
+</body>
+</html>
