@@ -13,28 +13,37 @@
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
   .wrap{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg)}
-  .top{background:linear-gradient(160deg,var(--navy),#1b3a64);color:#fff;padding:18px 18px 16px;position:sticky;top:0;z-index:5}
+  .top{background:linear-gradient(160deg,var(--navy),#1b3a64);color:#fff;padding:16px 18px 14px;position:sticky;top:0;z-index:5}
   .top .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px}
   .top .brand .dot{width:9px;height:9px;border-radius:50%;background:#e8a13a}
-  .top .sub{font-size:12px;opacity:.85;margin-top:4px}
-  .sect{padding:16px 16px 0}
+  .steps{display:flex;gap:4px;margin-top:12px}
+  .step{flex:1;text-align:center;font-size:10.5px;padding:6px 2px;border-radius:7px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);position:relative}
+  .step.done{background:rgba(232,161,58,.22);color:#ffd596}
+  .step.now{background:#e8a13a;color:#3a2607;font-weight:800}
+  .step b{display:block;font-size:13px;line-height:1.3}
+  .sect{padding:15px 16px 0}
   .sect-t{font-size:13px;color:var(--soft);margin-bottom:9px;font-weight:600}
   .chips{display:flex;gap:8px;flex-wrap:wrap}
-  .chip{font-size:14px;padding:9px 15px;border-radius:11px;border:1.5px solid var(--line);background:#fff;color:var(--soft);font-weight:600;cursor:pointer;transition:.15s}
+  .chip{font-size:14px;padding:9px 14px;border-radius:11px;border:1.5px solid var(--line);background:#fff;color:var(--soft);font-weight:600;cursor:pointer;transition:.15s}
   .chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   .chip.add{border-style:dashed;color:var(--blue)}
-  .cond{margin:12px 16px 0;background:var(--info);border-radius:12px;padding:11px 13px;font-size:13px;color:var(--navy);line-height:1.7;display:none}
-  .cond b{font-weight:800}
-  .matchbar{margin:14px 16px 0;font-size:13px;color:var(--soft);display:none;align-items:center;gap:6px}
+  .chip small{display:block;font-size:10.5px;font-weight:500;opacity:.75;margin-top:1px}
+  .cond{margin:13px 16px 0;background:var(--info);border-radius:12px;padding:12px 13px;font-size:13px;color:var(--navy);line-height:1.85;display:none}
+  .cond .k{color:var(--soft);font-size:11.5px}
+  .matchbar{margin:14px 16px 2px;font-size:13px;color:var(--soft);display:none;align-items:center;gap:6px}
   .matchbar b{color:var(--ink)}
-  .list{padding:10px 16px 0}
+  .list{padding:8px 16px 0}
   .pcard{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px;box-shadow:0 3px 12px rgba(20,40,70,.05)}
   .pcard.bk{background:#fffdf9;border-color:#f0e2cc}
-  .ph{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .ptop{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:3px}
+  .stat{font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap;background:#eef1f5;color:var(--soft)}
+  .stat.sent{background:var(--info);color:var(--blue)}
+  .stat.want{background:var(--okbg);color:var(--ok)}
+  .stat.book{background:#efeaff;color:#6b4bd6}
   .pn{font-weight:800;font-size:16.5px}
   .pp{font-weight:800;color:var(--blue);white-space:nowrap}
   .pcard.bk .pp{color:var(--soft)}
-  .pa{font-size:12.5px;color:var(--soft);margin:3px 0 11px}
+  .pa{font-size:12.5px;color:var(--soft);margin:2px 0 11px}
   .ds{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px}
   .d{font-size:12.5px;padding:4px 9px;border-radius:9px;background:var(--okbg);color:var(--ok);font-weight:700;display:inline-flex;align-items:center;gap:4px}
   .d.no{background:var(--warnbg);color:var(--warn)}
@@ -45,78 +54,85 @@
   .badge{display:inline-block;font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:999px;margin-bottom:8px}
   .badge.ok{color:var(--ok);background:var(--okbg)}
   .badge.bk{color:var(--warn);background:var(--warnbg)}
-  .empty{padding:48px 24px;text-align:center;color:var(--soft);font-size:14px}
-  .empty i{font-size:34px;display:block;margin-bottom:12px;opacity:.4}
+  .empty{padding:46px 24px;text-align:center;color:var(--soft);font-size:14px}
+  .empty i{font-size:34px;display:block;margin-bottom:12px;opacity:.4;font-style:normal}
   .batchbtn{position:sticky;bottom:0;padding:13px 16px;background:linear-gradient(0deg,var(--bg) 70%,transparent);display:none}
   .batchbtn a{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--navy);color:#fff;padding:15px;border-radius:13px;font-weight:800;font-size:15.5px;text-decoration:none;box-shadow:0 6px 18px rgba(15,37,64,.25)}
-  .foot{padding:20px 18px 30px;text-align:center;color:#9aa7b5;font-size:11.5px;line-height:1.8}
-  .ti{font-style:normal}
+  .foot{padding:18px 18px 30px;text-align:center;color:#9aa7b5;font-size:11.5px;line-height:1.8}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <div class="brand"><span class="dot"></span>喵爸房仲控台</div>
-    <div class="sub">點一個買方 → 看配對好的物件 → 傳給客人</div>
+    <div class="steps" id="steps">
+      <div class="step done"><b>①</b>建買方</div>
+      <div class="step done"><b>②</b>配物件</div>
+      <div class="step now"><b>③</b>傳客人</div>
+      <div class="step"><b>④</b>客人選</div>
+      <div class="step"><b>⑤</b>帶看</div>
+    </div>
   </div>
 
   <div class="sect">
-    <div class="sect-t">① 選買方</div>
+    <div class="sect-t">點一個買方</div>
     <div class="chips" id="buyers"></div>
   </div>
 
   <div class="cond" id="cond"></div>
   <div class="matchbar" id="matchbar"></div>
   <div class="list" id="list">
-    <div class="empty"><i>👆</i>上面點一個買方，這裡會跳出幫他配對好的物件</div>
+    <div class="empty"><i>👆</i>上面點一個買方，這裡會跳出幫他配對好的物件，<br>每間都看得到走到哪一步</div>
   </div>
   <div class="batchbtn" id="batchbtn"></div>
 
-  <div class="foot">中壢專業房仲喵爸 ｜ 距離皆為實際路網走路實測<br>資料由喵爸 AI 後台維護，要改買方或物件跟喵爸 AI 說一聲即可</div>
+  <div class="foot">中壢專業房仲喵爸 ｜ 距離皆為實際路網走路實測<br>要改買方/物件、或更新進度，跟喵爸 AI 說一聲即可</div>
 </div>
 
 <script>
-const LINE = "https://line.me/ti/p/M-tek5DmH6";
-const PROPS = {
-  a:{name:"內壢高中旁透天", price:"1298萬", addr:"中壢區成章三街34巷5號", fit:true,
+const LINE="https://line.me/ti/p/M-tek5DmH6";
+const STAT={待發:["待發客人",""],已發:["已發給客人","sent"],想看:["客人想看","want"],帶看:["已排帶看","book"]};
+const PROPS={
+  a:{name:"內壢高中旁透天",price:"1298萬",addr:"中壢區成章三街34巷5號",fit:true,status:"待發",
      dist:[["🚌","公車 3分",1],["🏫","國小 9分",1],["🛒","市場 4分",1]],
      map:"https://www.google.com/maps/search/?api=1&query=桃園市中壢區成章三街34巷5號"},
-  b:{name:"龍岡國小活巷透天", price:"1280萬", addr:"中壢區龍岡路二段226巷43弄14號", fit:true,
+  b:{name:"龍岡國小活巷透天",price:"1280萬",addr:"中壢區龍岡路二段226巷43弄14號",fit:true,status:"待發",
      dist:[["🚌","公車 6分",1],["🏫","國小 4分",1],["🛒","市場 9分",1]],
      map:"https://www.google.com/maps/search/?api=1&query=桃園市中壢區龍岡路二段226巷43弄14號"},
-  c:{name:"華勛商圈透天（備案）", price:"1298萬", addr:"中壢區晉元路208號", fit:false,
+  c:{name:"華勛商圈透天（備案）",price:"1298萬",addr:"中壢區晉元路208號",fit:false,status:"待發",
      dist:[["🚌","公車 2分",1],["🏫","國小 12分",0],["🛒","市場 4分",1]],
      map:"https://www.google.com/maps/search/?api=1&query=桃園市中壢區晉元路208號"}
 };
-const BUYERS = [
-  {id:"chen", name:"陳大哥", cond:"中壢·內壢·龍岡 ｜ 透天 ｜ 4房+ ｜ ≤1300萬 ｜ 離學校·市場·車站近",
-   batch:"https://catpawwedding.github.io/lazypack/filter/pick-20260617.html", props:["a","b","c"]}
+const BUYERS=[
+  {id:"chen",name:"陳大哥",state:"已推薦",
+   cond:{"區域":"中壢·內壢·龍岡","型態":"透天","格局":"4房以上","屋齡":"50年內","總價上限":"1300萬","車位":"皆可","特殊需求":"離學校·市場·車站近"},
+   batch:"https://catpawwedding.github.io/lazypack/filter/pick-20260617.html",props:["a","b","c"]}
 ];
-
 const $=id=>document.getElementById(id);
 function chips(){
   let h="";
-  BUYERS.forEach(b=>{ h+=`<div class="chip" data-id="${b.id}">👤 ${b.name}</div>`; });
+  BUYERS.forEach(b=>{h+=`<div class="chip" data-id="${b.id}">👤 ${b.name}<small>${b.state}</small></div>`;});
   h+=`<div class="chip add" id="addbuyer">＋ 新增買方</div>`;
   $("buyers").innerHTML=h;
   document.querySelectorAll(".chip[data-id]").forEach(c=>c.onclick=()=>pick(c.dataset.id));
-  $("addbuyer").onclick=()=>alert("要新增買方，跟喵爸 AI 說一聲：\\n「新增買方 ＯＯＯ，要中壢、3房、1200萬內…」\\n我幫你建好，這裡就會出現。");
+  $("addbuyer").onclick=()=>alert("要新增買方，跟喵爸 AI 說一聲：\\n「新增買方 ＯＯＯ，中壢、透天、3房、1200萬內、要車位、離學校近」\\n我幫你建好，這裡就會出現。");
 }
 function pick(id){
   document.querySelectorAll(".chip[data-id]").forEach(c=>c.classList.toggle("on",c.dataset.id===id));
   const b=BUYERS.find(x=>x.id===id);
+  let ck=Object.entries(b.cond).map(([k,v])=>`<span class="k">${k}</span> ${v}`).join("　｜　");
   $("cond").style.display="block";
-  $("cond").innerHTML=`<b>${b.name}</b> 的條件：${b.cond}`;
+  $("cond").innerHTML=`<b>${b.name}</b> 的條件<br>${ck}`;
   const fit=b.props.filter(p=>PROPS[p].fit).length;
   $("matchbar").style.display="flex";
   $("matchbar").innerHTML=`<span>🎯 自動配對到 <b>${fit} 間符合</b>${b.props.length>fit?` ＋ ${b.props.length-fit} 間備案`:""}</span>`;
   let h="";
   b.props.forEach(pid=>{
-    const p=PROPS[pid];
+    const p=PROPS[pid], st=STAT[p.status]||["",""];
     const ds=p.dist.map(d=>`<span class="d ${d[2]?"":"no"}">${d[0]} ${d[1]}</span>`).join("");
     h+=`<div class="pcard ${p.fit?"":"bk"}">
-      <span class="badge ${p.fit?"ok":"bk"}">${p.fit?"✅ 三項全達標":"⚠️ 學校稍遠，可備案"}</span>
-      <div class="ph"><span class="pn">${p.name}</span><span class="pp">${p.price}</span></div>
+      <div class="ptop"><span class="badge ${p.fit?"ok":"bk"}">${p.fit?"✅ 三項全達標":"⚠️ 學校稍遠·備案"}</span><span class="stat ${st[1]}">${st[0]}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span class="pn">${p.name}</span><span class="pp">${p.price}</span></div>
       <div class="pa">📍 ${p.addr}</div>
       <div class="ds">${ds}</div>
       <div class="acts">
