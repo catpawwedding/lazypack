@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深耕五期 榮和五街103號 行情報告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans TC', '微軟正黑體', sans-serif;
+    background: #f5f5f0;
+    color: #2c2c2c;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #2563a8 0%, #4a90d9 100%);
+    color: white;
+    padding: 40px 32px 32px;
+  }
+  .header-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    opacity: 0.7;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    font-size: 13px;
+    opacity: 0.75;
+  }
+  .header-meta {
+    margin-top: 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    background: rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+  }
+  .meta-label { font-size: 11px; opacity: 0.7; margin-bottom: 2px; }
+  .meta-value { font-size: 16px; font-weight: 700; }
+
+  /* Sections */
+  .section {
+    background: white;
+    margin: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section-header {
+    background: #e8f2fc;
+    color: #1a3a5c;
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1.5px solid #b8d4ef;
+  }
+  .section-header .num {
+    background: #2563a8;
+    color: white;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+  }
+  .section-body { padding: 20px; }
+
+  /* Feature grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .feature-card {
+    border: 1.5px solid #e8edf2;
+    border-radius: 10px;
+    padding: 14px;
+    position: relative;
+  }
+  .feature-icon {
+    font-size: 22px;
+    margin-bottom: 6px;
+  }
+  .feature-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a3a5c;
+    margin-bottom: 4px;
+  }
+  .feature-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+  .feature-badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: #e8f4ff;
+    color: #2d6a9f;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  /* Property spec */
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .spec-table tr:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .spec-table td {
+    padding: 10px 4px;
+    font-size: 13px;
+  }
+  .spec-table td:first-child {
+    color: #888;
+    width: 90px;
+  }
+  .spec-table td:last-child {
+    font-weight: 600;
+    color: #1a3a5c;
+  }
+
+  /* Price table */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+  }
+  .price-table thead th {
+    background: #f0f5fb;
+    color: #1a3a5c;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 8px 10px;
+    text-align: left;
+    letter-spacing: 0.5px;
+  }
+  .price-table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .price-table tbody td {
+    padding: 11px 10px;
+    font-size: 13px;
+  }
+  .price-table .highlight-row {
+    background: #fffbf0;
+  }
+  .price-table .highlight-row td {
+    font-weight: 700;
+    color: #c0392b;
+  }
+  .badge-new {
+    background: #fff0e0;
+    color: #e07b00;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+  .price-up {
+    color: #c0392b;
+    font-weight: 700;
+  }
+
+  /* Market note */
+  .market-note {
+    background: #f0f5fb;
+    border-left: 3px solid #2d6a9f;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+  }
+  .market-note strong { color: #1a3a5c; }
+
+  /* Trend */
+  .trend-bar-wrap { margin: 14px 0 4px; }
+  .trend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .trend-year {
+    font-size: 11px;
+    color: #888;
+    width: 60px;
+    flex-shrink: 0;
+  }
+  .trend-bar-bg {
+    flex: 1;
+    background: #eef2f7;
+    border-radius: 4px;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  .trend-bar {
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+  }
+  .trend-bar span {
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+  }
+  .trend-price {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a3a5c;
+    width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin: 16px;
+    padding: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+  }
+  .footer strong { color: #1a3a5c; font-size: 14px; display: block; margin-bottom: 4px; }
+  .footer .date { margin-top: 8px; font-size: 11px; }
+
+  .divider { height: 1px; background: #f0f0f0; margin: 14px 0; }
+  .label-pill {
+    display: inline-block;
+    background: #e8f4ff;
+    color: #2d6a9f;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-right: 4px;
+  }
+
+  @media (max-width: 480px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .header-meta { gap: 10px; }
+    .meta-item { flex: 1; min-width: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-tag">行情分析報告 · 僅供委託參考</div>
+  <h1>深耕五期 榮和五街103號</h1>
+  <div class="header-sub">桃園市中壢區 · 16年屋齡透天別墅</div>
+  <div class="header-meta">
+    <div class="meta-item">
+      <div class="meta-label">總坪數</div>
+      <div class="meta-value">112.78坪</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">格局</div>
+      <div class="meta-value">6房3廳</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">樓層</div>
+      <div class="meta-value">B1~4F</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">社區戶數</div>
+      <div class="meta-value">32戶</div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 1: 市場行情（原2） -->
+<div class="section">
+  <div class="section-header">
+    <div class="num">1</div>
+    同社區成交行情
+  </div>
+  <div class="section-body">
+
+    <!-- 單價趨勢 -->
+    <div style="font-size:12px;color:#888;margin-bottom:8px;">單價趨勢（萬/坪）· 同社區實際成交</div>
+    <div class="trend-bar-wrap">
+      <div class="trend-row">
+        <div class="trend-year">102年2月</div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar" style="width:50%;background:#b0c4d8;">
+            <span>18.8</span>
+          </div>
+        </div>
+        <div class="trend-price">18.8萬/坪</div>
+      </div>
+      <div class="trend-row">
+        <div class="trend-year">104年1月</div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar" style="width:58%;background:#7fa8c9;">
+            <span>21.8</span>
+          </div>
+        </div>
+        <div class="trend-price">21.8萬/坪</div>
+      </div>
+      <div class="trend-row">
+        <div class="trend-year">107年10月</div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar" style="width:65%;background:#4d8ab7;">
+            <span>22.4</span>
+          </div>
+        </div>
+        <div class="trend-price">22.4萬/坪</div>
+      </div>
+      <div class="trend-row">
+        <div class="trend-year">114年6月</div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar" style="width:82%;background:#2563a8;">
+            <span>24.4</span>
+          </div>
+        </div>
+        <div class="trend-price price-up">24.4萬/坪</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 成交明細表 -->
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>成交年月</th>
+          <th>地址</th>
+          <th>坪數</th>
+          <th>單價/坪</th>
+          <th>總價</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>114年6月 <span class="badge-new">最新</span></td>
+          <td>榮和五街97號</td>
+          <td>104坪</td>
+          <td>24.4萬</td>
+          <td>2,538萬</td>
+        </tr>
+        <tr>
+          <td>107年10月</td>
+          <td>榮和五街79號</td>
+          <td>101坪</td>
+          <td>22.4萬</td>
+          <td>2,260萬</td>
+        </tr>
+        <tr>
+          <td>104年1月</td>
+          <td>榮和五街69號</td>
+          <td>101坪</td>
+          <td>21.8萬</td>
+          <td>2,200萬</td>
+        </tr>
+        <tr>
+          <td>102年2月</td>
+          <td>榮和五街101號</td>
+          <td>114坪</td>
+          <td>18.8萬</td>
+          <td>2,150萬</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="market-note">
+      <strong>行情判讀：</strong>這10年社區單價從18.8萬穩步漲到今年最新的<strong>24.4萬/坪</strong>，漲幅將近30%。今年6月才剛有成交，是最直接的市場參考指標。您的物件112.78坪，面積比最新成交案例更大，空間優勢明顯。
+    </div>
+
+  </div>
+</div>
+
+<!-- Section 2: 預計銷售時間（原3） -->
+<div class="section">
+  <div class="section-header">
+    <div class="num">2</div>
+    預計多久能賣掉？
+  </div>
+  <div class="section-body">
+
+    <div style="font-size:12px;color:#888;margin-bottom:12px;">根據同社區歷史成交節奏與目前市場狀況評估</div>
+
+    <!-- Timeline -->
+    <div style="position:relative;padding-left:24px;margin-bottom:4px;">
+      <!-- Line -->
+      <div style="position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#e0e8f0;border-radius:2px;"></div>
+
+      <div style="position:relative;margin-bottom:20px;">
+        <div style="position:absolute;left:-20px;top:3px;width:12px;height:12px;background:#2d6a9f;border-radius:50%;"></div>
+        <div style="font-size:13px;font-weight:700;color:#1a3a5c;margin-bottom:3px;">第1～2個月　市場試水溫</div>
+        <div style="font-size:12px;color:#666;">廣告曝光、買方詢問，觀察市場反應。這個階段重要的是行銷版面、照片品質，以及開價是否吸引人進來看屋。</div>
+      </div>
+
+      <div style="position:relative;margin-bottom:20px;">
+        <div style="position:absolute;left:-20px;top:3px;width:12px;height:12px;background:#4d8ab7;border-radius:50%;"></div>
+        <div style="font-size:13px;font-weight:700;color:#1a3a5c;margin-bottom:3px;">第2～4個月　帶看與議價</div>
+        <div style="font-size:12px;color:#666;">進入帶看密集期，有意願的買方開始出價。這個社區屬於大坪數透天，目標客群明確（三代同堂、換屋族），找到對的買方是關鍵。</div>
+      </div>
+
+      <div style="position:relative;margin-bottom:4px;">
+        <div style="position:absolute;left:-20px;top:3px;width:12px;height:12px;background:#1a3a5c;border-radius:50%;"></div>
+        <div style="font-size:13px;font-weight:700;color:#1a3a5c;margin-bottom:3px;">第3～6個月　合理預期成交</div>
+        <div style="font-size:12px;color:#666;">同社區過去每隔2～3年才有一筆成交，表示買方都是認真在找、願意等待的換屋族。只要定位精準，3～6個月內成交是合理預期。</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 關鍵因素 -->
+    <div style="font-size:12px;color:#888;margin-bottom:8px;">影響銷售速度的關鍵因素</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#f8fafb;border-radius:8px;">
+        <div style="font-size:18px;flex-shrink:0;">📸</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#1a3a5c;margin-bottom:2px;">第一印象：照片與廣告文案</div>
+          <div style="font-size:12px;color:#666;">買方第一眼在591、樂居上看到的畫面決定要不要預約。好照片可以讓詢問量增加3倍以上。</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#f8fafb;border-radius:8px;">
+        <div style="font-size:18px;flex-shrink:0;">🎯</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#1a3a5c;margin-bottom:2px;">開價策略：吸引買方進來看</div>
+          <div style="font-size:12px;color:#666;">開價決定有多少組買方願意預約看屋。看的人多，成交機率自然高。開價與市場的距離，是最直接影響銷售天數的變數。</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#f8fafb;border-radius:8px;">
+        <div style="font-size:18px;flex-shrink:0;">🤝</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#1a3a5c;margin-bottom:2px;">帶看體驗：讓買方住進去想像</div>
+          <div style="font-size:12px;color:#666;">到場的感受比照片更重要。屋況整潔、採光展示好，成交機率大幅提升。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Section 3: 物件特色（原1） -->
+<div class="section">
+  <div class="section-header">
+    <div class="num">3</div>
+    您的房子，有這些優勢
+  </div>
+  <div class="section-body">
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-badge">稀有</div>
+        <div class="feature-icon">🏡</div>
+        <div class="feature-title">指標社區 難得釋出</div>
+        <div class="feature-desc">深耕五期共32戶，長昇集團打造，住戶單純、素質高，目前整個社區僅少數戶在售。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-badge">空間大</div>
+        <div class="feature-icon">📐</div>
+        <div class="feature-title">112坪大空間 六房格局</div>
+        <div class="feature-desc">主建物94.12坪，B1地下停車、一樓到四樓，每層獨立使用，三代同堂首選。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌳</div>
+        <div class="feature-title">公園旁 環境舒適</div>
+        <div class="feature-desc">緊鄰1.89公頃興仁親子公園，綠意環繞，早晚散步即達，生活品質高。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎒</div>
+        <div class="feature-title">明星雙學區</div>
+        <div class="feature-desc">中正國小步行可達，自強國中鄰近，就學免接送，家長最放心的選擇。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚗</div>
+        <div class="feature-title">地下停車空間</div>
+        <div class="feature-desc">B1設有寬敞地下室，停車方便，進出無障礙，附屬停車位不占用戶外空間。</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏪</div>
+        <div class="feature-title">生活機能完善</div>
+        <div class="feature-desc">環中東路商圈近在咫尺，百業林立；傳統市場、便利超商、醫療機構一應俱全。</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Section 4: 委託喵爸銷售的優勢 -->
+<div class="section">
+  <div class="section-header">
+    <div class="num">4</div>
+    委託喵爸銷售，有什麼優勢？
+  </div>
+  <div class="section-body">
+
+    <div style="font-size:12px;color:#888;margin-bottom:14px;">在地深耕 × 團隊火力 × 自媒體流量，三個優勢同時為您的房子衝曝光</div>
+
+    <!-- 優勢1：四品牌聯賣團隊 -->
+    <div style="display:flex;align-items:flex-start;gap:14px;padding:16px;background:#f0f5fb;border-radius:12px;margin-bottom:12px;">
+      <div style="flex-shrink:0;width:44px;height:44px;background:#1a3a5c;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:22px;">🏢</span>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#1a3a5c;margin-bottom:4px;">桃園最大聯賣團隊，近30家分店、兩三百位業務</div>
+        <div style="font-size:12px;color:#555;line-height:1.65;">
+          我們擁有有巢氏、永慶、永義、台慶四大品牌聯賣資源，全桃園近30家分店、業務近300位，這棟物件同時出現在所有業務的手機裡、在全桃園的客戶面前。你不只委託一個人，而是整個團隊同步為你找買方。
+        </div>
+      </div>
+    </div>
+
+    <!-- 優勢2：自媒體流量 -->
+    <div style="display:flex;align-items:flex-start;gap:14px;padding:16px;background:#f0f5fb;border-radius:12px;margin-bottom:4px;">
+      <div style="flex-shrink:0;width:44px;height:44px;background:#1a3a5c;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:22px;">📱</span>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#1a3a5c;margin-bottom:4px;">自媒體流量加持，物件曝光不只靠平台</div>
+        <div style="font-size:12px;color:#555;line-height:1.65;">
+          我經營房仲自媒體，在 Facebook、Instagram、YouTube Shorts 持續累積在地粉絲與流量。除了591、樂居這些傳統平台，您的物件還能透過我的頻道直接觸達正在找房的真實買方，曝光管道更廣、速度更快。
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Contact -->
+<div style="margin:16px;display:flex;gap:12px;">
+  <a href="https://line.me/ti/p/M-tek5DmH6"
+     style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#06C755;color:#fff;font-size:15px;font-weight:700;padding:14px;border-radius:12px;text-decoration:none;">
+    <svg width="22" height="22" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M24 4C12.954 4 4 12.059 4 22c0 6.292 3.394 11.838 8.59 15.19-.37 1.38-1.34 5.01-1.535 5.787-.242.967.353 1.953 1.32 1.953.24 0 .48-.065.694-.2L19.8 41.4C21.15 41.79 22.56 42 24 42c11.046 0 20-8.059 20-18S35.046 4 24 4z" fill="white"/>
+      <path d="M34.5 25.5h-5a1 1 0 0 1 0-2h4v-7a1 1 0 0 1 2 0v8a1 1 0 0 1-1 1zM14.5 25.5a1 1 0 0 1-1-1v-8a1 1 0 0 1 2 0v8a1 1 0 0 1-1 1zM19.5 25.5a1 1 0 0 1-1-1v-5.086l-2.793 2.793a1 1 0 0 1-1.414-1.414l4.5-4.5a1 1 0 0 1 1.414 0l4.5 4.5a1 1 0 0 1-1.414 1.414L20.5 19.414V24.5a1 1 0 0 1-1 1zM28.5 25.5a1 1 0 0 1-.707-.293l-4.5-4.5a1 1 0 0 1 1.414-1.414L27.5 21.586V16.5a1 1 0 0 1 2 0v8a1 1 0 0 1-1 1z" fill="#06C755"/>
+    </svg>
+    加 LINE 聯絡
+  </a>
+  <a href="tel:0925842111"
+     style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;background:#1a3a5c;color:#fff;font-size:15px;font-weight:700;padding:14px;border-radius:12px;text-decoration:none;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.16 6.16l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+    直接撥打
+  </a>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <strong>中壢專業房仲 喵爸</strong>
+  為您提供在地專業行情分析
+  <div class="date">報告日期：2026年6月23日 · 資料來源：內政部實價登錄</div>
+</div>
+
+</body>
+</html>
