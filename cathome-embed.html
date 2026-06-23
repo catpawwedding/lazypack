@@ -22,7 +22,10 @@
   .cw .topbar{background:var(--navy);color:#cdd9e6;font-size:15px}
   .cw .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:44px}
   .cw .topbar a{color:#fff;font-weight:500}
-  .cw .topbar .soc{display:flex;gap:16px;align-items:center}
+  .cw .topbar .soc{display:flex;gap:9px;align-items:center}
+  .cw .sb{width:33px;height:33px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;transition:.18s;box-shadow:0 2px 7px rgba(0,0,0,.2)}
+  .cw .sb:hover{transform:translateY(-2px) scale(1.12)}
+  .cw .sb svg{display:block}
   .cw .hd{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .cw .hd .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
   .cw .logo{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--navy);font-size:20px}
@@ -117,12 +120,17 @@
 
 <div class="topbar"><div class="wrap">
   <div>📞 <a href="tel:0925842111">0925-842-111</a>　|　有巢氏房屋 園區龍慈吉富加盟店</div>
-  <div class="soc"><span class="hide">先誠實 · 再成交</span>
-    <a href="https://www.facebook.com/cathomev/" target="_blank">FB</a>
-    <a href="https://www.instagram.com/cat.w.520.y" target="_blank">IG</a>
-    <a href="https://www.tiktok.com/@cat_home888" target="_blank">TikTok</a>
-    <a href="https://youtube.com/@cathome-888" target="_blank">YouTube</a>
-    <a href="https://line.me/ti/p/M-tek5DmH6" target="_blank">LINE</a>
+  <div class="soc"><span class="hide" style="margin-right:4px">關注 · 預約喵爸</span>
+    <a class="sb" style="background:#1877f2" href="https://www.facebook.com/cathomev/" target="_blank" title="Facebook 粉絲團" aria-label="Facebook 粉絲團">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M13.4 21v-7.3h2.5l.37-2.85h-2.87V9.02c0-.82.23-1.39 1.42-1.39h1.5V5.1c-.26-.04-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77v2.08H8.2v2.85h2.5V21h2.7z"/></svg></a>
+    <a class="sb" style="background:#ff0000" href="https://youtube.com/@cathome-888" target="_blank" title="YouTube 頻道" aria-label="YouTube 頻道">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M9.2 7.6v8.8L16.6 12 9.2 7.6z"/></svg></a>
+    <a class="sb" style="background:#1a73e8" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="Google 商家地圖（店家位置）" aria-label="Google 商家地圖">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.6A2.6 2.6 0 1 1 12 6.4a2.6 2.6 0 0 1 0 5.2z"/></svg></a>
+    <a class="sb" style="background:#ff6a3d" href="https://book.cathome.tw" target="_blank" title="線上預約諮詢" aria-label="線上預約">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="4" y="5.5" width="16" height="15" rx="2.2"/><path d="M4 10h16M8.5 3.2v4M15.5 3.2v4"/></svg></a>
+    <a class="sb" style="background:#06c755" href="https://line.me/R/ti/p/@056ohivi" target="_blank" title="LINE 免費諮詢" aria-label="LINE 諮詢">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 4.2c-4.5 0-8.2 2.96-8.2 6.6 0 3.27 2.93 6 6.89 6.52.27.06.63.18.72.4.08.2.05.52.03.72l-.12.7c-.03.2-.16.8.7.44 3.05-1.34 4.93-2.84 6.06-4.34l-.5-.36c1.12-.83 1.82-1.94 1.82-4.08 0-3.64-3.65-6.6-8.12-6.6z"/></svg></a>
   </div>
 </div></div>
 
