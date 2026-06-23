@@ -47,12 +47,16 @@
   .cw .hero-badge{position:absolute;left:-14px;bottom:24px;background:#fff;color:var(--navy);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center}
   .cw .hero-badge .num{font-size:28px;font-weight:900;color:var(--accent);line-height:1}
   .cw .hero-badge small{color:var(--muted);font-size:14px}
+  .cw a.hero-badge{cursor:pointer;text-decoration:none}
+  .cw a.hero-badge:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.25)}
   .cw .stats{background:#fff}
   .cw .stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;transform:translateY(-46px)}
-  .cw .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 18px;text-align:center;box-shadow:var(--shadow)}
+  .cw .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 16px;text-align:center;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;transition:.18s}
+  .cw a.stat{cursor:pointer}
+  .cw a.stat:hover{transform:translateY(-3px);border-color:#bcd2ec}
   .cw .stat .n{font-size:38px;font-weight:900;color:var(--navy);line-height:1}
   .cw .stat .n i{color:var(--gold);font-style:normal}
-  .cw .stat .l{color:var(--muted);font-size:16px;margin-top:8px;font-weight:500}
+  .cw .stat .l{color:var(--muted);font-size:15.5px;margin-top:9px;font-weight:500;line-height:1.5;text-wrap:balance}
   .cw .why{background:var(--bg-alt)}
   .cw .why .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
   .cw .card-why{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;transition:.18s}
@@ -101,6 +105,8 @@
   .cw .ft .legal{padding-top:22px;color:#90a6bc;font-size:14.5px;line-height:1.9}
   .cw .foot-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
   .cw .foot-logo img{height:44px;background:#fff;border-radius:8px;padding:4px}
+  .cw .sec-title,.cw .sec-sub,.cw .card-why h3,.cw .acard h4,.cw .tool h3,.cw .band h2{text-wrap:balance}
+  .cw .card-why p,.cw .tool p,.cw .cat p,.cw .hero p.lead,.cw .band p,.cw .ft p{text-wrap:pretty}
   @media(max-width:900px){
     .cw{font-size:18.5px}
     .cw nav.main,.cw .topbar .soc span.hide{display:none}
@@ -162,14 +168,14 @@
   </div>
   <div class="hero-photo">
     <img src="https://cathome.tw/wp-content/uploads/2024/12/LINE_ALBUM_2024.3.28_240903_5-425x600.jpg" alt="房仲喵爸">
-    <div class="hero-badge"><div class="num">5.0★</div><div><strong>80 則</strong><br><small>Google 真實好評</small></div></div>
+    <a class="hero-badge" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家 80 則真實評論"><div class="num">5.0★</div><div><strong>80 則</strong><br><small>Google 真實好評 →</small></div></a>
   </div>
 </div></section>
 
 <div class="stats"><div class="wrap"><div class="grid">
-  <div class="stat"><div class="n">5.0<i>★</i></div><div class="l">Google 商家評分</div></div>
-  <div class="stat"><div class="n">80<span style="font-size:20px">+</span></div><div class="l">真實客戶評論</div></div>
-  <div class="stat"><div class="n">5<span style="font-size:20px"> 區</span></div><div class="l">中壢‧平鎮‧楊梅‧桃園‧八德</div></div>
+  <a class="stat" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家評論"><div class="n">5.0<i>★</i></div><div class="l">Google 商家評分 →</div></a>
+  <a class="stat" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家評論"><div class="n">80<span style="font-size:20px">+</span></div><div class="l">真實客戶評論 →</div></a>
+  <div class="stat"><div class="n">5<span style="font-size:20px"> 區</span></div><div class="l">中壢·平鎮·楊梅<br>桃園·八德</div></div>
   <div class="stat"><div class="n">20<span style="font-size:20px"> 年</span></div><div class="l">職軍誠信背景</div></div>
 </div></div></div>
 
@@ -209,7 +215,7 @@
   <h2 class="sec-title" style="color:#fff">免費房產工具，先算再決定</h2>
   <p class="sec-sub" style="color:#cfe0f0">不用先聯絡業務，自己先試算心裡有底。</p>
   <div class="grid">
-    <a class="tool" href="https://cathome.tw/form/market-price/"><div class="tic">📊</div><div><h3>免費行情評估</h3><p>留下地址與聯絡方式，喵爸幫你把這一帶成交一筆筆攤開比對。</p></div></a>
+    <a class="tool" href="https://cathome.tw/form/market-price/"><div class="tic">📊</div><div><h3>免費行情評估</h3><p>留下地址與聯絡方式，喵爸把這一帶的實際成交，一筆一筆攤開、仔細比對給你聽。</p></div></a>
     <a class="tool" href="https://cathome.tw/zhongli-real-estate-tax-guide/"><div class="tic">🧾</div><div><h3>房地合一稅試算</h3><p>持有幾年、賺賠多少、要繳多少稅，一次幫你算清楚。</p></div></a>
     <a class="tool" href="https://cathome.tw/form/market-price/"><div class="tic">🏦</div><div><h3>自備款 × 房貸試算</h3><p>評估你的還款能力，買房前先知道負擔得起哪個價位。</p></div></a>
     <a class="tool" href="https://line.me/R/ti/p/@056ohivi"><div class="tic">🔁</div><div><h3>換屋重購退稅</h3><p>賣一間再買一間，能退多少稅，幫你算到不漏掉。</p></div></a>
