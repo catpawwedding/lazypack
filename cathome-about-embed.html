@@ -1,0 +1,250 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  .cw{--navy:#13314f;--blue:#2c6cb0;--blue-soft:#eaf2fb;--accent:#ff6a3d;--accent-dark:#e2511f;--accent-soft:#fff1ec;--ink:#1f2933;--muted:#54616f;--line:#e7ecf1;--bg:#fff;--bg-alt:#f5f8fc;--gold:#ffb400;--radius:16px;--shadow:0 8px 30px rgba(19,49,79,.08)}
+  .cw *{box-sizing:border-box;margin:0;padding:0}
+  .cw{font-family:'Noto Sans TC',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;-webkit-font-smoothing:antialiased;font-size:18px}
+  .cw img{max-width:100%;display:block}
+  .cw a{text-decoration:none;color:inherit}
+  .cw .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  .cw .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;border-radius:999px;padding:15px 30px;font-size:17.5px;transition:.18s;cursor:pointer;border:0}
+  .cw .btn-accent{background:var(--accent);color:#fff;box-shadow:0 6px 18px rgba(255,106,61,.32)}
+  .cw .btn-accent:hover{background:var(--accent-dark);transform:translateY(-2px)}
+  .cw .btn-line{background:#06c755;color:#fff}
+  .cw .btn-line:hover{filter:brightness(.95);transform:translateY(-2px)}
+  .cw .btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+  .cw .btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  .cw .kicker{display:inline-block;font-size:14px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase}
+  .cw .sec-title{font-size:35px;font-weight:900;color:var(--navy);margin:8px 0 10px;line-height:1.3}
+  .cw .sec-sub{color:var(--muted);font-size:18.5px}
+  .cw section{padding:72px 0}
+  .cw .center{text-align:center}
+  .cw .topbar{background:var(--navy);color:#cdd9e6;font-size:15px}
+  .cw .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:44px}
+  .cw .topbar a{color:#fff;font-weight:500}
+  .cw .topbar .soc{display:flex;gap:9px;align-items:center}
+  .cw .sb{width:33px;height:33px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;transition:.18s;box-shadow:0 2px 7px rgba(0,0,0,.2)}
+  .cw .sb:hover{transform:translateY(-2px) scale(1.12)}
+  .cw .sb svg{display:block}
+  .cw .hd{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .cw .hd .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .cw .logo{display:flex;align-items:center;gap:10px;font-weight:900;color:var(--navy);font-size:20px}
+  .cw .logo img{height:48px;width:auto}
+  .cw nav.main{display:flex;gap:30px;font-weight:500;font-size:17px}
+  .cw nav.main a{color:var(--ink);padding:6px 0;border-bottom:2px solid transparent}
+  .cw nav.main a:hover{color:var(--blue);border-color:var(--blue)}
+  .cw nav.main a.on{color:var(--blue);border-color:var(--blue)}
+  .cw .nav-cta{display:flex;gap:10px;align-items:center}
+  .cw .hero{background:linear-gradient(160deg,#0f2945 0%,#1c4878 60%,#2c6cb0 100%);color:#fff;position:relative;overflow:hidden}
+  .cw .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:82px 22px}
+  .cw .hero h1{font-size:46px;line-height:1.28;font-weight:900;letter-spacing:.5px;color:#fff}
+  .cw .hero h1 .hl{color:#ffd24a}
+  .cw .hero p.lead{margin:22px 0 14px;font-size:20px;color:#dce8f5;max-width:580px;line-height:1.8}
+  .cw .hero .pts{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 30px}
+  .cw .hero .pts span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 16px;border-radius:999px;font-size:16px;font-weight:500}
+  .cw .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .cw .hero-photo{position:relative}
+  .cw .hero-photo img{border-radius:22px;box-shadow:0 20px 50px rgba(0,0,0,.35);width:100%;object-fit:cover}
+  .cw .hero-badge{position:absolute;left:-14px;bottom:24px;background:#fff;color:var(--navy);border-radius:16px;padding:14px 18px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center}
+  .cw .hero-badge .num{font-size:28px;font-weight:900;color:var(--accent);line-height:1}
+  .cw .hero-badge small{color:var(--muted);font-size:14px}
+  .cw a.hero-badge{cursor:pointer;text-decoration:none}
+  .cw a.hero-badge:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.25)}
+  .cw .stats{background:#fff}
+  .cw .stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;transform:translateY(-46px)}
+  .cw .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 16px;text-align:center;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:center;transition:.18s}
+  .cw a.stat{cursor:pointer}
+  .cw a.stat:hover{transform:translateY(-3px);border-color:#bcd2ec}
+  .cw .stat .n{font-size:38px;font-weight:900;color:var(--navy);line-height:1}
+  .cw .stat .n i{color:var(--gold);font-style:normal}
+  .cw .stat .l{color:var(--muted);font-size:15.5px;margin-top:9px;font-weight:500;line-height:1.5;text-wrap:balance}
+  .cw .why{background:var(--bg-alt)}
+  .cw .why .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:40px}
+  .cw .card-why{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px;transition:.18s}
+  .cw .card-why:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#d7e3f1}
+  .cw .ic{width:56px;height:56px;border-radius:14px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:18px}
+  .cw .card-why h3{font-size:20.5px;color:var(--navy);font-weight:700;margin-bottom:9px}
+  .cw .card-why p{color:var(--muted);font-size:16.5px;line-height:1.7}
+  .cw .story{background:#fff}
+  .cw .story .box{max-width:860px;margin:0 auto}
+  .cw .story p{color:#3a4654;font-size:18.5px;line-height:2;margin-top:18px}
+  .cw .quote{margin:32px auto 0;font-size:26px;font-weight:900;color:var(--navy)}
+  .cw .quote span{color:var(--accent)}
+  .cw .area{background:var(--bg-alt)}
+  .cw .area .tags{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:26px 0 6px}
+  .cw .area .tags span{background:#fff;border:1px solid var(--line);color:var(--navy);font-weight:700;padding:9px 22px;border-radius:999px;font-size:17px}
+  .cw .cats{background:#fff}
+  .cw .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:38px}
+  .cw .cat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;text-align:center;padding-bottom:20px}
+  .cw .cat .ph{aspect-ratio:1/1;overflow:hidden;background:#f0e9df}
+  .cw .cat .ph img{width:100%;height:100%;object-fit:cover}
+  .cw .cat h4{font-size:19.5px;color:var(--navy);font-weight:700;margin-top:15px}
+  .cw .cat .role{display:inline-block;background:var(--blue-soft);color:var(--blue);font-size:14px;font-weight:700;padding:3px 13px;border-radius:999px;margin:7px 0 9px}
+  .cw .cat p{color:var(--muted);font-size:15px;padding:0 16px;line-height:1.65}
+  .cw .band{background:var(--accent);color:#fff;text-align:center}
+  .cw .band h2{font-size:40px;font-weight:900;letter-spacing:1px;color:#fff}
+  .cw .band p{font-size:19px;margin:16px 0 30px;color:#fff;opacity:.96}
+  .cw .band .btn-ghost{background:#fff;color:var(--accent-dark);border:0}
+  .cw .ft{background:var(--navy);color:#c2d0de;padding:58px 0 28px;font-size:16px}
+  .cw .ft .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-bottom:34px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .cw .ft h5{color:#fff;font-size:17.5px;font-weight:700;margin-bottom:15px}
+  .cw .ft a{color:#cdd9e6}
+  .cw .ft a:hover{color:#fff}
+  .cw .ft ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .cw .ft .legal{padding-top:22px;color:#90a6bc;font-size:14.5px;line-height:1.9}
+  .cw .foot-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
+  .cw .foot-logo img{height:44px;background:#fff;border-radius:8px;padding:4px}
+  .cw .sec-title,.cw .sec-sub,.cw .card-why h3,.cw .band h2,.cw .quote{text-wrap:balance}
+  .cw .card-why p,.cw .cat p,.cw .hero p.lead,.cw .band p,.cw .ft p,.cw .story p{text-wrap:pretty}
+  @media(max-width:900px){
+    .cw{font-size:18.5px}
+    .cw nav.main,.cw .topbar .soc span.hide{display:none}
+    .cw .hero .wrap{grid-template-columns:1fr;padding:56px 22px}
+    .cw .hero h1{font-size:36px}
+    .cw .hero p.lead{font-size:19px}
+    .cw .hero-photo{max-width:380px;margin:0 auto}
+    .cw .stats .grid,.cw .why .cards,.cw .cgrid{grid-template-columns:repeat(2,1fr)}
+    .cw .stats .grid{transform:translateY(-30px)}
+    .cw .ft .cols{grid-template-columns:1fr;gap:24px}
+    .cw .sec-title{font-size:28px}.cw .band h2{font-size:30px}.cw .quote{font-size:22px}
+  }
+</style>
+
+<div class="cw">
+
+<div class="topbar"><div class="wrap">
+  <div>📞 <a href="tel:0925842111">0925-842-111</a>　|　有巢氏房屋 園區龍慈吉富加盟店</div>
+  <div class="soc"><span class="hide" style="margin-right:4px">關注 · 預約喵爸</span>
+    <a class="sb" style="background:#1877f2" href="https://www.facebook.com/cathomev/" target="_blank" title="Facebook 粉絲團" aria-label="Facebook 粉絲團">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M13.4 21v-7.3h2.5l.37-2.85h-2.87V9.02c0-.82.23-1.39 1.42-1.39h1.5V5.1c-.26-.04-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77v2.08H8.2v2.85h2.5V21h2.7z"/></svg></a>
+    <a class="sb" style="background:#ff0000" href="https://youtube.com/@cathome-888" target="_blank" title="YouTube 頻道" aria-label="YouTube 頻道">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M9.2 7.6v8.8L16.6 12 9.2 7.6z"/></svg></a>
+    <a class="sb" style="background:#1a73e8" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="Google 商家地圖（店家位置）" aria-label="Google 商家地圖">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.9-3.1-7-7-7zm0 9.6A2.6 2.6 0 1 1 12 6.4a2.6 2.6 0 0 1 0 5.2z"/></svg></a>
+    <a class="sb" style="background:#ff6a3d" href="https://book.cathome.tw" target="_blank" title="線上預約諮詢" aria-label="線上預約">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="4" y="5.5" width="16" height="15" rx="2.2"/><path d="M4 10h16M8.5 3.2v4M15.5 3.2v4"/></svg></a>
+    <a class="sb" style="background:#06c755" href="https://line.me/R/ti/p/@056ohivi" target="_blank" title="LINE 免費諮詢" aria-label="LINE 諮詢">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M12 4.2c-4.5 0-8.2 2.96-8.2 6.6 0 3.27 2.93 6 6.89 6.52.27.06.63.18.72.4.08.2.05.52.03.72l-.12.7c-.03.2-.16.8.7.44 3.05-1.34 4.93-2.84 6.06-4.34l-.5-.36c1.12-.83 1.82-1.94 1.82-4.08 0-3.64-3.65-6.6-8.12-6.6z"/></svg></a>
+  </div>
+</div></div>
+
+<div class="hd"><div class="wrap">
+  <a class="logo" href="https://cathome.tw/"><img src="https://cathome.tw/wp-content/uploads/2024/12/%E5%96%B5%E7%88%B8LOGO.png" alt="中壢專業房仲喵爸">中壢專業房仲喵爸</a>
+  <nav class="main">
+    <a href="https://cathome.tw/">首頁</a>
+    <a href="https://cathome.tw/about/" class="on">關於我</a>
+    <a href="https://cathome.tw/category/know/">房產知識</a>
+    <a href="https://cathome.tw/category/news/">新聞時事</a>
+    <a href="https://cathome.tw/case/">建案開箱</a>
+    <a href="https://cathome.tw/#tools">免費工具</a>
+  </nav>
+  <div class="nav-cta"><a class="btn btn-accent" href="https://cathome.tw/form/market-price/">免費行情評估</a></div>
+</div></div>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="kicker" style="color:#ffd24a">關於我 · ABOUT</span>
+    <h1>你在桃園買賣房的<br><span class="hl">誠實</span>夥伴</h1>
+    <p class="lead">我是中壢專業房仲喵爸。20 年職業軍人退伍，把「自律、誠實」當成對自己的要求。我不只幫你成交，更幫你把稅務、屋況、貸款、行情一次顧到，買賣全程有人扛、不怕找不到人。</p>
+    <div class="pts">
+      <span>✔ 20 年職軍誠信</span><span>✔ 屋況專業證照</span><span>✔ 強大售後團隊</span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-line" href="https://line.me/R/ti/p/@056ohivi" target="_blank">LINE 免費諮詢</a>
+      <a class="btn btn-accent" href="https://book.cathome.tw" target="_blank">線上預約 →</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="https://cathome.tw/wp-content/uploads/2024/12/LINE_ALBUM_2024.3.28_240903_5-425x600.jpg" alt="中壢專業房仲喵爸">
+    <a class="hero-badge" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家 80 則真實評論"><div class="num">5.0★</div><div><strong>80 則</strong><br><small>Google 真實好評 →</small></div></a>
+  </div>
+</div></section>
+
+<div class="stats"><div class="wrap"><div class="grid">
+  <a class="stat" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家評論"><div class="n">5.0<i>★</i></div><div class="l">Google 商家評分 →</div></a>
+  <a class="stat" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家評論"><div class="n">80<span style="font-size:20px">+</span></div><div class="l">真實客戶評論 →</div></a>
+  <div class="stat"><div class="n">5<span style="font-size:20px"> 區</span></div><div class="l">中壢·平鎮·楊梅<br>桃園·八德</div></div>
+  <div class="stat"><div class="n">20<span style="font-size:20px"> 年</span></div><div class="l">職軍誠信背景</div></div>
+</div></div></div>
+
+<section class="why"><div class="wrap center">
+  <span class="kicker">WHY MEOWDAD</span>
+  <h2 class="sec-title">為什麼把房子交給喵爸？</h2>
+  <p class="sec-sub">你需要的是能協調、能解決問題的夥伴，不是一問三不知的傳話業務員。</p>
+  <div class="cards">
+    <div class="card-why"><div class="ic">🎖️</div><h3>20 年職軍誠信</h3><p>自律、誠實是當兵養成的習慣，不用怕話術詐騙、不用怕找不到人。</p></div>
+    <div class="card-why"><div class="ic">🔧</div><h3>屋況專業證照</h3><p>具水管配置、工業配線、網路架設乙丙級證照，屋況問題快速協助處理。</p></div>
+    <div class="card-why"><div class="ic">🧮</div><h3>稅務行情全算</h3><p>房地合一、重購退稅、自備款與房貸能力，為你精算到位、買賣不踩雷。</p></div>
+    <div class="card-why"><div class="ic">🤝</div><h3>強大售後團隊</h3><p>成交不是結束，售後團隊持續服務，積極協助買賣雙方解決突發狀況。</p></div>
+  </div>
+</div></section>
+
+<section class="story"><div class="wrap"><div class="box center">
+  <span class="kicker">MY STORY</span>
+  <h2 class="sec-title">從軍人，到你的在地房仲</h2>
+  <p>在部隊待了 20 年，紀律與誠實是我每天的功課。退伍後我選擇回到熟悉的中壢，當一個「說真話」的房仲——因為買賣房子，是多數人一生最大的一筆交易，最怕遇到只會傳話、出事就找不到人的業務員。</p>
+  <p>我把當兵養成的責任感帶進每一個案子：幫你看穿屋況問題、把稅費一筆一筆算清楚、替你評估貸款與自備款負擔，連成交後的售後我都帶著團隊繼續顧。我要的不是做完一筆就走，而是讓你敢把下一間、把家人朋友，都放心交給我。</p>
+  <div class="quote">先誠實，<span>再成交</span>。</div>
+</div></div></section>
+
+<section class="why" style="background:var(--bg-alt)"><div class="wrap center">
+  <span class="kicker">PROFESSION</span>
+  <h2 class="sec-title">不只懂行情，連屋況都懂</h2>
+  <p class="sec-sub">一般房仲不會的，喵爸有證照、有品牌、有團隊幫你扛。</p>
+  <div class="cards">
+    <div class="card-why"><div class="ic">🔧</div><h3>水電配線證照</h3><p>水管配置、工業配線、網路架設乙丙級證照在身，看屋當場幫你抓出屋況問題。</p></div>
+    <div class="card-why"><div class="ic">🎖️</div><h3>20 年職軍背景</h3><p>自律、守信、使命必達，是部隊養成的習慣，更是對每位客戶的承諾。</p></div>
+    <div class="card-why"><div class="ic">🏢</div><h3>有巢氏品牌保障</h3><p>園區龍慈吉富加盟店，交易安全有品牌與制度把關，不是一個人單打獨鬥。</p></div>
+    <div class="card-why"><div class="ic">🤝</div><h3>強大售後團隊</h3><p>成交不是終點，過戶、屋況、後續疑難，團隊持續服務到底。</p></div>
+  </div>
+</div></section>
+
+<section class="area"><div class="wrap center">
+  <span class="kicker">SERVICE AREA</span>
+  <h2 class="sec-title">深耕桃園，在地好厝邊</h2>
+  <p class="sec-sub">熟門熟路的這五區，行情、學區、生活圈，喵爸都幫你摸透。</p>
+  <div class="tags"><span>中壢</span><span>平鎮</span><span>楊梅</span><span>桃園</span><span>八德</span></div>
+  <p class="sec-sub" style="margin-top:20px">服務項目：買房賣房諮詢 · 各項稅費估算 · 行情評估 · 屋況與貸款評估</p>
+</div></section>
+
+<section class="cats"><div class="wrap center">
+  <span class="kicker">MEOWDAD TEAM</span>
+  <h2 class="sec-title">喵爸的招財團隊</h2>
+  <p class="sec-sub">四隻認養浪貓，是喵爸「心存善念」的初心提醒。</p>
+  <div class="cgrid">
+    <div class="cat"><div class="ph"><img src="https://cathome.tw/wp-content/uploads/2025/04/cat_0.webp" alt="Q寶"></div><h4>Q寶</h4><div class="role">老大</div><p>第一隻認養的貓，很有個性，會呼嚕、愛棉被踏踏。</p></div>
+    <div class="cat"><div class="ph"><img src="https://cathome.tw/wp-content/uploads/2025/03/cat_2-180x180.jpg" alt="柚子"></div><h4>柚子</h4><div class="role">二哥</div><p>招財麒麟尾的標準橘貓，膽小怕生、叫聲宏亮。</p></div>
+    <div class="cat"><div class="ph"><img src="https://cathome.tw/wp-content/uploads/2025/03/cat_3.jpg" alt="小蜜桃"></div><h4>小蜜桃</h4><div class="role">大姊</div><p>不怕生的大隻三花貓，公主病、睡覺愛把腳伸直直。</p></div>
+    <div class="cat"><div class="ph"><img src="https://cathome.tw/wp-content/uploads/2025/03/cat_4-180x180.jpg" alt="布布"></div><h4>布布</h4><div class="role">小妹</div><p>永遠的小貓個性，會呼嚕到流口水，喜歡筋膜槍。</p></div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <h2>先誠實！再成交！</h2>
+  <p>不管你是要買、要賣、還是只想先了解行情，都歡迎找喵爸聊聊，第一步永遠免費。</p>
+  <a class="btn btn-ghost" href="https://line.me/R/ti/p/@056ohivi" target="_blank">免費諮詢喵爸 →</a>
+</div></section>
+
+<div class="ft"><div class="wrap">
+  <div class="cols">
+    <div>
+      <div class="foot-logo"><img src="https://cathome.tw/wp-content/uploads/2024/12/%E5%96%B5%E7%88%B8LOGO.png" alt=""><strong style="color:#fff;font-size:18.5px">中壢專業房仲喵爸</strong></div>
+      <p>提供不動產專業資訊與時事，讓買房賣房公開透明，服務買方與賣方。心存善念、堅持努力。</p>
+    </div>
+    <div><h5>服務項目</h5><ul>
+      <li>買房、賣房諮詢</li><li>各項稅費估算</li><li>行情評估</li><li>屋況與貸款評估</li>
+    </ul></div>
+    <div><h5>聯繫喵爸</h5><ul>
+      <li>📞 <a href="tel:0925842111">0925-842-111</a></li>
+      <li>LINE：<a href="https://line.me/ti/p/M-tek5DmH6" target="_blank">anttow</a></li>
+      <li><a href="https://www.facebook.com/cathomev/" target="_blank">Facebook 粉絲團</a></li>
+      <li>社群：好房地產攻略討論</li>
+    </ul></div>
+  </div>
+  <div class="legal">
+    中壢專業房仲喵爸 © 2026 All Rights Reserved.<br>
+    有巢氏房屋 園區龍慈吉富加盟店　|　經紀業：吉富億隆有限公司　|　經紀人：丁玲玲 桃市經字第000108號
+  </div>
+</div></div>
+
+</div>
