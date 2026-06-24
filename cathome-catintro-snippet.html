@@ -1,0 +1,24 @@
+<style>
+  .cw-cat-intro{color:#54616f;font-size:18.5px;line-height:1.7;margin:10px 0 2px;max-width:860px;text-wrap:pretty}
+  .page-id-32056 .cw-cat-intro{text-align:center;margin:8px auto 0;max-width:700px}
+  @media(max-width:680px){.cw-cat-intro{font-size:17px}}
+</style>
+<script>document.addEventListener('DOMContentLoaded',function(){try{
+  var b=document.body, intro=null, anchor=null;
+  var m={
+    'category-know':'白話拆解買賣房的眉角——稅務、屋況、貸款、合約，喵爸一篇一篇講給你聽。',
+    'category-news':'第一手政策與市場解析，中壢桃園房市怎麼走，喵爸幫你看懂、不被牽著走。',
+    'category-question':'凶宅、漏水、簽約反悔……真實交易糾紛案例與自保 SOP，讓你買賣不踩雷。'
+  };
+  for(var k in m){ if(b.classList.contains(k)){ intro=m[k]; anchor=document.querySelector('h1.page-title'); break; } }
+  if(!intro && b.classList.contains('page-id-32056')){
+    intro='中壢、桃園新案實地開箱——地段、規劃、價格，喵爸帶你看清楚再決定。';
+    var hs=document.querySelectorAll('h2.elementor-heading-title');
+    for(var i=0;i<hs.length;i++){ if(hs[i].textContent.indexOf('建案開箱')>=0){ anchor=hs[i]; break; } }
+  }
+  if(!intro||!anchor) return;
+  var host=anchor.closest('.elementor-widget')||anchor;
+  if(host.parentNode.querySelector('.cw-cat-intro')) return;
+  var p=document.createElement('p'); p.className='cw-cat-intro'; p.textContent=intro;
+  host.parentNode.insertBefore(p, host.nextSibling);
+}catch(e){}});</script>
