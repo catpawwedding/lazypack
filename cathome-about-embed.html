@@ -96,6 +96,36 @@
   .cw .ft .legal{padding-top:22px;color:#90a6bc;font-size:14.5px;line-height:1.9}
   .cw .foot-logo{display:flex;align-items:center;gap:10px;margin-bottom:15px}
   .cw .foot-logo img{height:44px;background:#fff;border-radius:8px;padding:4px}
+  /* === 關於我 專屬：淺色個人英雄區 === */
+  .cw .ahero{background:var(--bg-alt);border-bottom:1px solid var(--line)}
+  .cw .ahero .wrap{display:grid;grid-template-columns:.82fr 1.18fr;gap:50px;align-items:center;padding:74px 22px}
+  .cw .ah-photo{position:relative;max-width:340px}
+  .cw .ah-photo img{width:100%;border-radius:20px;box-shadow:0 18px 44px rgba(19,49,79,.20)}
+  .cw .ah-quote{position:absolute;right:-12px;bottom:20px;background:var(--navy);color:#fff;border-radius:14px;padding:11px 18px;box-shadow:var(--shadow);font-weight:900;line-height:1.3;text-align:center}
+  .cw .ah-quote span{display:block;font-size:17px}
+  .cw .ah-quote span:last-child{color:#ffd24a}
+  .cw .ah-info h1{font-size:44px;font-weight:900;color:var(--navy);line-height:1.2;margin:8px 0 6px}
+  .cw .ah-info h1 .hl{color:var(--accent)}
+  .cw .role-line{color:var(--blue);font-weight:700;font-size:18px;margin-bottom:16px}
+  .cw .ah-info p{color:#3a4654;font-size:18px;line-height:1.95;max-width:600px}
+  .cw .ah-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+  /* === 歷程時間軸 === */
+  .cw .miles{background:#fff}
+  .cw .tl{max-width:760px;margin:42px auto 0;position:relative}
+  .cw .tl::before{content:"";position:absolute;left:27px;top:10px;bottom:10px;width:2px;background:var(--line)}
+  .cw .tl-row{position:relative;display:flex;gap:22px;margin-bottom:24px}
+  .cw .tl-dot{width:56px;height:56px;min-width:56px;border-radius:50%;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;font-size:26px;z-index:1;border:3px solid #fff;box-shadow:0 0 0 1px var(--line)}
+  .cw .tl-card{background:var(--bg-alt);border:1px solid var(--line);border-radius:14px;padding:18px 22px;flex:1}
+  .cw .tl-tag{display:inline-block;background:var(--accent-soft);color:var(--accent-dark);font-size:13px;font-weight:700;padding:3px 11px;border-radius:999px;margin-bottom:8px}
+  .cw .tl-card h4{font-size:20px;color:var(--navy);font-weight:700;margin-bottom:6px}
+  .cw .tl-card p{color:var(--muted);font-size:16px;line-height:1.7}
+  /* === 專業證照清單 === */
+  .cw .creds{background:var(--bg-alt)}
+  .cw .creds-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:40px auto 0}
+  .cw .cred{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .cw .cred .ck{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;margin-top:2px}
+  .cw .cred h4{font-size:19px;color:var(--navy);font-weight:700;margin-bottom:4px}
+  .cw .cred p{color:var(--muted);font-size:15.5px;line-height:1.6}
   .cw .sec-title,.cw .sec-sub,.cw .card-why h3,.cw .band h2,.cw .quote{text-wrap:balance}
   .cw .card-why p,.cw .cat p,.cw .hero p.lead,.cw .band p,.cw .ft p,.cw .story p{text-wrap:pretty}
   @media(max-width:900px){
@@ -116,6 +146,14 @@
     .cw .stats .grid{transform:translateY(-30px)}
     .cw .ft .cols{grid-template-columns:1fr;gap:24px}
     .cw .sec-title{font-size:28px}.cw .band h2{font-size:30px}.cw .quote{font-size:22px}
+    .cw .ahero .wrap{grid-template-columns:1fr;gap:28px;padding:50px 22px}
+    .cw .ah-photo{max-width:300px;margin:0 auto}
+    .cw .ah-info{text-align:center}
+    .cw .ah-info p{margin-left:auto;margin-right:auto}
+    .cw .ah-cta{justify-content:center}
+    .cw .ah-info h1{font-size:34px}
+    .cw .creds-grid{grid-template-columns:1fr}
+    .cw .tl-card h4{font-size:18.5px}
   }
 </style>
 
@@ -150,41 +188,30 @@
   <div class="nav-cta"><button class="burger" aria-label="開啟選單" onclick="var n=this.closest('.hd').querySelector('nav.main');n.classList.toggle('open')"><span></span><span></span><span></span></button><a class="btn btn-accent" href="https://cathome.tw/form/market-price/">免費行情評估</a></div>
 </div></div>
 
-<section class="hero"><div class="wrap">
-  <div>
-    <span class="kicker" style="color:#ffd24a">關於我 · ABOUT</span>
-    <h1>你在桃園買賣房的<br><span class="hl">誠實</span>夥伴</h1>
-    <p class="lead">我是中壢專業房仲喵爸。20 年職業軍人退伍，把「自律、誠實」當成對自己的要求。我不只幫你成交，更幫你把稅務、屋況、貸款、行情一次顧到，買賣全程有人扛、不怕找不到人。</p>
-    <div class="pts">
-      <span>✔ 20 年職軍誠信</span><span>✔ 屋況專業證照</span><span>✔ 強大售後團隊</span>
-    </div>
-    <div class="cta">
-      <a class="btn btn-line" href="https://line.me/R/ti/p/@056ohivi" target="_blank">LINE 免費諮詢</a>
+<section class="ahero"><div class="wrap">
+  <div class="ah-photo">
+    <img src="https://cathome.tw/wp-content/uploads/2024/12/LINE_ALBUM_2024.3.28_240903_5-425x600.jpg" alt="中壢專業房仲喵爸 本人照">
+    <div class="ah-quote"><span>心存善念</span><span>堅持努力</span></div>
+  </div>
+  <div class="ah-info">
+    <span class="kicker">關於喵爸 · ABOUT ME</span>
+    <h1>嗨，我是<span class="hl">喵爸</span></h1>
+    <p class="role-line">中壢專業房仲 · 20 年職軍背景 · 桃園在地人</p>
+    <p>退伍後，我沒選輕鬆的路，選了回到熟悉的中壢當房仲——因為我想做一個「說真話、扛得住事」的人。買賣房子是人生最大的一筆交易，你需要的不是話術，是有人陪你把每個細節算清楚、看明白，出事的時候找得到人。</p>
+    <div class="ah-cta">
+      <a class="btn btn-line" href="https://line.me/R/ti/p/@056ohivi" target="_blank">LINE 跟喵爸聊聊</a>
       <a class="btn btn-accent" href="https://book.cathome.tw" target="_blank">線上預約 →</a>
     </div>
   </div>
-  <div class="hero-photo">
-    <img src="https://cathome.tw/wp-content/uploads/2024/12/LINE_ALBUM_2024.3.28_240903_5-425x600.jpg" alt="中壢專業房仲喵爸">
-    <a class="hero-badge" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家 80 則真實評論"><div class="num">5.0★</div><div><strong>80 則</strong><br><small>Google 真實好評 →</small></div></a>
-  </div>
 </div></section>
 
-<div class="stats"><div class="wrap"><div class="grid">
-  <a class="stat" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家評論"><div class="n">5.0<i>★</i></div><div class="l">Google 商家評分 →</div></a>
-  <a class="stat" href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" title="點我看 Google 商家評論"><div class="n">80<span style="font-size:20px">+</span></div><div class="l">真實客戶評論 →</div></a>
-  <div class="stat"><div class="n">5<span style="font-size:20px"> 區</span></div><div class="l">中壢·平鎮·楊梅<br>桃園·八德</div></div>
-  <div class="stat"><div class="n">20<span style="font-size:20px"> 年</span></div><div class="l">職軍誠信背景</div></div>
-</div></div></div>
-
-<section class="why"><div class="wrap center">
-  <span class="kicker">WHY MEOWDAD</span>
-  <h2 class="sec-title">為什麼把房子交給喵爸？</h2>
-  <p class="sec-sub">你需要的是能協調、能解決問題的夥伴，不是一問三不知的傳話業務員。</p>
-  <div class="cards">
-    <div class="card-why"><div class="ic">🎖️</div><h3>20 年職軍誠信</h3><p>自律、誠實是當兵養成的習慣，不用怕話術詐騙、不用怕找不到人。</p></div>
-    <div class="card-why"><div class="ic">🔧</div><h3>屋況專業證照</h3><p>具水管配置、工業配線、網路架設乙丙級證照，屋況問題快速協助處理。</p></div>
-    <div class="card-why"><div class="ic">🧮</div><h3>稅務行情全算</h3><p>房地合一、重購退稅、自備款與房貸能力，為你精算到位、買賣不踩雷。</p></div>
-    <div class="card-why"><div class="ic">🤝</div><h3>強大售後團隊</h3><p>成交不是結束，售後團隊持續服務，積極協助買賣雙方解決突發狀況。</p></div>
+<section class="miles"><div class="wrap">
+  <div class="center"><span class="kicker">MY JOURNEY</span><h2 class="sec-title">喵爸這一路</h2></div>
+  <div class="tl">
+    <div class="tl-row"><div class="tl-dot">🎖️</div><div class="tl-card"><span class="tl-tag">起點</span><h4>20 年職業軍人</h4><p>自律、誠實、使命必達——這些不是口號，是部隊 20 年磨出來的習慣，也成了我對每位客戶的承諾。</p></div></div>
+    <div class="tl-row"><div class="tl-dot">🔧</div><div class="tl-card"><span class="tl-tag">轉身</span><h4>退伍 · 考取專業證照</h4><p>水管配置、工業配線、網路架設乙丙級證照在身。別人看不出的屋況問題，我看屋當場就幫你抓出來。</p></div></div>
+    <div class="tl-row"><div class="tl-dot">🏠</div><div class="tl-card"><span class="tl-tag">投入</span><h4>回到中壢，當在地房仲</h4><p>加入有巢氏園區龍慈吉富加盟店，深耕中壢、平鎮、楊梅、桃園、八德五區，行情、學區、生活圈都摸透。</p></div></div>
+    <div class="tl-row"><div class="tl-dot">⭐</div><div class="tl-card"><span class="tl-tag">至今</span><h4>服務上百組家庭 · Google 5.0 星</h4><p>累積 80 則真實好評、5.0 星評分，靠的不是話術，是一筆一筆把事情做對。 <a href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" style="color:var(--blue);font-weight:700">看 Google 評論 →</a></p></div></div>
   </div>
 </div></section>
 
@@ -196,15 +223,15 @@
   <div class="quote">先誠實，<span>再成交</span>。</div>
 </div></div></section>
 
-<section class="why" style="background:var(--bg-alt)"><div class="wrap center">
-  <span class="kicker">PROFESSION</span>
+<section class="creds"><div class="wrap">
+  <div class="center"><span class="kicker">CREDENTIALS</span>
   <h2 class="sec-title">不只懂行情，連屋況都懂</h2>
-  <p class="sec-sub">一般房仲不會的，喵爸有證照、有品牌、有團隊幫你扛。</p>
-  <div class="cards">
-    <div class="card-why"><div class="ic">🔧</div><h3>水電配線證照</h3><p>水管配置、工業配線、網路架設乙丙級證照在身，看屋當場幫你抓出屋況問題。</p></div>
-    <div class="card-why"><div class="ic">🎖️</div><h3>20 年職軍背景</h3><p>自律、守信、使命必達，是部隊養成的習慣，更是對每位客戶的承諾。</p></div>
-    <div class="card-why"><div class="ic">🏢</div><h3>有巢氏品牌保障</h3><p>園區龍慈吉富加盟店，交易安全有品牌與制度把關，不是一個人單打獨鬥。</p></div>
-    <div class="card-why"><div class="ic">🤝</div><h3>強大售後團隊</h3><p>成交不是終點，過戶、屋況、後續疑難，團隊持續服務到底。</p></div>
+  <p class="sec-sub">一般房仲不會的，喵爸有證照、有品牌、有團隊幫你扛。</p></div>
+  <div class="creds-grid">
+    <div class="cred"><span class="ck">✓</span><div><h4>水電配線專業證照</h4><p>水管配置 · 工業配線 · 網路架設 乙丙級，看屋當場幫你抓屋況。</p></div></div>
+    <div class="cred"><span class="ck">✓</span><div><h4>有巢氏品牌加盟</h4><p>園區龍慈吉富加盟店，交易安全有品牌與履約制度把關。</p></div></div>
+    <div class="cred"><span class="ck">✓</span><div><h4>稅務 / 貸款 全程協助</h4><p>房地合一、重購退稅、自備款與房貸能力，為你精算到位。</p></div></div>
+    <div class="cred"><span class="ck">✓</span><div><h4>強大售後團隊</h4><p>成交不是終點，過戶、屋況、後續疑難，團隊持續服務到底。</p></div></div>
   </div>
 </div></section>
 
@@ -229,9 +256,9 @@
 </div></section>
 
 <section class="band"><div class="wrap">
-  <h2>先誠實！再成交！</h2>
-  <p>不管你是要買、要賣、還是只想先了解行情，都歡迎找喵爸聊聊，第一步永遠免費。</p>
-  <a class="btn btn-ghost" href="https://line.me/R/ti/p/@056ohivi" target="_blank">免費諮詢喵爸 →</a>
+  <h2>想找個說真話的房仲嗎？</h2>
+  <p>不管你要買、要賣，還是只想先了解行情，都歡迎直接找喵爸聊聊，第一步永遠免費。</p>
+  <a class="btn btn-ghost" href="https://line.me/R/ti/p/@056ohivi" target="_blank">用 LINE 找喵爸 →</a>
 </div></section>
 
 <div class="ft"><div class="wrap">
