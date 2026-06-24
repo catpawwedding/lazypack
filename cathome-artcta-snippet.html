@@ -1,0 +1,42 @@
+<style>
+  .cw-artcta{font-family:'Noto Sans TC',system-ui,sans-serif;max-width:760px;margin:42px auto 8px;background:linear-gradient(135deg,#13314f 0%,#1f4d80 100%);border-radius:18px;padding:30px 34px;color:#fff;box-shadow:0 16px 40px rgba(19,49,79,.24)}
+  .cw-artcta .row{display:flex;gap:24px;align-items:center}
+  .cw-artcta img{width:100px;height:100px;border-radius:50%;object-fit:cover;object-position:50% 12%;border:3px solid rgba(255,255,255,.32);flex:0 0 auto;background:#0e2740}
+  .cw-artcta .k{color:#ffd24a;font-weight:700;font-size:15px;letter-spacing:1px;margin-bottom:5px}
+  .cw-artcta h3{font-size:24px;font-weight:900;margin:0 0 9px;line-height:1.4;color:#fff}
+  .cw-artcta p{color:#cfe0f0;font-size:16.5px;line-height:1.7;margin:0 0 17px}
+  .cw-artcta .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .cw-artcta a.b{display:inline-flex;align-items:center;gap:6px;font-weight:700;border-radius:999px;padding:13px 26px;font-size:16.5px;text-decoration:none;transition:.16s;color:#fff}
+  .cw-artcta a.b-line{background:#06c755}
+  .cw-artcta a.b-accent{background:#ff6a3d;box-shadow:0 6px 16px rgba(255,106,61,.34)}
+  .cw-artcta a.b:hover{filter:brightness(1.07);transform:translateY(-2px)}
+  @media(max-width:680px){
+    .cw-artcta{padding:24px 20px;margin:32px auto 8px}
+    .cw-artcta .row{flex-direction:column;text-align:center}
+    .cw-artcta img{width:86px;height:86px}
+    .cw-artcta h3{font-size:21px}
+    .cw-artcta .btns{justify-content:center}
+    .cw-artcta a.b{flex:1 1 auto;justify-content:center}
+  }
+</style>
+<div class="cw-artcta" id="cwArtCta">
+  <div class="row">
+    <img src="https://cathome.tw/wp-content/uploads/2024/12/LINE_ALBUM_2024.3.28_240903_5-425x600.jpg" alt="中壢專業房仲喵爸">
+    <div>
+      <div class="k">看完還是有疑問？</div>
+      <h3>直接問喵爸，第一步永遠免費</h3>
+      <p>稅務、行情、屋況、貸款——與其自己上網猜，不如讓在地 20 年的喵爸幫你一次看清楚、算明白。</p>
+      <div class="btns">
+        <a class="b b-line" href="https://line.me/R/ti/p/@056ohivi" target="_blank">LINE 免費諮詢</a>
+        <a class="b b-accent" href="https://cathome.tw/form/market-price/">免費行情評估 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>document.addEventListener('DOMContentLoaded',function(){try{
+  var h1=document.querySelector('h1.page-title');
+  if(h1){var t=h1.textContent.replace(/\s*[|｜丨]\s*中壢專業房仲喵爸\s*$/,'').trim(); if(t)h1.textContent=t;}
+  var cta=document.getElementById('cwArtCta');
+  var ec=document.querySelector('.single .entry-content')||document.querySelector('.entry-content');
+  if(cta&&ec&&ec.parentNode){ ec.parentNode.insertBefore(cta, ec.nextSibling); }
+}catch(e){}});</script>
