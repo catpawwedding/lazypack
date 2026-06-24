@@ -532,6 +532,83 @@
     margin-bottom: 14px;
   }
   .section-header-row .section-title { margin: 0; }
+
+  /* ===== 列印給客戶按鈕 ===== */
+  .print-row { margin-top: 22px; text-align: center; }
+  .print-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: #fff; border: none;
+    padding: 15px 34px; border-radius: 999px;
+    font-size: 16px; font-weight: 800; cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .print-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(0,0,0,0.22); }
+  .print-btn .ic { font-size: 19px; }
+  .print-hint { margin-top: 10px; font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ===== 客戶列印版（螢幕隱藏，只在列印 / 存 PDF 時出現）===== */
+  #printReport { display: none; }
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    body { background: #fff !important; padding: 0 !important; }
+    body > *:not(#printReport) { display: none !important; }
+    #printReport { display: block !important; }
+  }
+  #printReport {
+    max-width: 760px; margin: 0 auto; color: var(--ink);
+    font-family: "Noto Sans TC","Microsoft JhengHei",sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .pr-head {
+    display: flex; align-items: center; gap: 14px;
+    border-bottom: 3px solid var(--gold); padding-bottom: 14px; margin-bottom: 22px;
+  }
+  .pr-logo { height: 56px; width: auto; object-fit: contain; }
+  .pr-brand { font-size: 20px; font-weight: 800; line-height: 1.25; }
+  .pr-brand small { display: block; font-size: 13px; font-weight: 700; color: var(--gold-deep); margin-top: 3px; }
+  .pr-date { margin-left: auto; font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; }
+
+  .pr-hero {
+    background: var(--gold); color: #fff; border-radius: 14px;
+    padding: 22px 26px; text-align: center; margin-bottom: 22px;
+  }
+  .pr-hero-label { font-size: 14px; font-weight: 600; opacity: .92; margin-bottom: 8px; }
+  .pr-hero-val { font-size: 46px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+  .pr-hero-val .u { font-size: 18px; font-weight: 700; margin-left: 6px; }
+
+  .pr-cards { display: flex; gap: 14px; margin-bottom: 22px; }
+  .pr-card {
+    flex: 1; border: 1px solid var(--gold-light); background: var(--gold-bg);
+    border-radius: 12px; padding: 14px 16px; text-align: center;
+  }
+  .pr-card .k { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 6px; }
+  .pr-card .v { font-size: 22px; font-weight: 800; color: var(--gold-deep); font-variant-numeric: tabular-nums; }
+  .pr-card .v small { font-size: 12px; font-weight: 600; color: var(--ink-soft); margin-left: 3px; }
+
+  .pr-sec { margin-bottom: 20px; }
+  .pr-sec h3 {
+    font-size: 15px; font-weight: 800; margin: 0 0 10px;
+    padding-left: 12px; border-left: 5px solid var(--gold);
+  }
+  .pr-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .pr-table td { padding: 9px 2px; border-bottom: 1px solid var(--line); color: var(--ink); }
+  .pr-table td.n { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pr-table tr.sum td { border-top: 2px solid var(--ink); border-bottom: none; font-weight: 800; padding-top: 12px; font-size: 15px; }
+  .pr-table tr.sum td.n { color: var(--danger); }
+
+  .pr-note {
+    font-size: 12px; color: var(--ink-soft); line-height: 1.8;
+    background: #f5f6f8; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px;
+  }
+  .pr-foot {
+    border-top: 2px solid var(--gold); padding-top: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13.5px;
+  }
+  .pr-foot .who { font-weight: 800; font-size: 15px; }
+  .pr-foot .contact { color: var(--ink-soft); text-align: right; line-height: 1.7; }
+  .pr-foot .contact b { color: var(--ink); }
 </style>
 </head>
 <body>
@@ -727,6 +804,12 @@
       <div class="detail-row"><span class="name">剩餘貸款</span><span class="num"><span id="d_loan">—</span> 萬</span></div>
       <div class="detail-row sum"><span class="name">合計扣除</span><span class="num"><span id="d_sum">—</span> 萬</span></div>
     </div>
+  </div>
+
+  <!-- 列印給客戶 -->
+  <div class="print-row">
+    <button class="print-btn" onclick="printForClient()"><span class="ic">🖨️</span> 列印 / 存 PDF 給客戶</button>
+    <div class="print-hint">輸出一張乾淨好看、客人一眼看懂的「賣方實拿試算表」（含實拿金額、費用明細與聯絡方式）</div>
   </div>
 
   <!-- 反推實拿 -->
@@ -1021,6 +1104,60 @@
     <a class="cta-btn tel" href="tel:0925842111">
       <span class="ic">📞</span> 直接打電話給喵爸
     </a>
+  </div>
+</div>
+
+<!-- ====== 客戶列印版（簡單好看、客人看得清楚）====== -->
+<div id="printReport">
+  <div class="pr-head">
+    <img class="pr-logo" id="pr_logo" alt="" />
+    <div class="pr-brand">中壢專業房仲喵爸<small>賣方實拿試算表</small></div>
+    <div class="pr-date">製表日期：<span id="pr_date"></span></div>
+  </div>
+
+  <div class="pr-hero">
+    <div class="pr-hero-label">屋主實拿（已扣除全部費用、稅金與貸款後）</div>
+    <div class="pr-hero-val"><span id="pr_net">—</span><span class="u">萬</span></div>
+  </div>
+
+  <div class="pr-cards">
+    <div class="pr-card"><div class="k">想賣總價</div><div class="v"><span id="pr_total">—</span><small>萬</small></div></div>
+    <div class="pr-card"><div class="k">房屋單價</div><div class="v"><span id="pr_unit">—</span><small>萬/坪</small></div></div>
+    <div class="pr-card"><div class="k">房地合一稅</div><div class="v"><span id="pr_tax">—</span><small>萬</small></div></div>
+  </div>
+
+  <div class="pr-sec">
+    <h3>物件資訊</h3>
+    <table class="pr-table">
+      <tr><td>總坪數（含車位）</td><td class="n"><span id="pr_area">—</span> 坪</td></tr>
+      <tr><td>車位坪數</td><td class="n"><span id="pr_parkArea">—</span> 坪</td></tr>
+      <tr><td>車位價格</td><td class="n"><span id="pr_parkPrice">—</span> 萬</td></tr>
+    </table>
+  </div>
+
+  <div class="pr-sec">
+    <h3>費用與扣除明細</h3>
+    <table class="pr-table">
+      <tr><td>代書費（潤筆）</td><td class="n"><span id="pr_run">—</span> 萬</td></tr>
+      <tr><td>實價登錄費</td><td class="n"><span id="pr_reg">—</span> 萬</td></tr>
+      <tr><td>履保費（成交價 × 萬分之三）</td><td class="n"><span id="pr_esc">—</span> 萬</td></tr>
+      <tr><td><span id="pr_svc_label">服務費</span></td><td class="n"><span id="pr_svc">—</span> 萬</td></tr>
+      <tr><td>塗銷費 + 稅籍資料</td><td class="n"><span id="pr_clr">—</span> 萬</td></tr>
+      <tr><td>土增稅</td><td class="n"><span id="pr_land">—</span> 萬</td></tr>
+      <tr><td>房地合一稅</td><td class="n"><span id="pr_htax">—</span> 萬</td></tr>
+      <tr><td>剩餘貸款（清償銀行）</td><td class="n"><span id="pr_loan">—</span> 萬</td></tr>
+      <tr class="sum"><td>合計扣除</td><td class="n"><span id="pr_sum">—</span> 萬</td></tr>
+    </table>
+  </div>
+
+  <div class="pr-note">
+    ※ 本表為費用概算與實拿試算，僅供參考；實際金額以各項稅單、銀行清償餘額與最終成交條件為準。<br>
+    ※ 房地合一稅依持有期間與自用住宅條件試算，實際稅額以國稅局核定為準。
+  </div>
+
+  <div class="pr-foot">
+    <div class="who">中壢專業房仲喵爸</div>
+    <div class="contact">LINE 線上諮詢　｜　電話：<b>0925-842-111</b></div>
   </div>
 </div>
 
@@ -1750,6 +1887,55 @@ function calcPark() {
 
 // 初始化買賣雜費
 calcFees();
+
+// ------- 列印給客戶：把目前算好的數字填進「客戶列印版」再叫出列印 -------
+function printForClient() {
+  const txt = id => { const e = document.getElementById(id); return e ? e.textContent.trim() : '—'; };
+  const val = id => { const e = document.getElementById(id); return (e && e.value !== '') ? e.value : '—'; };
+
+  if (txt('r_net') === '—') {
+    alert('請先輸入「想賣的總價」，才能產生給客戶的試算表。');
+    return;
+  }
+
+  // logo（沿用上方標題的 logo）
+  const srcLogo = document.querySelector('.header .logo-img');
+  const prLogo = document.getElementById('pr_logo');
+  if (prLogo) {
+    if (srcLogo && srcLogo.src) prLogo.src = srcLogo.src;
+    else prLogo.style.display = 'none';
+  }
+
+  // 製表日期
+  const d = new Date();
+  document.getElementById('pr_date').textContent =
+    d.getFullYear() + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0');
+
+  // 主數字 + 三張卡
+  document.getElementById('pr_net').textContent   = txt('r_net');
+  document.getElementById('pr_total').textContent = val('sellTotal');
+  document.getElementById('pr_unit').textContent  = txt('r_unit');
+  document.getElementById('pr_tax').textContent   = txt('r_tax');
+
+  // 物件資訊
+  document.getElementById('pr_area').textContent      = val('totalArea');
+  document.getElementById('pr_parkArea').textContent  = val('parkArea');
+  document.getElementById('pr_parkPrice').textContent = val('parkPrice');
+
+  // 費用明細
+  document.getElementById('pr_run').textContent       = txt('d_run');
+  document.getElementById('pr_reg').textContent       = txt('d_reg');
+  document.getElementById('pr_esc').textContent       = txt('d_esc');
+  document.getElementById('pr_svc_label').textContent = txt('d_svc_label');
+  document.getElementById('pr_svc').textContent       = txt('d_svc');
+  document.getElementById('pr_clr').textContent       = txt('d_clr');
+  document.getElementById('pr_land').textContent      = txt('d_land');
+  document.getElementById('pr_htax').textContent      = txt('d_houseTax');
+  document.getElementById('pr_loan').textContent      = txt('d_loan');
+  document.getElementById('pr_sum').textContent       = txt('d_sum');
+
+  window.print();
+}
 
 </script>
 
