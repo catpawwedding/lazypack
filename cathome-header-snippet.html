@@ -25,18 +25,26 @@
   .cw nav.main{display:flex;gap:28px;font-weight:500;font-size:16.5px}
   .cw nav.main a{color:var(--ink);padding:6px 0;border-bottom:2px solid transparent}
   .cw nav.main a:hover{color:var(--blue);border-color:var(--blue)}
-  .cw .nav-cta{display:flex;gap:10px;align-items:center}
+  .cw .nav-cta{display:flex;gap:8px;align-items:center}
+  .cw .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:9px}
+  .cw .burger span{display:block;width:24px;height:2.5px;background:var(--navy);border-radius:2px;transition:.2s}
   @media(max-width:900px){
     .cw{font-size:18px}
-    .cw nav.main,.cw .topbar .soc span.hide{display:none}
-    .cw .hd .wrap{height:64px}
+    .cw .topbar span.hide{display:none}
+    .cw .hd .wrap{height:64px;position:relative}
     .cw .logo{font-size:16px}.cw .logo img{height:40px}
+    .cw .burger{display:flex}
+    .cw .hd .btn{padding:11px 18px;font-size:15px}
+    .cw nav.main{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:6px 22px 14px;border-bottom:1px solid var(--line);box-shadow:0 14px 26px rgba(19,49,79,.13);z-index:60}
+    .cw nav.main.open{display:flex}
+    .cw nav.main a{padding:14px 2px;font-size:17px;border-bottom:1px solid #eef2f6}
+    .cw nav.main a:last-child{border-bottom:0}
   }
 </style>
 
 <div class="cw" id="cwInjHeader">
 <div class="topbar"><div class="wrap">
-  <div>📞 <a href="tel:0925842111">0925-842-111</a>　|　有巢氏房屋 園區龍慈吉富加盟店</div>
+  <div>📞 <a href="tel:0925842111">0925-842-111</a><span class="hide">　|　中壢專業房仲喵爸</span></div>
   <div class="soc"><span class="hide" style="margin-right:4px">關注 · 預約喵爸</span>
     <a class="sb" style="background:#1877f2" href="https://www.facebook.com/cathomev/" target="_blank" title="Facebook 粉絲團" aria-label="Facebook 粉絲團"><svg viewBox="0 0 24 24" width="17" height="17" fill="#fff"><path d="M13.4 21v-7.3h2.5l.37-2.85h-2.87V9.02c0-.82.23-1.39 1.42-1.39h1.5V5.1c-.26-.04-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77v2.08H8.2v2.85h2.5V21h2.7z"/></svg></a>
     <a class="sb" style="background:#ff0000" href="https://youtube.com/@cathome-888" target="_blank" title="YouTube 頻道" aria-label="YouTube 頻道"><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M9.2 7.6v8.8L16.6 12 9.2 7.6z"/></svg></a>
@@ -55,7 +63,7 @@
     <a href="https://cathome.tw/case/">建案開箱</a>
     <a href="https://cathome.tw/#tools">免費工具</a>
   </nav>
-  <div class="nav-cta"><a class="btn btn-accent" href="https://cathome.tw/form/market-price/">免費行情評估</a></div>
+  <div class="nav-cta"><button class="burger" aria-label="開啟選單" onclick="var n=this.closest('.hd').querySelector('nav.main');n.classList.toggle('open')"><span></span><span></span><span></span></button><a class="btn btn-accent" href="https://cathome.tw/form/market-price/">免費行情評估</a></div>
 </div></div>
 </div>
 <script>document.addEventListener('DOMContentLoaded',function(){try{var hs=document.querySelectorAll('.cw .hd');if(hs.length>1){var i=document.getElementById('cwInjHeader');if(i)i.remove();var s=document.querySelector('style');}}catch(e){}});</script>
