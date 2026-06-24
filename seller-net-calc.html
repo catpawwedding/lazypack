@@ -1753,5 +1753,26 @@ calcFees();
 
 </script>
 
+<script>
+
+// === 鎖定單一分頁：網址帶 ?only=KEY 時，只開該分頁、其他分頁隱藏（點不到也選不到）===
+(function(){
+  try{
+    var only = new URLSearchParams(location.search).get('only');
+    var valid = ['capgain','afford','loan','fees','area','park','seller'];
+    if (only && valid.indexOf(only) >= 0){
+      if (typeof switchTab === 'function') switchTab(only);
+      document.querySelectorAll('.tab').forEach(function(b){
+        if (b.getAttribute('data-tab') !== only) b.style.display = 'none';
+      });
+      var locked = document.querySelector('.tab[data-tab="' + only + '"]');
+      if (locked){ locked.classList.add('active'); locked.style.cursor = 'default'; locked.style.pointerEvents = 'none'; }
+      var bar = document.querySelector('.tabs');
+      if (bar){ bar.style.justifyContent = 'center'; }
+    }
+  }catch(e){}
+})();
+
+</script>
 </body>
 </html>
