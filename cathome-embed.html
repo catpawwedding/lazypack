@@ -81,7 +81,7 @@
   .cw .acard h4{font-size:18.5px;font-weight:700;color:var(--ink);line-height:1.55}
   .cw .acard:hover h4{color:var(--blue)}
   .cw .tools{background:linear-gradient(135deg,#13314f,#1f4d80);color:#fff}
-  .cw .tools .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:38px}
+  .cw .tools .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:38px}
   .cw .tool{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--radius);padding:28px;display:flex;gap:18px;align-items:center}
   .cw .tool .tic{width:56px;height:56px;min-width:56px;border-radius:14px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff}
   .cw .tool h3{font-size:20.5px;font-weight:700;margin-bottom:5px;color:#fff}
@@ -157,7 +157,7 @@
     <a href="https://cathome.tw/category/know/">房產知識</a>
     <a href="https://cathome.tw/category/news/">新聞時事</a>
     <a href="https://cathome.tw/case/">建案開箱</a>
-    <a href="#tools">免費工具</a>
+    <a href="#tools">免費工具／諮詢</a>
   </nav>
   <div class="nav-cta"><button class="burger" aria-label="開啟選單" onclick="var n=this.closest('.hd').querySelector('nav.main');n.classList.toggle('open')"><span></span><span></span><span></span></button><a class="btn btn-accent" href="https://cathome.tw/form/market-price/">免費行情評估</a></div>
 </div></div>
@@ -220,14 +220,13 @@
 </div></section>
 
 <section class="tools" id="tools"><div class="wrap center">
-  <span class="kicker" style="color:#ffd24a">FREE TOOLS</span>
-  <h2 class="sec-title" style="color:#fff">免費房產工具，先算再決定</h2>
-  <p class="sec-sub" style="color:#cfe0f0">不用先聯絡業務，自己先試算心裡有底。</p>
+  <span class="kicker" style="color:#ffd24a">FREE TOOLS · 諮詢</span>
+  <h2 class="sec-title" style="color:#fff">免費工具 ／ 諮詢</h2>
+  <p class="sec-sub" style="color:#cfe0f0">不用先聯絡業務，自己先試算心裡有底；想找人聊，喵爸隨時都在。</p>
   <div class="grid">
+    <a class="tool" href="https://catpawwedding.github.io/lazypack/seller-net-calc.html?only=capgain" target="_blank"><div class="tic">📐</div><div><h3>房地合一稅試算</h3><p>持有幾年、賺賠多少、要繳多少稅，一次幫你算清楚。</p></div></a>
+    <a class="tool" href="https://catpawwedding.github.io/lazypack/seller-net-calc.html?only=afford" target="_blank"><div class="tic">💼</div><div><h3>購屋能力試算</h3><p>從月收入與自備款，反推你買得起的總價，買房前先知道負擔得起哪個價位。</p></div></a>
     <a class="tool" href="https://cathome.tw/form/market-price/"><div class="tic">📊</div><div><h3>免費行情評估</h3><p>留下地址與聯絡方式，喵爸把這一帶的實際成交，一筆一筆攤開、仔細比對給你聽。</p></div></a>
-    <a class="tool" href="https://cathome.tw/zhongli-real-estate-tax-guide/"><div class="tic">🧾</div><div><h3>房地合一稅試算</h3><p>持有幾年、賺賠多少、要繳多少稅，一次幫你算清楚。</p></div></a>
-    <a class="tool" href="https://cathome.tw/form/market-price/"><div class="tic">🏦</div><div><h3>自備款 × 房貸試算</h3><p>評估你的還款能力，買房前先知道負擔得起哪個價位。</p></div></a>
-    <a class="tool" href="https://line.me/R/ti/p/@056ohivi"><div class="tic">🔁</div><div><h3>換屋重購退稅</h3><p>賣一間再買一間，能退多少稅，幫你算到不漏掉。</p></div></a>
   </div>
 </div></section>
 
