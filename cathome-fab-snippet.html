@@ -29,3 +29,13 @@
     <svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
     <span class="lbl">撥打電話</span></a>
 </div>
+
+<style>
+  #cwTop{position:fixed;left:20px;bottom:24px;z-index:99980;width:48px;height:48px;border-radius:50%;background:#13314f;color:#fff;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.28);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s,transform .25s,visibility .25s,background .18s}
+  #cwTop.show{opacity:1;visibility:visible;transform:translateY(0)}
+  #cwTop:hover{background:#1f4d80;transform:translateY(-2px)}
+  #cwTop svg{width:22px;height:22px;display:block}
+  @media(max-width:680px){#cwTop{left:14px;bottom:16px;width:44px;height:44px}}
+</style>
+<button id="cwTop" aria-label="回到頂端" title="回到頂端"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></button>
+<script>document.addEventListener('DOMContentLoaded',function(){try{var t=document.getElementById('cwTop');if(!t)return;function f(){t.classList.toggle('show',(window.scrollY||document.documentElement.scrollTop)>320);}window.addEventListener('scroll',f,{passive:true});f();t.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}catch(e){}});</script>
