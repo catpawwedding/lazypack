@@ -1,0 +1,791 @@
+<style id="cw-content-styles">
+/* =========================================================
+   單篇文章閱讀體驗 — 中壢專業房仲喵爸 (Blocksy / WordPress)
+   全部 scope 在 .single 之下，避免影響其他頁
+   色票：navy #13314f / blue #2c6cb0 / accent #ff6a3d / accent-dark #e2511f
+        accent-soft #fff1ec / ink #1f2933 / muted #54616f / line #e7ecf1
+        bg-alt #f5f8fc / gold #ffb400 / white #fff
+   ========================================================= */
+
+/* ---- 區域變數（只在 .single 生效） ---- */
+.single {
+  --md-navy: #13314f;
+  --md-blue: #2c6cb0;
+  --md-accent: #ff6a3d;
+  --md-accent-dark: #e2511f;
+  --md-accent-soft: #fff1ec;
+  --md-ink: #1f2933;
+  --md-muted: #54616f;
+  --md-line: #e7ecf1;
+  --md-bg-alt: #f5f8fc;
+  --md-gold: #ffb400;
+  --md-white: #fff;
+}
+
+/* ---- 文章大標 ---- */
+.single h1.page-title {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: var(--md-navy);
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.35;
+  font-weight: 800;
+  letter-spacing: .2px;
+  margin: 0 0 .6em;
+}
+
+/* ---- 內文容器：收斂閱讀寬度、置中 ---- */
+.single .entry-content {
+  font-family: 'Noto Sans TC', sans-serif;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--md-ink);
+  font-size: 18px;
+  line-height: 1.9;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* 段落 */
+.single .entry-content p {
+  margin: 0 0 1.35em;
+  color: var(--md-ink);
+}
+
+.single .entry-content > *:first-child {
+  margin-top: 0;
+}
+
+/* ---- 標題層級 ---- */
+.single .entry-content h2,
+.single .entry-content h3,
+.single .entry-content h4 {
+  font-family: 'Noto Sans TC', sans-serif;
+  color: var(--md-navy);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+/* h2：左側 accent 色條 + 上方留白 */
+.single .entry-content h2 {
+  position: relative;
+  font-size: 26px;
+  margin: 2.2em 0 .8em;
+  padding-left: 16px;
+}
+.single .entry-content h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .18em;
+  bottom: .18em;
+  width: 5px;
+  border-radius: 999px;
+  background: var(--md-accent);
+}
+
+/* h3 */
+.single .entry-content h3 {
+  font-size: 21px;
+  font-weight: 700;
+  margin: 1.8em 0 .6em;
+}
+
+/* h4 */
+.single .entry-content h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 1.5em 0 .5em;
+  color: var(--md-muted);
+}
+
+/* ---- 連結 ---- */
+.single .entry-content a {
+  color: var(--md-blue);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease, color .15s ease;
+}
+.single .entry-content a:hover,
+.single .entry-content a:focus {
+  color: var(--md-accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- 強調 ---- */
+.single .entry-content strong,
+.single .entry-content b {
+  color: var(--md-navy);
+  font-weight: 700;
+}
+.single .entry-content mark {
+  background: var(--md-accent-soft);
+  color: var(--md-accent-dark);
+  padding: .05em .25em;
+  border-radius: 4px;
+}
+
+/* ---- 圖片 ---- */
+.single .entry-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.6em auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(19, 49, 79, .08);
+}
+.single .entry-content figure {
+  margin: 1.8em auto;
+  max-width: 100%;
+}
+.single .entry-content figure img {
+  margin: 0 auto;
+}
+.single .entry-content figcaption {
+  margin-top: .7em;
+  font-size: 14px;
+  color: var(--md-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ---- 引用 blockquote ---- */
+.single .entry-content blockquote {
+  margin: 1.8em 0;
+  padding: 18px 22px;
+  background: var(--md-bg-alt);
+  border-left: 4px solid var(--md-accent);
+  border-radius: 0 12px 12px 0;
+  color: var(--md-navy);
+  font-size: 17px;
+  line-height: 1.85;
+}
+.single .entry-content blockquote p {
+  margin-bottom: .6em;
+}
+.single .entry-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+.single .entry-content blockquote cite {
+  display: block;
+  margin-top: .5em;
+  font-size: 14px;
+  font-style: normal;
+  color: var(--md-muted);
+}
+
+/* ---- 清單 ul / ol ---- */
+.single .entry-content ul,
+.single .entry-content ol {
+  margin: 0 0 1.35em;
+  padding-left: 1.6em;
+}
+.single .entry-content li {
+  margin: 0 0 .55em;
+  line-height: 1.85;
+  color: var(--md-ink);
+}
+.single .entry-content li::marker {
+  color: var(--md-accent);
+  font-weight: 700;
+}
+.single .entry-content ul ul,
+.single .entry-content ol ol,
+.single .entry-content ul ol,
+.single .entry-content ol ul {
+  margin: .55em 0 .3em;
+}
+
+/* ---- 表格 table ---- */
+.single .entry-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.8em 0;
+  font-size: 16px;
+  line-height: 1.7;
+  border: 1px solid var(--md-line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.single .entry-content table th,
+.single .entry-content table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--md-line);
+  vertical-align: top;
+}
+.single .entry-content table thead th {
+  background: var(--md-navy);
+  color: var(--md-white);
+  font-weight: 700;
+  border-bottom: none;
+}
+.single .entry-content table tbody tr:nth-child(even) {
+  background: var(--md-bg-alt);
+}
+.single .entry-content table tbody tr:last-child th,
+.single .entry-content table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* 表格可橫向捲動（窄螢幕保險，不破版） */
+.single .entry-content table {
+  display: table;
+}
+
+/* ---- 程式碼 / 分隔線 ---- */
+.single .entry-content hr {
+  border: none;
+  border-top: 1px solid var(--md-line);
+  margin: 2.4em 0;
+}
+.single .entry-content code {
+  background: var(--md-bg-alt);
+  color: var(--md-accent-dark);
+  padding: .12em .4em;
+  border-radius: 5px;
+  font-size: .92em;
+}
+
+/* =========================================================
+   手機 RWD（max-width: 768px）
+   ========================================================= */
+@media (max-width: 768px) {
+  .single h1.page-title {
+    font-size: 26px;
+    line-height: 1.4;
+  }
+  .single .entry-content {
+    font-size: 17px;
+    line-height: 1.85;
+  }
+  .single .entry-content p {
+    margin-bottom: 1.2em;
+  }
+  .single .entry-content h2 {
+    font-size: 22px;
+    margin: 1.8em 0 .7em;
+    padding-left: 13px;
+  }
+  .single .entry-content h2::before {
+    width: 4px;
+  }
+  .single .entry-content h3 {
+    font-size: 19px;
+    margin: 1.5em 0 .5em;
+  }
+  .single .entry-content blockquote {
+    padding: 15px 18px;
+    font-size: 16px;
+  }
+  .single .entry-content img,
+  .single .entry-content figure {
+    border-radius: 14px;
+    margin: 1.3em auto;
+  }
+  .single .entry-content ul,
+  .single .entry-content ol {
+    padding-left: 1.4em;
+  }
+  /* 表格在手機可橫滑，避免擠爆版面 */
+  .single .entry-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+}
+
+/* =========================================================
+   文章列表／分類頁 卡片 — Blocksy 原生卡片 production CSS
+   Scope: .entries / .archive / .blog
+   字型 Noto Sans TC｜色票見變數
+   ========================================================= */
+
+.archive,
+.blog {
+  --md-navy: #13314f;
+  --md-blue: #2c6cb0;
+  --md-accent: #ff6a3d;
+  --md-accent-dark: #e2511f;
+  --md-accent-soft: #fff1ec;
+  --md-ink: #1f2933;
+  --md-muted: #54616f;
+  --md-line: #e7ecf1;
+  --md-bg-alt: #f5f8fc;
+  --md-gold: #ffb400;
+  --md-white: #fff;
+}
+
+/* ---------- 格線容器 ---------- */
+.entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+  font-family: 'Noto Sans TC', system-ui, -apple-system, 'PingFang TC',
+    'Microsoft JhengHei', sans-serif;
+}
+
+/* ---------- 卡片本體 ---------- */
+.entries article.entry-card.card-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--md-white, #fff);
+  border: 1px solid var(--md-line, #e7ecf1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(19, 49, 79, 0.08);
+  transition: transform 0.28s ease, box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.entries article.entry-card.card-content:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(19, 49, 79, 0.16);
+  border-color: #dbe3ec;
+}
+
+/* ---------- 縮圖 ---------- */
+.entries .ct-media-container {
+  display: block;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--md-bg-alt, #f5f8fc);
+}
+
+.entries .ct-media-container img.wp-post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.entries article.entry-card.card-content:hover .ct-media-container img.wp-post-image {
+  transform: scale(1.05);
+}
+
+/* ---------- 卡片內文區（meta / title / excerpt 留白） ---------- */
+.entries .entry-meta,
+.entries .entry-title,
+.entries .entry-excerpt {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.entries .entry-meta {
+  padding-top: 18px;
+}
+
+.entries .entry-excerpt {
+  padding-bottom: 20px;
+}
+
+/* 讓摘要把卡片撐到等高，標題與摘要之間留呼吸 */
+.entries .entry-excerpt {
+  margin-top: 8px;
+  flex: 1 1 auto;
+}
+
+/* ---------- 分類列 / 分類 pill ---------- */
+.entries .entry-meta {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.entries .entry-meta li.meta-categories {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.entries .meta-categories a {
+  display: inline-block;
+  background: var(--md-accent-soft, #fff1ec);
+  color: var(--md-accent-dark, #e2511f);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.entries .meta-categories a:hover {
+  background: var(--md-accent, #ff6a3d);
+  color: var(--md-white, #fff);
+}
+
+/* ---------- 標題 ---------- */
+.entries .entry-title {
+  margin: 12px 0 0;
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.entries .entry-title a {
+  color: var(--md-navy, #13314f);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.entries .entry-title a:hover {
+  color: var(--md-blue, #2c6cb0);
+}
+
+/* ---------- 摘要 ---------- */
+.entries .entry-excerpt p {
+  margin: 0;
+  color: var(--md-muted, #54616f);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+/* ---------- 分類篩選列 .ct-dynamic-filter ---------- */
+.archive .ct-dynamic-filter,
+.blog .ct-dynamic-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.archive .ct-dynamic-filter a,
+.archive .ct-dynamic-filter button,
+.archive .ct-dynamic-filter li > *,
+.blog .ct-dynamic-filter a,
+.blog .ct-dynamic-filter button,
+.blog .ct-dynamic-filter li > * {
+  display: inline-flex;
+  align-items: center;
+  background: var(--md-white, #fff);
+  color: var(--md-muted, #54616f);
+  border: 1px solid var(--md-line, #e7ecf1);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.archive .ct-dynamic-filter a:hover,
+.archive .ct-dynamic-filter button:hover,
+.blog .ct-dynamic-filter a:hover,
+.blog .ct-dynamic-filter button:hover {
+  background: var(--md-bg-alt, #f5f8fc);
+  color: var(--md-navy, #13314f);
+  border-color: #d6dfe9;
+}
+
+/* 目前選中 = navy 底白字 */
+.archive .ct-dynamic-filter .active,
+.archive .ct-dynamic-filter [aria-current],
+.archive .ct-dynamic-filter [aria-selected='true'],
+.archive .ct-dynamic-filter .ct-active,
+.blog .ct-dynamic-filter .active,
+.blog .ct-dynamic-filter [aria-current],
+.blog .ct-dynamic-filter [aria-selected='true'],
+.blog .ct-dynamic-filter .ct-active {
+  background: var(--md-navy, #13314f);
+  color: var(--md-white, #fff);
+  border-color: var(--md-navy, #13314f);
+}
+
+/* ---------- RWD ---------- */
+@media (max-width: 1024px) {
+  .entries {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+
+@media (max-width: 680px) {
+  .entries {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .entries .entry-meta {
+    padding-top: 16px;
+  }
+
+  .entries .entry-meta,
+  .entries .entry-title,
+  .entries .entry-excerpt {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .entries .entry-excerpt {
+    padding-bottom: 16px;
+  }
+
+  .entries .entry-title {
+    font-size: 17.5px;
+  }
+
+  .archive .ct-dynamic-filter,
+  .blog .ct-dynamic-filter {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+}
+
+/* =========================================================
+   Fluent Forms 獨立落地頁 — 中壢專業房仲喵爸
+   表單 id 6 ｜全部 scope 在 .ff_landing_body 底下
+   ========================================================= */
+
+/* ---- 頁面深底 ---- */
+.ff_landing_body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Noto Sans TC', -apple-system, 'Microsoft JhengHei', sans-serif;
+  color: #1f2933;
+  background: #13314f;
+  background: linear-gradient(160deg, #13314f 0%, #1c4570 55%, #2c6cb0 100%);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px 56px;
+  box-sizing: border-box;
+}
+
+.ff_landing_body * { box-sizing: border-box; }
+
+/* ---- 表單卡片：置中白卡，讓 .fluentform 浮在深底上 ---- */
+.ff_landing_body .fluentform {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e7ecf1;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 24px 60px rgba(19, 49, 79, .28),
+              0 8px 30px rgba(19, 49, 79, .08);
+}
+
+/* ---- 大標 + subtext（若主題把標題放在卡內，標題用 navy） ---- */
+.ff_landing_body h1,
+.ff_landing_body .ff-landing-title {
+  margin: 0 0 8px;
+  color: #13314f;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1.35;
+  letter-spacing: .3px;
+  text-align: center;
+}
+
+/* 若大標直接壓在深底背景（卡片外）→ 反白 */
+.ff_landing_body > h1,
+.ff_landing_body > .ff-landing-title {
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .25);
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+/* 友善 subtext */
+.ff_landing_body .ff-landing-sub,
+.ff_landing_body .fluentform > p:first-child {
+  margin: 0 0 24px;
+  color: #54616f;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* 卡內標題下方點綴小金線 */
+.ff_landing_body .fluentform h1::after,
+.ff_landing_body .fluentform .ff-landing-title::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin: 14px auto 22px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff6a3d, #ffb400);
+}
+
+/* ---- 欄位群組間距 ---- */
+.ff_landing_body .fluentform .ff-el-group {
+  margin-bottom: 20px;
+}
+.ff_landing_body .fluentform .ff-el-group:last-of-type {
+  margin-bottom: 8px;
+}
+
+/* ---- 標籤 ---- */
+.ff_landing_body .fluentform .ff-el-input--label label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #13314f;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.ff_landing_body .fluentform .ff-el-input--label label .ff-el-is-required {
+  color: #e2511f;
+  margin-left: 2px;
+}
+
+/* ---- 輸入框 / textarea ---- */
+.ff_landing_body .fluentform .ff-el-form-control {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: 15px;
+  color: #1f2933;
+  background: #fff;
+  border: 1px solid #e7ecf1;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.ff_landing_body .fluentform textarea.ff-el-form-control {
+  height: auto;
+  min-height: 110px;
+  padding: 12px 14px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.ff_landing_body .fluentform .ff-el-form-control::placeholder {
+  color: #9aa6b2;
+}
+
+/* hover 微提示 */
+.ff_landing_body .fluentform .ff-el-form-control:hover {
+  border-color: #cfd9e4;
+}
+
+/* focus：accent 邊框 + 淡光暈 */
+.ff_landing_body .fluentform .ff-el-form-control:focus {
+  border-color: #ff6a3d;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 106, 61, .14);
+}
+
+/* 下拉選單收斂（若有） */
+.ff_landing_body .fluentform select.ff-el-form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2354616f' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+
+/* ---- 送出鈕 ---- */
+.ff_landing_body .fluentform .ff-btn,
+.ff_landing_body .fluentform .ff-btn.ff-btn-submit {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px 24px;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  background: #ff6a3d;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(255, 106, 61, .32);
+  transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.ff_landing_body .fluentform .ff-btn:hover,
+.ff_landing_body .fluentform .ff-btn.ff-btn-submit:hover {
+  background: #e2511f;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(226, 81, 31, .38);
+}
+
+.ff_landing_body .fluentform .ff-btn:active,
+.ff_landing_body .fluentform .ff-btn.ff-btn-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(226, 81, 31, .30);
+}
+
+.ff_landing_body .fluentform .ff-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 106, 61, .25), 0 10px 24px rgba(255, 106, 61, .32);
+}
+
+/* ---- 驗證錯誤訊息 ---- */
+.ff_landing_body .fluentform .error,
+.ff_landing_body .fluentform .text-danger,
+.ff_landing_body .fluentform .ff-el-is-error .text-danger {
+  margin-top: 6px;
+  color: #e2511f;
+  font-size: 13px;
+}
+.ff_landing_body .fluentform .ff-el-is-error .ff-el-form-control {
+  border-color: #e2511f;
+  box-shadow: 0 0 0 4px rgba(226, 81, 31, .12);
+}
+
+/* ---- 送出成功訊息 ---- */
+.ff_landing_body .fluentform .ff-message-success,
+.ff_landing_body .ff-message-success {
+  padding: 16px 18px;
+  background: #fff1ec;
+  border: 1px solid #ffd6c7;
+  border-radius: 12px;
+  color: #13314f;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   手機 RWD
+   ========================================================= */
+@media (max-width: 600px) {
+  .ff_landing_body {
+    padding: 24px 12px 40px;
+    align-items: flex-start;
+  }
+  .ff_landing_body .fluentform {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+  .ff_landing_body h1,
+  .ff_landing_body .ff-landing-title {
+    font-size: 23px;
+  }
+  .ff_landing_body > h1,
+  .ff_landing_body > .ff-landing-title {
+    font-size: 25px;
+  }
+  .ff_landing_body .fluentform .ff-btn,
+  .ff_landing_body .fluentform .ff-btn.ff-btn-submit {
+    font-size: 16px;
+    padding: 14px 20px;
+  }
+}
+</style>
