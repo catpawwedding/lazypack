@@ -513,6 +513,51 @@
     .cta-btn { justify-content: center; }
   }
 
+  /* 計算公式區塊 */
+  .formula-block {
+    background: #f8f9fb;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 12px;
+  }
+  .formula-block .formula-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .formula-item {
+    margin-bottom: 10px;
+  }
+  .formula-item:last-child { margin-bottom: 0; }
+  .formula-item .fl {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .formula-expr {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.9;
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+    word-break: break-word;
+  }
+  .formula-expr .fv {
+    font-weight: 700;
+    color: var(--gold-deep);
+  }
+  .formula-expr .fv.result {
+    color: var(--ok);
+    font-size: 14px;
+  }
+
   /* Reset btn */
   .reset-btn {
     background: transparent;
@@ -803,6 +848,30 @@
       <div class="detail-row"><span class="name">房地合一稅</span><span class="num"><span id="d_houseTax">—</span> 萬</span></div>
       <div class="detail-row"><span class="name">剩餘貸款</span><span class="num"><span id="d_loan">—</span> 萬</span></div>
       <div class="detail-row sum"><span class="name">合計扣除</span><span class="num"><span id="d_sum">—</span> 萬</span></div>
+    </div>
+
+    <!-- 計算公式 -->
+    <div class="formula-block" id="formulaBlock" style="display:none;">
+      <div class="formula-title">📐 計算公式</div>
+      <div class="formula-item" id="formulaTaxItem" style="display:none;">
+        <div class="fl">房地合一稅</div>
+        <div class="formula-expr">
+          （賣出 <span class="fv" id="f_sell">—</span> 萬
+          &minus; 取得成本 <span class="fv" id="f_buy">—</span> 萬
+          &minus; 取得費用 <span class="fv" id="f_buyCost">—</span> 萬
+          &minus; 移轉費用 <span class="fv" id="f_move">—</span> 萬<span id="f_selfPart"></span>）
+          &times; 稅率 <span class="fv" id="f_rate">—</span>%
+          ＝ <span class="fv result" id="f_taxResult">—</span> 萬
+        </div>
+      </div>
+      <div class="formula-item">
+        <div class="fl">屋主實拿</div>
+        <div class="formula-expr">
+          賣出總價 <span class="fv" id="f_sell2">—</span> 萬
+          &minus; 合計扣除 <span class="fv" id="f_deduct">—</span> 萬
+          ＝ <span class="fv result" id="f_net2">—</span> 萬
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1422,7 +1491,11 @@ function recalc() {
   // 寫入結果
   setResult({
     unitR, houseTax, net,
-    escrow, service, landTax, houseTaxVal: houseTax, loan, sumDeduct
+    escrow, service, landTax, houseTaxVal: houseTax, loan, sumDeduct,
+    total, buyPrice, buyCost, moveFee,
+    selfDeduct: (selfUse && hold && hold.years >= 6) ? 400 : 0,
+    holdRate: hold ? hold.rate : null,
+    hasHoldData: !!(hold && !hold.error && buyPrice > 0)
   });
 }
 
@@ -1431,6 +1504,7 @@ function setResult(r) {
     ['r_unit','r_tax','r_net','d_esc','d_svc','d_land','d_houseTax','d_loan','d_sum'].forEach(id => {
       document.getElementById(id).textContent = '—';
     });
+    document.getElementById('formulaBlock').style.display = 'none';
     return;
   }
   document.getElementById('r_unit').textContent = r.unitR === null ? '—' : fmt(r.unitR);
@@ -1445,6 +1519,27 @@ function setResult(r) {
   document.getElementById('d_houseTax').textContent = fmt(r.houseTaxVal);
   document.getElementById('d_loan').textContent = fmt(r.loan);
   document.getElementById('d_sum').textContent = fmt(r.sumDeduct);
+
+  // 計算公式區塊
+  const fb = document.getElementById('formulaBlock');
+  fb.style.display = 'block';
+  document.getElementById('f_sell2').textContent = fmt(r.total);
+  document.getElementById('f_deduct').textContent = fmt(r.sumDeduct);
+  document.getElementById('f_net2').textContent = fmt(r.net);
+
+  const taxItem = document.getElementById('formulaTaxItem');
+  if (r.hasHoldData) {
+    taxItem.style.display = 'block';
+    document.getElementById('f_sell').textContent = fmt(r.total);
+    document.getElementById('f_buy').textContent = fmt(r.buyPrice);
+    document.getElementById('f_buyCost').textContent = fmt(r.buyCost);
+    document.getElementById('f_move').textContent = fmt(r.moveFee);
+    document.getElementById('f_selfPart').textContent = r.selfDeduct > 0 ? ' − 自用扣抵 400 萬' : '';
+    document.getElementById('f_rate').textContent = (r.holdRate * 100).toFixed(0);
+    document.getElementById('f_taxResult').textContent = fmt(r.houseTaxVal);
+  } else {
+    taxItem.style.display = 'none';
+  }
 }
 
 // ------- 反推實拿 -------
