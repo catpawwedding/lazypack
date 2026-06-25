@@ -627,23 +627,35 @@
   .pr-date { margin-left: auto; font-size: 12.5px; color: var(--ink-soft); white-space: nowrap; }
 
   .pr-hero {
-    background: var(--gold); color: #fff; border-radius: 14px;
-    padding: 22px 26px; text-align: center; margin-bottom: 22px;
+    background: var(--gold); color: #fff; border-radius: 12px;
+    padding: 14px 22px; text-align: center; margin-bottom: 14px;
   }
-  .pr-hero-label { font-size: 14px; font-weight: 600; opacity: .92; margin-bottom: 8px; }
-  .pr-hero-val { font-size: 46px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
-  .pr-hero-val .u { font-size: 18px; font-weight: 700; margin-left: 6px; }
+  .pr-hero-label { font-size: 13px; font-weight: 600; opacity: .92; margin-bottom: 5px; }
+  .pr-hero-val { font-size: 36px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+  .pr-hero-val .u { font-size: 16px; font-weight: 700; margin-left: 6px; }
 
-  .pr-cards { display: flex; gap: 14px; margin-bottom: 22px; }
+  .pr-cards { display: flex; gap: 12px; margin-bottom: 14px; }
   .pr-card {
     flex: 1; border: 1px solid var(--gold-light); background: var(--gold-bg);
-    border-radius: 12px; padding: 14px 16px; text-align: center;
+    border-radius: 10px; padding: 10px 12px; text-align: center;
   }
-  .pr-card .k { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 6px; }
-  .pr-card .v { font-size: 22px; font-weight: 800; color: var(--gold-deep); font-variant-numeric: tabular-nums; }
-  .pr-card .v small { font-size: 12px; font-weight: 600; color: var(--ink-soft); margin-left: 3px; }
+  .pr-card .k { font-size: 11.5px; color: var(--ink-soft); margin-bottom: 4px; }
+  .pr-card .v { font-size: 18px; font-weight: 800; color: var(--gold-deep); font-variant-numeric: tabular-nums; }
+  .pr-card .v small { font-size: 11px; font-weight: 600; color: var(--ink-soft); margin-left: 3px; }
 
-  .pr-sec { margin-bottom: 20px; }
+  /* 列印版計算公式 */
+  .pr-formula { margin-bottom: 10px; }
+  .pr-formula:last-child { margin-bottom: 0; }
+  .pr-formula .fl { font-size: 12px; font-weight: 800; color: var(--ink-soft); margin-bottom: 4px; }
+  .pr-formula .fx {
+    font-size: 13px; line-height: 1.7; color: var(--ink);
+    background: var(--gold-bg); border: 1px solid var(--gold-light);
+    border-radius: 8px; padding: 8px 12px; font-variant-numeric: tabular-nums;
+  }
+  .pr-formula .fx b { color: var(--gold-deep); }
+  .pr-formula .fx b.res { color: var(--danger); font-size: 14px; }
+
+  .pr-sec { margin-bottom: 14px; }
   .pr-sec h3 {
     font-size: 15px; font-weight: 800; margin: 0 0 10px;
     padding-left: 12px; border-left: 5px solid var(--gold);
@@ -1230,6 +1242,25 @@
     </table>
   </div>
 
+  <div class="pr-sec">
+    <h3>計算公式</h3>
+    <div class="pr-formula" id="pr_formula_tax">
+      <div class="fl">房地合一稅</div>
+      <div class="fx">
+        （賣出 <b id="pf_sell">—</b> 萬 − 取得成本 <b id="pf_buy">—</b> 萬
+        − 取得費用 <b id="pf_buyCost">—</b> 萬 − 移轉費用 <b id="pf_move">—</b> 萬<span id="pf_self"></span>）
+        × 稅率 <b id="pf_rate">—</b>% ＝ <b class="res" id="pf_tax">—</b> 萬
+      </div>
+    </div>
+    <div class="pr-formula">
+      <div class="fl">屋主實拿</div>
+      <div class="fx">
+        賣出總價 <b id="pf_sell2">—</b> 萬 − 合計扣除 <b id="pf_deduct">—</b> 萬
+        ＝ <b class="res" id="pf_net">—</b> 萬
+      </div>
+    </div>
+  </div>
+
   <div class="pr-note">
     ※ 本表為費用概算與實拿試算，僅供參考；實際金額以各項稅單、銀行清償餘額與最終成交條件為準。<br>
     ※ 房地合一稅依持有期間與自用住宅條件試算，實際稅額以國稅局核定為準。
@@ -1664,7 +1695,18 @@ function resetAll() {
   document.getElementById('moveManual').value = '';
   setSvcMode('p4');
   setMoveMode('same');
+  // 本次預計交易日期復原成今天（前次移轉日期維持清空）
+  setCurrDateToday();
   recalc();
+}
+
+// 把「本次預計交易日期」設成今天
+function setCurrDateToday() {
+  const today = new Date();
+  document.getElementById('currY').value = today.getFullYear() - 1911;
+  document.getElementById('currM').value = today.getMonth() + 1;
+  onDateChange('curr');
+  document.getElementById('currD').value = today.getDate();
 }
 
 // 初始化：今天填入「本次預計交易日期」
@@ -2047,6 +2089,23 @@ function printForClient() {
   document.getElementById('pr_htax').textContent      = txt('d_houseTax');
   document.getElementById('pr_loan').textContent      = txt('d_loan');
   document.getElementById('pr_sum').textContent       = txt('d_sum');
+
+  // 計算公式（沿用畫面上算好的公式數值）
+  const taxShown = document.getElementById('formulaTaxItem').style.display !== 'none';
+  document.getElementById('pr_formula_tax').style.display = taxShown ? 'block' : 'none';
+  if (taxShown) {
+    document.getElementById('pf_sell').textContent    = txt('f_sell');
+    document.getElementById('pf_buy').textContent     = txt('f_buy');
+    document.getElementById('pf_buyCost').textContent = txt('f_buyCost');
+    document.getElementById('pf_move').textContent    = txt('f_move');
+    const selfTxt = txt('f_selfPart');
+    document.getElementById('pf_self').textContent = selfTxt && selfTxt !== '—' ? ' ' + selfTxt : '';
+    document.getElementById('pf_rate').textContent    = txt('f_rate');
+    document.getElementById('pf_tax').textContent     = txt('f_taxResult');
+  }
+  document.getElementById('pf_sell2').textContent  = txt('f_sell2');
+  document.getElementById('pf_deduct').textContent = txt('f_deduct');
+  document.getElementById('pf_net').textContent    = txt('f_net2');
 
   window.print();
 }
