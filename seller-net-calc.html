@@ -23,6 +23,17 @@
 
   * { box-sizing: border-box; }
 
+  /* 移除所有數字輸入框的上下箭頭(spinner)，避免誤觸 */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
   body {
     margin: 0;
     font-family: "Noto Sans TC", "Microsoft JhengHei", -apple-system, sans-serif;
@@ -1711,6 +1722,14 @@ function onDateChange(prefix) {
   }
   recalc();
 }
+
+// 擋掉滑鼠滾輪改數值：滑鼠在數字欄位上滾動時，只捲動頁面、不改數字
+document.addEventListener('wheel', function(e) {
+  const el = e.target;
+  if (el && el.tagName === 'INPUT' && el.type === 'number' && document.activeElement === el) {
+    el.blur();
+  }
+}, { passive: true });
 
 (function init() {
   populateSelects();
