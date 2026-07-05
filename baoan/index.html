@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>早會報案彙整</title>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Microsoft JhengHei", "PingFang TC", sans-serif; background: #f0f4f8; color: #1a2b3c; padding: 20px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 26px; color: #1F4E79; margin: 10px 0 4px; }
+  .sub { color: #64748b; font-size: 14px; margin-bottom: 18px; }
+  .card { background: #fff; border-radius: 14px; padding: 22px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(30,60,100,.08); }
+  #drop { border: 3px dashed #93b4d4; border-radius: 14px; padding: 44px 20px; text-align: center; cursor: pointer; transition: .15s; background: #f8fbff; }
+  #drop.over { border-color: #1F4E79; background: #e8f1fb; }
+  #drop .big { font-size: 19px; font-weight: 700; color: #1F4E79; }
+  #drop .hint { color: #7a8ca0; font-size: 13px; margin-top: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 12px; }
+  th, td { padding: 7px 9px; border-bottom: 1px solid #e6edf4; text-align: left; }
+  th { color: #52708e; font-weight: 700; font-size: 13px; }
+  td input { width: 100%; padding: 5px 8px; border: 1px solid #cdd9e5; border-radius: 6px; font-size: 14px; font-family: inherit; }
+  .del { color: #c0392b; cursor: pointer; font-weight: 700; padding: 0 6px; }
+  .row2 { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 14px; }
+  .row2 label { font-weight: 700; color: #1F4E79; }
+  #dateIn { padding: 8px 10px; border: 1px solid #cdd9e5; border-radius: 8px; font-size: 15px; width: 110px; font-family: inherit; }
+  button.go { background: #1F4E79; color: #fff; border: 0; border-radius: 10px; padding: 13px 34px; font-size: 17px; font-weight: 700; cursor: pointer; font-family: inherit; }
+  button.go:disabled { background: #a9bccd; cursor: not-allowed; }
+  button.go:hover:not(:disabled) { background: #163a5c; }
+  .dls { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+  a.dl { display: flex; align-items: center; gap: 10px; background: #eef6ee; border: 1px solid #bcd8bc; border-radius: 10px; padding: 13px 16px; text-decoration: none; color: #205a20; font-weight: 700; font-size: 15px; }
+  a.dl:hover { background: #e0f0e0; }
+  a.dl .tag { font-size: 12px; font-weight: 400; color: #557a55; }
+  #summary { font-size: 14px; line-height: 1.9; }
+  #summary .warn { color: #b45309; font-weight: 700; }
+  #summary .ok { color: #15803d; font-weight: 700; }
+  details { margin-top: 14px; font-size: 14px; }
+  summary { cursor: pointer; font-weight: 700; color: #1F4E79; }
+  details ol { margin: 10px 0 4px 22px; line-height: 2; }
+  code { background: #eef2f6; padding: 2px 7px; border-radius: 5px; font-size: 13px; }
+  .foot { text-align: center; color: #9aa9b8; font-size: 12px; margin: 18px 0; }
+  .privacy { background: #fff8e6; border: 1px solid #f0dfa8; border-radius: 8px; padding: 9px 13px; font-size: 13px; color: #8a6d1a; margin-top: 12px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📋 早會報案彙整</h1>
+  <div class="sub">把各店的「早會報案件」Excel 全部拉進來 → 一鍵產出：報案總表、書籤匯入檔、商圈點數表</div>
+
+  <div class="card">
+    <div id="drop">
+      <div class="big">把 Excel 檔案拖到這裡（可一次拉 6～8 個）</div>
+      <div class="hint">或點一下選檔案 · 只吃 .xlsx</div>
+      <input type="file" id="fileIn" multiple accept=".xlsx" class="hidden">
+    </div>
+    <div id="fileList"></div>
+    <div class="row2">
+      <label>日期代號</label>
+      <input id="dateIn" placeholder="例：0706">
+      <button class="go" id="goBtn" disabled>開始彙整</button>
+    </div>
+    <div class="privacy">🔒 檔案只在你自己的瀏覽器裡處理，<b>不會上傳到任何伺服器</b>。</div>
+  </div>
+
+  <div class="card hidden" id="resultCard">
+    <h1 style="font-size:20px">✅ 彙整完成</h1>
+    <div id="summary"></div>
+    <div class="dls" id="dls"></div>
+    <details>
+      <summary>📌 書籤匯入檔怎麼用？（週一開會前做一次）</summary>
+      <ol>
+        <li>Chrome 網址列輸入 <code>chrome://bookmarks</code></li>
+        <li>右上角「⋮」→「<b>匯入書籤</b>」→ 選剛下載的「書籤匯入檔.html」</li>
+        <li>書籤列會出現「已匯入」→ 裡面有「<b>XXXX要報的</b>」資料夾</li>
+        <li>開會時對資料夾按<b>右鍵 →「開啟所有書籤」</b>，全部連結一次打開</li>
+        <li>報完案把資料夾刪掉即可，下週再匯入新的</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="foot">內部工具 · 有問題找喵爸</div>
+</div>
+
+<script>
+const CATS = [
+  "透天/別墅/店面案件",
+  "土地案件、廠房、商辦案件",
+  "套房或1房案件(不限有無車及有無電梯)",
+  "電梯華廈2房案件(不限有無車)",
+  "電梯華廈3房案件(不限有無車)",
+  "電梯華廈4房含以上案件(不限有無車)",
+  "公寓案件(套房以外不限幾房)",
+];
+const ORDER = CATS.concat(["精選物件"]);
+const norm = s => String(s ?? "").replace(/[\s（）()]/g, "");
+const CAT_MAP = Object.fromEntries(CATS.map(c => [norm(c), c]));
+const SKIP = new Set(["自行插入", "連結", "業務", "精選物件"].map(norm));
+
+let files = []; // {name, storeName, buffer}
+
+const dropEl = document.getElementById("drop");
+const fileIn = document.getElementById("fileIn");
+dropEl.onclick = () => fileIn.click();
+dropEl.ondragover = e => { e.preventDefault(); dropEl.classList.add("over"); };
+dropEl.ondragleave = () => dropEl.classList.remove("over");
+dropEl.ondrop = e => { e.preventDefault(); dropEl.classList.remove("over"); addFiles(e.dataTransfer.files); };
+fileIn.onchange = () => { addFiles(fileIn.files); fileIn.value = ""; };
+
+function storeName(fname) {
+  let base = fname.replace(/\.xlsx$/i, "");
+  base = base.replace(/早會報?案件?|報案件?|\d{3,8}|[\s_-]+/g, "");
+  return base || fname;
+}
+
+async function addFiles(list) {
+  for (const f of list) {
+    if (!/\.xlsx$/i.test(f.name)) continue;
+    if (/空白|範本/.test(f.name)) { alert(`「${f.name}」看起來是範本檔，已略過`); continue; }
+    if (files.some(x => x.name === f.name)) continue;
+    files.push({ name: f.name, storeName: storeName(f.name), buffer: await f.arrayBuffer() });
+  }
+  renderList();
+}
+
+function renderList() {
+  const el = document.getElementById("fileList");
+  if (!files.length) { el.innerHTML = ""; document.getElementById("goBtn").disabled = true; return; }
+  el.innerHTML = `<table><tr><th style="width:50%">檔案</th><th>店名（可改）</th><th></th></tr>` +
+    files.map((f, i) =>
+      `<tr><td>${f.name}</td><td><input value="${f.storeName}" onchange="files[${i}].storeName=this.value"></td>` +
+      `<td><span class="del" onclick="files.splice(${i},1);renderList()">✕</span></td></tr>`).join("") + `</table>`;
+  document.getElementById("goBtn").disabled = false;
+  const d = document.getElementById("dateIn");
+  if (!d.value) { const m = files[0].name.match(/(\d{4})/); if (m) d.value = m[1]; }
+}
+
+// ---- 讀檔用 SheetJS（容錯高：店檔常有重疊合併儲存格，ExcelJS 讀不動）----
+function shCell(ws, r, c) { return ws[XLSX.utils.encode_cell({ r, c })]; } // 0-based
+function shText(ws, r, c) {
+  const cell = shCell(ws, r, c);
+  return cell && cell.v != null ? String(cell.v).trim() : "";
+}
+function shLink(ws, r, c) {
+  const cell = shCell(ws, r, c);
+  if (cell && cell.l && cell.l.Target) return cell.l.Target;
+  const t = cell && cell.v != null ? String(cell.v).trim() : "";
+  return /^https?:\/\//i.test(t) ? t : null;
+}
+function shRange(ws) { return ws["!ref"] ? XLSX.utils.decode_range(ws["!ref"]) : null; }
+
+function parseWorkbook(wb, store) {
+  const items = [], pts = [];
+  const wsNew = wb.Sheets["新進物件"];
+  if (wsNew && shRange(wsNew)) {
+    let cur = null;
+    const end = shRange(wsNew).e.r;
+    for (let r = 0; r <= end; r++) {
+      const b = shText(wsNew, r, 1);
+      if (!b) continue;
+      const nb = norm(b);
+      if (CAT_MAP[nb]) { cur = CAT_MAP[nb]; continue; }
+      if (SKIP.has(nb) || !cur) continue;
+      items.push({ store, cat: cur, name: b, agent: shText(wsNew, r, 2), link: shLink(wsNew, r, 3) });
+    }
+  }
+  const wsSel = wb.Sheets["精選物件"];
+  if (wsSel && shRange(wsSel)) {
+    const end = shRange(wsSel).e.r;
+    for (let r = 1; r <= end; r++) {
+      const b = shText(wsSel, r, 1);
+      if (!b || SKIP.has(norm(b))) continue;
+      items.push({ store, cat: "精選物件", name: b, agent: shText(wsSel, r, 2), link: shLink(wsSel, r, 3) });
+    }
+  }
+  // 商圈點數（工作表名含「商圈」；認表頭文字對欄位）
+  const ptsName = wb.SheetNames.find(n => n.includes("商圈"));
+  const wsPts = ptsName ? wb.Sheets[ptsName] : null;
+  if (wsPts && shRange(wsPts)) {
+    const rng = shRange(wsPts);
+    let hdrRow = -1; const col = {};
+    for (let r = 0; r <= Math.min(4, rng.e.r) && hdrRow < 0; r++) {
+      for (let c = 0; c <= rng.e.c; c++) {
+        if (norm(shText(wsPts, r, c)) === "物件編號") { hdrRow = r; break; }
+      }
+    }
+    if (hdrRow >= 0) {
+      for (let c = 0; c <= rng.e.c; c++) {
+        const t = norm(shText(wsPts, hdrRow, c));
+        if (t === "物件編號") col.id = c;
+        else if (["案名", "物件", "案名/物件"].includes(t)) col.name = c;
+        else if (["專任/一般", "專任一般"].includes(t)) col.kind = c;
+        else if (t === "業務") col.agent = c;
+        else if (["商耕點數", "點數", "商圈點數"].includes(t)) col.pts = c;
+      }
+      for (let r = hdrRow + 1; r <= rng.e.r; r++) {
+        const get = k => col[k] !== undefined ? shText(wsPts, r, col[k]) : "";
+        const id = get("id"), name = get("name");
+        if (!id && !name) continue;
+        pts.push({ store, id, name, kind: get("kind"), agent: get("agent"), pts: get("pts") });
+      }
+    }
+  }
+  return { items, pts };
+}
+
+const JH = "Microsoft JhengHei";
+const thinB = { top: {style:"thin",color:{argb:"FFBBBBBB"}}, left:{style:"thin",color:{argb:"FFBBBBBB"}}, bottom:{style:"thin",color:{argb:"FFBBBBBB"}}, right:{style:"thin",color:{argb:"FFBBBBBB"}} };
+
+async function buildMainXlsx(items, date) {
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet(`${date}報案總表`, { views: [{ state: "frozen", ySplit: 1 }] });
+  ws.columns = [{width:6},{width:30},{width:16},{width:46},{width:20},{width:52}];
+  const hdr = ws.addRow(["序號","分類","店頭","案名","業務","連結"]);
+  hdr.eachCell(c => { c.font = {name:JH,bold:true,color:{argb:"FFFFFFFF"},size:12}; c.fill = {type:"pattern",pattern:"solid",fgColor:{argb:"FF1F4E79"}}; c.alignment = {horizontal:"center",vertical:"middle"}; c.border = thinB; });
+  let n = 0, curCat = null;
+  for (const it of items) {
+    if (it.cat !== curCat) {
+      curCat = it.cat;
+      const r = ws.addRow([`◆ ${curCat}`]);
+      ws.mergeCells(r.number, 1, r.number, 6);
+      const cc = r.getCell(1);
+      cc.font = {name:JH,bold:true,size:12,color:{argb:"FF1F4E79"}};
+      cc.fill = {type:"pattern",pattern:"solid",fgColor:{argb:"FFDDEBF7"}};
+      cc.border = thinB;
+    }
+    n++; it.no = n;
+    const r = ws.addRow([n, it.cat, it.store, it.name, it.agent, it.link || "⚠ 缺連結"]);
+    r.eachCell(c => { c.font = {name:JH,size:11}; c.border = thinB; c.alignment = {vertical:"middle"}; });
+    r.getCell(4).alignment = {vertical:"middle",wrapText:true};
+    if (it.link) { const lc = r.getCell(6); lc.value = {text: it.link, hyperlink: it.link}; lc.font = {name:JH,size:10,color:{argb:"FF0563C1"},underline:true}; }
+    if (it.dup) r.eachCell(c => { c.fill = {type:"pattern",pattern:"solid",fgColor:{argb:"FFFFF2CC"}}; });
+  }
+  return wb.xlsx.writeBuffer();
+}
+
+async function buildPtsXlsx(pts, date) {
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet(`${date}商圈點數`, { views: [{ state: "frozen", ySplit: 1 }] });
+  ws.columns = [{width:6},{width:16},{width:14},{width:46},{width:10},{width:16},{width:10}];
+  const hdr = ws.addRow(["序號","店頭","物件編號","案名","專任/一般","業務","點數"]);
+  hdr.eachCell(c => { c.font = {name:JH,bold:true,color:{argb:"FFFFFFFF"},size:12}; c.fill = {type:"pattern",pattern:"solid",fgColor:{argb:"FF548235"}}; c.alignment = {horizontal:"center",vertical:"middle"}; c.border = thinB; });
+  pts.forEach((p, i) => {
+    const r = ws.addRow([i+1, p.store, p.id, p.name, p.kind, p.agent, p.pts]);
+    r.eachCell(c => { c.font = {name:JH,size:11}; c.border = thinB; c.alignment = {vertical:"middle"}; });
+    r.getCell(4).alignment = {vertical:"middle",wrapText:true};
+  });
+  return wb.xlsx.writeBuffer();
+}
+
+function buildBookmarks(items, date) {
+  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  const lines = [
+    "<!DOCTYPE NETSCAPE-Bookmark-file-1>",
+    '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">',
+    "<TITLE>Bookmarks</TITLE><H1>Bookmarks</H1>",
+    "<DL><p>",
+    `  <DT><H3>${esc(date)}要報的</H3>`,
+    "  <DL><p>",
+  ];
+  for (const it of items) {
+    if (!it.link) continue;
+    lines.push(`    <DT><A HREF="${esc(it.link)}">${esc(String(it.no).padStart(2,"0")+" "+it.name+"（"+it.store+"）")}</A>`);
+  }
+  lines.push("  </DL><p>", "</DL><p>");
+  return lines.join("\n");
+}
+
+function dlLink(blob, fname, label, tag) {
+  const url = URL.createObjectURL(blob);
+  return `<a class="dl" href="${url}" download="${fname}">⬇ ${fname}<span class="tag">${label}${tag ? " · " + tag : ""}</span></a>`;
+}
+
+document.getElementById("goBtn").onclick = async () => {
+  const btn = document.getElementById("goBtn");
+  btn.disabled = true; btn.textContent = "彙整中…";
+  try {
+    const date = document.getElementById("dateIn").value.trim() || "本週";
+    let allItems = [], allPts = [];
+    const storeOrder = files.map(f => f.storeName);
+    for (const f of files) {
+      const wb = XLSX.read(f.buffer, { type: "array" });
+      const { items, pts } = parseWorkbook(wb, f.storeName);
+      allItems = allItems.concat(items);
+      allPts = allPts.concat(pts);
+    }
+    allItems.sort((a, b) => (ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat)) || (storeOrder.indexOf(a.store) - storeOrder.indexOf(b.store)));
+    const seen = new Set();
+    for (const it of allItems) {
+      const m = (it.link || "").match(/id=(\d+)/);
+      const key = m ? m[1] : it.link;
+      it.dup = !!key && seen.has(key);
+      if (key) seen.add(key);
+    }
+    const mainBuf = await buildMainXlsx(allItems, date);
+    const bmHtml = buildBookmarks(allItems, date);
+    const dls = [
+      dlLink(new Blob([mainBuf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), `${date}報案總表.xlsx`, "截圖傳群組用"),
+      dlLink(new Blob([bmHtml],{type:"text/html"}), `${date}書籤匯入檔.html`, "匯入 Chrome → 右鍵全開", "教學在下方"),
+    ];
+    if (allPts.length) {
+      const ptsBuf = await buildPtsXlsx(allPts, date);
+      dls.push(dlLink(new Blob([ptsBuf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), `${date}商圈點數.xlsx`, `${allPts.length} 筆點數`));
+    }
+    document.getElementById("dls").innerHTML = dls.join("");
+    const catCnt = ORDER.map(c => [c, allItems.filter(i => i.cat === c).length]).filter(x => x[1]);
+    const storeCnt = {};
+    allItems.forEach(i => storeCnt[i.store] = (storeCnt[i.store] || 0) + 1);
+    const miss = allItems.filter(i => !i.link);
+    const dups = allItems.filter(i => i.dup);
+    document.getElementById("summary").innerHTML =
+      `共 <b>${files.length}</b> 店 <b>${allItems.length}</b> 筆案件、商圈點數 <b>${allPts.length}</b> 筆<br>` +
+      catCnt.map(([c, n]) => `　${c}：${n} 筆`).join("<br>") + "<br>" +
+      `各店：${Object.entries(storeCnt).map(([s, n]) => `${s} ${n}`).join("、")}<br>` +
+      (miss.length ? `<span class="warn">⚠ 缺連結 ${miss.length} 筆：${miss.map(i => i.name).join("、")}</span><br>` : `<span class="ok">✔ 連結齊全</span><br>`) +
+      (dups.length ? `<span class="warn">⚠ 重複連結 ${dups.length} 筆（總表黃底）：${dups.map(i => i.name).join("、")}</span>` : `<span class="ok">✔ 無重複</span>`);
+    document.getElementById("resultCard").classList.remove("hidden");
+    document.getElementById("resultCard").scrollIntoView({ behavior: "smooth" });
+  } catch (err) {
+    alert("彙整失敗：" + err.message);
+    console.error(err);
+  } finally {
+    btn.disabled = false; btn.textContent = "開始彙整";
+  }
+};
+</script>
+</body>
+</html>
