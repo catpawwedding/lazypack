@@ -48,7 +48,7 @@
 <body>
 <div class="wrap">
   <h1>📋 早會報案彙整</h1>
-  <div class="sub">把各店的「早會報案件」Excel 全部拉進來 → 一鍵產出：報案總表、書籤匯入檔、商圈點數表</div>
+  <div class="sub">把各店的「早會報案件」Excel 全部拉進來 → 一鍵產出：報案總表、開會連結頁（一鍵照順序全開）、商圈點數表</div>
 
   <div class="card">
     <div id="drop">
@@ -69,14 +69,22 @@
     <h1 style="font-size:20px">✅ 彙整完成</h1>
     <div id="summary"></div>
     <div class="dls" id="dls"></div>
+    <details open>
+      <summary>📌 週一開會怎麼開連結？（推薦用「開會連結頁」）</summary>
+      <ol>
+        <li>點兩下打開下載的「<b>開會連結頁.html</b>」</li>
+        <li>按「<b>🚀 依序全部開啟</b>」→ 分頁照總表 1、2、3… 順序全部打開</li>
+        <li>第一次按若被擋：網址列右邊點「彈出式視窗已封鎖」→「一律允許」→ 再按一次（以後不會再擋）</li>
+        <li>也可以在頁面上一筆一筆點，順序、店名都標好了</li>
+      </ol>
+    </details>
     <details>
-      <summary>📌 書籤匯入檔怎麼用？（週一開會前做一次）</summary>
+      <summary>📌 備用方案：書籤匯入檔（注意：Chrome 匯入可能不照順序排）</summary>
       <ol>
         <li>Chrome 網址列輸入 <code>chrome://bookmarks</code></li>
-        <li>右上角「⋮」→「<b>匯入書籤</b>」→ 選剛下載的「書籤匯入檔.html」</li>
-        <li>書籤列會出現「已匯入」→ 裡面有「<b>XXXX要報的</b>」資料夾</li>
-        <li>開會時對資料夾按<b>右鍵 →「開啟所有書籤」</b>，全部連結一次打開</li>
-        <li>報完案把資料夾刪掉即可，下週再匯入新的</li>
+        <li>右上角「⋮」→「<b>匯入書籤</b>」→ 選「書籤匯入檔.html」</li>
+        <li>「已匯入」→「<b>XXXX要報的</b>」資料夾 → 右鍵「開啟所有書籤」</li>
+        <li>若順序亂掉，書籤名稱前有 01、02… 編號可對照</li>
       </ol>
     </details>
   </div>
@@ -250,22 +258,53 @@ async function buildPtsXlsx(pts, date) {
   return wb.xlsx.writeBuffer();
 }
 
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
 function buildBookmarks(items, date) {
-  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  const ts = 1700000000; // 遞增時間戳：讓匯入端有穩定排序依據
   const lines = [
     "<!DOCTYPE NETSCAPE-Bookmark-file-1>",
     '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">',
     "<TITLE>Bookmarks</TITLE><H1>Bookmarks</H1>",
     "<DL><p>",
-    `  <DT><H3>${esc(date)}要報的</H3>`,
+    `  <DT><H3 ADD_DATE="${ts}">${esc(date)}要報的</H3>`,
     "  <DL><p>",
   ];
   for (const it of items) {
     if (!it.link) continue;
-    lines.push(`    <DT><A HREF="${esc(it.link)}">${esc(String(it.no).padStart(2,"0")+" "+it.name+"（"+it.store+"）")}</A>`);
+    lines.push(`    <DT><A HREF="${esc(it.link)}" ADD_DATE="${ts + it.no}">${esc(String(it.no).padStart(2,"0")+" "+it.name+"（"+it.store+"）")}</A>`);
   }
   lines.push("  </DL><p>", "</DL><p>");
   return lines.join("\n");
+}
+
+// 開會連結頁（主力：順序 100% 照總表，不依賴 Chrome 匯入）
+function buildLinksPage(items, date) {
+  const linked = items.filter(it => it.link);
+  let rows = "", cur = null;
+  for (const it of linked) {
+    if (it.cat !== cur) { cur = it.cat; rows += `<div class="cat">◆ ${esc(cur)}</div>\n`; }
+    rows += `<a class="item" href="${esc(it.link)}" target="_blank"><span class="no">${String(it.no).padStart(2,"0")}</span>${esc(it.name)}<span class="st">${esc(it.store)}</span></a>\n`;
+  }
+  const urlsJs = linked.map(it => JSON.stringify(it.link)).join(",");
+  return `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${esc(date)} 早會報案連結</title>
+<style>
+body{font-family:"Microsoft JhengHei",sans-serif;background:#f0f4f8;margin:0;padding:20px}
+.wrap{max-width:760px;margin:0 auto}h1{color:#1F4E79;font-size:22px}
+button{background:#1F4E79;color:#fff;border:0;border-radius:10px;padding:14px 30px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;margin:10px 0}
+.tip{background:#fff8e6;border:1px solid #f0dfa8;border-radius:8px;padding:10px 14px;font-size:13px;color:#8a6d1a;margin-bottom:12px}
+.cat{font-weight:700;color:#1F4E79;background:#DDEBF7;padding:8px 12px;border-radius:8px;margin:14px 0 6px}
+.item{display:flex;align-items:center;gap:10px;background:#fff;border-radius:8px;padding:10px 14px;margin:6px 0;text-decoration:none;color:#1a2b3c;font-size:15px;box-shadow:0 1px 4px rgba(30,60,100,.08)}
+.item:hover{background:#eef5fc}.no{font-weight:700;color:#1F4E79;min-width:26px}
+.st{margin-left:auto;color:#7a8ca0;font-size:12px;white-space:nowrap}
+</style></head><body><div class="wrap">
+<h1>📋 ${esc(date)} 早會報案連結（共 ${linked.length} 筆）</h1>
+<button onclick="openAll()">🚀 依序全部開啟（照總表順序）</button>
+<div class="tip">第一次按若只開了 1 個分頁：網址列右邊會出現「彈出式視窗已封鎖」圖示 → 點它 → 選「一律允許」→ 再按一次按鈕。之後每週都不會再擋。</div>
+${rows}
+<script>const URLS=[${urlsJs}];function openAll(){URLS.forEach(u=>window.open(u,"_blank"));}<\/script>
+</div></body></html>`;
 }
 
 function dlLink(blob, fname, label, tag) {
@@ -296,9 +335,11 @@ document.getElementById("goBtn").onclick = async () => {
     }
     const mainBuf = await buildMainXlsx(allItems, date);
     const bmHtml = buildBookmarks(allItems, date);
+    const lpHtml = buildLinksPage(allItems, date);
     const dls = [
       dlLink(new Blob([mainBuf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), `${date}報案總表.xlsx`, "截圖傳群組用"),
-      dlLink(new Blob([bmHtml],{type:"text/html"}), `${date}書籤匯入檔.html`, "匯入 Chrome → 右鍵全開", "教學在下方"),
+      dlLink(new Blob([lpHtml],{type:"text/html"}), `${date}開會連結頁.html`, "開會用這個：打開按一顆按鈕，照順序全開", "推薦"),
+      dlLink(new Blob([bmHtml],{type:"text/html"}), `${date}書籤匯入檔.html`, "備用：匯入 Chrome 書籤", "教學在下方"),
     ];
     if (allPts.length) {
       const ptsBuf = await buildPtsXlsx(allPts, date);
