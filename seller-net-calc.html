@@ -194,7 +194,8 @@
     margin-left: 4px;
   }
   .field input[type="number"],
-  .field input[type="date"] {
+  .field input[type="date"],
+  .field input[type="text"] {
     border: 1px solid var(--line);
     border-radius: 8px;
     padding: 10px 12px;
@@ -205,7 +206,8 @@
     transition: border-color 0.15s, box-shadow 0.15s;
   }
   .yellow .field input[type="number"],
-  .yellow .field input[type="date"] {
+  .yellow .field input[type="date"],
+  .yellow .field input[type="text"] {
     background: white;
     border-color: var(--yellow-border);
   }
@@ -1263,17 +1265,12 @@
 
   <!-- 其他扣除 -->
   <div class="section">
-    <h3 class="section-title">其他扣除項目 <span class="tag gray">手動填入</span></h3>
-    <div class="grid-2">
-      <div class="field">
-        <label>土地增值稅 <span class="hint">萬 · 依稅單</span></label>
-        <input type="number" id="lx_landTax" step="0.01" placeholder="例如: 50" oninput="calcLuxury()" />
-      </div>
-      <div class="field">
-        <label>其他費用 <span class="hint">萬 · 塗銷/履保/潤筆等</span></label>
-        <input type="number" id="lx_other" step="0.01" placeholder="例如: 3" oninput="calcLuxury()" />
-      </div>
+    <h3 class="section-title">土地增值稅 <span class="tag gray">依稅單填入</span></h3>
+    <div class="field">
+      <label>土地增值稅 <span class="hint">萬 · 依稅單</span></label>
+      <input type="number" id="lx_landTax" step="0.01" placeholder="例如: 50" oninput="calcLuxury()" />
     </div>
+    <p style="font-size:12px; color:var(--ink-soft); margin:12px 0 0;">代書費（潤筆）、實價登錄、履保費、塗銷費會自動帶入下方明細，不用手動填。</p>
   </div>
 
   <!-- 結果 -->
@@ -1288,7 +1285,7 @@
         <div class="value"><span id="lx_r_tax">—</span><span class="unit">萬</span></div>
       </div>
       <div class="result-box big">
-        <div class="label">屋主實拿（扣豪宅稅 + 土增稅 + 服務費 + 其他）</div>
+        <div class="label">屋主實拿（扣豪宅稅 + 服務費 + 土增稅 + 雜費）</div>
         <div class="value"><span id="lx_r_net">—</span><span class="unit">萬</span></div>
       </div>
     </div>
@@ -1296,12 +1293,13 @@
     <div class="detail">
       <div class="detail-title">計算明細</div>
       <div class="detail-row"><span class="name">出售價格</span><span class="num"><span id="lx_d_price">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">土地公告現值</span><span class="num"><span id="lx_d_land">—</span> 元</span></div>
-      <div class="detail-row"><span class="name">房地比（房屋現值佔比）</span><span class="num"><span id="lx_d_ratio">—</span> %</span></div>
       <div class="detail-row"><span class="name">豪宅稅（售價 × 房地比 × 20%）</span><span class="num"><span id="lx_d_tax">—</span> 萬</span></div>
       <div class="detail-row"><span class="name"><span id="lx_d_svc_label">服務費（售價 × 4%）</span></span><span class="num"><span id="lx_d_svc">—</span> 萬</span></div>
       <div class="detail-row"><span class="name">土地增值稅</span><span class="num"><span id="lx_d_landTax">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">其他費用</span><span class="num"><span id="lx_d_other">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">代書費（潤筆）</span><span class="num"><span id="lx_d_run">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">實價登錄費</span><span class="num"><span id="lx_d_reg">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">履保費（售價 × 萬分之三）</span><span class="num"><span id="lx_d_esc">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">塗銷費 + 稅籍資料</span><span class="num"><span id="lx_d_clr">—</span> 萬</span></div>
       <div class="detail-row sum"><span class="name">合計扣除</span><span class="num"><span id="lx_d_sum">—</span> 萬</span></div>
     </div>
   </div>
@@ -1309,7 +1307,7 @@
   <!-- 反推 -->
   <div class="reverse-card">
     <div class="title">🔄 反推實拿：屋主說「我要拿 ___ 萬」</div>
-    <div class="sub">輸入屋主想實拿的金額，反推應開的出售價（房地比、土增稅、其他費用需先填好）</div>
+    <div class="sub">輸入屋主想實拿的金額，反推應開的出售價（房地比、土增稅需先填好）</div>
     <div class="input-row">
       <input type="number" id="lx_targetNet" step="0.01" placeholder="例如：屋主想拿 6000 萬" oninput="reverseLuxury()" />
     </div>
@@ -2249,7 +2247,7 @@ function calcLuxury() {
   }
 
   // 價格或房地比不齊 → 清結果
-  const clearIds = ['lx_r_tax','lx_r_net','lx_d_price','lx_d_land','lx_d_ratio','lx_d_tax','lx_d_svc','lx_d_landTax','lx_d_other','lx_d_sum'];
+  const clearIds = ['lx_r_tax','lx_r_net','lx_d_price','lx_d_tax','lx_d_svc','lx_d_landTax','lx_d_run','lx_d_reg','lx_d_esc','lx_d_clr','lx_d_sum'];
   if (price <= 0 || !rr.ok) {
     clearIds.forEach(id => document.getElementById(id).textContent = '—');
     document.getElementById('lx_r_ratio').textContent = rr.ok ? (rr.ratio*100).toFixed(2) : '—';
@@ -2258,8 +2256,9 @@ function calcLuxury() {
 
   const luxTax = price * rr.ratio * 0.20; // 萬
   const landTax = v('lx_landTax');
-  const other = v('lx_other');
-  const sumDeduct = luxTax + landTax + service + other;
+  const run = FIXED.run, reg = FIXED.reg, clr = FIXED.clr;
+  const escrow = price * FIXED.escrowRate; // 履保 售價×萬分之三
+  const sumDeduct = luxTax + service + landTax + run + reg + escrow + clr;
   const net = price - sumDeduct;
 
   document.getElementById('lx_r_ratio').textContent = (rr.ratio*100).toFixed(2);
@@ -2267,17 +2266,18 @@ function calcLuxury() {
   document.getElementById('lx_r_net').textContent = fmt(net);
 
   document.getElementById('lx_d_price').textContent = fmt(price);
-  document.getElementById('lx_d_land').textContent = fmt0(rr.landVal);
-  document.getElementById('lx_d_ratio').textContent = (rr.ratio*100).toFixed(2);
   document.getElementById('lx_d_tax').textContent = fmt(luxTax);
   document.getElementById('lx_d_svc').textContent = fmt(service);
   document.getElementById('lx_d_svc_label').textContent = lxSvc === 'p4' ? '服務費（售價 × 4%）' : '服務費（手動輸入）';
   document.getElementById('lx_d_landTax').textContent = fmt(landTax);
-  document.getElementById('lx_d_other').textContent = fmt(other);
+  document.getElementById('lx_d_run').textContent = fmt(run);
+  document.getElementById('lx_d_reg').textContent = fmt(reg);
+  document.getElementById('lx_d_esc').textContent = fmt(escrow);
+  document.getElementById('lx_d_clr').textContent = fmt(clr);
   document.getElementById('lx_d_sum').textContent = fmt(sumDeduct);
 }
 
-// 反推：net = X − X·R·0.2 − 土增 − 服務費 − 其他
+// 反推：net = X − X·R·0.2 − 服務費 − 土增 − 潤筆 − 實登 − X·履保率 − 塗銷
 function reverseLuxury() {
   const out = document.getElementById('lx_reverseOut');
   const target = v('lx_targetNet');
@@ -2290,21 +2290,22 @@ function reverseLuxury() {
     return;
   }
   const landTax = v('lx_landTax');
-  const other = v('lx_other');
+  const e = FIXED.escrowRate;
+  const fixedSum = FIXED.run + FIXED.reg + FIXED.clr; // 潤筆+實登+塗銷（固定）
   const k = rr.ratio * 0.20; // 豪宅稅係數
   let X, note = '';
   if (lxSvc === 'manual') {
     const F = v('lx_svcManual');
-    X = (target + landTax + other + F) / (1 - k);
+    X = (target + landTax + F + fixedSum) / (1 - k - e);
     note = `＊房地比 ${(rr.ratio*100).toFixed(2)}%、服務費固定 ${fmt(F)} 萬`;
   } else {
-    const denom = 1 - k - 0.04;
+    const denom = 1 - k - 0.04 - e;
     if (denom <= 0) {
       document.getElementById('lx_rv_total').textContent = '無解';
       document.getElementById('lx_rv_note').textContent = '參數異常（房地比過高）';
       return;
     }
-    X = (target + landTax + other) / denom;
+    X = (target + landTax + fixedSum) / denom;
     note = `＊房地比 ${(rr.ratio*100).toFixed(2)}%、服務費 4%`;
   }
   document.getElementById('lx_rv_total').textContent = fmt(X);
@@ -2313,7 +2314,7 @@ function reverseLuxury() {
 
 function resetLuxury() {
   if (!confirm('清空豪宅稅所有輸入？')) return;
-  ['lx_price','lx_landArea','lx_landUnit','lx_landShare','lx_houseVal','lx_svcManual','lx_landTax','lx_other','lx_targetNet'].forEach(id => document.getElementById(id).value = '');
+  ['lx_price','lx_landArea','lx_landUnit','lx_landShare','lx_houseVal','lx_svcManual','lx_landTax','lx_targetNet'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('lx_reverseOut').style.display = 'none';
   setLxSvc('p4');
   calcLuxury();
