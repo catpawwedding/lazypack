@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>買房實戰議價話術清單 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px;
+    height: 72px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px;
+    color: #2C2A26;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2C2A26;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero {
+    background: linear-gradient(160deg, #FFF7EC, #FCEDE6);
+    border-radius: 18px;
+    padding: 18px 16px;
+    margin-bottom: 32px;
+  }
+  .hero svg { width: 100%; height: auto; display: block; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF;
+    border-left: 5px solid #D9342B;
+    padding: 20px 22px;
+    margin-bottom: 36px;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #4A463F;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 24px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .point-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .point-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: #D9342B;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-icon {
+    width: 44px;
+    height: 44px;
+    background: #FFF1EE;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+  .point-icon svg {
+    width: 24px; height: 24px;
+    fill: none;
+    stroke: #D9342B;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .point-number-bar {
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: #D9342B;
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 10px; }
+  .point-example {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #FFF5E0;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 話術框 === */
+  .script {
+    margin-top: 14px;
+    padding: 16px 18px;
+    background: #FDF6F5;
+    border: 1px dashed #E8B4AF;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #2C2A26;
+    font-weight: 600;
+    line-height: 1.7;
+  }
+  .script .tag {
+    display: block;
+    font-size: 12px;
+    color: #D9342B;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  /* === 對照表 === */
+  .swap { margin-top: 14px; }
+  .swap-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 0;
+    border-bottom: 1px solid #E8E2D6;
+  }
+  .swap-row:last-child { border-bottom: none; }
+  .swap-bad, .swap-good {
+    font-size: 15px;
+    line-height: 1.6;
+    padding-left: 24px;
+    position: relative;
+  }
+  .swap-bad { color: #9C9188; text-decoration: line-through; }
+  .swap-bad::before {
+    content: "✕";
+    position: absolute; left: 0; top: 0;
+    color: #C4B9AF;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .swap-good { color: #2C2A26; font-weight: 600; }
+  .swap-good::before {
+    content: "✓";
+    position: absolute; left: 0; top: 0;
+    color: #D9342B;
+    font-weight: 700;
+  }
+
+  /* === 檢查清單 === */
+  .checklist { margin-top: 14px; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #F0EBE1;
+    font-size: 15px;
+    color: #4A463F;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 2px solid #D9342B;
+    border-radius: 5px;
+    flex: none;
+    margin-top: 4px;
+  }
+
+  /* === 數字對比視覺化 === */
+  .viz {
+    background: #FFF;
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-bottom: 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .viz-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2C2A26;
+    margin-bottom: 4px;
+  }
+  .viz-sub { font-size: 14px; color: #6B6660; margin-bottom: 18px; }
+  .viz svg { width: 100%; height: auto; display: block; }
+  .viz-note { font-size: 14px; color: #6B6660; margin-top: 14px; line-height: 1.6; }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF;
+    padding: 32px 24px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button {
+    display: inline-block;
+    background: #FFF;
+    color: #2C2A26;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF;
+    border: 2px solid #2C2A26;
+    color: #2C2A26;
+    padding: 26px 24px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block;
+    background: #2C2A26;
+    color: #FFF;
+    padding: 13px 30px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px;
+    display: block; margin: 0 auto 8px;
+    opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660;
+    letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed;
+    right: 16px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>買房實戰<span class="highlight">議價話術清單</span></h1>
+      <p class="subtitle">帶著這張清單去看房，你講的每一句話都在幫你省錢。</p>
+    </div>
+
+    <!-- Hero 插圖 -->
+    <div class="hero">
+      <svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="買方與房子之間的議價對話">
+        <!-- 房子 -->
+        <path d="M258 96 L308 58 L358 96" fill="none" stroke="#D9342B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="270" y="96" width="76" height="52" rx="4" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2.5"/>
+        <rect x="284" y="112" width="20" height="20" rx="2" fill="#FFE5A0" stroke="#B89968" stroke-width="2"/>
+        <rect x="316" y="112" width="16" height="36" rx="2" fill="#F5B946" stroke="#B89968" stroke-width="2"/>
+        <!-- 標價牌 -->
+        <rect x="236" y="30" width="58" height="30" rx="6" fill="#FFFFFF" stroke="#B89968" stroke-width="2"/>
+        <text x="265" y="51" font-size="16" font-weight="700" fill="#B89968" text-anchor="middle" font-family="Helvetica Neue, Arial, sans-serif">$$$</text>
+        <line x1="265" y1="60" x2="265" y2="70" stroke="#B89968" stroke-width="2"/>
+        <!-- 人 -->
+        <circle cx="66" cy="66" r="15" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2.5"/>
+        <path d="M40 148 C40 118 92 118 92 148" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 對話框 -->
+        <path d="M108 34 h150 a10 10 0 0 1 10 10 v34 a10 10 0 0 1 -10 10 h-124 l-20 18 v-18 h-6 a10 10 0 0 1 -10 -10 v-34 a10 10 0 0 1 10 -10 z"
+              fill="#D9342B"/>
+        <text x="183" y="58" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">如果價格有空間，</text>
+        <text x="183" y="78" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">我願意馬上談。</text>
+        <!-- 往下的價差箭頭 -->
+        <path d="M200 116 v22" stroke="#D9342B" stroke-width="3" stroke-linecap="round"/>
+        <path d="M192 132 l8 10 l8 -10" fill="none" stroke="#D9342B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- 引言 -->
+    <div class="intro">
+      談價談不下來，多數時候不是你不夠會殺，是你在開口之前就已經把牌全掀了。這份清單不講理論，只給你看房當下、出價當下、房仲回你話的當下，一句一句可以照著用的話。看完，你會知道每個關卡該說什麼、什麼時候該閉嘴。
+    </div>
+
+    <!-- 重點卡片 -->
+    <div class="points">
+
+      <!-- 01 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">01</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">你談不下來，是輸在這三句話</div>
+        <div class="point-body">
+          大部分買方一進門就把底牌交出去，房仲根本不需要幫你談。
+          <ul>
+            <li><strong>「哇這間好漂亮」</strong>：你有多喜歡，就等於你願意付多少。</li>
+            <li><strong>「我預算大概一千兩百萬」</strong>：你的預算會直接變成你的成交價。</li>
+            <li><strong>「這間可以買嗎」</strong>：你在求准許，不是在談條件。</li>
+          </ul>
+          <div class="point-example">
+            會買的人不問「可不可以買」，他問的是「還能再低多少」。位置對調，價格就會動。
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">02</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 10a3 3 0 1 1 4 2.8V15"/><path d="M12 18h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">看房當下：只收情報，不給情報</div>
+        <div class="point-body">
+          現場不是表演喜歡的地方，是<strong>蒐集籌碼</strong>的地方。你問的每一題，之後都會變成你談價的理由。
+          <div class="script">
+            <span class="tag">現場照著問</span>
+            「這間賣多久了？」<br>
+            「屋主為什麼要賣？」<br>
+            「之前有出過價嗎？大概什麼價位沒過？」<br>
+            「屋主什麼時候要交屋？會不會急？」
+          </div>
+          <div class="point-example">
+            賣越久、屋主越急、越多組出過價沒成交，你的空間就越大。這些話你不問，房仲不會主動講。
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">03</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H5l-2 2V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/><path d="M9 12h6"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">關鍵那句話，前後要這樣鋪</div>
+        <div class="point-body">
+          「如果價格有空間，我願意馬上談」——這句話單獨講出來是空話。要有前戲、有後手，房仲才會真的替你去磨屋主。
+          <div class="script">
+            <span class="tag">前：先給理由</span>
+            「這間我看得懂，屋況、格局我都可以接受。」
+          </div>
+          <div class="script">
+            <span class="tag">中：那句話</span>
+            「如果價格有空間，我願意馬上談。」
+          </div>
+          <div class="script">
+            <span class="tag">後：給他一個交代</span>
+            「我不是來亂出的，你幫我問，我這邊隨時可以簽。」
+          </div>
+          <div class="point-example">
+            這句話真正的意思是：我不是來看看的，我是<strong>可以成交的人</strong>。屋主一旦相信這件事，才會開始讓價。
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">04</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">房仲這樣說，你這樣接</div>
+        <div class="point-body">
+          這幾句你一定會聽到。不用怕，也不用生氣，照著接就好。
+          <div class="script">
+            <span class="tag">他說：屋主很硬，不可能降</span>
+            「我理解。那我還是把我的價格報上去，屋主要不要是他的決定，我只要一個答案。」
+          </div>
+          <div class="script">
+            <span class="tag">他說：還有別組在看喔</span>
+            「那更好，屋主可以比較。我的價格跟時間都很明確，你可以一起報。」
+          </div>
+          <div class="script">
+            <span class="tag">他說：這個價我不敢報</span>
+            「你不報，屋主永遠不知道市場的反應。報了不成交，你也沒有損失。」
+          </div>
+          <div class="point-example">
+            重點不是說贏房仲，是讓他<strong>願意幫你把價格帶進去</strong>。價格被帶進去，才有談的機會。
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">05</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 15l5-5 4 3 7-7"/><path d="M20 6v5h-5"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">出價與加價：節奏比金額重要</div>
+        <div class="point-body">
+          出價不是一次喊到底，是<strong>用節奏告訴對方「我快到極限了」</strong>。
+          <ul>
+            <li><strong>第一次出價</strong>：出你真心願意買的價，不要出侮辱價，屋主會直接關門。</li>
+            <li><strong>加價要越加越小</strong>：第一次加多、第二次加一半、第三次只加一點點，對方才會相信你到頂了。</li>
+            <li><strong>每次加價都要交換</strong>：加價可以，但要換交屋時間、換家具、換屋況修繕。</li>
+            <li><strong>設一個停損價</strong>：出門前寫在手機備忘錄裡，超過就走，不要在現場臨時說服自己。</li>
+          </ul>
+          <div class="point-example">
+            實際能談多少，跟屋主的動機、房子賣多久、市場冷熱都有關，沒有一個固定趴數。<strong>談的是條件，不是公式。</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 06 -->
+      <div class="point-card">
+        <div class="point-head">
+          <div class="point-number">06</div>
+          <div class="point-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+        </div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">NG 話術對照 ＋ 出價前檢查</div>
+        <div class="point-body">
+          同一件事，換個講法，價格就不一樣。
+
+          <div class="swap">
+            <div class="swap-row">
+              <div class="swap-bad">我超喜歡這間，一定要買到。</div>
+              <div class="swap-good">這間我可以接受，就看價格。</div>
+            </div>
+            <div class="swap-row">
+              <div class="swap-bad">我預算一千兩百萬。</div>
+              <div class="swap-good">價格談得下來，我的資金沒問題。</div>
+            </div>
+            <div class="swap-row">
+              <div class="swap-bad">可以幫我砍一點嗎？</div>
+              <div class="swap-good">如果價格有空間，我願意馬上談。</div>
+            </div>
+            <div class="swap-row">
+              <div class="swap-bad">我再回去想想。</div>
+              <div class="swap-good">我今天就可以決定，看屋主的答案。</div>
+            </div>
+          </div>
+
+          <div class="checklist">
+            <div class="check-item"><span class="check-box"></span><span>我知道這間賣多久了。</span></div>
+            <div class="check-item"><span class="check-box"></span><span>我知道屋主為什麼賣、急不急。</span></div>
+            <div class="check-item"><span class="check-box"></span><span>我查過附近的實際成交行情。</span></div>
+            <div class="check-item"><span class="check-box"></span><span>我沒有讓對方知道我的預算上限。</span></div>
+            <div class="check-item"><span class="check-box"></span><span>我寫好了自己的停損價。</span></div>
+            <div class="check-item"><span class="check-box"></span><span>我準備好那句話，而且敢講出口。</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 關鍵對比視覺化 -->
+    <div class="viz">
+      <div class="viz-title">同一間房，兩種買法</div>
+      <div class="viz-sub">差別不在房子，在你開口的那句話。</div>
+      <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="不會談與會談的買方，付出的價格差距">
+        <!-- A -->
+        <text x="0" y="18" font-size="13" font-weight="700" fill="#6B6660">不會談的人：照開價點餐</text>
+        <rect x="0" y="26" width="360" height="22" rx="6" fill="#E5DED2"/>
+        <text x="352" y="42" font-size="13" font-weight="700" fill="#6B6660" text-anchor="end">開價</text>
+        <!-- B -->
+        <text x="0" y="82" font-size="13" font-weight="700" fill="#2C2A26">會談的人：用對那句話</text>
+        <rect x="0" y="90" width="266" height="22" rx="6" fill="#D9342B"/>
+        <text x="258" y="106" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="end">成交價</text>
+        <!-- 差距 -->
+        <line x1="266" y1="90" x2="266" y2="132" stroke="#B89968" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="360" y1="48" x2="360" y2="132" stroke="#B89968" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="266" y1="126" x2="360" y2="126" stroke="#B89968" stroke-width="2"/>
+        <text x="313" y="146" font-size="13" font-weight="700" fill="#B89968" text-anchor="middle">你省下來的</text>
+      </svg>
+      <div class="viz-note">能省多少，沒有標準答案，取決於屋主的動機、房子的狀況跟你談的方式。但一句話都不敢講的人，這條差距永遠是零。</div>
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      會買房的人，不是挑得多<span class="accent">準</span>，是談得夠<span class="accent">低</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群，主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規，歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.07.11</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
