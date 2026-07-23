@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>AI 選題雷達系統｜一堂課建好你的內容生產線</title>
+<style>
+  :root{
+    --navy:#13293D; --navy2:#1B3A54; --gold:#C9A96A; --gold-l:#E8D5AE;
+    --ivory:#F7F3EA; --text:#2B2B2B; --muted:#6B7686;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:var(--ivory);color:var(--text);line-height:1.8;}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px;}
+
+  /* Hero */
+  .hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:56px 0 44px;}
+  .hero .tag{display:inline-block;border:1px solid var(--gold);color:var(--gold-l);font-size:.85rem;letter-spacing:.2em;padding:4px 14px;border-radius:999px;margin-bottom:18px;}
+  .hero h1{font-size:1.9rem;font-weight:900;line-height:1.4;margin-bottom:14px;}
+  .hero h1 em{color:var(--gold);font-style:normal;}
+  .hero p.sub{color:#C9D4E0;font-size:1.05rem;}
+  .hero p.sub b{color:#fff;}
+
+  /* Flow diagram */
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;justify-content:center;margin:30px 0 4px;}
+  .fbox{background:rgba(255,255,255,.07);border:1px solid rgba(201,169,106,.5);border-radius:12px;padding:14px 16px;text-align:center;flex:1;min-width:130px;}
+  .fbox .ic{font-size:1.5rem;}
+  .fbox .t{font-weight:700;color:var(--gold-l);font-size:.95rem;margin-top:4px;}
+  .fbox .d{font-size:.78rem;color:#AAB8C6;margin-top:2px;}
+  .farr{align-self:center;color:var(--gold);font-size:1.3rem;font-weight:900;}
+  @media(max-width:640px){.farr{width:100%;text-align:center;transform:rotate(90deg);font-size:1rem;}}
+
+  /* Sections */
+  section{padding:40px 0 8px;}
+  .step-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+  .step-num{background:var(--navy);color:var(--gold);font-weight:900;font-size:1.15rem;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:2px solid var(--gold);}
+  .step-head h2{font-size:1.35rem;font-weight:900;color:var(--navy);}
+  .step-head .once{font-size:.75rem;background:var(--gold);color:var(--navy);font-weight:700;padding:2px 10px;border-radius:999px;white-space:nowrap;}
+  .step-head .daily{font-size:.75rem;background:var(--navy);color:#fff;font-weight:700;padding:2px 10px;border-radius:999px;white-space:nowrap;}
+  .card{background:#fff;border:1px solid #E3DCC9;border-radius:14px;padding:22px 24px;box-shadow:0 2px 10px rgba(19,41,61,.05);}
+  .card ol{padding-left:1.3em;}
+  .card li{margin-bottom:6px;}
+  .card p+p{margin-top:8px;}
+  .hint{background:#FBF7EC;border-left:4px solid var(--gold);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.92rem;color:#5A5140;margin-top:14px;}
+  .btn{display:inline-block;background:var(--navy);color:#fff;font-weight:700;padding:12px 26px;border-radius:10px;text-decoration:none;margin-top:12px;transition:.2s;}
+  .btn:hover{background:var(--navy2);}
+  .btn.gold{background:var(--gold);color:var(--navy);}
+
+  /* Prompt blocks */
+  .prompt{position:relative;background:var(--navy);border-radius:14px;margin-top:14px;overflow:hidden;}
+  .prompt .pbar{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(201,169,106,.35);}
+  .prompt .pbar .pt{color:var(--gold-l);font-weight:700;font-size:.9rem;}
+  .copybtn{background:var(--gold);color:var(--navy);border:none;font-weight:900;font-size:.85rem;padding:6px 16px;border-radius:8px;cursor:pointer;font-family:inherit;}
+  .copybtn:active{transform:scale(.96);}
+  .prompt pre{padding:18px 20px;color:#E8EEF5;font-size:.88rem;line-height:1.75;white-space:pre-wrap;word-break:break-word;font-family:inherit;max-height:420px;overflow-y:auto;}
+  .prompt pre b{color:var(--gold);}
+
+  .fillbox{background:#FFF8E8;border:1px dashed var(--gold);border-radius:10px;padding:12px 16px;font-size:.9rem;margin-top:12px;}
+  .fillbox b{color:#9A7B3F;}
+
+  /* tips */
+  .tips{background:var(--navy);color:#DCE6F0;border-radius:14px;padding:24px 26px;}
+  .tips h3{color:var(--gold);font-size:1.15rem;margin-bottom:12px;}
+  .tips li{margin-bottom:10px;list-style:none;padding-left:1.5em;position:relative;}
+  .tips li::before{content:"✦";position:absolute;left:0;color:var(--gold);}
+
+  /* footer */
+  footer{margin-top:52px;background:var(--navy);color:#B9C6D4;text-align:center;padding:36px 20px;}
+  footer .brand{color:var(--gold);font-weight:900;font-size:1.1rem;letter-spacing:.1em;}
+  footer a{color:var(--gold-l);text-decoration:none;font-weight:700;}
+  footer .links{margin-top:10px;display:flex;gap:22px;justify-content:center;flex-wrap:wrap;}
+  footer .fine{font-size:.78rem;margin-top:16px;color:#7E8CA0;}
+
+  .divider{border:none;border-top:2px solid #E3DCC9;margin:36px auto 0;max-width:820px;}
+  .route-tag{display:inline-block;background:var(--gold);color:var(--navy);font-weight:900;padding:3px 14px;border-radius:8px;font-size:.9rem;margin-bottom:10px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="tag">AI 房仲自媒體實戰</div>
+    <h1>AI 選題雷達系統<br><em>AI 每天找題材，你只要打勾，文案自動生出來</em></h1>
+    <p class="sub">做自媒體最累的不是寫，是<b>「每天想今天要發什麼」</b>。這套系統把「找題材 → 選題 → 寫文案」變成一條生產線：AI 掃熱點進 Notion，你打個勾，FB 貼文＋短影音逐字稿就寫好放在那裡等你。</p>
+
+    <div class="flow">
+      <div class="fbox"><div class="ic">📡</div><div class="t">選題雷達</div><div class="d">AI 每天掃全網熱點<br>寫 4-5 個選題進 Notion</div></div>
+      <div class="farr">＋</div>
+      <div class="fbox"><div class="ic">📥</div><div class="t">素材收集箱</div><div class="d">你看到好文好片<br>貼連結進來</div></div>
+      <div class="farr">→</div>
+      <div class="fbox"><div class="ic">✅</div><div class="t">打勾</div><div class="d">想做哪題<br>勾「選這個」</div></div>
+      <div class="farr">→</div>
+      <div class="fbox"><div class="ic">✍️</div><div class="t">文案自動產出</div><div class="d">FB 貼文＋短影音逐字稿<br>寫回同一頁</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section>
+  <div class="step-head"><div class="step-num">0</div><h2>課前準備</h2><span class="once">只做一次</span></div>
+  <div class="card">
+    <ol>
+      <li><b>Notion 帳號</b>（免費版就夠）— 手機也裝 Notion App，之後貼素材才方便</li>
+      <li><b>Claude 帳號</b>（claude.ai）— 需要 <b>Pro 方案</b>才能連接 Notion（連接器是付費功能）</li>
+    </ol>
+    <div class="hint">💡 有這兩個帳號，接下來全部加起來不到 10 分鐘就建完。</div>
+  </div>
+</section>
+
+<section>
+  <div class="step-head"><div class="step-num">1</div><h2>複製 Notion 模板</h2><span class="once">只做一次</span></div>
+  <div class="card">
+    <p>點下面按鈕打開模板 → 按右上角「<b>複製 Duplicate</b>」→ 選你自己的 Notion 工作區。兩個資料庫（每日選題雷達＋素材收集箱）連同示範資料就進你家了。</p>
+    <a class="btn gold" id="tpl" href="https://app.notion.com/p/3a6f939035da815cae11c717c7e815e3" target="_blank" rel="noopener">📋 複製選題雷達模板</a>
+  </div>
+</section>
+
+<section>
+  <div class="step-head"><div class="step-num">2</div><h2>把 Claude 接上你的 Notion</h2><span class="once">只做一次</span></div>
+  <div class="card">
+    <ol>
+      <li>打開 <b>claude.ai</b> → 左下角頭像 →「設定 Settings」→「連接器 Connectors」</li>
+      <li>找到 <b>Notion</b> → 按「連接 Connect」→ 跳出 Notion 授權畫面</li>
+      <li>授權時把剛剛複製的「<b>🎯 AI選題雷達系統</b>」那一頁勾進存取範圍 → 完成</li>
+    </ol>
+    <div class="hint">💡 驗收方式：對 Claude 說「你看得到我的每日選題雷達資料庫嗎？」它答得出欄位名稱就是接通了。</div>
+  </div>
+</section>
+
+<section>
+  <div class="step-head"><div class="step-num">3</div><h2>貼指令 A：AI 上網找熱點</h2><span class="daily">每天一次</span></div>
+  <div class="card">
+    <p>先把指令裡兩個【】改成你自己的，之後每天早上開一個新對話、整段貼給 Claude 就好。</p>
+    <div class="fillbox"><b>要改的只有兩個地方：</b>【你的身分】例：中壢的房仲／保險顧問／健身教練；【你的受眾】例：想買房賣房的一般民眾。</div>
+    <div class="prompt">
+      <div class="pbar"><span class="pt">指令 A｜每日選題雷達</span><button class="copybtn" data-copy="pa">一鍵複製</button></div>
+      <pre id="pa">你是我的選題雷達。我的身分：【中壢的房仲】，我的目標受眾：【想買房賣房的一般民眾】。
+
+請照以下步驟執行：
+1. 上網搜尋「今天台灣最熱門的話題」：Google Trends 台灣、Yahoo 新聞熱門排行、社群討論（Threads／Dcard），不限我的行業，先撈全網都在看的熱點；然後再搜我行業今天的重要新聞。
+2. 用「議題層檢驗」篩選：這個話題一般人有沒有感？能不能拗出跟我的專業、受眾的生活或人生選擇有關的切角？只有同行才關心、跨不出行業同溫層的直接丟掉。
+3. 挑出 4-5 個選題，其中至少 2 個要來自全網熱點（不是我的行業新聞），寫進我 Notion 的「每日選題雷達」資料庫，每列填：選題（吸睛標題，不要新聞式標題）、日期（今天）、熱點摘要、核心情緒、適合平台、強度、狀態＝待選。
+4. 每一列的頁面內文寫三件事：為什麼這題會紅（議題層理由）、兩個切角（一個專業角度、一個故事角度）、來源連結。
+
+規則：不要編造事件，每個熱點都要附真實來源；寫完跟我回報一句「今天 X 個選題已進雷達」就好，不用把內容全部貼在對話裡。</pre>
+    </div>
+    <div class="hint">💡 跑完打開 Notion，雷達裡就多了 4-5 列今天的選題，每列點進去有切角分析。</div>
+  </div>
+</section>
+
+<section>
+  <div class="step-head"><div class="step-num">4</div><h2>打勾：挑你想做的題</h2><span class="daily">滑一下手機</span></div>
+  <div class="card">
+    <p>打開「每日選題雷達」，看哪一題有感覺，把那列的「<b>選這個</b>」打勾。就這樣，一個動作。</p>
+    <div class="hint">💡 手機 Notion App 也能勾——通勤、等客戶的空檔就能完成「選題」這件事。</div>
+  </div>
+</section>
+
+<section>
+  <div class="step-head"><div class="step-num">5</div><h2>貼指令 B：文案自動生出來</h2><span class="daily">每天一次</span></div>
+  <div class="card">
+    <p>勾完後對 Claude 貼這段（同一個對話或新對話都可以）：</p>
+    <div class="prompt">
+      <div class="pbar"><span class="pt">指令 B｜勾選產稿</span><button class="copybtn" data-copy="pb">一鍵複製</button></div>
+      <pre id="pb">去我 Notion 的「每日選題雷達」資料庫，找出「選這個」有打勾、而且狀態不是「完成」的列。對每一列做以下事情：
+
+1. 先讀該列頁面內文的切角與來源，需要時上網補查最新細節。
+2. 寫一篇 FB 貼文：第一段就抓痛點、段落要短、口語有力道、結尾一句金句或行動呼籲；用我的身分【中壢的房仲】第一人稱寫，寫給【想買房賣房的一般民眾】看。
+3. 寫一支 60-80 秒的短影音逐字稿：開頭 3 秒要有鉤子，內容全部是我要對著鏡頭念出來的話——逐字稿裡不可以有任何標題符號、#、HTML、（鏡頭指示）之類的東西；拍攝建議另外寫，放在逐字稿外面。
+4. 把成品寫回該列的頁面內文：FB 貼文放一個程式碼框（方便我一鍵複製）、短影音逐字稿放另一個程式碼框、拍攝建議放框外。
+5. 該列狀態改成「完成」。
+
+規則：不要編造數據與案例，拿不準的就寫保守；寫完自己檢查一次錯字再收工。</pre>
+    </div>
+    <div class="hint">💡 回 Notion 打開那一列：FB 貼文、短影音逐字稿都在裡面，程式碼框右上角按一下就複製，貼去 FB／讀稿機直接用。</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section>
+  <span class="route-tag">第二條路</span>
+  <div class="step-head"><div class="step-num">＋</div><h2>素材收集箱：看到好東西，讓 AI 拆給你</h2></div>
+  <div class="card">
+    <p>滑手機看到一篇好新聞、一支爆款影片——別只按讚，<b>貼連結進「素材收集箱」</b>，想做的時候打勾，然後貼這段：</p>
+    <div class="prompt">
+      <div class="pbar"><span class="pt">指令 C｜素材拆解改寫</span><button class="copybtn" data-copy="pc">一鍵複製</button></div>
+      <pre id="pc">去我 Notion 的「素材收集箱」資料庫，找出「選這個」有打勾、而且狀態不是「完成」的列。對每一列做以下事情：
+
+1. 打開「連結」讀內容；如果是影片、讀不到內容，就改讀「逐字稿/備註」欄；兩個都沒有內容，就在該列頁面內文留一句「請補逐字稿」然後跳過這列。
+2. 先拆解：這篇文章／這支影片為什麼會紅？它的鉤子是什麼、結構怎麼走、踩中什麼情緒？簡短寫在頁面內文。
+3. 用同樣的爆款邏輯改寫成「我的版本」：我的身分是【中壢的房仲】，換成我的觀點、我的在地例子，絕對不要照抄原文。產出一篇 FB 貼文＋一支 60-80 秒短影音逐字稿（逐字稿零符號、成品放程式碼框，規則跟指令 B 一樣）。
+4. 寫回該列頁面內文，狀態改「完成」。</pre>
+    </div>
+    <div class="hint">💡 從此你滑手機不是在耍廢，是在幫你的內容生產線進貨。</div>
+  </div>
+</section>
+
+<section>
+  <div class="tips">
+    <h3>⚠️ 五個眉角（先知道，少走冤枉路）</h3>
+    <ul>
+      <li><b>AI 寫的是 80 分底稿，不是成品。</b>發之前一定自己讀一遍：改成你的口氣、換你的真實案例、檢查錯字——你的專業判斷才是那 20 分的靈魂。</li>
+      <li><b>不要讓 AI 編案例、編數字。</b>指令裡已經寫了禁止編造，但發文前還是要核對，數字錯一次，信任賠三年。</li>
+      <li><b>逐字稿就是拿來念的。</b>裡面出現 #、標題、鏡頭指示都是垃圾，要求 AI 重寫，不要自己手動刪。</li>
+      <li><b>面向消費者的內容，不要寫「我用 AI」。</b>AI 是你後台的功夫；客人要的是「這個人很懂」，不是「這個人很會用工具」。</li>
+      <li><b>每天固定時間跑指令 A。</b>建議綁一個既有習慣：早上開晨會前、第一杯咖啡的時候。系統會不會活，差在這一步有沒有變成習慣。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="step-head"><div class="step-num">★</div><h2>進階：讓它全自動</h2></div>
+  <div class="card">
+    <p>今天教的是「手動擋」：每天貼指令 A、勾完貼指令 B。等你跑順了，這整套可以升級成「自動擋」——用 Claude Code 排程，<b>每天早上 9 點 AI 自己跑雷達、你勾完它自己產稿</b>，連指令都不用貼。</p>
+    <p>老師自己的系統就是全自動版：選題雷達每天 09:00 自動進料、素材箱一天巡三班，打勾之後什麼都不用做。想升級的，先把手動版跑滿兩週、養成打勾的習慣，再來問我。</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="brand">中壢專業房仲喵爸</div>
+  <p style="margin-top:6px;font-size:.9rem;">房仲專業 × AI 自媒體實戰</p>
+  <div class="links">
+    <a href="https://line.me/ti/p/M-tek5DmH6" target="_blank" rel="noopener">💬 LINE 諮詢</a>
+    <a href="https://cathome.tw" target="_blank" rel="noopener">🏠 官方網站</a>
+  </div>
+  <p class="fine">本講義為課程教材，內容僅供學員使用。</p>
+</footer>
+
+<script>
+document.querySelectorAll('.copybtn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var txt=document.getElementById(btn.dataset.copy).innerText;
+    navigator.clipboard.writeText(txt).then(function(){
+      var o=btn.textContent;btn.textContent='✅ 已複製';
+      setTimeout(function(){btn.textContent=o;},1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
