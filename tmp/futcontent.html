@@ -1,0 +1,159 @@
+<!-- wp:html -->
+<style id="cw-art-css">
+.single .entry-content .cw-tldr{background:linear-gradient(180deg,#f5f8fc,#eaf1fa);border:1px solid #dde7f1;border-left:5px solid #ff6a3d;border-radius:14px;padding:22px 26px;margin:0 0 2.2em}
+.single .entry-content .cw-tldr-h{display:flex;align-items:center;gap:9px;font-weight:800;color:#13314f;font-size:18.5px;margin:0 0 13px;letter-spacing:.3px}
+.single .entry-content .cw-tldr-h svg{width:21px;height:21px;flex:0 0 auto}
+.single .entry-content .cw-tldr ul{margin:0!important;padding:0!important;list-style:none!important}
+.single .entry-content .cw-tldr li{position:relative;padding-left:25px;margin:0 0 .6em;line-height:1.8;color:#1f2933;font-size:16.5px}
+.single .entry-content .cw-tldr li:last-child{margin-bottom:0}
+.single .entry-content .cw-tldr li::before{content:"";position:absolute;left:3px;top:.66em;width:8px;height:8px;border-radius:50%;background:#ff6a3d}
+.single .entry-content .cw-faq{margin:2.4em 0 1.4em}
+.single .entry-content .cw-faq h2{margin-top:.2em}
+.single .entry-content .cw-faq details{border:1px solid #e7ecf1;border-radius:12px;margin-bottom:12px;background:#fff;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+.single .entry-content .cw-faq details[open]{box-shadow:0 8px 24px rgba(19,49,79,.08);border-color:#dbe6f1}
+.single .entry-content .cw-faq summary{cursor:pointer;list-style:none;padding:16px 52px 16px 20px;font-weight:700;color:#13314f;font-size:17px;line-height:1.6;position:relative}
+.single .entry-content .cw-faq summary::-webkit-details-marker{display:none}
+.single .entry-content .cw-faq summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:25px;font-weight:300;color:#ff6a3d;line-height:1}
+.single .entry-content .cw-faq details[open] summary::after{content:"−"}
+.single .entry-content .cw-faq .cw-faq-a{padding:2px 20px 18px;color:#3a4654;font-size:16px;line-height:1.85}
+.single .entry-content .cw-faq .cw-faq-a p{margin:0 0 .7em}
+.single .entry-content .cw-faq .cw-faq-a p:last-child{margin:0}
+.single .entry-content .cw-related{background:#13314f;border-radius:16px;padding:22px 26px;margin:2.2em 0 1em}
+.single .entry-content .cw-related-h{color:#ffd24a;font-weight:800;font-size:16.5px;margin:0 0 14px;letter-spacing:.5px}
+.single .entry-content .cw-related ul{margin:0!important;padding:0!important;list-style:none!important}
+.single .entry-content .cw-related li{margin:0 0 11px!important;padding:0!important;line-height:1.55;list-style:none!important}
+.single .entry-content .cw-related li:last-child{margin-bottom:0!important}
+.single .entry-content .cw-related a{color:#dce8f5!important;text-decoration:none!important;font-size:16px;font-weight:600;border:0!important}
+.single .entry-content .cw-related a::before{content:"→ ";color:#ff6a3d;font-weight:800}
+.single .entry-content .cw-related a:hover{color:#fff!important;text-decoration:underline!important}
+.tbl{overflow-x:auto;margin:1.2em 0 1.5em}
+.tbl table{border-collapse:collapse;width:100%;font-size:15.5px;font-variant-numeric:tabular-nums;margin:0}
+.tbl th{background:#13314f;color:#fff;font-weight:700;padding:10px 14px;text-align:left;letter-spacing:.5px;border:1px solid #13314f}
+.tbl td{border:1px solid #e7ecf1;padding:10px 14px;background:#fff}
+.tbl tr:nth-child(even) td{background:#f7fafc}
+.tbl .hl td{background:#fff7f2!important}
+.warn{background:#fff8ec;border:1px solid #f5e3bb;border-left:5px solid #e8a93c;border-radius:12px;padding:16px 20px;margin:1.4em 0;font-size:16px}
+.warn b{color:#8a5a00}
+.fig{background:#f8fafc;border:1px solid #e7ecf1;border-radius:14px;padding:22px 24px 18px;margin:1.4em 0 1.8em}
+.fig-t{font-weight:800;color:#13314f;font-size:16px;margin:0 0 4px;letter-spacing:.3px}
+.fig-s{color:#7b8794;font-size:13px;margin:0 0 16px}
+.fig-note{color:#7b8794;font-size:12.5px;margin:12px 0 0;line-height:1.6}
+@media(max-width:640px){.fig{padding:16px 14px 14px}}
+.tl{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:12px;overflow:hidden;border:1px solid #e7ecf1}
+.tl>div{padding:16px 18px}
+.tl .t20{background:#eef4fb}
+.tl .t30{background:#fff1ea}
+.tl .tt{font-size:13px;font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.tl .t20 .tt{color:#2a5a90}
+.tl .t30 .tt{color:#c2410c}
+.tl .td1{font-size:19px;font-weight:800;color:#13314f;font-variant-numeric:tabular-nums}
+.tl .td2{font-size:13.5px;color:#3a4654;line-height:1.6;margin-top:4px}
+.cw-tool{background:linear-gradient(135deg,#13314f,#1d4a75);border-radius:16px;padding:26px 28px;margin:2.2em 0;text-align:center;box-shadow:0 10px 30px rgba(19,49,79,.18)}
+.cw-tool .tt{color:#ffd24a!important;font-weight:800;font-size:13.5px;letter-spacing:1.5px;margin:0 0 8px!important}
+.cw-tool h3{color:#fff!important;font-size:21px;font-weight:800;margin:0 0 10px!important;line-height:1.5}
+.cw-tool p.d{color:#cfe0f0!important;font-size:15.5px;margin:0 0 18px!important;line-height:1.7}
+.cw-tool a.tbtn{display:inline-block;background:#ff6a3d;color:#fff!important;font-weight:800;font-size:17px;padding:14px 34px;border-radius:999px;text-decoration:none!important;box-shadow:0 6px 18px rgba(255,106,61,.4);border:0!important}
+.cw-tool a.tbtn:hover{background:#ff5a26;color:#fff!important;text-decoration:none!important}
+.cw-tool p.hint{color:#9fb8cf!important;font-size:13px;margin:14px 0 0!important}
+@media(max-width:640px){.cw-tool{padding:22px 18px}.cw-tool h3{font-size:18.5px}.cw-tool a.tbtn{font-size:16px;padding:13px 24px}}
+</style>
+<div class="cw-tldr">
+<div class="cw-tldr-h"><svg viewBox="0 0 24 24" fill="none" stroke="#ff6a3d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>本文重點</div>
+<ul>
+<li><strong>立法院 115 年 7 月 24 日三讀通過《台灣兒少成長及未來帳戶條例》</strong>：出生給 6 萬啟動金、18 歲前政府逐年撥入，<strong>18 歲保底 114 萬</strong>。</li>
+<li><strong>跟買房直接相關</strong>：這筆錢 18 歲提領時，法定 6 項用途裡就有「<strong>購屋自備款</strong>」和「租屋費用」——等於政府幫下一代存頭期款。</li>
+<li><strong>沒有排富、人人有份</strong>，家長自存不限額還能抵稅；不影響中低收入戶等社福資格。</li>
+<li><strong>但先別急著開心</strong>：行政院強調預算編列是其憲法職權、將依既有政策推動——<strong>實際上路時程與細節仍有變數</strong>。</li>
+<li>喵爸的提醒：<strong>114 萬是 18 年後的錢，你家的買房計畫不能等 18 年</strong>——現在的新青安3.0（育兒最高貸 1,500 萬）才是這一代爸媽用得到的。</li>
+</ul>
+</div>
+
+<p>這兩天很多爸媽在傳同一則新聞：以後小孩一出生，就有一個政府幫忙存錢的帳戶，18 歲拿到保底 114 萬。</p>
+<p>大部分報導都在吵預算、吵誰提的版本好。但喵爸看到的是另一件事——<strong>條文裡白紙黑字寫著，這筆錢可以用來付「購屋自備款」。</strong></p>
+<p>等於國家第一次把「幫下一代存頭期款」寫進法律裡。今天不談誰對誰錯，喵爸只用房仲的角度，帶你看懂這個帳戶跟你家買房計畫的關係——以及<strong>三個多數人還沒想到的真相</strong>。</p>
+
+<h2>一、「未來帳戶」是什麼？兩個帳戶先分清楚</h2>
+<p>這次通過的條例其實是<strong>雙軌制</strong>，一次給兩個帳戶，性質完全不同：</p>
+<div class="tbl"><table>
+<tr><th>　</th><th>兒少成長津貼專戶</th><th>台灣未來帳戶</th></tr>
+<tr><td><strong>性質</strong></td><td>一般金融帳戶</td><td>信託專戶（長期投資）</td></tr>
+<tr><td><strong>政府給多少</strong></td><td>0～6 歲每年 6 萬<br>7～17 歲每年 3 萬</td><td>出生啟動金 6 萬<br>7～17 歲每年 3 萬</td></tr>
+<tr><td><strong>什麼時候能領</strong></td><td><strong>隨時可領</strong>，減輕育兒負擔</td><td><strong>滿 18 歲</strong>才能一次提領</td></tr>
+<tr class="hl"><td><strong>用途限制</strong></td><td>無</td><td><strong>限 6 項：就學、就業、職業訓練、創業、購屋自備款、租屋費用</strong></td></tr>
+</table></div>
+<p>白話講：一個是<strong>現在就能花的育兒津貼</strong>，一個是<strong>鎖到 18 歲的成年禮</strong>。兩個加起來，一個小孩從出生到 18 歲，政府保底投入 114 萬。</p>
+<p>幾個爸媽最關心的細節：</p>
+<p>・<strong>不用跑公所</strong>——政府主動列冊開戶，錢自動撥入。<br>
+・<strong>沒有排富</strong>——不像很多補貼要看所得，這個人人有份。<br>
+・<strong>家長可以加碼</strong>——自己存進未來帳戶不限金額，還能<strong>列舉扣除抵綜所稅、不計入贈與稅</strong>；阿公阿嬤想幫孫子存錢，這是新的節稅路。<br>
+・<strong>不影響社福</strong>——這筆錢不計入中低收入戶的家庭收入計算。<br>
+・<strong>收益有保底</strong>——投資收益不得低於二年定存利率，不足由國庫補。</p>
+
+<h2>二、重點來了：這筆錢，法律寫明可以拿來買房</h2>
+<p>未來帳戶滿 18 歲提領時要檢附用途證明，只認 6 項——其中兩項就是<strong>「購屋自備款」跟「租屋費用」</strong>。</p>
+<p>這件事的意義，比金額本身大：</p>
+<p><strong>國家等於承認了一件事——「頭期款」已經是年輕人成家最大的門檻，大到需要從出生開始存。</strong></p>
+<p>對照你現在手上的另一個政策，會看到一條完整的線：</p>
+
+<div class="fig">
+<p class="fig-t">🏠 政府的兩代購屋支持，接起來看</p>
+<p class="fig-s">一個幫現在的你，一個幫 18 年後的孩子</p>
+<div class="tl">
+  <div class="t30"><div class="tt">現在・新青安3.0</div><div class="td1">幫「這一代爸媽」買房</div><div class="td2">育有未成年子女→額度最高 <strong>1,500 萬</strong><br>8/1 上路，利率前 3 年 1.775%</div></div>
+  <div class="t20"><div class="tt">18 年後・未來帳戶</div><div class="td1">幫「下一代」存頭期款</div><div class="td2">18 歲保底 <strong>114 萬</strong><br>法定用途含購屋自備款、租屋費用</div></div>
+</div>
+<p class="fig-note">同一個邏輯：政府用資源換生育率，而「房子」就在這條政策線的正中央。</p>
+</div>
+
+<p>一句話總結：<strong>政府現在幫你買房，18 年後再幫你的小孩付頭期款。</strong>生育政策跟住宅政策，第一次這麼明白地綁在一起。</p>
+
+<h2>三、三個多數人還沒想到的真相</h2>
+
+<h3>真相一：114 萬，付得起 18 年後的頭期款嗎？</h3>
+<p>先講一個殘酷的對照：<strong>回頭看 18 年前的中壢房價，再看今天</strong>——同一個地段、同一種產品，總價早已不是同一個世界。</p>
+<p>114 萬以今天的行情，在中壢大約是一間千萬上下房子頭期款的一部分。但 18 年後呢？沒有人說得準。</p>
+<p>條例有設「防通膨機制」：每 3 年參考消費者物價指數（CPI）檢討調整金額。立意好，但你要知道一件事——<strong>長期來看，房價的漲幅經常跑在物價前面</strong>。用 CPI 調整，追得上生活費，未必追得上頭期款。</p>
+<p>所以喵爸的判讀是：<strong>這筆錢是「補貼」，不是「答案」。</strong>把它當成孩子未來的助力很好，把它當成「不用煩惱買房了」，就想錯了。</p>
+
+<h3>真相二：對現在正要買房的你，真正有感的不是這個</h3>
+<p>未來帳戶是 18 年後的事。<strong>你家現在的買房計畫，靠的是 8 月 1 日上路的新青安3.0</strong>——育有未成年子女的家庭，額度直接拉到 1,500 萬，這才是這一代爸媽當下用得到的政策紅利。</p>
+<p>兩個政策指向同一件事：<strong>「有小孩的家庭」是政府現在最想幫的一群人。</strong>如果你剛好是，這一兩年就是政策對你最友善的窗口。</p>
+
+<h3>真相三：這個帳戶什麼時候真的入帳，還是未知數</h3>
+<div class="warn"><b>⚠️ 誠實講在前面：</b>條例雖然三讀通過，但行政院的回應是「提出施政計畫、編列政府預算是行政院的憲法職權」，並表示將依既有政策規劃推動——<b>意思是，這個帳戶的預算會不會編、什麼時候開始撥錢，仍有相當變數</b>。本文以三讀條文內容整理，實際實施時間與細節，請以政府後續公告為準。喵爸會持續追蹤，有定案會再更新。</div>
+
+<h2>喵爸的建議</h2>
+<p>身為爸爸，也身為房仲，喵爸看這個政策的心情是複雜的。</p>
+<p>樂見國家開始幫孩子存未來——但也想提醒每一個爸媽三件事：</p>
+<p><strong>1. 別把 18 年後的 114 萬，排進你現在的購屋計畫。</strong>那是孩子的錢、孩子的時代，你家現在的頭期款還是要自己存。</p>
+<p><strong>2. 如果你有小孩、正在考慮買房——先看新青安3.0，不是未來帳戶。</strong>1,500 萬的額度、1.775% 的利率，是現在進行式；114 萬是 18 年後的未完成式。</p>
+<p><strong>3. 政策會變，房價不等人。</strong>從新青安 1.0 到 3.0，每一次改版都有人受惠、有人被排除。與其等政策，不如先把自己的條件算清楚——機會來的時候，你才接得住。</p>
+
+<div class="cw-tool">
+<p class="tt">⚡ 免費工具</p>
+<h3>家裡有小孩？你可能正是新青安3.0 最大受益者</h3>
+<p class="d">育兒家庭額度最高 1,500 萬。30 秒點一點，馬上知道你符不符合資格、能貸多少、月付金大概多少。不用留任何個資。</p>
+<a class="tbtn" href="https://loan.cathome.tw/" target="_blank" rel="noopener">▶ 立即測我的青安3.0資格</a>
+<p class="hint">中壢專業房仲喵爸出品・完全免費</p>
+</div>
+
+<section class="cw-faq">
+<h2>常見問題 FAQ</h2>
+<details><summary>台灣未來帳戶是什麼？18 歲真的能拿到 114 萬嗎？</summary><div class="cw-faq-a"><p>是立法院 115 年 7 月 24 日三讀通過的制度：出生給 6 萬啟動金，加上 18 歲前政府逐年撥入的津貼與撥補款，在完全不提領的情況下保底 114 萬（家長自存與企業贊助另計，投資收益保底二年定存利率）。但要注意：行政院對預算編列持保留態度，實際上路時程仍有變數。</p></div></details>
+<details><summary>未來帳戶的錢可以拿來買房嗎？</summary><div class="cw-faq-a"><p>可以。滿 18 歲提領時檢附證明，法定 6 項用途包含「購屋自備款」與「租屋費用」（其餘為就學、就業、職業訓練、創業）。若無法提出用途證明，只能領回家長自存款與企業贊助款，政府撥入的部分歸屬國庫。</p></div></details>
+<details><summary>有排富條款嗎？領了會影響低收入戶資格嗎？</summary><div class="cw-faq-a"><p>沒有排富，未滿 18 歲、在國內居住滿 183 天的國民都適用。而且法案明定這筆錢不計入《社會救助法》與《所得稅法》的家庭收入計算，不影響弱勢家庭的其他補助資格。</p></div></details>
+<details><summary>家長可以幫小孩多存嗎？有什麼好處？</summary><div class="cw-faq-a"><p>可以，自存款不限金額，且享綜合所得稅列舉扣除、不計入贈與稅額度；家長的雇主每年還可贊助最高 5 萬元（企業享獎勵與免稅措施）。對想幫子女長期存錢的家庭，是新的合法節稅管道。</p></div></details>
+<details><summary>18 年後的 114 萬會不會被通膨吃掉？</summary><div class="cw-faq-a"><p>條例設有防通膨機制：每 3 年參考 CPI 檢討調整金額。但要提醒，長期而言房價漲幅經常高於物價漲幅，CPI 調整追得上生活費、未必追得上頭期款。把這筆錢當「助力」規劃即可，別當成買房的全部。</p></div></details>
+<details><summary>我現在有小孩、想買房，該關注未來帳戶還是新青安3.0？</summary><div class="cw-faq-a"><p>新青安3.0。未來帳戶是孩子 18 年後的事；新青安3.0 於 115 年 8 月 1 日上路，育有未成年子女的家庭最高可貸 1,500 萬、前 3 年利率 1.775%，是現在就用得到的政策。可先用喵爸的免費工具測試資格。</p></div></details>
+</section>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"台灣未來帳戶是什麼？18 歲真的能拿到 114 萬嗎？","acceptedAnswer":{"@type":"Answer","text":"立法院 115 年 7 月 24 日三讀通過：出生給 6 萬啟動金，加上 18 歲前政府逐年撥入的津貼與撥補款，不提領的情況下保底 114 萬。但行政院對預算編列持保留態度，實際上路時程仍有變數。"}},{"@type":"Question","name":"未來帳戶的錢可以拿來買房嗎？","acceptedAnswer":{"@type":"Answer","text":"可以。滿 18 歲提領時檢附證明，法定 6 項用途包含購屋自備款與租屋費用（其餘為就學、就業、職業訓練、創業）。"}},{"@type":"Question","name":"有排富條款嗎？領了會影響低收入戶資格嗎？","acceptedAnswer":{"@type":"Answer","text":"沒有排富，未滿 18 歲、在國內居住滿 183 天的國民都適用，且不計入社會救助法與所得稅法的家庭收入計算。"}},{"@type":"Question","name":"家長可以幫小孩多存嗎？","acceptedAnswer":{"@type":"Answer","text":"可以，自存款不限金額，享綜所稅列舉扣除、不計入贈與稅；家長的雇主每年可贊助最高 5 萬元。"}},{"@type":"Question","name":"18 年後的 114 萬會不會被通膨吃掉？","acceptedAnswer":{"@type":"Answer","text":"條例每 3 年參考 CPI 檢討調整金額，但長期而言房價漲幅經常高於物價漲幅，建議把這筆錢當助力規劃，別當成買房的全部。"}},{"@type":"Question","name":"我現在有小孩、想買房，該關注未來帳戶還是新青安3.0？","acceptedAnswer":{"@type":"Answer","text":"新青安3.0。它於 115 年 8 月 1 日上路，育有未成年子女的家庭最高可貸 1,500 萬、前 3 年利率 1.775%，是現在就用得到的政策。"}}]}</script>
+<aside class="cw-related">
+<div class="cw-related-h">📌 延伸閱讀</div>
+<ul>
+<li><a href="https://cathome.tw/xinqingan-3-0-zhongli-guide/">新青安3.0懶人包！2000萬上限你踩不到，卡你的是年齡跟排富</a></li>
+<li><a href="https://cathome.tw/mortgage-grace-period-should-you-use-it/">房貸寬限期是什麼？該不該用？中壢買房用錯反而把自己套牢</a></li>
+<li><a href="https://cathome.tw/taoyuan-zhongli-housing-market-2026-outlook/">2026 桃園中壢房市會不會跌？喵爸給買賣方的真心話</a></li>
+<li><a href="https://cathome.tw/zhongli-mortgage-loan-guide/">中壢買房必看！房貸難貸千萬？喵爸教你破解之道</a></li>
+</ul>
+</aside>
+<!-- /wp:html -->
