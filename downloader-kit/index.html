@@ -3,35 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>影片下載器＋逐字稿工具包｜安裝教學（中壢專業房仲喵爸）</title>
-<meta name="description" content="貼網址就能下載 FB / IG / TikTok / YouTube 公開影片，並自動產出繁體中文逐字稿。中壢專業房仲喵爸分享的免費工具包，照著三步驟裝好。">
+<title>影片下載＋逐字稿工具包｜安裝教學（中壢專業房仲喵爸）</title>
+<meta name="description" content="貼上網址就能下載 FB / IG / TikTok / YouTube 公開影片，並自動產出繁體中文逐字稿。免費 Windows 工具包，照著四步驟裝，全程不用問人。">
+<meta property="og:title" content="影片下載＋逐字稿工具包｜安裝教學">
+<meta property="og:description" content="貼網址就下載影片，還自動幫你打好繁體逐字稿。免費工具包，四步驟裝好。">
 <style>
+  :root{
+    --ivory:#F4EFE6; --navy:#13293D; --gold:#C9A24B;
+    --ink:#25313d; --muted:#6b7683; --line:#e3dccf;
+    --card:#fffdf9; --ok:#1f6b46; --warn:#8a5a00;
+  }
   *{box-sizing:border-box}
-  body{font-family:"Microsoft JhengHei","PingFang TC",sans-serif;background:#f2f6f2;margin:0;color:#222;line-height:1.7}
-  .wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-  header{text-align:center;padding:36px 12px 20px}
-  header h1{font-size:26px;margin:0 0 10px}
-  header .sub{color:#555;font-size:15px}
-  .pill{display:inline-block;background:#e8f5e9;color:#2e7d32;border-radius:20px;padding:4px 14px;font-size:13px;font-weight:bold;margin:4px 3px}
-  .card{background:#fff;border-radius:14px;padding:22px 20px;margin:16px 0;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-  .step{display:flex;gap:14px;align-items:flex-start}
-  .num{flex:0 0 40px;height:40px;border-radius:50%;background:#2e7d32;color:#fff;font-size:20px;font-weight:bold;display:flex;align-items:center;justify-content:center}
-  .step h2{font-size:19px;margin:6px 0 8px}
-  .step p{margin:6px 0;font-size:15px}
-  .tip{background:#fff8e1;border-left:4px solid #f9a825;border-radius:6px;padding:10px 12px;font-size:14px;margin:10px 0}
-  .btn{display:block;text-align:center;background:#2e7d32;color:#fff;font-size:18px;font-weight:bold;text-decoration:none;border-radius:12px;padding:16px;margin:14px 0 6px}
-  .btn:active{background:#1b5e20}
-  .small{color:#777;font-size:13px;text-align:center}
-  code{background:#eef2ee;padding:2px 8px;border-radius:5px;font-size:14px;word-break:break-all}
-  .file{background:#eef2ee;border-radius:8px;padding:2px 8px;font-weight:bold;white-space:nowrap}
-  details{background:#fff;border-radius:12px;padding:14px 18px;margin:10px 0;box-shadow:0 1px 6px rgba(0,0,0,.05)}
-  summary{font-weight:bold;font-size:15px;cursor:pointer}
-  details p{font-size:14px;margin:10px 0 4px;color:#444}
-  h3.sec{font-size:18px;margin:30px 0 6px;color:#2e7d32}
-  footer{text-align:center;margin-top:44px;font-size:14px;color:#666}
-  footer a{color:#2e7d32;font-weight:bold;text-decoration:none}
-  ul{padding-left:20px;margin:6px 0}
-  li{margin:4px 0;font-size:15px}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:"Microsoft JhengHei","PingFang TC","Noto Sans TC",sans-serif;
+       background:var(--ivory);margin:0;color:var(--ink);line-height:1.75;font-size:16px}
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px 72px}
+
+  header{text-align:center;padding:44px 8px 8px}
+  header h1{font-size:28px;margin:0 0 10px;color:var(--navy);letter-spacing:.5px}
+  header .sub{color:var(--muted);font-size:16px}
+  .pills{margin-top:14px}
+  .pill{display:inline-block;background:#fff;border:1px solid var(--line);color:var(--navy);
+        border-radius:20px;padding:3px 13px;font-size:13px;font-weight:700;margin:4px 3px}
+  .pill.g{background:var(--gold);border-color:var(--gold);color:#3a2b06}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+        padding:22px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(19,41,61,.05)}
+
+  .pcnote{background:var(--navy);color:#fff;border-radius:14px;padding:16px 18px;margin:20px 0;font-size:15px}
+  .pcnote b{color:var(--gold)}
+
+  h2.sec{font-size:20px;color:var(--navy);margin:36px 0 4px;
+         border-left:5px solid var(--gold);padding-left:11px}
+  .secsub{color:var(--muted);font-size:14px;margin:0 0 6px;padding-left:16px}
+
+  .step{display:flex;gap:15px;align-items:flex-start}
+  .num{flex:0 0 42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;
+       font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:19px;margin:5px 0 8px;color:var(--navy);line-height:1.45}
+  .step p{margin:8px 0}
+  .step .body{flex:1;min-width:0}
+
+  .btn{display:block;text-align:center;background:var(--navy);color:#fff;font-size:19px;
+       font-weight:700;text-decoration:none;border-radius:12px;padding:17px 12px;margin:16px 0 8px}
+  .btn:hover{background:#1d3a55}
+  .btn small{display:block;font-weight:400;font-size:13px;opacity:.8;margin-top:3px}
+
+  .danger{background:#fff4ec;border:2px solid #d9741f;border-radius:12px;padding:14px 16px;margin:12px 0}
+  .danger .t{font-weight:700;color:#a2500c;font-size:16px;margin-bottom:4px}
+  .tip{background:#fdf7e6;border-left:4px solid var(--gold);border-radius:0 8px 8px 0;
+       padding:11px 14px;font-size:15px;margin:12px 0}
+  .good{background:#eef6f1;border-left:4px solid var(--ok);border-radius:0 8px 8px 0;
+        padding:11px 14px;font-size:15px;margin:12px 0}
+
+  .file{background:var(--navy);color:#fff;border-radius:6px;padding:2px 9px;
+        font-weight:700;white-space:nowrap;font-size:15px}
+  code{background:#eee8dc;padding:2px 8px;border-radius:5px;font-size:14px;word-break:break-all}
+
+  ol.plain,ul.plain{padding-left:22px;margin:8px 0}
+  ol.plain li,ul.plain li{margin:6px 0}
+
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;
+          padding:13px 17px;margin:9px 0}
+  details[open]{border-color:var(--gold)}
+  summary{font-weight:700;font-size:16px;cursor:pointer;color:var(--navy)}
+  details .a{font-size:15px;margin:11px 0 3px;color:#3c4956}
+
+  .checklist{list-style:none;padding:0;margin:8px 0}
+  .checklist li{padding:7px 0 7px 30px;position:relative;border-bottom:1px dashed var(--line)}
+  .checklist li:last-child{border-bottom:0}
+  .checklist li::before{content:"✔";position:absolute;left:4px;color:var(--ok);font-weight:700}
+
+  footer{text-align:center;margin-top:52px;padding-top:24px;border-top:1px solid var(--line);
+         font-size:15px;color:var(--muted)}
+  footer a{color:var(--navy);font-weight:700;text-decoration:none;border-bottom:2px solid var(--gold)}
+  @media(max-width:480px){
+    header h1{font-size:23px}
+    .num{flex:0 0 36px;height:36px;font-size:18px}
+    .step h3{font-size:17px}
+  }
 </style>
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
 </head>
@@ -39,67 +89,148 @@
 <div class="wrap">
 
 <header>
-  <h1>🎬 影片下載器＋逐字稿工具包</h1>
-  <div class="sub">貼上網址就下載影片，還自動幫你打好繁體逐字稿</div>
-  <div style="margin-top:10px">
-    <span class="pill">FB Reels</span><span class="pill">IG</span><span class="pill">TikTok</span><span class="pill">YouTube</span><span class="pill">免費</span>
+  <h1>🎬 影片下載＋逐字稿工具包</h1>
+  <div class="sub">貼上網址就下載影片，還自動幫你打好一份繁體逐字稿</div>
+  <div class="pills">
+    <span class="pill">FB Reels</span><span class="pill">Instagram</span><span class="pill">TikTok</span><span class="pill">YouTube</span><span class="pill g">完全免費</span>
   </div>
 </header>
 
 <div class="card">
-  <b>裝好之後長怎樣？</b>
-  <p style="font-size:15px;margin:8px 0 0">點兩下捷徑 → 自動打開一個「下載器網頁」→ 把影片網址貼進去（一次貼一堆也行）→ 按下載。影片自動存到桌面「影片下載」資料夾，旁邊還躺著一份打好的繁體逐字稿。做自媒體拆片、蒐集素材、留存靈感都好用。</p>
+  <b style="color:#13293D;font-size:17px">裝好之後是這樣用的</b>
+  <p style="margin:10px 0 0">點兩下桌面上的檔案 → 電腦自動跳出一個「下載器網頁」→ 把影片網址貼進去（一次貼十條也行）→ 按下載，就可以去忙別的。<br>
+  影片會自己存到桌面的「<b>影片下載</b>」資料夾，旁邊還躺著一份打好的<b>繁體中文逐字稿</b>。<br>
+  拆別人的爆款影片、蒐集素材、把會議錄音轉成文字，都很好用。</p>
 </div>
 
-<h3 class="sec">安裝三步驟（只有第一次要做）</h3>
+<div class="pcnote">
+  📌 <b>請用「Windows 電腦」打開這一頁</b>，然後照著做。<br>
+  這是電腦程式，<b>手機和 Mac 不能用</b>。現在如果是用手機看，請把這一頁的網址傳到自己的電腦（LINE 傳給自己最快），再從電腦打開。
+</div>
 
-<div class="card"><div class="step"><div class="num">1</div><div>
-  <h2>下載工具包，解壓縮到桌面</h2>
-  <a class="btn" href="downloader-kit.zip" download>⬇️ 下載工具包（zip，約 15KB）</a>
-  <div class="small">需要 Windows 10 或 11 的電腦，手機不能用</div>
-  <p>下載後對 zip 檔按<b>右鍵 →「全部解壓縮」</b>，解到桌面。會得到一個裝著十來個檔案的資料夾。</p>
-</div></div></div>
-
-<div class="card"><div class="step"><div class="num">2</div><div>
-  <h2>點兩下 <span class="file">setup.bat</span>（自動安裝，跑一次就好）</h2>
-  <p>它會自動裝好需要的三樣東西：Python、下載＋轉錄引擎、ffmpeg。全程自動，等它跑完即可（幾分鐘，看網速）。</p>
-  <div class="tip">🔵 跳出藍色「Windows 已保護你的電腦」？<br>按「<b>其他資訊</b>」→「<b>仍要執行</b>」。這是 Windows 對網路下載檔案的例行警告，不是中毒。</div>
-  <div class="tip">🔁 它說「裝好 Python 了，請關掉視窗再跑一次」？<br>照做：關掉黑視窗，<b>再點兩下 setup.bat 一次</b>，讓它把剩下的裝完。</div>
-</div></div></div>
-
-<div class="card"><div class="step"><div class="num">3</div><div>
-  <h2>點兩下 <span class="file">start.bat</span>，開始用！</h2>
-  <p>瀏覽器會自動跳出綠色的「影片下載器」網頁。把影片網址貼進框框（一行一條或整坨貼都行）→ 按「下載」→ 去忙你的，它會自己排隊跑完。</p>
-  <ul>
-    <li>「下載完自動產逐字稿」預設有勾，不想要再取消</li>
-    <li>影片存到桌面「<b>影片下載</b>」資料夾，逐字稿是旁邊的 <code>檔名_逐字稿.txt</code></li>
-    <li>第一次跑逐字稿會先下載 500MB 的語音模型，那一次比較慢，之後就快了</li>
-  </ul>
-  <div class="tip">🌐 黑視窗有在跑，但沒看到網頁？<br>它可能開在你沒在用的瀏覽器（例如 Edge）。自己打開常用的瀏覽器，網址列輸入：<code>http://127.0.0.1:8765</code></div>
-</div></div></div>
-
-<h3 class="sec">平常還能這樣用</h3>
+<h2 class="sec">開始前，先確認三件事</h2>
 <div class="card">
-  <ul>
-    <li><b>手上已經有影片／錄音檔？</b>直接把檔案（或整個資料夾）拖到 <span class="file">transcribe.bat</span> 上放開，就轉出逐字稿。錄音檔 mp3 / m4a 也吃。</li>
-    <li><b>抓下來的影片只有聲音沒畫面？</b>拖到 <span class="file">convert-h264.bat</span> 轉成正常格式。</li>
+  <ul class="checklist">
+    <li>是一台 <b>Windows 10 或 Windows 11</b> 的電腦</li>
+    <li>硬碟還有 <b>2GB 以上</b> 的空間</li>
+    <li>接下來 <b>10～20 分鐘</b>網路不要斷（它要自己下載一些東西）</li>
+  </ul>
+  <div class="good">💡 不用先裝 Python、不用管理員權限、不會動到你電腦原本的任何設定。所有東西都裝在同一個資料夾裡，以後不想要了，<b>整個資料夾丟垃圾桶就乾淨了</b>。</div>
+</div>
+
+<h2 class="sec">安裝四步驟</h2>
+<p class="secsub">只有第一次要做，之後都只要點 start.bat</p>
+
+<!-- STEP 1 -->
+<div class="card"><div class="step"><div class="num">1</div><div class="body">
+  <h3>下載工具包</h3>
+  <a class="btn" href="downloader-kit.zip" download>⬇️ 下載工具包
+    <small>downloader-kit.zip・約 20KB・秒下載</small></a>
+  <p>檔案會進到你電腦的「<b>下載</b>」資料夾。</p>
+</div></div></div>
+
+<!-- STEP 2 -->
+<div class="card"><div class="step"><div class="num">2</div><div class="body">
+  <h3>解壓縮到桌面（<span style="color:#a2500c">最多人卡在這一步</span>）</h3>
+  <div class="danger">
+    <div class="t">⚠️ 不可以直接在壓縮檔裡面點開來用</div>
+    很多人下載完直接雙擊 zip、看到裡面的檔案就點下去——這樣<b>一定裝不起來</b>，因為那只是 Windows 的「預覽」，檔案其實還在壓縮檔裡。
+  </div>
+  <p>正確做法：</p>
+  <ol class="plain">
+    <li>找到剛下載的 <span class="file">downloader-kit.zip</span></li>
+    <li>對它按<b>滑鼠右鍵</b> → 選「<b>全部解壓縮</b>」</li>
+    <li>位置選<b>桌面</b>（或任何你找得到的地方，<b>但不要放在 USB 或網路磁碟</b>）</li>
+    <li>按「解壓縮」→ 會跳出一個新資料夾，裡面躺著十幾個檔案</li>
+  </ol>
+  <div class="good">✅ 判斷成功沒：新資料夾的視窗標題列，路徑要長得像 <code>C:\Users\你的名字\Desktop\downloader-kit</code>。如果路徑裡面有 <code>Temp</code>，就是還沒真的解壓縮，回去重做一次。<br>（不過就算你做錯了也不會怎樣——程式會擋下來，直接跳視窗教你重做。）</div>
+</div></div></div>
+
+<!-- STEP 3 -->
+<div class="card"><div class="step"><div class="num">3</div><div class="body">
+  <h3>點兩下 <span class="file">setup.bat</span>，然後去泡杯咖啡</h3>
+  <p>它會自動把需要的東西全部裝好，<b>你完全不用選、不用按</b>。中間會跳出一個黑色視窗一直捲字，那是正常的，<b>不要關掉它</b>。</p>
+
+  <div class="tip">🔵 <b>跳出藍色的「Windows 已保護您的電腦」？</b><br>
+  按左邊小小的「<b>其他資訊</b>」→ 再按右下角「<b>仍要執行</b>」。<br>
+  這是 Windows 對「從網路下載的檔案」的例行提醒，不是說你中毒。</div>
+
+  <div class="tip">⏳ <b>要跑多久？</b><br>
+  大約 5～15 分鐘，看你的網速（它總共要抓約 800MB 的元件）。<br>
+  黑視窗上會顯示<b>下載進度、速度、還要幾分鐘</b>，數字有在跳就是正常的。<br>
+  <b>跑完會跳出一個「安裝完成」的對話框</b>——看到它才算裝好。</div>
+
+  <div class="tip">🔁 <b>中間網路斷掉、或不小心關掉視窗？</b><br>
+  沒關係，<b>再點一次 setup.bat</b> 就好。它會跳過已經裝好的部分，從斷掉的地方接著裝。</div>
+</div></div></div>
+
+<!-- STEP 4 -->
+<div class="card"><div class="step"><div class="num">4</div><div class="body">
+  <h3>點兩下 <span class="file">start.bat</span>，開始用！</h3>
+  <p>瀏覽器會自動跳出「影片下載器」網頁。把影片網址貼進框框（一行一條，或整坨貼上都行）→ 按「<b>下載</b>」→ 它會自己排隊跑完。</p>
+  <ul class="plain">
+    <li>「<b>下載完自動產逐字稿</b>」預設有勾，不需要的話再取消</li>
+    <li>影片存到桌面「<b>影片下載</b>」資料夾，逐字稿是旁邊的 <code>檔名_逐字稿.txt</code></li>
+    <li>用完直接把黑色視窗關掉就好</li>
+  </ul>
+  <div class="tip">🌐 <b>黑視窗有在跑，但沒看到網頁？</b><br>
+  自己打開常用的瀏覽器，在網址列輸入：<code>http://127.0.0.1:8765</code></div>
+</div></div></div>
+
+<h2 class="sec">平常還能這樣用</h2>
+<div class="card">
+  <ul class="plain">
+    <li><b>手上已經有影片／錄音檔要打逐字稿？</b><br>
+      把檔案（或整個資料夾）用滑鼠<b>拖到</b> <span class="file">transcribe.bat</span> 上面放開，就開始轉。<br>
+      <span style="color:#6b7683;font-size:14px">mp3、m4a 錄音檔也吃。會議錄音、上課錄音都可以。</span></li>
+    <li style="margin-top:12px"><b>抓下來的影片格式怪怪的、剪輯軟體讀不到？</b><br>
+      拖到 <span class="file">convert-h264.bat</span> 上面放開，轉成通用格式。</li>
   </ul>
 </div>
 
-<h3 class="sec">常見問題</h3>
-<details><summary>跳出 Microsoft Store 要我裝 Python？</summary><p>把 Store 關掉，去點兩下 setup.bat。那是 Windows 內建的「假 python 捷徑」，setup.bat 會幫你裝真的。</p></details>
-<details><summary>某支影片顯示「失敗」？</summary><p>只能下載「公開」影片。私人帳號、限好友、要登入才看得到的影片抓不到，這是正常的。</p></details>
-<details><summary>逐字稿沒有標點、不分段？</summary><p>這是語音辨識的先天限制。把 txt 丟給 ChatGPT 或 Claude 說「幫我加標點分段」就整理好了。</p></details>
-<details><summary>都試了還是不行？</summary><p>點兩下資料夾裡的 <b>check.bat</b>，把跳出來的整個視窗截圖，傳給介紹你來的朋友（或丟給 AI），一看就知道卡在哪。</p></details>
+<h2 class="sec">卡住了？先做這一件事</h2>
+<div class="card">
+  <p style="margin-top:0">點兩下資料夾裡的 <span class="file">check.bat</span>。</p>
+  <p>它會自動幫你體檢，在同一個資料夾產生一個 <b>診斷報告.txt</b>，並且直接打開給你看。<br>
+  <b>把那個檔案傳給介紹你來的朋友就好</b>——上面寫得清清楚楚卡在哪一關，你不用會形容、也不用截圖。</p>
+  <div class="tip">如果是安裝那一步失敗，資料夾裡還會有一個 <b>setup-log.txt</b>，一併傳過去更快。</div>
+</div>
 
-<div class="card" style="background:#fff3e0">
+<h2 class="sec">常見問題</h2>
+
+<details><summary>它會不會偷裝東西、有沒有病毒？</summary>
+<p class="a">不會。它只做三件事：下載一份官方的 Python（來自 python.org）、下載開源的影音工具 ffmpeg、下載開源的語音辨識模型。<b>全部裝在你解壓縮出來的那個資料夾裡</b>，不寫登錄檔、不設開機啟動、不需要管理員權限。不想要了整個資料夾刪掉就乾淨。</p></details>
+
+<details><summary>安裝跑到一半停住不動了？</summary>
+<p class="a">中間那段在抓 600MB 左右的東西，網路慢的話看起來像卡住是正常的，先等 10 分鐘。真的不動了就把黑視窗關掉，<b>重新點一次 setup.bat</b>，它會從斷掉的地方接著裝。</p></details>
+
+<details><summary>跳出 Microsoft Store 叫我裝 Python？</summary>
+<p class="a">把 Store 視窗關掉就好，不要在那邊裝。這一版工具包<b>自己帶 Python</b>，不需要你電腦上有 Python。（如果你看到這個畫面，代表你點到的是舊版工具包，請回到本頁重新下載。）</p></details>
+
+<details><summary>我電腦本來就有 Python / Anaconda，會不會打架？</summary>
+<p class="a">不會。這一版刻意<b>不碰你系統上的 Python</b>，它用的是自己資料夾裡那一份，兩邊完全隔開。</p></details>
+
+<details><summary>某支影片顯示「失敗」？</summary>
+<p class="a">只能下載<b>公開</b>影片。私人帳號、限好友、需要登入才看得到的影片抓不到，這是正常的，不是壞掉。</p></details>
+
+<details><summary>逐字稿沒有標點符號、也不分段？</summary>
+<p class="a">這是語音辨識的先天限制。把 txt 內容丟給 ChatGPT 或 Claude，說「幫我加標點、分段落」，三秒就整理好了。長錄音的最後面如果出現同一句話一直重複，那是 AI 在沒人講話的地方「幻聽」，刪掉即可。</p></details>
+
+<details><summary>第一次轉逐字稿特別久？</summary>
+<p class="a">如果安裝時語音模型沒抓成功，第一次轉稿會先補抓約 500MB 的模型，只有那一次會慢，之後就很快（10MB 的短影音大約 11 秒）。</p></details>
+
+<details><summary>可以放在 USB 隨身碟或公司網路磁碟嗎？</summary>
+<p class="a">不建議，會裝失敗。請放在電腦本機，最簡單就是桌面。</p></details>
+
+<div class="card" style="background:#fff4ec;border-color:#e8c9a8">
   <b>⚠️ 使用約定</b>
-  <p style="font-size:14px;margin:8px 0 0">下載的影片僅供個人分析、學習使用，請尊重原創作者，不要盜搬他人內容重新上傳。</p>
+  <p style="font-size:15px;margin:8px 0 0">下載的影片請僅供<b>個人分析、學習</b>使用。尊重原創作者，不要把別人的內容盜搬重新上傳。</p>
 </div>
 
 <footer>
-  這個工具包由 <b>中壢專業房仲喵爸</b> 整理分享 🐱<br>
-  想聊 AI 工具或中壢房市：<a href="https://line.me/R/ti/p/@056ohivi">加 LINE</a>｜<a href="https://cathome.tw">官網 cathome.tw</a>
+  這個工具包由 <b style="color:#13293D">中壢專業房仲喵爸</b> 整理分享 🐱<br>
+  想聊 AI 工具，或中壢桃園的房子問題：<br>
+  <a href="https://line.me/R/ti/p/@056ohivi">加 LINE 找我</a>　｜　<a href="https://cathome.tw">官網 cathome.tw</a>
 </footer>
 
 </div>
