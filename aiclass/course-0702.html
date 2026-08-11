@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 房仲自媒體｜從零起步做出影響力 — 課後重點懶人包</title>
+<meta name="description" content="2026.07.02 永慶四品牌中壢平鎮聯賣區講座課後整理。房仲怎麼用自媒體獲客、定位怎麼抓、對標怎麼拆、AI 怎麼加速、流量怎麼變客戶，附 4 組可直接複製的 AI 指令。">
+<meta property="og:title" content="AI 房仲自媒體｜從零起步做出影響力 — 課後重點懶人包">
+<meta property="og:description" content="三小時課程的重點，一頁看完。附 4 組可直接複製的 AI 指令與行動清單。">
+<meta property="og:type" content="article">
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+<style>
+  :root{
+    --ivory:#F4EFE6;
+    --ivory-2:#FBF8F2;
+    --navy:#13293D;
+    --navy-2:#1D3A55;
+    --gold:#C9A24B;
+    --gold-deep:#7A5E28;
+    --gold-light:#E8C25A;
+    --ink:#22303C;
+    --gray:#5C6B7C;
+    --line:#DED5C6;
+    --red:#9A4636;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+    line-height:1.75;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+  /* ---------- HERO ---------- */
+  .hero{background:var(--navy);color:#fff;padding:56px 0 48px;position:relative;overflow:hidden}
+  .hero:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--gold)}
+  .hero .kicker{color:var(--gold-light);font-size:14px;font-weight:700;letter-spacing:.16em;margin-bottom:14px}
+  .hero h1{font-size:34px;line-height:1.28;font-weight:800;letter-spacing:-.01em}
+  .hero h1 em{font-style:normal;color:var(--gold-light);display:block;font-size:26px;margin-top:8px}
+  .hero .meta{margin-top:22px;font-size:14px;color:#C6D2E2;line-height:2}
+  .hero .tagline{
+    margin-top:26px;padding:18px 20px;border-left:4px solid var(--gold);
+    background:rgba(255,255,255,.06);border-radius:0 10px 10px 0;
+    font-size:17px;font-weight:700;color:#fff
+  }
+
+  /* ---------- 數據 ---------- */
+  .stats{background:var(--navy-2);padding:30px 0 34px}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .stat{background:rgba(0,0,0,.22);border:1px solid rgba(201,162,75,.45);border-radius:12px;padding:16px 10px;text-align:center}
+  .stat b{display:block;font-size:30px;font-weight:800;color:var(--gold-light);line-height:1.15}
+  .stat b small{font-size:15px;font-weight:700}
+  .stat span{display:block;font-size:12.5px;color:#C6D2E2;margin-top:6px;line-height:1.5}
+  .stats-note{margin-top:14px;font-size:13px;color:#AEBECF;text-align:center}
+
+  /* ---------- 目錄 ---------- */
+  .toc{background:var(--ivory-2);border:1px solid var(--line);border-radius:14px;padding:20px;margin:34px 0}
+  .toc h2{font-size:15px;color:var(--gold-deep);letter-spacing:.1em;margin-bottom:12px}
+  .toc ol{list-style:none;counter-reset:t}
+  .toc li{counter-increment:t;border-bottom:1px dashed var(--line)}
+  .toc li:last-child{border-bottom:0}
+  .toc a{display:flex;gap:12px;align-items:baseline;padding:10px 2px;color:var(--navy);text-decoration:none;font-weight:700;font-size:15.5px}
+  .toc a:before{content:counter(t,decimal-leading-zero);color:var(--gold-deep);font-size:13px;font-weight:800;min-width:22px}
+  .toc a:hover{color:var(--gold-deep)}
+
+  /* ---------- 區塊 ---------- */
+  section{padding:14px 0 6px}
+  .part{margin:44px 0 26px;padding:16px 20px;background:var(--navy);border-radius:14px;color:#fff}
+  .part .no{font-size:12.5px;letter-spacing:.2em;color:var(--gold-light);font-weight:800}
+  .part h2{font-size:22px;font-weight:800;margin-top:4px;line-height:1.4}
+  .part p{font-size:14.5px;color:#C6D2E2;margin-top:6px}
+
+  h3{font-size:19px;font-weight:800;color:var(--navy);margin:30px 0 12px;line-height:1.45}
+  h3 .tag{
+    display:inline-block;font-size:12px;font-weight:800;letter-spacing:.08em;
+    color:var(--gold-deep);background:rgba(201,162,75,.16);
+    padding:3px 9px;border-radius:6px;margin-right:8px;vertical-align:2px
+  }
+  p{font-size:16px;margin:12px 0}
+  .lead{font-size:16.5px;color:var(--gray)}
+
+  ul.dots{list-style:none;margin:12px 0}
+  ul.dots li{position:relative;padding-left:20px;margin:8px 0;font-size:15.5px}
+  ul.dots li:before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+  /* 卡片 */
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+  .card h4{font-size:16.5px;font-weight:800;color:var(--navy);margin-bottom:8px}
+  .card.dark{background:var(--navy);border-color:var(--gold);color:#fff}
+  .card.dark h4{color:var(--gold-light)}
+  .card.dark ul.dots li:before{background:var(--gold-light)}
+
+  /* 對照 */
+  .vs{display:grid;grid-template-columns:1fr;gap:12px;margin:16px 0}
+  .vs .bad{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .vs .bad h4{color:var(--red);font-size:16px;font-weight:800;margin-bottom:8px}
+  .vs .good{background:var(--navy);border:1px solid var(--gold);border-radius:14px;padding:16px 18px;color:#fff}
+  .vs .good h4{color:var(--gold-light);font-size:16px;font-weight:800;margin-bottom:8px}
+  .vs li{font-size:15px;margin:7px 0;padding-left:18px;position:relative}
+  .vs li:before{content:"";position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%}
+  .vs .bad li:before{background:var(--red);opacity:.6}
+  .vs .good li:before{background:var(--gold-light)}
+  .vs ul{list-style:none}
+
+  /* 公式 */
+  .formula{background:var(--navy);color:#fff;border-radius:14px;padding:22px 16px;text-align:center;margin:16px 0}
+  .formula b{font-size:25px;font-weight:800;letter-spacing:.02em;display:block}
+  .formula b i{font-style:normal;color:var(--gold-light)}
+  .formula span{display:block;font-size:14px;color:#AEBECF;margin-top:10px}
+
+  /* 步驟流程 */
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+  .flow .step{
+    flex:1 1 96px;background:#fff;border:1px solid var(--line);
+    border-radius:12px;padding:12px 8px;text-align:center
+  }
+  .flow .step b{display:block;font-size:12px;color:var(--gold-deep);font-weight:800}
+  .flow .step span{display:block;font-size:14.5px;font-weight:700;color:var(--navy);margin-top:3px}
+  .flow .step.last{background:var(--navy);border-color:var(--gold)}
+  .flow .step.last b{color:var(--gold-light)}
+  .flow .step.last span{color:#fff}
+
+  /* 漏斗 */
+  .funnel{margin:16px 0}
+  .funnel div{
+    margin:0 auto 7px;background:var(--navy);color:#fff;border-radius:9px;
+    padding:11px 12px;text-align:center;font-size:14.5px
+  }
+  .funnel div b{font-weight:800}
+  .funnel div i{font-style:normal;color:#AEBECF;font-size:13px;display:block;margin-top:1px}
+  .funnel div:nth-child(1){width:100%}
+  .funnel div:nth-child(2){width:88%;background:#1A3450}
+  .funnel div:nth-child(3){width:76%;background:#22415F}
+  .funnel div:nth-child(4){width:64%;background:#2B4E6F}
+  .funnel div:nth-child(5){width:52%;background:var(--gold);color:var(--navy)}
+  .funnel div:nth-child(5) i{color:#5A4410}
+
+  /* 編號清單 */
+  .numbered{counter-reset:n;list-style:none;margin:14px 0}
+  .numbered li{counter-increment:n;position:relative;padding:14px 16px 14px 54px;background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  .numbered li:before{
+    content:counter(n);position:absolute;left:14px;top:14px;width:28px;height:28px;
+    background:var(--gold);color:var(--navy);border-radius:50%;font-weight:800;font-size:15px;
+    display:flex;align-items:center;justify-content:center
+  }
+  .numbered li b{display:block;font-size:16.5px;color:var(--navy);margin-bottom:2px}
+  .numbered li span{font-size:15px;color:var(--gray)}
+
+  /* 金句 */
+  .quote{
+    background:var(--navy);color:#fff;border-radius:14px;padding:26px 22px;margin:26px 0;
+    border-left:5px solid var(--gold)
+  }
+  .quote p{font-size:20px;font-weight:800;line-height:1.55;margin:0}
+  .quote p em{font-style:normal;color:var(--gold-light)}
+  .quote cite{display:block;font-style:normal;font-size:13px;color:#9AA7B5;margin-top:12px}
+
+  /* 提醒條 */
+  .note{background:rgba(201,162,75,.14);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:13px 16px;margin:14px 0;font-size:15px;color:var(--ink)}
+  .note b{color:var(--gold-deep)}
+
+  /* 15 件基本功 */
+  .grid15{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:14px 0}
+  .grid15 div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 11px}
+  .grid15 b{display:block;font-size:14.5px;color:var(--navy);font-weight:800}
+  .grid15 b i{font-style:normal;color:var(--gold-deep);font-size:12px;margin-right:5px}
+  .grid15 span{font-size:12.5px;color:var(--gray);line-height:1.5;display:block;margin-top:1px}
+
+  /* prompt */
+  .prompt{background:var(--navy);border-radius:14px;padding:16px 18px;margin:16px 0;color:#fff}
+  .prompt .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+  .prompt h4{font-size:16px;color:var(--gold-light);font-weight:800;margin:0}
+  .prompt .use{font-size:13px;color:#AEBECF;margin:-4px 0 10px}
+  .prompt pre{
+    background:rgba(0,0,0,.32);border:1px solid rgba(255,255,255,.12);border-radius:10px;
+    padding:14px;font-size:13.5px;line-height:1.85;color:#E9EFF6;
+    white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,"Menlo","Consolas",monospace
+  }
+  .copy{
+    background:var(--gold);color:var(--navy);border:0;border-radius:8px;
+    padding:7px 14px;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap;
+    font-family:inherit
+  }
+  .copy.done{background:#4E8C5A;color:#fff}
+
+  /* 行動清單 */
+  .todo{display:grid;grid-template-columns:1fr;gap:12px;margin:16px 0}
+  .todo div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .todo div.hot{background:var(--navy);border-color:var(--gold);color:#fff}
+  .todo h4{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:8px}
+  .todo div.hot h4{color:var(--gold-light)}
+  .todo label{display:flex;gap:9px;align-items:flex-start;font-size:15px;margin:7px 0;cursor:pointer}
+  .todo input{margin-top:5px;accent-color:var(--gold);width:16px;height:16px;flex:none}
+
+  /* CTA */
+  .cta{background:var(--navy);color:#fff;margin-top:50px;padding:44px 0 40px;position:relative}
+  .cta:before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--gold)}
+  .cta h2{font-size:24px;font-weight:800;line-height:1.45}
+  .cta h2 em{font-style:normal;color:var(--gold-light)}
+  .cta p{font-size:15.5px;color:#C6D2E2}
+  .btns{margin-top:22px;display:grid;gap:10px}
+  .btn{
+    display:block;text-align:center;padding:15px 18px;border-radius:12px;
+    text-decoration:none;font-weight:800;font-size:16.5px
+  }
+  .btn.main{background:var(--gold);color:var(--navy)}
+  .btn.sub{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.28);font-size:15.5px}
+  .sign{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;color:#9AA7B5;line-height:1.9}
+
+  @media (min-width:640px){
+    .hero h1{font-size:42px}
+    .hero h1 em{font-size:30px}
+    .vs{grid-template-columns:1fr 1fr}
+    .todo{grid-template-columns:repeat(3,1fr)}
+    .grid15{grid-template-columns:repeat(3,1fr)}
+    .btns{grid-template-columns:1fr 1fr}
+    .btns .btn.main{grid-column:1/-1}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">課後重點懶人包</div>
+    <h1>AI 房仲自媒體<em>從零起步，做出影響力</em></h1>
+    <div class="meta">
+      2026.07.02（四）13:30–16:30　KIRI 國際原住民族文創園區<br>
+      永慶四品牌．中壢平鎮聯賣區　｜　主講　中壢專業房仲喵爸　黃舶瑋
+    </div>
+    <div class="tagline">今天台下都是同行，我不說漂亮話 —<br>把我驗證過的東西，一條一條攤開給各位看。</div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat"><b>1100<small>萬+</small></b><span>半年內容總觀看<br>2025.09–2026.02</span></div>
+      <div class="stat"><b>185<small>萬</small></b><span>單支最高觀看<br>不是理論，是拍出來的</span></div>
+      <div class="stat"><b>15<small>件</small></b><span>撐住內容的<br>房仲硬功夫</span></div>
+    </div>
+    <div class="stats-note">先講結果，再講方法 — 重點是後面這套，怎麼複製到你身上。</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <h2>這頁有什麼</h2>
+    <ol>
+      <li><a href="#p1">為什麼房仲一定要做自媒體</a></li>
+      <li><a href="#p2">從零起步：定位、對標、兩個盲點</a></li>
+      <li><a href="#p3">AI 怎麼讓這條線變快</a></li>
+      <li><a href="#p4">讓流量變客戶，把它做成系統</a></li>
+      <li><a href="#p5">比工具更重要的兩件事</a></li>
+      <li><a href="#prompts">4 組可以直接複製的 AI 指令</a></li>
+      <li><a href="#base">附錄：房仲基本功 15 件</a></li>
+      <li><a href="#todo">回去就能做的行動清單</a></li>
+    </ol>
+  </nav>
+
+  <!-- ================= PART 1 ================= -->
+  <div class="part" id="p1">
+    <div class="no">PART 01</div>
+    <h2>為什麼房仲一定要做自媒體</h2>
+    <p>先不要講工具，先講市場現實 — 核心只有兩個字：<strong>獲客</strong>。</p>
+  </div>
+
+  <section>
+    <h3><span class="tag">市場現實</span>客戶在見到你之前，早就在網路上看過你了</h3>
+    <div class="vs">
+      <div class="bad">
+        <h4>沒有內容的房仲</h4>
+        <ul>
+          <li>只能靠陌生開發、發傳單</li>
+          <li>花錢投廣告、硬碰硬</li>
+          <li>見面才開始建立信任</li>
+          <li>拜訪、踩線，每天從零開始</li>
+        </ul>
+      </div>
+      <div class="good">
+        <h4>有內容的房仲</h4>
+        <ul>
+          <li>專業和信任，見面前就先送進客戶腦袋</li>
+          <li>客戶帶著「我認識你」來找你</li>
+          <li>把見面前的摩擦變到最小</li>
+          <li>今天的內容，明天還在幫你工作</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">自媒體不是要你當網紅，是把「見面前的信任」<b>提前發生</b>。</div>
+
+    <h3><span class="tag">差異一</span>累積性 — 陌開做完歸零，內容會替你複利</h3>
+    <div class="vs">
+      <div class="bad">
+        <h4>傳統開發</h4>
+        <ul>
+          <li>今天拜訪 100 通，明天歸零，後天再從 0 開始</li>
+          <li>你的努力＝今天的業績，停下來就沒了</li>
+          <li>時間花掉就花掉，不會留下資產</li>
+        </ul>
+      </div>
+      <div class="good">
+        <h4>自媒體</h4>
+        <ul>
+          <li>一支內容發出去，會 24 小時持續被看見</li>
+          <li>今天累積的，明天還在幫你帶來陌生客</li>
+          <li>內容會複利 — 越做越省力，地基越來越厚</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3><span class="tag">差異二</span>並行不悖 — 不是放棄跑客戶，是多一條取得信任的路</h3>
+    <div class="flow">
+      <div class="step"><b>STEP 1</b><span>曝光</span></div>
+      <div class="step"><b>STEP 2</b><span>留言</span></div>
+      <div class="step"><b>STEP 3</b><span>私訊</span></div>
+      <div class="step"><b>STEP 4</b><span>諮詢</span></div>
+      <div class="step last"><b>STEP 5</b><span>成交</span></div>
+    </div>
+    <p class="lead">傳統：靠見面、靠關係、靠時間慢慢換信任。<br>
+    自媒體：靠內容先建立專業形象，客戶上門時，信任已經完成一半。</p>
+
+    <h3><span class="tag">先釐清</span>流量不是目的，業績才是</h3>
+    <div class="formula">
+      <b>業績 ＝ <i>流量</i> × 客單價 × 轉換率</b>
+      <span>三個變數裡，自媒體只直接放大第一個</span>
+    </div>
+    <div class="vs">
+      <div class="bad">
+        <h4>最大的誤區</h4>
+        <ul><li>以為「流量越大越好」。100 萬個不會買房的人，比不上 1000 個正要買房的中壢人。</li></ul>
+      </div>
+      <div class="good">
+        <h4>真正值錢的</h4>
+        <ul><li>是「會在中壢買房的人」看到你。能把人帶到私訊、社群、名單，才有機會成交。</li></ul>
+      </div>
+    </div>
+
+    <h3><span class="tag">把流量講對</span>自媒體是放大器，不是印鈔機</h3>
+    <div class="card">
+      <h4>放大器，放大的是這三件事</h4>
+      <ul class="dots">
+        <li><strong>你的專業</strong> — 你懂多少，被多少人看見</li>
+        <li><strong>你的觸及</strong> — 從一條街，放大到全桃園</li>
+        <li><strong>被信任的速度</strong> — 見面前，信任就先建立</li>
+      </ul>
+    </div>
+    <div class="note">但放大器有個鐵則：<b>你本身沒料，放再大也是空的。</b>成交那一哩 — 接住、follow、服務 — 是房仲功夫，放大器替代不了。沒有它，連被看見、被選擇的機會都沒有。</div>
+
+    <h3><span class="tag">隱藏好處</span>做自媒體，是逼自己變強最快的路</h3>
+    <p>要「輸出」，你就得先「輸入」。為了拍一支境外房地合一稅的影片，你得先查懂、想透、講到客戶聽得懂 — 做自媒體＝強迫你每週把專業重學一遍、再講一遍。</p>
+    <p><strong>一年下來，你跟只接案、不輸出的同行，專業深度差一整條街。</strong>客戶最後選的，不是流量大的房仲，是讓他覺得「很懂、不會坑我」的房仲。</p>
+  </section>
+
+  <!-- ================= PART 2 ================= -->
+  <div class="part" id="p2">
+    <div class="no">PART 02</div>
+    <h2>自媒體到底在做什麼、怎麼起步</h2>
+    <p>給完全沒概念的人 — 先看懂全貌，再決定第一步。</p>
+  </div>
+
+  <section>
+    <h3><span class="tag">先有全貌</span>「做自媒體」到底在做哪些事</h3>
+    <ul class="dots">
+      <li><strong>短影音</strong>　Reels / Shorts / TikTok，抓注意力的主力</li>
+      <li><strong>長文／貼文</strong>　FB 在地經營、成交故事、深度信任</li>
+      <li><strong>圖文／圖卡</strong>　懶人包、知識整理，方便收藏轉發</li>
+      <li><strong>私訊／留言</strong>　把流量接住，變成一對一對話</li>
+      <li><strong>社群／名單</strong>　LINE 社群、粉專，養成熟客池</li>
+      <li><strong>個人網站／工具</strong>　落地頁、試算工具，收口成名單</li>
+    </ul>
+    <div class="note">不用全部都做，<b>從一個你做得起來的開始</b> — 多數房仲，從短影音切入最快。</div>
+
+    <h3><span class="tag">從零起步</span>先把這 3 件事做對，再談大量輸出</h3>
+    <ol class="numbered">
+      <li><b>定位</b><span>先決定你要被「記住什麼」：區域、強項、想吸引哪種客戶 — 不要什麼都講。</span></li>
+      <li><b>帳號</b><span>讓人一眼看懂你在做什麼：頭像清楚、自介清楚、作品慢慢放上去。</span></li>
+      <li><b>節奏</b><span>固定時間上架，撐過冷啟動，學會看後台數據 — 一開始不要貪多。</span></li>
+    </ol>
+
+    <h3><span class="tag">定位①</span>你的定位，藏在這三個圈圈的交集裡</h3>
+    <div class="card">
+      <ul class="dots">
+        <li><strong>你的強項</strong> — 你真的懂、做得比別人好的</li>
+        <li><strong>客戶的痛</strong> — 客戶半夜會睡不著的問題</li>
+        <li><strong>你願意一直講的</strong> — 做一年也不會膩的題目</li>
+      </ul>
+    </div>
+    <div class="card dark">
+      <h4>三個都中的那一點 ＝ 你最該一直講的題目</h4>
+      <ul class="dots">
+        <li>最容易被客戶記住</li>
+        <li>最容易引起共鳴、被討論</li>
+        <li>最容易帶來會成交的人</li>
+      </ul>
+    </div>
+    <div class="note">定位窄一點，客戶才記得住你 —<b>「我什麼都能服務」＝沒有人記得你。</b></div>
+
+    <h3><span class="tag">定位②</span>用一句話，把定位講死</h3>
+    <div class="formula">
+      <b><i>在哪裡</i> ＋ <i>幫誰</i> ＋ <i>解決什麼</i><br>的房仲</b>
+    </div>
+    <ul class="dots">
+      <li>中壢 ＋ 首購家庭 ＋ 怕買到地雷屋</li>
+      <li>平鎮 ＋ 換屋族 ＋ 不知道先買還先賣</li>
+      <li>中壢 ＋ 小資投資 ＋ 想買能收租的物件</li>
+    </ul>
+
+    <h3><span class="tag">執行策略</span>對標模仿 — 不是「抄」，是「拆」</h3>
+    <div class="vs">
+      <div class="bad" style="border-color:var(--gold)">
+        <h4 style="color:var(--gold-deep)">把高互動的影片，拆成 4 塊</h4>
+        <ul>
+          <li><strong>鉤子</strong>：前 3 秒怎麼讓人停下來</li>
+          <li><strong>結構</strong>：它先講什麼、再講什麼</li>
+          <li><strong>情緒</strong>：它戳的是哪一種感覺</li>
+          <li><strong>節奏</strong>：多久一個轉折、多長</li>
+        </ul>
+      </div>
+      <div class="good">
+        <h4>料去哪裡找</h4>
+        <ul>
+          <li><strong>同業爆款</strong>：看同題材高互動的在做什麼</li>
+          <li><strong>跨業更重要</strong>：美食、親子、理財怎麼開頭 — 圈外的更會抓一般人</li>
+          <li>每週存一個「對標庫」，手感是練出來的</li>
+        </ul>
+      </div>
+    </div>
+    <p><strong>先求「像」，建立手感；再求「不同」，長出自己。</strong></p>
+
+    <h3><span class="tag">變成流程</span>對標 SOP：四步，把別人的爆款變成你的素材</h3>
+    <div class="flow">
+      <div class="step"><b>STEP 1</b><span>找對標</span></div>
+      <div class="step"><b>STEP 2</b><span>下載逐字稿</span></div>
+      <div class="step"><b>STEP 3</b><span>丟進 AI 拆解</span></div>
+      <div class="step last"><b>STEP 4</b><span>換成你的角度</span></div>
+    </div>
+    <p class="lead">鎖定同題材高互動的短影音 → 把影片轉成純文字 → 讓 AI 拆出主旨／結構／切角 → 套你的中壢案例，產出你的版本。<br>這一段的指令，直接看下面「<a href="#prompts" style="color:var(--gold-deep);font-weight:700">4 組 AI 指令</a>」第 1 組。</p>
+
+    <h3><span class="tag">盲點①</span>你拍「你想說的」，還是「客戶想知道的」？</h3>
+    <div class="vs">
+      <div class="bad">
+        <h4>房仲最愛拍（沒人看）</h4>
+        <ul>
+          <li>我又得獎了</li>
+          <li>我們公司／集團多厲害</li>
+          <li>幾坪幾房幾衛的規格表</li>
+          <li>純自我介紹、純報喜</li>
+        </ul>
+      </div>
+      <div class="good">
+        <h4>客戶真正想看（會停下來）</h4>
+        <ul>
+          <li>買賣到底要注意什麼</li>
+          <li>我的自備款到底夠不夠</li>
+          <li>這間貸款貸得到嗎</li>
+          <li>賣房，舊制新制的稅搞清楚了嗎</li>
+          <li>哪些稅可以合法少繳</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">自我檢查一句話：<b>「這支，是我想說的，還是他想知道的？」</b></div>
+
+    <h3><span class="tag">盲點②</span>看不懂平台的演算法，再努力也是做白工</h3>
+    <ul class="dots">
+      <li><strong>平台只看一件事</strong>　不是看你多努力，是看有沒有人停下來、看完、互動</li>
+      <li><strong>各平台不同</strong>　FB 吃長文＋在地社群；Reels／IG 吃前 3 秒鉤子與完播</li>
+      <li><strong>冷啟動要忍</strong>　前期演算法在試水溫，固定時間發、撐過去別放棄</li>
+      <li><strong>別怪「被限流」</strong>　多半不是被限流，是題目不對、開頭太慢、沒人接住</li>
+    </ul>
+
+    <h3><span class="tag">客戶心法</span>客戶不是來「問問題」，是來「確認答案」</h3>
+    <p class="lead">來電的客戶，手裡多半已經握著一個沒把握的答案。你要同時做到兩件事：<strong>尊重</strong>（肯定他會先問、會查）＋<strong>信任</strong>（用白話把方向講清楚）。</p>
+    <div class="card">
+      <h4>例 A｜境外房地合一稅</h4>
+      <p style="font-size:15px;color:var(--red);margin:6px 0">客戶心裡：在國外賣房，要不要繳台灣房地合一 45%？</p>
+      <p style="font-size:15px;margin:0">你給方向：房地合一只課「境內」房地；賣國外屬海外財產交易，走最低稅負制，不是 45%。</p>
+    </div>
+    <div class="card">
+      <h4>例 B｜借名登記</h4>
+      <p style="font-size:15px;color:var(--red);margin:6px 0">客戶心裡：登記在兒子／朋友名下，省事又避限制吧？</p>
+      <p style="font-size:15px;margin:0">你給方向：契約多半有效但風險高 — 名義人可能擅自處分、被查封，要找地政士／律師做正式規劃。</p>
+    </div>
+    <div class="note">⚠️ 講的時候一定補一句：<b>「個案差很多，今天講的是方向，正式以國稅局核定／專業規劃為準。」</b></div>
+  </section>
+
+  <!-- ================= PART 3 ================= -->
+  <div class="part" id="p3">
+    <div class="no">PART 03</div>
+    <h2>AI 怎麼讓這條線變快</h2>
+    <p>現場示範的四樣，都是我每天真的在用的系統。</p>
+  </div>
+
+  <section>
+    <h3><span class="tag">先講對</span>AI 不是魔法，它是「放大器」的引擎</h3>
+    <p>AI 真正值錢的地方，是<strong>放大你的能力</strong>：把你每天在重複做的事 — 修圖、寫文案、整理重點、排路線 — 用 <strong>1/2 到 1/5 的時間</strong>做完。流程建起來，做自媒體幾乎可以半自動；省下的時間，還給跑客戶、追單。</p>
+    <div class="quote">
+      <p>AI 讓每個人都更快 —<br><em>但拼到最後，拼的還是你的能力。</em></p>
+    </div>
+
+    <h3><span class="tag">殘酷的真相</span>你是「會下指令」，還是「會教 AI」的人？</h3>
+    <ol class="numbered">
+      <li><b>會下指令的人</b><span>問一句、答一句，把 AI 當搜尋引擎。</span></li>
+      <li><b>會優化指令的人</b><span>懂得追問、修正，一步步逼近要的答案。</span></li>
+      <li><b>懂底層邏輯的人</b><span>把 AI 變成一條會重複的流程／智能體 — 差距是從這裡拉開的。</span></li>
+    </ol>
+    <div class="note">會用 AI 的人，把省下的時間變現；不會用的，還在原地花時間。<b>會覺得難，多半不是它真的難 — 是你已經落後太多。</b></div>
+
+    <h3><span class="tag">現場示範</span>我打開「每天在用的系統」做給你看</h3>
+    <div class="card">
+      <h4>① 中控台｜買方、賣方資料一目了然</h4>
+      <p style="font-size:15px;margin:4px 0 0">客戶要什麼、案子到哪一步，一個畫面全看到。<br><strong>重點：</strong>資料不再散在群組跟筆記本 — 服務更快、更不漏接。</p>
+    </div>
+    <div class="card">
+      <h4>② 房產計算機｜客戶最關心的數字，當場算給他看</h4>
+      <p style="font-size:15px;margin:4px 0 0">房地合一稅新舊制、賣方實拿、買方總花費、區域行情評估，30 秒算清楚，還能做成 QR 放官網給客戶自己玩。<br><strong>重點：</strong>把客戶最怕算錯的數字當場講清楚 — 信任就建立了。</p>
+    </div>
+    <div class="card">
+      <h4>③ 完整成交流程｜從建檔到結案，一條龍跑完</h4>
+      <div class="flow" style="margin:10px 0 6px">
+        <div class="step"><b>1</b><span>建買方資料</span></div>
+        <div class="step"><b>2</b><span>AI 篩物件</span></div>
+        <div class="step"><b>3</b><span>傳給客人</span></div>
+        <div class="step"><b>4</b><span>客人回覆</span></div>
+        <div class="step"><b>5</b><span>安排帶看</span></div>
+        <div class="step last"><b>6</b><span>結案管理</span></div>
+      </div>
+      <p style="font-size:15px;margin:4px 0 0"><strong>重點：</strong>別人靠記性跟群組訊息，你靠一套會記得的系統。</p>
+    </div>
+    <div class="card">
+      <h4>④ 預約系統｜客戶掃碼，自己預約看屋／諮詢</h4>
+      <p style="font-size:15px;margin:4px 0 0">客戶掃 QR 進預約頁、自己選時間、預約直接進我的行事曆。<br><strong>重點：</strong>把「敲時間」自動化 — 客戶體驗好，你也不再被訊息追著跑。</p>
+    </div>
+    <div class="note">這四樣不是 PPT 上的圖，是真的在手機、電腦上跑的東西。<b>一套系統，全包：買方資料庫、物件篩選、線上預約、房產計算機、帶看安排、結案管理。</b></div>
+  </section>
+
+  <!-- ================= PART 4 ================= -->
+  <div class="part" id="p4">
+    <div class="no">PART 04</div>
+    <h2>讓流量變客戶，把它做成系統</h2>
+    <p>有流量只是開始 — 接得住、能重複，才有業績。</p>
+  </div>
+
+  <section>
+    <h3><span class="tag">漏斗</span>中間這條，才是真正決定業績的地方</h3>
+    <div class="funnel">
+      <div><b>曝光</b><i>內容被看見</i></div>
+      <div><b>停留 ＋ 看完</b><i>鉤子夠不夠強</i></div>
+      <div><b>信任</b><i>專業有沒有被接住</i></div>
+      <div><b>私訊 / 名單</b><i>願不願意聯絡你</i></div>
+      <div><b>諮詢 → 成交</b><i>見面、簽約</i></div>
+    </div>
+    <div class="note">曝光不是終點，每一層都會漏人 —<b>你要主動設計「下一步」，把人往下接。</b>每一支內容，都要有一個明確的下一步動作。</div>
+
+    <h3><span class="tag">內容標準</span>什麼叫「有流量」的內容</h3>
+    <p class="lead">不是文筆漂亮 — 是讓人有畫面、有感覺、想留言。</p>
+    <ul class="dots">
+      <li><strong>開頭抓人</strong>　前 3 秒就讓人停下來</li>
+      <li><strong>情緒明確</strong>　戳中一種真實的感覺</li>
+      <li><strong>案例具體</strong>　有人、有事、有畫面，能代入</li>
+      <li><strong>你能幫上忙</strong>　看完知道「找你能解決什麼」</li>
+    </ul>
+    <div class="quote">
+      <p>一個最準的標準：<br><em>連你自己看了都會感動的，發出去才會有流量。</em></p>
+    </div>
+
+    <h3><span class="tag">系統化</span>你回去要建的，是這條「每天能重複」的流程</h3>
+    <div class="flow">
+      <div class="step"><b>1</b><span>找對標</span></div>
+      <div class="step"><b>2</b><span>AI 拆解</span></div>
+      <div class="step"><b>3</b><span>產出內容</span></div>
+      <div class="step"><b>4</b><span>修＋發布</span></div>
+      <div class="step"><b>5</b><span>看後台</span></div>
+      <div class="step last"><b>6</b><span>再優化</span></div>
+    </div>
+    <div class="note">會了流程，你就不用每次靠靈感 —<b>靈感會枯竭，流程不會。</b></div>
+
+    <h3><span class="tag">工具</span>把效率化，變成你跟別人的「差異化」</h3>
+    <ul class="dots">
+      <li><strong>Notion 系統</strong>　內部教育訓練資料庫，團隊一起變強</li>
+      <li><strong>試算工具 QR</strong>　房地合一稅、賺賠試算，客戶自己玩</li>
+      <li><strong>帶看資料 QR</strong>　物件、周邊機能、路線，一掃就有</li>
+    </ul>
+    <p><strong>別人還在用嘴巴講專業，你已經用工具讓客戶「體驗」你的專業。</strong></p>
+  </section>
+
+  <!-- ================= PART 5 ================= -->
+  <div class="part" id="p5">
+    <div class="no">PART 05</div>
+    <h2>最後，最重要的事</h2>
+    <p>工具會變，這幾件事不會 — 心態、執行、格局。</p>
+  </div>
+
+  <section>
+    <div class="vs">
+      <div class="bad" style="border-color:var(--line)">
+        <h4 style="color:var(--navy)">心態穩</h4>
+        <ul>
+          <li>前期沒流量，是正常的</li>
+          <li>別兩三支沒量就崩潰、就放棄</li>
+          <li>把它當「長期資產」在養，不是賭一支爆</li>
+        </ul>
+      </div>
+      <div class="good">
+        <h4>每天發</h4>
+        <ul>
+          <li>執行力 ＝ 堅持做</li>
+          <li>固定時間上架，讓演算法認識你</li>
+          <li>拍滿 15 支，你自然會有手感和想法</li>
+        </ul>
+      </div>
+    </div>
+    <p><strong>平台不是在看你多努力，是在看你的內容有沒有被觀眾接住。</strong></p>
+
+    <div class="quote">
+      <p>與其更好，不如不同。<br><em>可以累積的，才叫大；不用重來的，才叫快。</em></p>
+      <cite>中壢專業房仲喵爸　黃舶瑋</cite>
+    </div>
+
+    <h3><span class="tag">給店長與主管</span>這不只是「個人玩法」，是能複製進你店裡的系統</h3>
+    <ul class="dots">
+      <li><strong>團隊產能</strong>　整套流程＋AI 模板，新人也能照著產出內容，不靠天分</li>
+      <li><strong>招募利器</strong>　有影響力的店，自己會吸引人才上門 — 自媒體就是最好的徵才廣告</li>
+      <li><strong>可複製</strong>　一個人會 → 一間店都會，SOP 化、模板化，戰力直接放大</li>
+    </ul>
+  </section>
+
+  <!-- ================= PROMPTS ================= -->
+  <div class="part" id="prompts">
+    <div class="no">工具包</div>
+    <h2>4 組可以直接複製的 AI 指令</h2>
+    <p>課後回饋裡最多人要的東西。貼進 ChatGPT／Claude／Gemini 都能用。</p>
+  </div>
+
+  <section>
+    <div class="prompt">
+      <div class="top"><h4>① 對標拆解｜把別人的爆款拆成你的素材</h4><button class="copy" type="button">複製</button></div>
+      <div class="use">用法：找一支同題材高互動的短影音，把逐字稿貼在最後面。</div>
+      <pre>你是短影音內容策略分析師。我會給你一支高互動短影音的逐字稿，請幫我拆解它為什麼會有流量，並改寫成我的版本。
+
+【第一步：拆解原稿】請分成四塊回答
+1. 鉤子：前三秒說了什麼？用什麼方式讓人停下來（懸念／反常識／利益／恐懼／點名受眾）？
+2. 結構：它先講什麼、再講什麼、最後收在哪裡？請用條列列出段落順序。
+3. 情緒：它戳中的是哪一種感覺？觀眾看完最可能產生什麼念頭？
+4. 節奏：幾秒一個轉折？資訊密度高還是低？
+
+【第二步：換成我的角度】
+我的身分：桃園中壢／平鎮的在地房仲
+我的受眾：（例：在中壢找第一間房的首購家庭）
+我的真實素材：（貼上你手上的案例、數字、客戶問題）
+
+請保留原稿的「結構與情緒路徑」，但內容全部換成我的專業與在地案例，
+產出一支 60–80 秒、可以直接朗讀的口播逐字稿。
+
+【硬性要求】
+- 開頭三秒必須是鉤子，不要自我介紹
+- 用白話，不要行話；專有名詞出現時立刻翻成客戶聽得懂的話
+- 案例要具體：有人、有事、有畫面
+- 結尾給一個明確的下一步動作
+- 不要編造任何我沒提供的數字或案例，缺料就標註「此處需補真實案例」
+
+【逐字稿】
+（貼在這裡）</pre>
+    </div>
+
+    <div class="prompt">
+      <div class="top"><h4>② 一句話定位｜把定位講死</h4><button class="copy" type="button">複製</button></div>
+      <div class="use">用法：把括號內換成你的狀況，一次生 10 個版本再挑。</div>
+      <pre>你是個人品牌定位顧問。請幫我把定位收斂成一句話。
+
+我的資料：
+- 服務區域：（例：桃園中壢、平鎮）
+- 我真的比別人強的地方：（例：稅務試算、謄本判讀、學區資訊）
+- 我願意講一整年也不會膩的題目：（例：首購避雷）
+- 我最想吸引的客戶：（例：30–40 歲第一次買房的雙薪家庭）
+- 這種客戶半夜睡不著的問題：（例：怕買到漏水屋、怕貸款過不了）
+
+請用這個公式產出 10 個版本：「在哪裡 ＋ 幫誰 ＋ 解決什麼 的房仲」
+
+每個版本後面加一行說明：這個定位最容易吸引到誰、會過濾掉誰。
+然後挑出你認為最好的 3 個，說明為什麼 —
+判準是「窄到具體、客戶記得住」，不是「聽起來厲害」。
+最後幫我把最好的那一個，改寫成社群自我介紹欄可以直接貼的 40 字版本。</pre>
+    </div>
+
+    <div class="prompt">
+      <div class="top"><h4>③ 選題產生器｜一次給我 20 個客戶想知道的題目</h4><button class="copy" type="button">複製</button></div>
+      <div class="use">用法：一次生一個月的題庫，避免每天卡在「今天要拍什麼」。</div>
+      <pre>你是房地產內容選題企劃。請幫我產出 20 個短影音選題。
+
+我的定位：（貼上你的一句話定位）
+我的受眾：（例：中壢首購家庭）
+
+【選題判準，每一題都必須通過】
+1. 是「客戶想知道的」，不是「我想說的」—
+   自我介紹、得獎、公司多厲害、坪數規格表，一律不要
+2. 這題必須是客戶會私下擔心、但不好意思問人的
+3. 我回答得出來，而且答得比一般房仲深
+
+【輸出格式】每題一行，包含三欄
+題目｜這題戳中的痛點（一句話）｜前三秒鉤子怎麼講（一句話）
+
+產完後，幫我把 20 題依「最可能有流量」排序，
+並標出哪 5 題最適合當這個月的主打。</pre>
+    </div>
+
+    <div class="prompt">
+      <div class="top"><h4>④ 一稿多用｜一份素材變一串內容</h4><button class="copy" type="button">複製</button></div>
+      <div class="use">用法：手上有一個成交故事或一個客戶問題，一次展開成多平台內容。</div>
+      <pre>我有一份素材，請幫我一次展開成三種格式的內容。
+
+【素材】
+（貼上成交故事、客戶問題、或你剛處理完的案子重點）
+
+【請產出】
+1. FB 貼文（600–900 字）
+   - 第一段就要戳到痛點，不要鋪陳
+   - 段落短、口語、有力道
+   - 中間穿插小標，方便滑手機的人掃讀
+   - 結尾用一個問句收，引導留言
+
+2. 短影音口播逐字稿（60–80 秒）
+   - 開頭三秒是鉤子
+   - 適合朗讀，句子短
+   - 標出建議的分鏡畫面
+
+3. 圖文懶人包大綱（5–7 張）
+   - 每張一個重點，標題不超過 15 字
+   - 最後一張是行動呼籲
+
+【共同要求】
+- 只能用我提供的真實素材，不准補充或美化任何細節
+- 缺資料的地方標註「需補」，不要自己編
+- 專業術語一律翻成客戶聽得懂的白話</pre>
+    </div>
+  </section>
+
+  <!-- ================= 附錄 ================= -->
+  <div class="part" id="base">
+    <div class="no">附錄</div>
+    <h2>地基，比你想的深</h2>
+    <p>自媒體不是花拳繡腿 — 撐起內容的，是這 15 件硬功夫。</p>
+  </div>
+
+  <section>
+    <div class="grid15">
+      <div><b><i>01</i>電傳謄本</b><span>查調房屋／土地基本資訊</span></div>
+      <div><b><i>02</i>看懂謄本</b><span>翻得開、讀得通</span></div>
+      <div><b><i>03</i>標示部</b><span>坪數、主建物、附屬、公設、車位</span></div>
+      <div><b><i>04</i>所有權部</b><span>取得時間／方式、新舊制判斷</span></div>
+      <div><b><i>05</i>他項權利</b><span>債務問題辨識</span></div>
+      <div><b><i>06</i>稅費成本</b><span>細算客戶實拿金額</span></div>
+      <div><b><i>07</i>代書流程</b><span>動撥、借屋裝修</span></div>
+      <div><b><i>08</i>重要稅務</b><span>房地合一、財產交易、重購退稅</span></div>
+      <div><b><i>09</i>委託契據</b><span>條款內容、現況說明書</span></div>
+      <div><b><i>10</i>自我介紹</b><span>公司、集團、四品牌優勢</span></div>
+      <div><b><i>11</i>市場行情</b><span>出售物件熟悉度</span></div>
+      <div><b><i>12</i>區域地標</b><span>社區、重要地標位置</span></div>
+      <div><b><i>13</i>周邊環境</b><span>生活機能</span></div>
+      <div><b><i>14</i>區域發展</b><span>重大建設、計畫</span></div>
+      <div><b><i>15</i>時事新聞</b><span>市場敏銳度</span></div>
+    </div>
+    <div class="note">會這 15 件，才有資格談「把專業放上網」。<b>AI 加速的是輸出，不是取代功夫。</b></div>
+  </section>
+
+  <!-- ================= 行動清單 ================= -->
+  <div class="part" id="todo">
+    <div class="no">帶回去就能做</div>
+    <h2>別等「準備好」— 這三步，今天就能開始</h2>
+    <p>可以直接在這頁打勾，做完一項勾一項。</p>
+  </div>
+
+  <section>
+    <div class="todo">
+      <div>
+        <h4>今天</h4>
+        <label><input type="checkbox"><span>寫下你的一句話定位</span></label>
+        <label><input type="checkbox"><span>存 3 個對標影片</span></label>
+      </div>
+      <div>
+        <h4>這週</h4>
+        <label><input type="checkbox"><span>把帳號頭像、自介改對</span></label>
+        <label><input type="checkbox"><span>用 AI 產出第 1 支腳本</span></label>
+      </div>
+      <div class="hot">
+        <h4>這個月</h4>
+        <label><input type="checkbox"><span>固定時間，發滿 10 支</span></label>
+        <label><input type="checkbox"><span>開始看後台、調整</span></label>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= CTA ================= -->
+<footer class="cta">
+  <div class="wrap">
+    <h2>我不是來教你們，<br><em>是把我驗證過的東西，攤開給各位看</em></h2>
+    <p style="margin-top:14px">AI 不是取代房仲 — 是讓「會用工具的人」，跑得比別人快五倍。<br>
+    有新的做法、新的工具、下一場課程，我都會第一時間在 LINE 上發。</p>
+    <div class="btns">
+      <a class="btn main" href="https://line.me/R/ti/p/@056ohivi">加 LINE　拿最新的做法與開課消息</a>
+      <a class="btn sub" href="https://cathome.tw">官網．文章與案例</a>
+      <a class="btn sub" href="https://tools.cathome.tw">免費工具箱</a>
+    </div>
+    <div class="sign">
+      中壢專業房仲喵爸　黃舶瑋<br>
+      《AI 房仲自媒體｜從零起步做出影響力》2026.07.02　永慶四品牌．中壢平鎮聯賣區<br>
+      本頁內容為課程重點整理，稅務與法律議題僅提供方向，個案請以國稅局核定及專業規劃為準。
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.prompt').querySelector('pre');
+    var text = pre.innerText;
+    function done(){
+      btn.textContent = '已複製 ✓';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = '複製'; btn.classList.remove('done'); }, 1800);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;top:-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); } catch(e){ btn.textContent = '請長按選取'; }
+      document.body.removeChild(ta);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
