@@ -1,0 +1,575 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  官網「媒體報導」頁 /media　v2（2026-08-11 改版）                     ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+
+  v1 被評「色調單調、沒有權威感、要點進去才看得到」。v2 三個改法：
+  ① 主色從象牙翻成深藍 —— 深底才有份量。順帶解決對比問題：金色 #C9A24B
+     在象牙底上只有 2.09:1（不合格），在深藍底上是 6.20:1（合格），
+     改深底之後金色終於能當主角用。
+  ② 每則都有圖 —— 兩則用喵爸自己提供給媒體的照片，兩則用 YouTube 縮圖。
+  ③ 每則最上面有一條「引言帶」，把最有力的那句話直接放在頁面上，
+     不用點進去就看得到。
+
+  🔴 為什麼引言是文字不是圖：
+     圖片裡的字，Google 跟 AI 完全讀不到。這一頁存在的最大價值就是 SEO/GEO，
+     把引言做成縮圖等於自廢武功。所以這裡用 HTML/CSS 做出縮圖等級的視覺力度，
+     但每一個字都是真文字，機器讀得到。不要為了好看把它改成圖。
+
+  🔴 引言的誠實規則（不要改壞）：
+     ・有加「引號 + 出處」的，都是報導原文照抄，一個字沒改。
+     ・沒有原文可引的（影片沒有逐字稿），一律不加引號，改用「事實標籤」
+       （章節名稱、觀看數）。絕不把自己寫的話包上引號假裝是媒體說的。
+
+  ⚠️ 上線前要換兩張圖：搜尋 https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg 與 https://catpawwedding.github.io/lazypack/cathome-media/photo2.jpg，
+     換成你上傳到 WordPress 媒體庫之後的網址（步驟見「上架步驟.md」）。
+-->
+<style>
+.mm{--navy:#13293D;--navy2:#0C1B2A;--navy3:#1E3C57;--ivory:#F4EFE6;--gold:#C9A24B;
+  --goldtext:#7A5E28;--line:#E0D6C6;--muted:#5A6B7C;
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.8;color:var(--navy)}
+.mm *{box-sizing:border-box}
+
+/* ── Hero：深藍，一進來就有份量 ── */
+.mm .mm-hero{background:linear-gradient(160deg,#0C1B2A 0%,#13293D 55%,#1E3C57 100%);
+  padding:64px 20px 54px;text-align:center;position:relative;overflow:hidden}
+.mm .mm-hero:after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;
+  width:min(760px,86%);height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.mm .mm-heroin{max-width:900px;margin:0 auto}
+.mm .mm-kicker{font-size:12px;letter-spacing:.42em;color:var(--gold);font-weight:800;margin:0 0 16px}
+.mm .mm-hero h1{font-size:42px;line-height:1.25;font-weight:900;color:#fff;margin:0 0 18px;letter-spacing:.02em}
+.mm .mm-hero p{font-size:17px;color:#BCCBD9;margin:0 auto 34px;max-width:600px}
+.mm .mm-wall{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 30px;
+  padding-top:26px;border-top:1px solid rgba(201,162,75,.28)}
+.mm .mm-wall span{font-size:20px;font-weight:800;color:var(--ivory);letter-spacing:.06em;opacity:.9}
+.mm .mm-walllabel{font-size:12px;letter-spacing:.3em;color:var(--gold);font-weight:700;margin:0 0 16px}
+
+/* ── 內文區 ── */
+.mm .mm-body{background:var(--ivory);padding:52px 20px 60px}
+.mm .mm-wrap{max-width:940px;margin:0 auto}
+.mm .mm-sec{font-size:22px;font-weight:900;margin:0 0 4px;padding-left:14px;border-left:5px solid var(--gold)}
+.mm .mm-secnote{font-size:15px;color:var(--muted);margin:0 0 26px;padding-left:19px;max-width:620px}
+.mm .mm-sec2{margin-top:54px}
+
+/* ── 卡片：左圖右文 ── */
+.mm .mm-card{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:24px;
+  box-shadow:0 2px 14px rgba(19,41,61,.09);display:flex;flex-wrap:wrap}
+.mm .mm-figure{flex:0 0 38%;min-width:260px;position:relative;background:var(--navy)}
+.mm .mm-figure img{width:100%;height:100%;min-height:210px;object-fit:cover;display:block}
+.mm .mm-tag{position:absolute;left:0;top:18px;background:var(--navy);color:#fff;font-size:13px;
+  font-weight:800;padding:7px 14px 7px 16px;border-radius:0 6px 6px 0;letter-spacing:.04em;
+  box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.mm .mm-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(12,27,42,.28)}
+.mm .mm-play i{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.94);
+  display:flex;align-items:center;justify-content:center;font-style:normal;font-size:20px;
+  color:var(--navy);padding-left:5px}
+.mm .mm-content{flex:1 1 340px;padding:24px 28px 26px;min-width:0}
+
+/* ── 引言帶：不用點進去就看得到的那一句 ── */
+.mm .mm-quote{background:var(--navy);border-radius:10px;padding:18px 20px 16px;margin:0 0 18px;position:relative}
+.mm .mm-quote:before{content:"\201C";position:absolute;left:12px;top:-2px;font-size:52px;line-height:1;
+  color:var(--gold);font-family:Georgia,serif;opacity:.85}
+.mm .mm-quote p{margin:0 0 8px 0;padding-left:26px;font-size:18px;line-height:1.65;font-weight:700;color:#fff}
+.mm .mm-quote cite{display:block;padding-left:26px;font-size:12px;font-style:normal;
+  color:var(--gold);letter-spacing:.04em}
+/* 事實標籤版：沒有原文可引的時候用這個，絕不加引號 */
+.mm .mm-fact{background:var(--navy);border-radius:10px;padding:16px 20px;margin:0 0 18px;
+  border-left:4px solid var(--gold)}
+.mm .mm-fact p{margin:0 0 6px;font-size:18px;line-height:1.6;font-weight:700;color:#fff}
+.mm .mm-fact span{font-size:12px;color:var(--gold);letter-spacing:.04em}
+
+.mm .mm-title{font-size:19px;font-weight:900;line-height:1.5;margin:0 0 6px}
+.mm .mm-date{font-size:13px;color:var(--muted);margin:0 0 12px;letter-spacing:.03em}
+.mm .mm-text{font-size:15.5px;color:#33465A;margin:0 0 16px}
+.mm .mm-text strong{color:var(--navy);font-weight:800}
+.mm .mm-warn{font-size:13.5px;color:#6B5A2E;background:#FBF4E4;border-left:3px solid var(--gold);
+  padding:11px 14px;border-radius:0 8px 8px 0;margin:0 0 16px}
+.mm .mm-warn a{color:#8A6A1F;font-weight:800}
+.mm .mm-links{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.mm .mm-go{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:800;
+  color:var(--navy);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:2px}
+.mm .mm-go:hover{color:var(--goldtext)}
+
+.mm .mm-past{border:1px dashed #CFC2AC;border-radius:14px;padding:18px 24px;margin-top:4px}
+.mm .mm-past p{margin:0;font-size:14.5px;color:var(--muted)}
+
+/* ── CTA ── */
+.mm .mm-cta{background:linear-gradient(160deg,#0C1B2A,#1E3C57);border-radius:18px;
+  padding:38px 30px;text-align:center;margin-top:52px}
+.mm .mm-cta h3{color:#fff;font-size:23px;font-weight:900;margin:0 0 10px}
+.mm .mm-cta p{color:#BCCBD9;font-size:15px;margin:0 0 24px}
+.mm .mm-btn{display:inline-block;background:var(--gold);color:#1A1206;font-weight:900;
+  font-size:16px;padding:15px 34px;border-radius:999px;text-decoration:none}
+.mm .mm-btn:hover{background:#DDB865;color:#1A1206}
+
+/* ── 專欄區：掛牌顧問憑證 + 文章清單 ── */
+.mm .mm-cred{background:linear-gradient(160deg,#0C1B2A,#1E3C57);border-radius:16px;
+  padding:26px 28px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:22px;align-items:center}
+.mm .mm-credimg{flex:0 0 132px;border-radius:12px;overflow:hidden;border:2px solid rgba(201,162,75,.45)}
+.mm .mm-credimg img{width:100%;display:block}
+.mm .mm-credtxt{flex:1 1 300px;min-width:0}
+.mm .mm-credno{display:inline-block;background:var(--gold);color:#1A1206;font-size:12.5px;
+  font-weight:900;padding:5px 12px;border-radius:5px;letter-spacing:.04em;margin-bottom:10px}
+.mm .mm-credtxt h3{color:#fff;font-size:19px;font-weight:900;margin:0 0 8px;line-height:1.45}
+.mm .mm-credtxt p{color:#BCCBD9;font-size:14.5px;margin:0 0 12px}
+.mm .mm-credtxt a{color:var(--gold);font-weight:800;font-size:14.5px;text-decoration:none;
+  border-bottom:1px solid rgba(201,162,75,.5)}
+.mm .mm-list{background:#fff;border-radius:16px;box-shadow:0 2px 14px rgba(19,41,61,.09);overflow:hidden}
+.mm .mm-li{display:block;padding:20px 26px;border-bottom:1px solid var(--line);
+  text-decoration:none;color:inherit}
+.mm .mm-li:last-child{border-bottom:0}
+.mm .mm-li:hover{background:#FBF8F2}
+.mm .mm-litop{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:7px}
+.mm .mm-lidate{font-size:12.5px;color:var(--muted);letter-spacing:.03em}
+.mm .mm-libadge{font-size:11.5px;font-weight:900;background:var(--navy);color:#fff;
+  padding:3px 9px;border-radius:4px;letter-spacing:.04em}
+.mm .mm-libadge.gold{background:var(--gold);color:#1A1206}
+.mm .mm-lititle{font-size:17px;font-weight:800;line-height:1.5;margin:0 0 6px;color:var(--navy)}
+.mm .mm-lidesc{font-size:14.5px;color:#43566B;margin:0}
+.mm .mm-lidesc b{color:var(--navy)}
+
+@media(max-width:760px){
+  .mm .mm-hero{padding:46px 16px 40px}
+  .mm .mm-cred{padding:22px 20px;gap:16px}
+  .mm .mm-credimg{flex:0 0 100px}
+  .mm .mm-li{padding:17px 20px}
+  .mm .mm-lititle{font-size:16px}
+  .mm .mm-hero h1{font-size:29px}
+  .mm .mm-wall span{font-size:16px}
+  .mm .mm-body{padding:38px 16px 46px}
+  .mm .mm-figure{flex:0 0 100%}
+  .mm .mm-figure img{min-height:190px;max-height:230px}
+  .mm .mm-content{padding:20px 20px 22px}
+  .mm .mm-quote p,.mm .mm-fact p{font-size:16.5px}
+  .mm .mm-title{font-size:17.5px}
+}
+</style>
+
+<div class="mm">
+
+<!-- ══════════════ HERO ══════════════ -->
+<div class="mm-hero">
+  <div class="mm-heroin">
+    <p class="mm-kicker">MEDIA COVERAGE</p>
+    <h1>媒體採訪紀錄</h1>
+    <p>房市的資訊很吵，真正的問題只有一個：這個人講的，能不能信。<br>
+    以下是媒體找上我、把我的判斷寫進報導的紀錄。原文連結都在，你可以自己去看。</p>
+    <p class="mm-walllabel">採訪過我的媒體</p>
+    <div class="mm-wall">
+      <span>Money 錢雜誌</span>
+      <span>聯合新聞網</span>
+      <span>NOWnews 今日新聞</span>
+      <span>賣厝阿明知識+</span>
+      <span>房仲日常</span>
+    </div>
+  </div>
+</div>
+
+<div class="mm-body">
+<div class="mm-wrap">
+
+  <!-- ══════════════ 區塊一：房產專業 ══════════════ -->
+  <h2 class="mm-sec">房產專業報導</h2>
+  <p class="mm-secnote">媒體就買房、賣房的實際問題來問我，把我的試算與判斷寫進報導。</p>
+
+  <!-- ① 環台房市調查（最強：22K 觀看、桃園代表） -->
+  <div class="mm-card">
+    <div class="mm-figure">
+      <img src="https://i.ytimg.com/vi/guH7OhrcwoY/maxresdefault.jpg" alt="環台房市調查 桃竹苗篇 節目畫面" loading="lazy">
+      <span class="mm-tag">房仲日常</span>
+      <span class="mm-play"><i>▶</i></span>
+    </div>
+    <div class="mm-content">
+      <div class="mm-fact">
+        <p>全台環島房市調查，桃園這一段，找的是我</p>
+        <span>節目章節「01:30 桃園調查－黃舶瑋」．累計 21,988 次觀看</span>
+      </div>
+      <p class="mm-title">【環台房市調查】打房確定無效嗎？桃竹苗房價誰最敢漲</p>
+      <p class="mm-date">房仲日常（謝濱展）｜2025.09.19｜25 分鐘</p>
+      <p class="mm-text">房仲日常的環台專題，一個縣市找一位在地的人來講。<strong>桃園這一段是我，新竹是諶寶蓮，苗栗是賴信安。</strong><br><br>
+      我在這集講的是：打房打了這麼久，為什麼桃園的價格撐得住？買方明明都在觀望，成交卻沒有崩。這不是市場有多熱，是供給、人口跟建設進度共同撐出來的結構——把這三條看懂，你才知道自己現在該等還是該進。</p>
+      <div class="mm-links">
+        <a class="mm-go" href="https://www.youtube.com/watch?v=guH7OhrcwoY" target="_blank" rel="noopener">看桃園這一段 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 新青安 vs 首購（兩家媒體同時報導，合併成一則更有力） -->
+  <div class="mm-card">
+    <div class="mm-figure">
+      <img src="https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg" alt="中壢專業房仲喵爸 受訪照片" loading="lazy">
+      <span class="mm-tag">NOWnews ＋ 聯合新聞網</span>
+    </div>
+    <div class="mm-content">
+      <div class="mm-quote">
+        <p>新青安貸款 1.775% 優惠利率只有 3 年，若 3 年後央行利率不變，可能會再回補 0.375%。</p>
+        <cite>— 引自 NOWnews 今日新聞．2024.01.18</cite>
+      </div>
+      <p class="mm-title">新青安 vs 首購，哪個划算？1.775% 不是最香</p>
+      <p class="mm-date">同一份試算，兩家媒體同時報導｜2024.01</p>
+      <p class="mm-text">那時候所有人都在講 1.775%，很少人去算三年之後。我把貸款 1000 萬、30 年拆成四種情形，一筆一筆算完：<br><br>
+      <strong>新青安加寬限期五年，前三年月繳只要 1 萬 4 千多，看起來最輕鬆——但總還款 1,389 萬，是四種裡面最貴的。</strong>一般首購月繳 3 萬 7，總還款 1,341 萬，最便宜。差了將近 50 萬。<br><br>
+      低利率不等於少付錢，寬限期也不是優惠，是把錢往後推。買房要看的是三十年的總數，不是第一年的月繳。</p>
+      <div class="mm-warn">※ 這是 2024 年 1 月的報導，規則已經改了——<strong>青安 3.0 已於 2026 年 8 月 1 日上路</strong>。判斷邏輯一樣適用，但數字要重算。<a href="https://loan.cathome.tw" target="_blank" rel="noopener">用青安 3.0 資格檢測器算現在的版本 →</a></div>
+      <div class="mm-links">
+        <a class="mm-go" href="https://www.nownews.com/news/6348245" target="_blank" rel="noopener">NOWnews 報導 →</a>
+        <a class="mm-go" href="https://house.udn.com/house/story/123593/7711225" target="_blank" rel="noopener">聯合新聞網報導 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 賣方委託文件（唯一打賣方的一則） -->
+  <div class="mm-card">
+    <div class="mm-figure">
+      <img src="https://catpawwedding.github.io/lazypack/cathome-media/photo2.jpg" alt="中壢專業房仲喵爸 講解專任委託與一般委託" loading="lazy">
+      <span class="mm-tag">聯合新聞網</span>
+    </div>
+    <div class="mm-content">
+      <div class="mm-quote">
+        <p>房仲會提供「委託銷售契約書」請賣家簽署，這是授權房仲代為出售房產的文件，具有法律效力。</p>
+        <cite>— 引自聯合新聞網 udn 房地產．2024.07.08</cite>
+      </div>
+      <p class="mm-title">賣方委託賣屋時，房仲要提供哪些文件？</p>
+      <p class="mm-date">聯合新聞網 udn 房地產｜2024.07.08</p>
+      <p class="mm-text">很多人簽委託書只看價格跟期限，其他一路往下簽。<br><br>
+      我在這篇把整份契約書拆開講：<strong>裡面應該要有不動產標示、雙方權利義務、委託價額、委託期間、附贈設備、標的物現況說明書、買賣價款支付方式、實價登錄資訊——缺哪一項，你都有權利要求補上。</strong><br><br>
+      專任約跟一般約的優缺點兩邊都講了。沒有哪一種比較好，只有適不適合你這間房子的狀況。簽之前要確認的六件事，也一併列出來。</p>
+      <div class="mm-links">
+        <a class="mm-go" href="https://house.udn.com/house/story/123593/8079035" target="_blank" rel="noopener">閱讀原文報導 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 桃園四年漲五成 -->
+  <div class="mm-card">
+    <div class="mm-figure">
+      <img src="https://i.ytimg.com/vi/NuE3BwvuRRo/maxresdefault.jpg" alt="桃園4年房價漲5成 節目畫面" loading="lazy">
+      <span class="mm-tag">房仲日常</span>
+      <span class="mm-play"><i>▶</i></span>
+    </div>
+    <div class="mm-content">
+      <div class="mm-fact">
+        <p>人口移入全國第一、出生數全國第一——中壢的漲，是有原因的</p>
+        <span>節目章節「00:46 人口移入第一名，生產第一名」</span>
+      </div>
+      <p class="mm-title">【房價調查局】桃園 4 年房價漲 5 成？人口移入、重大建設成最大主因</p>
+      <p class="mm-date">房仲日常（謝濱展）｜2024.05.24｜6 分鐘</p>
+      <p class="mm-text">房市節目找我來拆中壢。我把會漲的原因一條一條講開：人口移入與出生數都是全國第一，重大建設一路排下來，房價在六都裡面又是最親民的，所以雙北跟竹科的買方會往這裡移。<br><br>
+      也講了<strong>鐵路地下化的來龍去脈、各項建設大概什麼時候完工</strong>，以及當時預售屋跟中古屋的成交行情各在什麼水位。<br><br>
+      看區域不能只看漲跌數字，要看背後那幾條「還沒兌現的東西」什麼時候會兌現。</p>
+      <div class="mm-links">
+        <a class="mm-go" href="https://www.youtube.com/watch?v=NuE3BwvuRRo" target="_blank" rel="noopener">前往觀看 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ 區塊二：專欄文章 ══════════════ -->
+  <h2 class="mm-sec mm-sec2">專欄文章</h2>
+  <p class="mm-secnote">在「賣厝阿明知識+」買房知識平台掛牌的專業顧問，長期供稿。以下每一篇都可以直接點進去看。</p>
+
+  <!-- 掛牌憑證 -->
+  <div class="mm-cred">
+    <div class="mm-credimg">
+      <img src="https://catpawwedding.github.io/lazypack/cathome-media/photo3.jpg" alt="中壢專業房仲喵爸 黃舶瑋 專業顧問" loading="lazy">
+    </div>
+    <div class="mm-credtxt">
+      <span class="mm-credno">112 年（桃市）專業顧問　C0025</span>
+      <h3>賣厝阿明知識+　掛牌專業顧問</h3>
+      <p>「賣厝阿明知識+」是台灣做買房知識的跨媒體平台。我在上面是有編號的掛牌顧問，不是被訪問一次就結束——底下這些文章，都是我自己寫的。</p>
+      <a href="https://54aming.com/articles/cecbc9" target="_blank" rel="noopener">看我的顧問檔案 →</a>
+    </div>
+  </div>
+
+  <!-- 文章清單 -->
+  <div class="mm-list">
+
+    <a class="mm-li" href="https://54aming.com/news/3aed8b" target="_blank" rel="noopener">
+      <div class="mm-litop">
+        <span class="mm-libadge gold">署名評論</span>
+        <span class="mm-lidate">2025.08.01</span>
+      </div>
+      <p class="mm-lititle">【喵爸觀點】房貸成數陷阱多！別再迷信「貸款8成」，小心一腳踏進違約風險</p>
+      <p class="mm-lidesc">很多人聽到「保證貸八成」就簽了，等銀行核貸下來才發現只有七成、甚至六成，錢一下補不上就變成違約。<b>我在文章裡直接呼籲內政部，應該要求業者在簽約前提供書面風險告知書</b>，並給購屋族三個保命做法：貸款評估走在簽約前面、把「核貸不足可無條件解約」寫進契約、交屋期至少拉長到三個月。</p>
+    </a>
+
+    <a class="mm-li" href="https://54aming.com/news/c5423e" target="_blank" rel="noopener">
+      <div class="mm-litop">
+        <span class="mm-libadge">專家解說</span>
+        <span class="mm-lidate">2025.01.16</span>
+      </div>
+      <p class="mm-lititle">違建買賣糾紛多，專家 5 點說明避雷區</p>
+      <p class="mm-lidesc">頂樓加蓋、陽台外推、夾層屋能不能買？我把五件事講清楚：違建<b>不能過戶、買到的只有「事實上處分權」不是所有權</b>、隨報隨拆、結構沒經過計算。還有最重要的一點——賣方如果沒在「建物現況確認書」寫明違建，你是可以依法求償的。</p>
+    </a>
+
+    <a class="mm-li" href="https://54aming.com/news/41575d" target="_blank" rel="noopener">
+      <div class="mm-litop">
+        <span class="mm-libadge">專家評論</span>
+        <span class="mm-lidate">2025.08.01</span>
+      </div>
+      <p class="mm-lititle">重購退稅沒那麼簡單！國稅局嚴查「住沒住」，水電、包裹都要查</p>
+      <p class="mm-lidesc">遷戶籍進去就算數的時代過去了。<b>國稅局現在查的是「行為」不是文件</b>——水電用量、包裹收發、信用卡消費都會看。真的有人戶籍遷了卻因為水電太低被駁回。想換屋的人，退稅後五年內再賣、出租或做營業用，退稅款一樣會被追回。</p>
+    </a>
+
+    <a class="mm-li" href="https://54aming.com/news/70c234" target="_blank" rel="noopener">
+      <div class="mm-litop">
+        <span class="mm-libadge">專家解說</span>
+        <span class="mm-lidate">2023.08.14</span>
+      </div>
+      <p class="mm-lititle">注意！預售屋合約不注意，你就慘了</p>
+      <p class="mm-lidesc">預售屋合約洋洋灑灑一大本，從哪裡看起？拆成六大部分講完：基本資料、關於錢、關於房子、關於日期、停車位、還有<b>「這七件事合約裡不可以寫」</b>。裡面有幾個要特別盯的——建商把「面積誤差不予找補」寫進去等於變相不讓你解約；把保固起算日從「交屋日」偷偷改成「取得使用執照日」，你的保固就被縮短了。</p>
+    </a>
+
+    <a class="mm-li" href="https://54aming.com/news/f345b5" target="_blank" rel="noopener">
+      <div class="mm-litop">
+        <span class="mm-libadge">專家解說</span>
+        <span class="mm-lidate">2024.07</span>
+      </div>
+      <p class="mm-lititle">賣方委託賣屋時，房仲要提供哪些文件呢？</p>
+      <p class="mm-lidesc">同步刊登於聯合新聞網房地產。委託銷售契約書該載明哪些事、專任約與一般約的優缺點、簽約前要確認的六件事。</p>
+    </a>
+
+    <a class="mm-li" href="https://54aming.com/news/69ea63" target="_blank" rel="noopener">
+      <div class="mm-litop">
+        <span class="mm-libadge">專家解說</span>
+        <span class="mm-lidate">2024.01</span>
+      </div>
+      <p class="mm-lititle">「新青安」跟「首購」哪個比較划算？</p>
+      <p class="mm-lidesc">同步刊登於聯合新聞網房地產。貸款 1000 萬、30 年的四種情形完整試算。<b>※ 青安 3.0 已於 2026 年 8 月上路，數字要重算</b>。</p>
+    </a>
+
+  </div>
+
+  <!-- ══════════════ 區塊三：人物專訪 ══════════════ -->
+  <h2 class="mm-sec mm-sec2">人物專訪</h2>
+  <p class="mm-secnote">關於我怎麼從職業軍人走到房仲這一行。</p>
+
+  <div class="mm-card">
+    <div class="mm-figure" style="display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(160deg,#0C1B2A,#1E3C57);padding:34px 20px;text-align:center">
+      <div>
+        <p style="margin:0 0 6px;font-size:12px;letter-spacing:.3em;color:#C9A24B;font-weight:800">MAGAZINE</p>
+        <p style="margin:0 0 10px;font-size:26px;font-weight:900;color:#fff;line-height:1.3">Money 錢<br>雜誌</p>
+        <p style="margin:0;font-size:13px;color:#BCCBD9">2026 年 2 月號</p>
+      </div>
+    </div>
+    <div class="mm-content">
+      <div class="mm-quote">
+        <p>房仲業存在殘酷的 82 法則，只有 2 成的人能倖存。</p>
+        <cite>— 引自 Money 錢雜誌．2026.03.24</cite>
+      </div>
+      <p class="mm-title">揮別「薪」酸　轉職房仲突圍法則：藝人黃少谷、退役職軍喵爸揭 3 大生存關鍵</p>
+      <p class="mm-date">Money 錢雜誌｜2026.03.24｜《Money錢》2026 年 2 月號</p>
+      <p class="mm-text">雜誌談中年轉職，找了三個人：房仲業 14 年的阿濱、藝人黃少谷，還有我。<br><br>
+      我講的是真話，不是漂亮話。<strong>當了 20 年職業軍人，士官長退伍，41 歲那年換下軍裝穿上西裝。第一份工作不是房仲，是去跑了三個月外送</strong>——不是為了賺外快，是想把中壢的商圈、市場、巷弄徹底摸熟。剛入行最難的也不是體力，是要拉下臉去跟社區保全攀關係，那比面對客戶還難受。<br><br>
+      至於為什麼堅持有話直說——面對外界覺得房仲愛騙人，我的答案很簡單：<strong>寧可實話實說，生意才做得長久。</strong></p>
+      <div class="mm-links">
+        <a class="mm-go" href="https://money.cmoney.tw/article/30311" target="_blank" rel="noopener">閱讀原文報導 →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ CTA ══════════════ -->
+  <div class="mm-cta">
+    <h3>有房子的問題，直接問我</h3>
+    <p>買方、賣方都可以。不推銷，先幫你把狀況弄清楚。</p>
+    <a class="mm-btn" href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">加 LINE 免費諮詢</a>
+  </div>
+
+</div>
+</div>
+</div>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://cathome.tw/author/anttow/",
+      "name": "喵爸",
+      "alternateName": ["黃舶瑋", "中壢專業房仲喵爸"],
+      "jobTitle": "不動產經紀人員",
+      "url": "https://cathome.tw/",
+      "worksFor": { "@id": "https://cathome.tw/#organization" },
+      "knowsAbout": [
+        "中古屋買賣", "預售屋換約", "房地合一稅", "重購退稅",
+        "青年安心成家貸款", "繼承與贈與", "不動產說明書", "實價登錄", "桃園中壢房市"
+      ],
+      "sameAs": [
+        "https://www.facebook.com/Willl.Huang.520/",
+        "https://www.instagram.com/cat.w.520.y/",
+        "https://www.threads.com/@cat.w.520.y",
+        "https://youtube.com/@cathome-888"
+      ],
+      "subjectOf": [
+        { "@id": "https://www.youtube.com/watch?v=guH7OhrcwoY" },
+        { "@id": "https://www.nownews.com/news/6348245" },
+        { "@id": "https://house.udn.com/house/story/123593/8079035" },
+        { "@id": "https://www.youtube.com/watch?v=NuE3BwvuRRo" },
+        { "@id": "https://house.udn.com/house/story/123593/7711225" },
+        { "@id": "https://money.cmoney.tw/article/30311" },
+        { "@id": "https://54aming.com/news/3aed8b" },
+        { "@id": "https://54aming.com/news/c5423e" },
+        { "@id": "https://54aming.com/news/41575d" },
+        { "@id": "https://54aming.com/news/70c234" },
+        { "@id": "https://54aming.com/articles/cecbc9" }
+      ],
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "name": "賣厝阿明知識+ 專業顧問",
+        "identifier": "112年(桃市)專業顧問 C0025",
+        "credentialCategory": "專業顧問掛牌",
+        "recognizedBy": { "@type": "Organization", "name": "賣厝阿明知識+", "url": "https://54aming.com/" },
+        "url": "https://54aming.com/articles/cecbc9"
+      }
+    },
+
+    {
+      "@type": "Article",
+      "@id": "https://54aming.com/news/3aed8b",
+      "url": "https://54aming.com/news/3aed8b",
+      "headline": "【喵爸觀點】房貸成數陷阱多！別再迷信「貸款8成」　小心一腳踏進違約風險",
+      "datePublished": "2025-08-01",
+      "inLanguage": "zh-TW",
+      "author": { "@id": "https://cathome.tw/author/anttow/" },
+      "publisher": { "@type": "Organization", "name": "賣厝阿明知識+（M傳媒）", "url": "https://54aming.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    },
+
+    {
+      "@type": "Article",
+      "@id": "https://54aming.com/news/c5423e",
+      "url": "https://54aming.com/news/c5423e",
+      "headline": "黃舶瑋　違建買賣糾紛多　專家5點說明避雷區",
+      "datePublished": "2025-01-16",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "Organization", "name": "賣厝阿明知識+（M傳媒）", "url": "https://54aming.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    },
+
+    {
+      "@type": "Article",
+      "@id": "https://54aming.com/news/41575d",
+      "url": "https://54aming.com/news/41575d",
+      "headline": "重購退稅沒那麼簡單！國稅局嚴查「住沒住」　水電、包裹都要查",
+      "datePublished": "2025-08-01",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "Organization", "name": "賣厝阿明知識+（M傳媒）", "url": "https://54aming.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    },
+
+    {
+      "@type": "Article",
+      "@id": "https://54aming.com/news/70c234",
+      "url": "https://54aming.com/news/70c234",
+      "headline": "黃舶瑋｜注意！預售屋合約不注意，你就慘了",
+      "datePublished": "2023-08-14",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "Organization", "name": "賣厝阿明知識+（M傳媒）", "url": "https://54aming.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    },
+
+    {
+      "@type": "ProfilePage",
+      "@id": "https://54aming.com/articles/cecbc9",
+      "url": "https://54aming.com/articles/cecbc9",
+      "name": "中壢專業房仲喵爸~黃舶瑋｜賣厝阿明知識+ 專業顧問",
+      "datePublished": "2023-07-03",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "Organization", "name": "賣厝阿明知識+", "url": "https://54aming.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    },
+
+    {
+      "@type": "VideoObject",
+      "@id": "https://www.youtube.com/watch?v=guH7OhrcwoY",
+      "url": "https://www.youtube.com/watch?v=guH7OhrcwoY",
+      "name": "【環台房市調查】打房確定無效嗎？桃竹苗房價誰最敢漲（桃園新竹苗栗篇）",
+      "description": "房仲日常環台房市調查專題，桃園段由中壢專業房仲喵爸（黃舶瑋）分析打房政策對桃園房價的實際影響、供給與人口結構。",
+      "uploadDate": "2025-09-19",
+      "duration": "PT25M37S",
+      "thumbnailUrl": "https://i.ytimg.com/vi/guH7OhrcwoY/maxresdefault.jpg",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "Organization", "name": "【房仲日常】謝濱展-阿濱", "url": "https://www.youtube.com/@Mr.Bin.SellHouse" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    },
+
+    {
+      "@type": "VideoObject",
+      "@id": "https://www.youtube.com/watch?v=NuE3BwvuRRo",
+      "url": "https://www.youtube.com/watch?v=NuE3BwvuRRo",
+      "name": "【房價調查局】桃園 4 年房價漲 5 成？人口移入、重大建設成最大主因",
+      "description": "中壢專業房仲喵爸（黃舶瑋）分析中壢房價上漲原因：人口移入與出生數全國第一、重大建設進度、鐵路地下化，以及當時預售屋與中古屋成交行情。",
+      "uploadDate": "2024-05-24",
+      "duration": "PT6M2S",
+      "thumbnailUrl": "https://i.ytimg.com/vi/NuE3BwvuRRo/maxresdefault.jpg",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "Organization", "name": "【房仲日常】謝濱展-阿濱", "url": "https://www.youtube.com/@Mr.Bin.SellHouse" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    },
+
+    {
+      "@type": "NewsArticle",
+      "@id": "https://www.nownews.com/news/6348245",
+      "url": "https://www.nownews.com/news/6348245",
+      "headline": "新青安貸款vs首購買房哪個划算　專家試算後超驚！1.775%不是最香",
+      "datePublished": "2024-01-18",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "NewsMediaOrganization", "name": "NOWnews 今日新聞", "url": "https://www.nownews.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" },
+      "mentions": { "@id": "https://cathome.tw/#organization" }
+    },
+
+    {
+      "@type": "NewsArticle",
+      "@id": "https://house.udn.com/house/story/123593/8079035",
+      "url": "https://house.udn.com/house/story/123593/8079035",
+      "headline": "賣厝阿明／賣方委託賣屋時 房仲要提供哪些文件呢？",
+      "datePublished": "2024-07-08",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "NewsMediaOrganization", "name": "聯合新聞網 udn 房地產", "url": "https://house.udn.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" },
+      "mentions": { "@id": "https://cathome.tw/#organization" }
+    },
+
+    {
+      "@type": "NewsArticle",
+      "@id": "https://house.udn.com/house/story/123593/7711225",
+      "url": "https://house.udn.com/house/story/123593/7711225",
+      "headline": "賣厝阿明／「新青安」跟「首購」哪個比較划算？",
+      "datePublished": "2024-01-16",
+      "inLanguage": "zh-TW",
+      "publisher": { "@type": "NewsMediaOrganization", "name": "聯合新聞網 udn 房地產", "url": "https://house.udn.com/" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" },
+      "mentions": { "@id": "https://cathome.tw/#organization" }
+    },
+
+    {
+      "@type": "Article",
+      "@id": "https://money.cmoney.tw/article/30311",
+      "url": "https://money.cmoney.tw/article/30311",
+      "headline": "揮別「薪」酸 轉職房仲突圍法則！藝人黃少谷、退役職軍喵爸揭3大生存關鍵",
+      "datePublished": "2026-03-24",
+      "inLanguage": "zh-TW",
+      "author": { "@type": "Person", "name": "師慧君" },
+      "publisher": { "@type": "Organization", "name": "Money 錢雜誌", "url": "https://money.cmoney.tw/" },
+      "isPartOf": { "@type": "PublicationIssue", "name": "《Money錢》2026年2月號" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" },
+      "mentions": { "@id": "https://cathome.tw/#organization" }
+    },
+
+    {
+      "@type": "CollectionPage",
+      "@id": "https://cathome.tw/media/#webpage",
+      "url": "https://cathome.tw/media/",
+      "name": "媒體報導｜中壢專業房仲喵爸",
+      "description": "NOWnews 今日新聞、聯合新聞網房地產、Money 錢雜誌對中壢專業房仲喵爸的採訪與報導彙整，含新青安與首購總還款試算、賣方委託銷售契約書應載事項、專任約與一般約差別。",
+      "inLanguage": "zh-TW",
+      "isPartOf": { "@id": "https://cathome.tw/#website" },
+      "about": { "@id": "https://cathome.tw/author/anttow/" }
+    }
+  ]
+}
+</script>

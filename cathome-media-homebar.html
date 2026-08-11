@@ -1,0 +1,92 @@
+<!--
+  首頁「媒體採訪」區塊　v2（2026-08-11 改版）
+  放置位置：首頁「Google 80 則好評」區塊的【上方】。
+
+  v1 只有一排文字，被評「人家一定要點進去才看得到，信任感就比較少」。
+  v2 改成深藍底 + 直接把最有力的一句引言放在首頁上 + 三張縮圖，
+  不點進去也已經看到證據。點整塊進 /media。
+
+  🔴 引言是真的、逐字照抄 NOWnews 報導。不要改字，也不要換成自己寫的句子
+     還留著引號 —— 那就變成假引用了。
+
+  ⚠️ 上線前搜尋 https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg，換成上傳到媒體庫後的網址（步驟見「上架步驟.md」）。
+-->
+<style>
+.mb{--navy:#13293D;--navy2:#0C1B2A;--ivory:#F4EFE6;--gold:#C9A24B;
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;}
+.mb *{box-sizing:border-box}
+.mb .mb-link{display:block;text-decoration:none;color:inherit;
+  background:linear-gradient(160deg,#0C1B2A 0%,#13293D 60%,#1E3C57 100%);padding:44px 20px 40px}
+.mb .mb-in{max-width:940px;margin:0 auto}
+.mb .mb-label{text-align:center;font-size:12px;letter-spacing:.38em;color:var(--gold);
+  font-weight:800;margin:0 0 20px}
+.mb .mb-wall{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 28px;
+  padding-bottom:24px;border-bottom:1px solid rgba(201,162,75,.28)}
+.mb .mb-wall span{font-size:19px;font-weight:800;color:var(--ivory);letter-spacing:.05em;opacity:.92}
+
+.mb .mb-quote{max-width:640px;margin:26px auto 0;position:relative;padding-left:34px}
+.mb .mb-quote:before{content:"\201C";position:absolute;left:0;top:-10px;font-size:54px;line-height:1;
+  color:var(--gold);font-family:Georgia,serif;opacity:.9}
+.mb .mb-quote p{margin:0 0 8px;font-size:19px;line-height:1.65;font-weight:700;color:#fff}
+.mb .mb-quote cite{font-style:normal;font-size:12.5px;color:var(--gold);letter-spacing:.04em}
+
+.mb .mb-thumbs{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:30px 0 0}
+.mb .mb-thumb{width:190px;border-radius:10px;overflow:hidden;border:1px solid rgba(201,162,75,.35);
+  background:#0C1B2A}
+.mb .mb-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.mb .mb-thumb p{margin:0;font-size:11.5px;color:#BCCBD9;padding:7px 9px;letter-spacing:.03em}
+.mb .mb-more{text-align:center;margin:28px 0 0;font-size:15px;font-weight:800;color:#fff}
+.mb .mb-more span{border-bottom:2px solid var(--gold);padding-bottom:3px}
+
+@media(max-width:640px){
+  .mb .mb-link{padding:34px 16px 32px}
+  .mb .mb-wall span{font-size:15px}
+  .mb .mb-quote p{font-size:16.5px}
+  .mb .mb-thumb{width:calc(50% - 6px)}
+  .mb .mb-thumb p{font-size:10.5px}
+}
+</style>
+
+<div class="mb">
+  <a class="mb-link" href="/media/">
+    <div class="mb-in">
+
+      <p class="mb-label">媒體採訪</p>
+
+      <div class="mb-wall">
+        <span>Money 錢雜誌</span>
+        <span>聯合新聞網</span>
+        <span>NOWnews 今日新聞</span>
+        <span>房仲日常</span>
+      </div>
+
+      <div class="mb-quote">
+        <p>新青安貸款 1.775% 優惠利率只有 3 年，若 3 年後央行利率不變，可能會再回補 0.375%。</p>
+        <cite>— NOWnews 今日新聞引述中壢專業房仲喵爸．2024.01.18</cite>
+      </div>
+
+      <div class="mb-thumbs">
+        <div class="mb-thumb">
+          <img src="https://i.ytimg.com/vi/guH7OhrcwoY/mqdefault.jpg" alt="環台房市調查 桃竹苗篇" loading="lazy">
+          <p>環台房市調查．桃園代表</p>
+        </div>
+        <div class="mb-thumb">
+          <img src="https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg" alt="新青安與首購總還款試算 報導" loading="lazy">
+          <p>新青安 vs 首購 總還款試算</p>
+        </div>
+        <div class="mb-thumb">
+          <img src="https://i.ytimg.com/vi/NuE3BwvuRRo/mqdefault.jpg" alt="桃園4年房價漲5成" loading="lazy">
+          <p>桃園 4 年漲 5 成的真正原因</p>
+        </div>
+      </div>
+
+      <p class="mb-more"><span>看完整媒體報導 →</span></p>
+
+    </div>
+  </a>
+</div>
+
+<!--
+  ⚠️ 拿到今周刊連結後：把 <span>今周刊</span> 加進 mb-wall，並排在第一個
+     （今周刊在一般人心中份量最重）。
+-->
