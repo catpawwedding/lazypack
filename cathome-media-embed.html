@@ -80,11 +80,12 @@
 .mm .mm-magt{margin:0;font-size:15px;font-weight:800;color:#fff}
 
 /* ── 引言帶：不用點進去就看得到的那一句 ── */
-.mm .mm-quote{background:var(--navy);border-radius:10px;padding:18px 20px 16px;margin:0 0 18px;position:relative}
-.mm .mm-quote:before{content:"\201C";position:absolute;left:12px;top:-2px;font-size:52px;line-height:1;
-  color:var(--gold);font-family:Georgia,serif;opacity:.85}
-.mm .mm-quote p{margin:0 0 8px 0;padding-left:26px;font-size:18px;line-height:1.65;font-weight:700;color:#fff}
-.mm .mm-quote cite{display:block;padding-left:26px;font-size:12px;font-style:normal;
+/* 🔴 不要用 CSS 的 content:"\201C" 畫引號 —— 中文字體會渲染成兩個逗號，很醜
+   （2026-08-11 喵爸點出）。中文引言一律直接在文字裡寫「」。 */
+.mm .mm-quote{background:var(--navy);border-radius:10px;padding:18px 20px 16px;margin:0 0 18px;
+  border-left:4px solid var(--gold)}
+.mm .mm-quote p{margin:0 0 8px 0;font-size:18px;line-height:1.65;font-weight:700;color:#fff}
+.mm .mm-quote cite{display:block;font-size:12px;font-style:normal;
   color:var(--gold);letter-spacing:.04em}
 /* 事實標籤版：沒有原文可引的時候用這個，絕不加引號 */
 .mm .mm-fact{background:var(--navy);border-radius:10px;padding:16px 20px;margin:0 0 18px;
@@ -224,7 +225,7 @@
     </a>
     <div class="mm-content">
       <div class="mm-quote">
-        <p>新青安貸款 1.775% 優惠利率只有 3 年，若 3 年後央行利率不變，可能會再回補 0.375%。</p>
+        <p>「新青安貸款 1.775% 優惠利率只有 3 年，若 3 年後央行利率不變，可能會再回補 0.375%。」</p>
         <cite>— 引自 NOWnews 今日新聞．2024.01.18</cite>
       </div>
       <p class="mm-title">新青安 vs 首購，哪個划算？1.775% 不是最香<br><span style="font-size:15px;font-weight:800;color:#8A6A1F">（2024 年舊制新青安．非現行青安 3.0）</span></p>
@@ -248,7 +249,7 @@
     </a>
     <div class="mm-content">
       <div class="mm-quote">
-        <p>房仲會提供「委託銷售契約書」請賣家簽署，這是授權房仲代為出售房產的文件，具有法律效力。</p>
+        <p>「房仲會提供『委託銷售契約書』請賣家簽署，這是授權房仲代為出售房產的文件，具有法律效力。」</p>
         <cite>— 引自聯合新聞網 udn 房地產．2024.07.08</cite>
       </div>
       <p class="mm-title">賣方委託賣屋時，房仲要提供哪些文件？</p>
@@ -400,7 +401,7 @@
     </a>
     <div class="mm-content">
       <div class="mm-quote">
-        <p>房仲業存在殘酷的 82 法則，只有 2 成的人能倖存。</p>
+        <p>「房仲業存在殘酷的 82 法則，只有 2 成的人能倖存。」</p>
         <cite>— 引自 Money 錢雜誌．2026.03.24</cite>
       </div>
       <p class="mm-title">揮別「薪」酸　轉職房仲突圍法則：藝人黃少谷、退役職軍喵爸揭 3 大生存關鍵</p>
