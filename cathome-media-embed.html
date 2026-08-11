@@ -57,8 +57,13 @@
 /* 🔴 圖片一定要用 position:absolute+inset:0 撐滿，不能用 height:100%。
    height:100% 需要父層有明確高度才解得出來；.mm-figure 沒有，瀏覽器會退回原始比例，
    文字比較長的卡片下面就會露出一大塊深藍空白（2026-08-11 上線前實測抓到）。 */
-.mm .mm-figure{flex:0 0 38%;min-width:260px;position:relative;background:var(--navy);min-height:240px}
-.mm .mm-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* 🔴 .mm-figure 是 <a> 不是 <div>：使用者的直覺是點圖，圖沒連結＝白白流失點擊
+   （2026-08-11 喵爸點出）。改標籤時記得保留 display:block 與 text-decoration:none。 */
+.mm .mm-figure{flex:0 0 38%;min-width:260px;position:relative;background:var(--navy);min-height:240px;
+  display:block;text-decoration:none;overflow:hidden;cursor:pointer}
+.mm .mm-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .35s ease}
+.mm .mm-figure:hover img{transform:scale(1.045)}
 .mm .mm-tag{position:absolute;left:0;top:18px;background:var(--navy);color:#fff;font-size:13px;
   font-weight:800;padding:7px 14px 7px 16px;border-radius:0 6px 6px 0;letter-spacing:.04em;
   box-shadow:0 2px 8px rgba(0,0,0,.25)}
@@ -191,11 +196,11 @@
 
   <!-- ① 環台房市調查（最強：22K 觀看、桃園代表） -->
   <div class="mm-card">
-    <div class="mm-figure">
+    <a class="mm-figure" href="https://www.youtube.com/watch?v=guH7OhrcwoY" target="_blank" rel="noopener" aria-label="觀看環台房市調查 桃園段">
       <img src="https://i.ytimg.com/vi/guH7OhrcwoY/maxresdefault.jpg" alt="環台房市調查 桃竹苗篇 節目畫面" loading="lazy">
       <span class="mm-tag">房仲日常</span>
       <span class="mm-play"><i>▶</i></span>
-    </div>
+    </a>
     <div class="mm-content">
       <div class="mm-fact">
         <p>全台環島房市調查，桃園這一段，找的是我</p>
@@ -213,10 +218,10 @@
 
   <!-- ② 新青安 vs 首購（兩家媒體同時報導，合併成一則更有力） -->
   <div class="mm-card">
-    <div class="mm-figure">
+    <a class="mm-figure" href="https://www.nownews.com/news/6348245" target="_blank" rel="noopener" aria-label="閱讀 NOWnews 新青安 vs 首購報導">
       <img src="https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg" alt="中壢專業房仲喵爸 受訪照片" loading="lazy">
       <span class="mm-tag">NOWnews ＋ 聯合新聞網</span>
-    </div>
+    </a>
     <div class="mm-content">
       <div class="mm-quote">
         <p>新青安貸款 1.775% 優惠利率只有 3 年，若 3 年後央行利率不變，可能會再回補 0.375%。</p>
@@ -237,10 +242,10 @@
 
   <!-- ③ 賣方委託文件（唯一打賣方的一則） -->
   <div class="mm-card">
-    <div class="mm-figure">
+    <a class="mm-figure" href="https://house.udn.com/house/story/123593/8079035" target="_blank" rel="noopener" aria-label="閱讀聯合新聞網 賣方委託文件報導">
       <img src="https://catpawwedding.github.io/lazypack/cathome-media/photo2.jpg" alt="中壢專業房仲喵爸 講解專任委託與一般委託" loading="lazy">
       <span class="mm-tag">聯合新聞網</span>
-    </div>
+    </a>
     <div class="mm-content">
       <div class="mm-quote">
         <p>房仲會提供「委託銷售契約書」請賣家簽署，這是授權房仲代為出售房產的文件，具有法律效力。</p>
@@ -259,11 +264,11 @@
 
   <!-- ④ 桃園四年漲五成 -->
   <div class="mm-card">
-    <div class="mm-figure">
+    <a class="mm-figure" href="https://www.youtube.com/watch?v=NuE3BwvuRRo" target="_blank" rel="noopener" aria-label="觀看桃園4年房價漲5成">
       <img src="https://i.ytimg.com/vi/NuE3BwvuRRo/maxresdefault.jpg" alt="桃園4年房價漲5成 節目畫面" loading="lazy">
       <span class="mm-tag">房仲日常</span>
       <span class="mm-play"><i>▶</i></span>
-    </div>
+    </a>
     <div class="mm-content">
       <div class="mm-fact">
         <p>人口移入全國第一、出生數全國第一——中壢的漲，是有原因的</p>
@@ -385,14 +390,14 @@
   <p class="mm-secnote">關於我怎麼從職業軍人走到房仲這一行。</p>
 
   <div class="mm-card">
-    <div class="mm-figure">
+    <a class="mm-figure" href="https://money.cmoney.tw/article/30311" target="_blank" rel="noopener" aria-label="閱讀 Money 錢雜誌專訪">
       <img src="https://catpawwedding.github.io/lazypack/cathome-media/money-30311.jpg" alt="Money 錢雜誌 轉職房仲突圍法則專題" loading="lazy">
       <span class="mm-tag">Money 錢雜誌</span>
       <div class="mm-mag">
         <p class="mm-magk">MAGAZINE</p>
         <p class="mm-magt">《Money錢》2026 年 2 月號</p>
       </div>
-    </div>
+    </a>
     <div class="mm-content">
       <div class="mm-quote">
         <p>房仲業存在殘酷的 82 法則，只有 2 成的人能倖存。</p>
