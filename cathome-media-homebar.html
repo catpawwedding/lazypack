@@ -1,60 +1,65 @@
 <!--
-  首頁「媒體採訪」區塊　v2（2026-08-11 改版）
-  放置位置：首頁「Google 80 則好評」區塊的【上方】。
+  首頁「媒體採訪」區塊　v3（2026-08-11 第三版）
+  放置位置：首頁「為什麼把房子交給喵爸」之後、「房市知識」之前。
 
-  v1 只有一排文字，被評「人家一定要點進去才看得到，信任感就比較少」。
-  v2 改成深藍底 + 直接把最有力的一句引言放在首頁上 + 三張縮圖，
-  不點進去也已經看到證據。點整塊進 /media。
+  v2 被評：①「媒體採訪」四個字太小不明顯 ②整塊色調不顯眼
+           ③ 引言前面兩個逗號很醜 ④ 字體有大有小、層級亂
+  v3 改法：
+  ① 小標籤改成「大標題＋副標」的正規階層 —— 標題 34px、副標 17px
+  ② 加金色上下框線 + 更深的漸層 + 中央柔光，整塊變成「被框起來的獎章區」
+  ③ 🔴 拿掉 CSS 的 `content:"\201C"` 英文引號 —— 中文字體會把它渲染成
+     兩個逗號，非常醜。改用中文「」直接寫在文字裡。以後所有中文引言都照這樣做。
+  ④ 字級階層定死：標題 34 > 媒體名 26 > 引言 24 > 出處 14 > 副標 17
 
-  🔴 引言是真的、逐字照抄 Money 錢雜誌專訪。不要改字，也不要換成自己寫的句子
-     還留著引號 —— 那就變成假引用了。
+  🔴 引言逐字照抄 Money 錢雜誌專訪，不要改字。
+  🔴 首頁只放不會過期的引言（新青安那種有時效的留在 /media 內頁並標年份）。
 
-  🔴 為什麼首頁不放「新青安」那句（2026-08-11 喵爸糾正）：
-     那句是 2024 年 1 月的報導，青安 3.0 已於 2026-08 上路，等於首頁唯一一句話
-     就在自曝資訊過期。首頁要放的是**不會過期**的話。
-     「寧可實話實說，生意才能做得長久」＝他本人原話、永遠成立、且直接對上
-     官網主張（誠實房仲），是最適合放首頁的一句。
-     ⇒ 通則：首頁／形象位置只放常青引言，有時效的數字留在 /media 內頁並加註年份。
-
-  ⚠️ 上線前搜尋 https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg，換成上傳到媒體庫後的網址（步驟見「上架步驟.md」）。
+  ⚠️ 上線前搜尋 https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg 換成媒體庫網址（目前版本已不需要圖，保留變數以防未來加圖）。
 -->
 <style>
-.mb{--navy:#13293D;--navy2:#0C1B2A;--ivory:#F4EFE6;--gold:#C9A24B;
+.mb{--navy:#0A1724;--navy2:#16324B;--ivory:#F4EFE6;--gold:#C9A24B;--goldlt:#E3C176;
   font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;}
 .mb *{box-sizing:border-box}
-.mb .mb-link{display:block;text-decoration:none;color:inherit;
-  background:linear-gradient(160deg,#0C1B2A 0%,#13293D 60%,#1E3C57 100%);padding:30px 20px 28px}
-.mb .mb-in{max-width:940px;margin:0 auto}
-.mb .mb-label{text-align:center;font-size:13px;letter-spacing:.38em;color:var(--gold);
-  font-weight:800;margin:0 0 18px}
-.mb .mb-wall{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 32px;
-  padding-bottom:22px;border-bottom:1px solid rgba(201,162,75,.28)}
-.mb .mb-wall span{font-size:24px;font-weight:900;color:#fff;letter-spacing:.04em}
 
-.mb .mb-quote{max-width:760px;margin:24px auto 0;position:relative;padding-left:44px}
-.mb .mb-quote:before{content:"\201C";position:absolute;left:0;top:-14px;font-size:66px;line-height:1;
-  color:var(--gold);font-family:Georgia,serif;opacity:.95}
-.mb .mb-quote p{margin:0 0 10px;font-size:26px;line-height:1.55;font-weight:800;color:#fff}
-.mb .mb-quote cite{font-style:normal;font-size:14px;color:var(--gold);letter-spacing:.04em}
+.mb .mb-link{display:block;text-decoration:none;color:inherit;position:relative;overflow:hidden;
+  background:
+    radial-gradient(120% 140% at 50% 0%, rgba(201,162,75,.16) 0%, rgba(201,162,75,0) 55%),
+    linear-gradient(165deg,#0A1724 0%,#13293D 55%,#16324B 100%);
+  border-top:3px solid var(--gold);border-bottom:3px solid var(--gold);
+  padding:44px 20px 40px}
+.mb .mb-in{max-width:920px;margin:0 auto;text-align:center;position:relative;z-index:1}
 
-.mb .mb-thumbs{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:30px 0 0}
-.mb .mb-thumb{width:190px;border-radius:10px;overflow:hidden;border:1px solid rgba(201,162,75,.35);
-  background:#0C1B2A}
-.mb .mb-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-.mb .mb-thumb p{margin:0;font-size:11.5px;color:#BCCBD9;padding:7px 9px;letter-spacing:.03em}
-.mb .mb-more{text-align:center;margin:26px 0 0}
-.mb .mb-more span{display:inline-block;background:var(--gold);color:#1A1206;font-weight:900;
-  font-size:16px;padding:13px 30px;border-radius:999px;letter-spacing:.02em}
-.mb .mb-link:hover .mb-more span{background:#DDB865}
+/* ① 大標題階層 */
+.mb .mb-kicker{font-size:13px;letter-spacing:.42em;color:var(--goldlt);font-weight:800;margin:0 0 12px}
+.mb .mb-h{font-size:34px;line-height:1.3;font-weight:900;color:#fff;margin:0 0 10px;letter-spacing:.03em}
+.mb .mb-sub{font-size:17px;color:#C3D2E0;margin:0 0 26px}
+
+/* ② 媒體名牆 */
+.mb .mb-wall{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 34px;
+  padding:22px 0;border-top:1px solid rgba(201,162,75,.3);border-bottom:1px solid rgba(201,162,75,.3)}
+.mb .mb-wall span{font-size:26px;font-weight:900;color:#fff;letter-spacing:.03em}
+
+/* ③ 引言：用中文「」，不用 CSS 英文引號 */
+.mb .mb-quote{max-width:720px;margin:28px auto 0}
+.mb .mb-quote p{margin:0 0 12px;font-size:24px;line-height:1.6;font-weight:800;color:var(--goldlt)}
+.mb .mb-quote cite{font-style:normal;font-size:14px;color:#9FB2C4;letter-spacing:.03em}
+
+/* ④ CTA */
+.mb .mb-more{margin:28px 0 0}
+.mb .mb-more span{display:inline-block;background:var(--gold);color:#160F02;font-weight:900;
+  font-size:17px;padding:15px 36px;border-radius:999px;letter-spacing:.03em;
+  box-shadow:0 6px 18px rgba(201,162,75,.28)}
+.mb .mb-link:hover .mb-more span{background:var(--goldlt)}
 
 @media(max-width:640px){
-  .mb .mb-link{padding:28px 16px 26px}
-  .mb .mb-wall{gap:8px 18px}
-  .mb .mb-wall span{font-size:17px}
-  .mb .mb-quote{padding-left:32px;margin-top:20px}
-  .mb .mb-quote:before{font-size:48px;top:-8px}
+  .mb .mb-link{padding:32px 16px 30px}
+  .mb .mb-h{font-size:25px}
+  .mb .mb-sub{font-size:15px;margin-bottom:20px}
+  .mb .mb-wall{gap:8px 18px;padding:16px 0}
+  .mb .mb-wall span{font-size:18px}
+  .mb .mb-quote{margin-top:20px}
   .mb .mb-quote p{font-size:19px}
-  .mb .mb-more span{font-size:15px;padding:12px 24px}
+  .mb .mb-more span{font-size:15.5px;padding:13px 26px}
 }
 </style>
 
@@ -62,17 +67,20 @@
   <a class="mb-link" href="/media/">
     <div class="mb-in">
 
-      <p class="mb-label">媒體採訪</p>
+      <p class="mb-kicker">MEDIA COVERAGE</p>
+      <p class="mb-h">這些媒體，找過我談房子的事</p>
+      <p class="mb-sub">房市的資訊很吵，真正的問題只有一個：這個人講的，能不能信。</p>
 
       <div class="mb-wall">
         <span>Money 錢雜誌</span>
         <span>聯合新聞網</span>
         <span>NOWnews 今日新聞</span>
+        <span>賣厝阿明知識+</span>
         <span>房仲日常</span>
       </div>
 
       <div class="mb-quote">
-        <p>寧可實話實說，生意才能做得長久。</p>
+        <p>「寧可實話實說，生意才能做得長久。」</p>
         <cite>— Money 錢雜誌專訪中壢專業房仲喵爸．2026.03</cite>
       </div>
 
@@ -83,6 +91,5 @@
 </div>
 
 <!--
-  ⚠️ 拿到今周刊連結後：把 <span>今周刊</span> 加進 mb-wall，並排在第一個
-     （今周刊在一般人心中份量最重）。
+  ⚠️ 拿到今周刊連結後：把 <span>今周刊</span> 加進 mb-wall，並排在第一個。
 -->
