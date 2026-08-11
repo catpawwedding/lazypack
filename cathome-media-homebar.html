@@ -6,8 +6,15 @@
   v2 改成深藍底 + 直接把最有力的一句引言放在首頁上 + 三張縮圖，
   不點進去也已經看到證據。點整塊進 /media。
 
-  🔴 引言是真的、逐字照抄 NOWnews 報導。不要改字，也不要換成自己寫的句子
+  🔴 引言是真的、逐字照抄 Money 錢雜誌專訪。不要改字，也不要換成自己寫的句子
      還留著引號 —— 那就變成假引用了。
+
+  🔴 為什麼首頁不放「新青安」那句（2026-08-11 喵爸糾正）：
+     那句是 2024 年 1 月的報導，青安 3.0 已於 2026-08 上路，等於首頁唯一一句話
+     就在自曝資訊過期。首頁要放的是**不會過期**的話。
+     「寧可實話實說，生意才能做得長久」＝他本人原話、永遠成立、且直接對上
+     官網主張（誠實房仲），是最適合放首頁的一句。
+     ⇒ 通則：首頁／形象位置只放常青引言，有時效的數字留在 /media 內頁並加註年份。
 
   ⚠️ 上線前搜尋 https://catpawwedding.github.io/lazypack/cathome-media/photo1.jpg，換成上傳到媒體庫後的網址（步驟見「上架步驟.md」）。
 -->
@@ -18,32 +25,36 @@
 .mb .mb-link{display:block;text-decoration:none;color:inherit;
   background:linear-gradient(160deg,#0C1B2A 0%,#13293D 60%,#1E3C57 100%);padding:30px 20px 28px}
 .mb .mb-in{max-width:940px;margin:0 auto}
-.mb .mb-label{text-align:center;font-size:12px;letter-spacing:.38em;color:var(--gold);
-  font-weight:800;margin:0 0 20px}
-.mb .mb-wall{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 28px;
-  padding-bottom:24px;border-bottom:1px solid rgba(201,162,75,.28)}
-.mb .mb-wall span{font-size:19px;font-weight:800;color:var(--ivory);letter-spacing:.05em;opacity:.92}
+.mb .mb-label{text-align:center;font-size:13px;letter-spacing:.38em;color:var(--gold);
+  font-weight:800;margin:0 0 18px}
+.mb .mb-wall{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 32px;
+  padding-bottom:22px;border-bottom:1px solid rgba(201,162,75,.28)}
+.mb .mb-wall span{font-size:24px;font-weight:900;color:#fff;letter-spacing:.04em}
 
-.mb .mb-quote{max-width:640px;margin:26px auto 0;position:relative;padding-left:34px}
-.mb .mb-quote:before{content:"\201C";position:absolute;left:0;top:-10px;font-size:54px;line-height:1;
-  color:var(--gold);font-family:Georgia,serif;opacity:.9}
-.mb .mb-quote p{margin:0 0 8px;font-size:19px;line-height:1.65;font-weight:700;color:#fff}
-.mb .mb-quote cite{font-style:normal;font-size:12.5px;color:var(--gold);letter-spacing:.04em}
+.mb .mb-quote{max-width:760px;margin:24px auto 0;position:relative;padding-left:44px}
+.mb .mb-quote:before{content:"\201C";position:absolute;left:0;top:-14px;font-size:66px;line-height:1;
+  color:var(--gold);font-family:Georgia,serif;opacity:.95}
+.mb .mb-quote p{margin:0 0 10px;font-size:26px;line-height:1.55;font-weight:800;color:#fff}
+.mb .mb-quote cite{font-style:normal;font-size:14px;color:var(--gold);letter-spacing:.04em}
 
 .mb .mb-thumbs{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:30px 0 0}
 .mb .mb-thumb{width:190px;border-radius:10px;overflow:hidden;border:1px solid rgba(201,162,75,.35);
   background:#0C1B2A}
 .mb .mb-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 .mb .mb-thumb p{margin:0;font-size:11.5px;color:#BCCBD9;padding:7px 9px;letter-spacing:.03em}
-.mb .mb-more{text-align:center;margin:28px 0 0;font-size:15px;font-weight:800;color:#fff}
-.mb .mb-more span{border-bottom:2px solid var(--gold);padding-bottom:3px}
+.mb .mb-more{text-align:center;margin:26px 0 0}
+.mb .mb-more span{display:inline-block;background:var(--gold);color:#1A1206;font-weight:900;
+  font-size:16px;padding:13px 30px;border-radius:999px;letter-spacing:.02em}
+.mb .mb-link:hover .mb-more span{background:#DDB865}
 
 @media(max-width:640px){
-  .mb .mb-link{padding:34px 16px 32px}
-  .mb .mb-wall span{font-size:15px}
-  .mb .mb-quote p{font-size:16.5px}
-  .mb .mb-thumb{width:calc(50% - 6px)}
-  .mb .mb-thumb p{font-size:10.5px}
+  .mb .mb-link{padding:28px 16px 26px}
+  .mb .mb-wall{gap:8px 18px}
+  .mb .mb-wall span{font-size:17px}
+  .mb .mb-quote{padding-left:32px;margin-top:20px}
+  .mb .mb-quote:before{font-size:48px;top:-8px}
+  .mb .mb-quote p{font-size:19px}
+  .mb .mb-more span{font-size:15px;padding:12px 24px}
 }
 </style>
 
@@ -61,8 +72,8 @@
       </div>
 
       <div class="mb-quote">
-        <p>新青安貸款 1.775% 優惠利率只有 3 年，若 3 年後央行利率不變，可能會再回補 0.375%。</p>
-        <cite>— NOWnews 今日新聞引述中壢專業房仲喵爸．2024.01.18</cite>
+        <p>寧可實話實說，生意才能做得長久。</p>
+        <cite>— Money 錢雜誌專訪中壢專業房仲喵爸．2026.03</cite>
       </div>
 
       <p class="mb-more"><span>看完整媒體報導 →</span></p>
