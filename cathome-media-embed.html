@@ -54,8 +54,11 @@
 /* ── 卡片：左圖右文 ── */
 .mm .mm-card{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:24px;
   box-shadow:0 2px 14px rgba(19,41,61,.09);display:flex;flex-wrap:wrap}
-.mm .mm-figure{flex:0 0 38%;min-width:260px;position:relative;background:var(--navy)}
-.mm .mm-figure img{width:100%;height:100%;min-height:210px;object-fit:cover;display:block}
+/* 🔴 圖片一定要用 position:absolute+inset:0 撐滿，不能用 height:100%。
+   height:100% 需要父層有明確高度才解得出來；.mm-figure 沒有，瀏覽器會退回原始比例，
+   文字比較長的卡片下面就會露出一大塊深藍空白（2026-08-11 上線前實測抓到）。 */
+.mm .mm-figure{flex:0 0 38%;min-width:260px;position:relative;background:var(--navy);min-height:240px}
+.mm .mm-figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .mm .mm-tag{position:absolute;left:0;top:18px;background:var(--navy);color:#fff;font-size:13px;
   font-weight:800;padding:7px 14px 7px 16px;border-radius:0 6px 6px 0;letter-spacing:.04em;
   box-shadow:0 2px 8px rgba(0,0,0,.25)}
@@ -138,8 +141,7 @@
   .mm .mm-hero h1{font-size:29px}
   .mm .mm-wall span{font-size:16px}
   .mm .mm-body{padding:38px 16px 46px}
-  .mm .mm-figure{flex:0 0 100%}
-  .mm .mm-figure img{min-height:190px;max-height:230px}
+  .mm .mm-figure{flex:0 0 100%;min-height:210px;height:210px}
   .mm .mm-content{padding:20px 20px 22px}
   .mm .mm-quote p,.mm .mm-fact p{font-size:16.5px}
   .mm .mm-title{font-size:17.5px}
