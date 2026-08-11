@@ -1,0 +1,3 @@
+# Mac 的 .sh 一定要用 LF；被轉成 CRLF 會變成 "bad interpreter" 直接死在第一行
+*.sh text eol=lf
+*.command text eol=lf

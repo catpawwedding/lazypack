@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>影片下載＋逐字稿工具包｜安裝教學（中壢專業房仲喵爸）</title>
-<meta name="description" content="貼上網址就能下載 FB / IG / TikTok / YouTube 公開影片，並自動產出繁體中文逐字稿。免費 Windows 工具包，照著四步驟裝，全程不用問人。">
-<meta property="og:title" content="影片下載＋逐字稿工具包｜安裝教學">
-<meta property="og:description" content="貼網址就下載影片，還自動幫你打好繁體逐字稿。免費工具包，四步驟裝好。">
+<title>影片下載＋逐字稿工具包｜Windows / Mac 安裝教學（中壢專業房仲喵爸）</title>
+<meta name="description" content="貼上網址就能下載 FB / IG / TikTok / YouTube 公開影片，並自動產出繁體中文逐字稿。免費工具包，Windows 與 Mac 都能裝，照著步驟走全程不用問人。">
+<meta property="og:title" content="影片下載＋逐字稿工具包｜Windows / Mac 安裝教學">
+<meta property="og:description" content="貼網址就下載影片，還自動幫你打好繁體逐字稿。免費工具包，Windows 與 Mac 都能裝。">
 <style>
   :root{
     --ivory:#F4EFE6; --navy:#13293D; --gold:#C9A24B;
@@ -74,6 +74,24 @@
   .checklist li:last-child{border-bottom:0}
   .checklist li::before{content:"✔";position:absolute;left:4px;color:var(--ok);font-weight:700}
 
+  .tabs{display:flex;gap:8px;margin:26px 0 0}
+  .tab{flex:1;text-align:center;padding:14px 8px;border-radius:12px 12px 0 0;cursor:pointer;
+       background:#e8e1d4;border:1px solid var(--line);border-bottom:0;color:#7b8590;
+       font-weight:700;font-size:17px;user-select:none}
+  .tab.on{background:var(--card);color:var(--navy);box-shadow:0 -2px 0 var(--gold) inset}
+  .panel{display:none;border-top:3px solid var(--gold);padding-top:4px}
+  .panel.on{display:block}
+
+  .cmdbox{background:var(--navy);border-radius:12px;padding:16px 16px 14px;margin:14px 0}
+  .cmdbox code{display:block;background:#0d1c2b;color:#e6f0d8;padding:14px;border-radius:8px;
+       font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13px;line-height:1.6;
+       word-break:break-all;white-space:pre-wrap;border:0}
+  .copy{display:block;width:100%;margin-top:10px;background:var(--gold);color:#33270a;border:0;
+        border-radius:9px;padding:13px;font-size:17px;font-weight:700;cursor:pointer;
+        font-family:inherit}
+  .copy:active{background:#b08d38}
+  .copy.done{background:#1f6b46;color:#fff}
+
   footer{text-align:center;margin-top:52px;padding-top:24px;border-top:1px solid var(--line);
          font-size:15px;color:var(--muted)}
   footer a{color:var(--navy);font-weight:700;text-decoration:none;border-bottom:2px solid var(--gold)}
@@ -92,7 +110,7 @@
   <h1>🎬 影片下載＋逐字稿工具包</h1>
   <div class="sub">貼上網址就下載影片，還自動幫你打好一份繁體逐字稿</div>
   <div class="pills">
-    <span class="pill">FB Reels</span><span class="pill">Instagram</span><span class="pill">TikTok</span><span class="pill">YouTube</span><span class="pill g">完全免費</span>
+    <span class="pill">FB Reels</span><span class="pill">Instagram</span><span class="pill">TikTok</span><span class="pill">YouTube</span><span class="pill">Windows / Mac</span><span class="pill g">完全免費</span>
   </div>
 </header>
 
@@ -104,9 +122,17 @@
 </div>
 
 <div class="pcnote">
-  📌 <b>請用「Windows 電腦」打開這一頁</b>，然後照著做。<br>
-  這是電腦程式，<b>手機和 Mac 不能用</b>。現在如果是用手機看，請把這一頁的網址傳到自己的電腦（LINE 傳給自己最快），再從電腦打開。
+  📌 <b>請用「電腦」打開這一頁</b>，然後照著做。Windows 和 Mac 都可以，<b>手機不行</b>。<br>
+  現在如果是用手機看，請把這一頁的網址傳到自己的電腦（LINE 傳給自己最快），再從電腦打開。
 </div>
+
+<div class="tabs">
+  <div class="tab on" id="t-win" onclick="pick('win')">🪟 我用 Windows</div>
+  <div class="tab" id="t-mac" onclick="pick('mac')">🍎 我用 Mac</div>
+</div>
+
+<!-- ================= WINDOWS ================= -->
+<div class="panel on" id="p-win">
 
 <h2 class="sec">開始前，先確認三件事</h2>
 <div class="card">
@@ -196,19 +222,98 @@
   <div class="tip">如果是安裝那一步失敗，資料夾裡還會有一個 <b>setup-log.txt</b>，一併傳過去更快。</div>
 </div>
 
+</div><!-- /p-win -->
+
+<!-- ================= MAC ================= -->
+<div class="panel" id="p-mac">
+
+<h2 class="sec">開始前，先確認三件事</h2>
+<div class="card">
+  <ul class="checklist">
+    <li>是一台 <b>Mac</b>（Apple M 系列晶片或 Intel 都可以，程式會自己判斷）</li>
+    <li>硬碟還有 <b>2GB 以上</b> 的空間</li>
+    <li>接下來 <b>10～20 分鐘</b>網路不要斷</li>
+  </ul>
+  <div class="good">💡 不用先裝 Python、不用裝 Homebrew、<b>不會問你要密碼</b>、不會動到系統設定。所有東西都裝在「個人 → 影片下載器」這個資料夾裡，不想要了整包丟垃圾桶就乾淨。</div>
+</div>
+
+<h2 class="sec">安裝兩步驟</h2>
+<p class="secsub">Mac 只要複製貼上一行字，比 Windows 還快</p>
+
+<div class="card"><div class="step"><div class="num">1</div><div class="body">
+  <h3>打開「終端機」</h3>
+  <ol class="plain">
+    <li>按鍵盤 <b>command ⌘ + 空白鍵</b>（螢幕中間會跳出搜尋框）</li>
+    <li>打 <code>終端機</code>（或打 <code>terminal</code>）</li>
+    <li>按 <b>Enter</b>，會跳出一個白白／黑黑的視窗，上面有一些英文字</li>
+  </ol>
+  <div class="good">✅ 這個視窗就是「終端機」，長得很工程師沒關係，你只會用到它一次。</div>
+</div></div></div>
+
+<div class="card"><div class="step"><div class="num">2</div><div class="body">
+  <h3>貼上這一行，按 Enter，然後去泡杯咖啡</h3>
+  <div class="cmdbox">
+    <code id="maccmd">curl -fsSL https://catpawwedding.github.io/lazypack/downloader-kit/mac/install.sh | bash</code>
+    <button class="copy" id="copybtn" onclick="cp()">📋 點我複製這一行</button>
+  </div>
+  <p>回到終端機視窗，按 <b>command ⌘ + V</b> 貼上，再按 <b>Enter</b>。接著它就會自己跑，<b>你完全不用選、不用按</b>。</p>
+
+  <div class="tip">⌨️ <b>貼上之後如果它問你密碼？</b><br>
+  不會問。這個工具<b>不需要你的電腦密碼</b>。如果真的跳出要密碼，代表你貼錯東西了，關掉重來。</div>
+
+  <div class="tip">⏳ <b>要跑多久？</b><br>
+  大約 5～15 分鐘（總共要抓約 800MB 的元件）。畫面上會有<b>進度條和百分比</b>一直在跑，有在動就是正常的。<br>
+  <b>跑完會跳出一個「安裝完成」的對話框</b>，桌面也會多出兩個圖示——看到才算裝好。</div>
+
+  <div class="tip">🔁 <b>中間網路斷掉、或不小心關掉視窗？</b><br>
+  沒關係，<b>把同一行再貼一次</b>就好。它會跳過已經裝好的部分，從斷掉的地方接著裝。</div>
+
+  <div class="good">✅ 裝好後桌面會多出<b>「影片下載器」</b>和<b>「轉逐字稿」</b>兩個檔案，以後點兩下就能用，不用再開終端機。</div>
+</div></div></div>
+
+<h2 class="sec">裝好之後怎麼用</h2>
+<div class="card">
+  <ul class="plain">
+    <li><b>下載影片</b><br>
+      點兩下桌面的 <span class="file">影片下載器</span> → 瀏覽器跳出下載器網頁 → 貼網址 → 按下載。<br>
+      <span style="color:#6b7683;font-size:14px">影片存到桌面「影片下載」資料夾，逐字稿是旁邊的 <code>檔名_逐字稿.txt</code></span></li>
+    <li style="margin-top:12px"><b>已經有影片／錄音檔要打逐字稿</b><br>
+      點兩下桌面的 <span class="file">轉逐字稿</span> → 跳出選檔案的視窗 → 選檔案（<b>按住 command ⌘ 可以一次選很多個</b>）→ 開始轉。<br>
+      <span style="color:#6b7683;font-size:14px">mp3、m4a 錄音檔也吃。會議錄音、上課錄音都可以。</span></li>
+  </ul>
+  <div class="tip">🍎 <b>第一次點兩下，Mac 跳出「無法打開，因為來自未識別的開發者」？</b><br>
+  正常情況<b>不會跳</b>（這兩個檔是在你自己電腦上產生的，不算下載檔）。萬一真的跳了：對那個圖示<b>按住 control 再點一下</b> → 選「<b>打開</b>」→ 再按一次「打開」，之後就不會再問了。</div>
+</div>
+
+<h2 class="sec">卡住了？先做這一件事</h2>
+<div class="card">
+  <p style="margin-top:0">打開<b>「個人 → 影片下載器」</b>資料夾（Finder 側邊欄的小房子圖示裡面），點兩下 <span class="file">體檢.command</span>。</p>
+  <p>它會自動幫你體檢，產生一個 <b>診斷報告.txt</b> 並直接打開給你看。<br>
+  <b>把那個檔案傳給介紹你來的朋友就好</b>——上面寫得清清楚楚卡在哪一關。</p>
+  <div class="tip">如果是安裝那一步失敗，同一個資料夾裡還有 <b>安裝紀錄.txt</b>，一併傳過去更快。</div>
+</div>
+
+</div><!-- /p-mac -->
+
 <h2 class="sec">常見問題</h2>
 
 <details><summary>它會不會偷裝東西、有沒有病毒？</summary>
-<p class="a">不會。它只做三件事：下載一份官方的 Python（來自 python.org）、下載開源的影音工具 ffmpeg、下載開源的語音辨識模型。<b>全部裝在你解壓縮出來的那個資料夾裡</b>，不寫登錄檔、不設開機啟動、不需要管理員權限。不想要了整個資料夾刪掉就乾淨。</p></details>
+<p class="a">不會。它只做三件事：下載一份官方的 Python（來自 python.org 的官方建置）、下載開源的影音工具 ffmpeg、下載開源的語音辨識模型。<b>全部裝在同一個資料夾裡</b>（Windows 是你解壓縮出來的那個，Mac 是「個人 → 影片下載器」），不寫系統設定、不設開機啟動、不需要管理員權限或密碼。不想要了整個資料夾刪掉就乾淨。</p></details>
+
+<details><summary>🍎 Mac：叫我把一行字貼到終端機，這樣安全嗎？</summary>
+<p class="a">合理的警覺。那一行做的事是「去這個網址把安裝腳本抓下來執行」，網址就是你現在看的這一頁的同一個站（<code>catpawwedding.github.io</code>）。腳本內容是公開的，可以先看過再決定：<a href="mac/install.sh">點這裡看原始碼</a>。<br>它<b>不會要你的密碼</b>（沒有 sudo）、只寫入「個人 → 影片下載器」跟桌面那兩個捷徑。</p></details>
 
 <details><summary>安裝跑到一半停住不動了？</summary>
-<p class="a">中間那段在抓 600MB 左右的東西，網路慢的話看起來像卡住是正常的，先等 10 分鐘。真的不動了就把黑視窗關掉，<b>重新點一次 setup.bat</b>，它會從斷掉的地方接著裝。</p></details>
+<p class="a">總共要抓約 800MB，網路慢的時候會久一點。但畫面上<b>應該一直有數字或進度條在動</b>——有在動就是正常的，先等 10 分鐘。真的整個不動了，就關掉視窗重來（Windows 重點 setup.bat／Mac 把那行指令再貼一次），它會從斷掉的地方接著裝。</p></details>
 
-<details><summary>跳出 Microsoft Store 叫我裝 Python？</summary>
+<details><summary>🪟 Windows：跳出 Microsoft Store 叫我裝 Python？</summary>
 <p class="a">把 Store 視窗關掉就好，不要在那邊裝。這一版工具包<b>自己帶 Python</b>，不需要你電腦上有 Python。（如果你看到這個畫面，代表你點到的是舊版工具包，請回到本頁重新下載。）</p></details>
 
 <details><summary>我電腦本來就有 Python / Anaconda，會不會打架？</summary>
 <p class="a">不會。這一版刻意<b>不碰你系統上的 Python</b>，它用的是自己資料夾裡那一份，兩邊完全隔開。</p></details>
+
+<details><summary>🍎 Mac：我有開 iCloud 桌面同步，影片會被上傳嗎？</summary>
+<p class="a">會。影片預設存在桌面的「影片下載」資料夾，如果你開了 iCloud 的「桌面與文件」同步，那些影片會被傳上 iCloud 吃你的空間。介意的話，把「影片下載」資料夾整個拖到「個人 → 影片」底下，之後下載完自己搬過去就好。</p></details>
 
 <details><summary>某支影片顯示「失敗」？</summary>
 <p class="a">只能下載<b>公開</b>影片。私人帳號、限好友、需要登入才看得到的影片抓不到，這是正常的，不是壞掉。</p></details>
@@ -219,8 +324,11 @@
 <details><summary>第一次轉逐字稿特別久？</summary>
 <p class="a">如果安裝時語音模型沒抓成功，第一次轉稿會先補抓約 500MB 的模型，只有那一次會慢，之後就很快（10MB 的短影音大約 11 秒）。</p></details>
 
-<details><summary>可以放在 USB 隨身碟或公司網路磁碟嗎？</summary>
+<details><summary>🪟 Windows：可以放在 USB 隨身碟或公司網路磁碟嗎？</summary>
 <p class="a">不建議，會裝失敗。請放在電腦本機，最簡單就是桌面。</p></details>
+
+<details><summary>可以兩台電腦都裝嗎？一台 Windows 一台 Mac？</summary>
+<p class="a">可以，兩邊各自照各自的分頁裝一次就好，互不影響。</p></details>
 
 <div class="card" style="background:#fff4ec;border-color:#e8c9a8">
   <b>⚠️ 使用約定</b>
@@ -234,5 +342,39 @@
 </footer>
 
 </div>
+
+<script>
+function pick(which){
+  ['win','mac'].forEach(function(k){
+    document.getElementById('t-'+k).classList.toggle('on', k===which);
+    document.getElementById('p-'+k).classList.toggle('on', k===which);
+  });
+  try{ localStorage.setItem('kit-os', which); }catch(e){}
+}
+// 開頁時先猜他用什麼電腦，猜錯他自己點另一個分頁就好
+(function(){
+  var saved=null;
+  try{ saved=localStorage.getItem('kit-os'); }catch(e){}
+  var ua=(navigator.userAgent||'')+' '+(navigator.platform||'');
+  var isMac=/Mac/i.test(ua) && !/iPhone|iPad|iPod/i.test(ua);
+  pick(saved || (isMac ? 'mac' : 'win'));
+})();
+function cp(){
+  var txt=document.getElementById('maccmd').innerText.trim();
+  var btn=document.getElementById('copybtn');
+  function ok(){ btn.textContent='✅ 已複製！去終端機按 command + V 貼上'; btn.classList.add('done'); }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(ok, fallback);
+  } else { fallback(); }
+  function fallback(){
+    var ta=document.createElement('textarea');
+    ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); ok(); }
+    catch(e){ btn.textContent='複製失敗，請用滑鼠把上面那行反白後自己複製'; }
+    document.body.removeChild(ta);
+  }
+}
+</script>
 </body>
 </html>
