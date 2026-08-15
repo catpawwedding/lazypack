@@ -93,6 +93,20 @@ footer{margin-top:28px;font-size:14px;color:#8A94A0;line-height:1.7;text-align:c
 .case h3{font-size:19px;font-weight:900;margin-top:10px;line-height:1.45;}
 .case p{font-size:16px;color:#3A4A58;margin-top:8px;line-height:1.7;}
 .case .pt{margin-top:12px;background:#FDFBF7;border-left:4px solid var(--gold);padding:10px 14px;border-radius:0 10px 10px 0;font-size:16px;font-weight:700;}
+/* 圖 */
+.hero{position:relative;margin-top:16px;border-radius:18px;overflow:hidden;aspect-ratio:3/2;background:var(--navy);}
+.hero img{width:100%;height:100%;object-fit:cover;display:block;}
+.hero .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,41,61,0) 35%,rgba(19,41,61,.82) 100%);}
+.hero .tx{position:absolute;left:18px;right:18px;bottom:18px;color:#fff;}
+.hero .tx .l1{font-size:15px;font-weight:700;color:var(--gold);letter-spacing:1px;}
+.hero .tx .l2{font-size:24px;font-weight:900;line-height:1.35;margin-top:4px;}
+.case{padding:0;overflow:hidden;}
+.case .ph{aspect-ratio:16/9;overflow:hidden;background:#E3DACA;}
+.case .ph img{width:100%;height:100%;object-fit:cover;display:block;}
+.case .bd{padding:16px 18px 18px;}
+.case details summary{cursor:pointer;font-size:15px;font-weight:700;color:var(--gold-text);margin-top:8px;list-style:none;}
+.case details summary::before{content:"＋ ";}
+.case details[open] summary::before{content:"－ ";}
 </style>
 </head>
 <body>
@@ -101,6 +115,11 @@ footer{margin-top:28px;font-size:14px;color:#8A94A0;line-height:1.7;text-align:c
     <div class="brand">中壢專業房仲喵爸｜寬限期自救包</div>
     <h1>寬限期到期前<br>該做的三件事</h1>
     <p class="lead">月付要跳 2 倍之前，你其實有很多牌可以打<br>這份自救包，把每張牌攤給你看</p>
+    <div class="hero">
+      <img src="img/hero.jpg" alt="午後陽光下的住宅大樓" loading="eager">
+      <div class="ov"></div>
+      <div class="tx"><div class="l1">資產活化・真實案例</div><div class="l2">同一間房子<br>盤過一次，多出多少選擇</div></div>
+    </div>
     <div class="hook">
       <div class="l1">同一張 1,000 萬房貸、同一天寬限期到期</div>
       <div class="vs2">
@@ -134,24 +153,32 @@ footer{margin-top:28px;font-size:14px;color:#8A94A0;line-height:1.7;text-align:c
   <section class="sec" id="cases">
     <span class="num">真實案例</span>
     <h2>資產活化真正在做的事，看兩個案子就懂</h2>
-    <p class="why">合作夥伴經手的真實個案，已去識別化。它們不是「借到多少錢」的故事，是「盤過之後，多出多少選擇」的故事</p>
+    <p class="why">合作夥伴經手的真實個案，已去識別化。不是「借到多少錢」的故事，是「盤過之後，多出多少選擇」的故事</p>
 
     <div class="case">
-      <span class="tag">案例一｜保住房・盤產權</span>
-      <h3>7 萬多的罰單，查封了一間房——一家人還住在裡面，沒人知道</h3>
-      <p>台南，房子登記在媽媽名下，兩個兒子。弟弟長期在外負債，媽媽最怕的是自己走了以後房子由兩兄弟共同繼承、弟弟的債把房子捲進去，原本想先過戶給哥哥。夥伴到台南幫他們做資產活化規劃，第一步不是借錢，是把房子整個攤開盤一次。</p>
-      <p>流程跑到一半，銀行來電：「這間房子已經被查封了。」查下去，兩個星期前就進入查封程序，全家沒人知道——原因是弟弟開媽媽名下的車，闖紅燈、違停、停車費未繳，罰鍰累積 7 萬多；媽媽戶籍還留在老家，一張通知都沒收到，直接進強制執行。</p>
-      <p>好在是規劃過程中及早發現，款項與程序處理完，房子保下來，後續也把產權重新安排好，弟弟再出狀況也不會再影響媽媽和哥哥住的這間房。</p>
-      <div class="pt">👉 資產活化的第 1 關是盤產權。這一家人第 1 關就盤出一張查封——房子沒事是感覺，謄本才是事實。</div>
+      <div class="ph"><img src="img/case1.jpg" alt="老屋門口塞滿通知的信箱" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">案例一｜保住房・盤產權</span>
+        <h3>7 萬多的罰單，查封了一間房——一家人還住在裡面，沒人知道</h3>
+        <p>台南，房子在媽媽名下。弟弟長期負債，媽媽最怕自己走了以後房子被弟弟的債捲進去。夥伴幫他們做資產活化，<b>第一步不是借錢，是把房子攤開盤一次</b>——流程跑到一半，銀行來電：「這間房子已經被查封了。」</p>
+        <details><summary>看完整經過</summary>
+          <p>查下去，兩個星期前就進入查封程序，全家沒人知道。原因是弟弟開媽媽名下的車，闖紅燈、違停、停車費未繳，罰鍰累積 7 萬多；媽媽戶籍還在老家，一張通知都沒收到，直接進強制執行。好在及早發現，款項與程序處理完，房子保下來，產權也重新安排好，弟弟再出狀況也影響不到這間房。</p>
+        </details>
+        <div class="pt">👉 資產活化的第 1 關是盤產權。這一家人第 1 關就盤出一張查封——房子沒事是感覺，謄本才是事實。</div>
+      </div>
     </div>
 
     <div class="case">
-      <span class="tag">案例二｜煞車・重新規劃</span>
-      <h3>她差點用房子借 1,600 萬去投資，一個月後那家公司的司法案件上了新聞</h3>
-      <p>30 出頭的女生，下個月結婚，婚後打算在家休養、備孕。媽媽過去 5 年逐年贈與，把房產一間一間移到她名下。她聽了資產活化講座，想用房子貸款出來投資，自己辦卡住了才來問管道。</p>
-      <p>夥伴多問一句「錢要用在哪」——她要貸約 1,600 萬，全部投進一家投資公司。當時那家公司什麼事都還沒發生，她非常信任。夥伴沒有幫她辦貸款，反覆提醒三件事：合法嗎、有沒有主管機關監管、資金安全怎麼保，建議優先看受監理的金融商品。最後她沒投，整份規劃重新調過。</p>
-      <p>不到一個月，那家公司相關的司法案件爆發。如果當初貸款順利，她會背著 1,600 萬房貸看著錢全部進去，結婚、休養、備孕的人生安排一起被拖下去。她後來重新做完規劃，現在已順利結婚，照原本安排在家備孕。</p>
-      <div class="pt">👉 資產活化做對了，不是幫她借到 1,600 萬，是先把她擋下來、再重新規劃。房子能借多少是最不重要的問題，借之前有沒有人幫忙煞車，才決定會不會出事。</div>
+      <div class="ph"><img src="img/case2.jpg" alt="桌上的鑰匙、文件與計算機" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">案例二｜煞車・重新規劃</span>
+        <h3>她差點用房子借 1,600 萬去投資，一個月後那家公司的司法案件上了新聞</h3>
+        <p>30 出頭、下個月結婚、婚後要備孕的女生，房子是媽媽 5 年逐年贈與來的。她聽完講座想貸 1,600 萬全部投進一家投資公司。夥伴多問一句「錢要用在哪」，<b>沒幫她辦貸款，反而踩了煞車</b>——最後她沒投，整份規劃重新調過。不到一個月，那家公司的司法案件爆發。</p>
+        <details><summary>看完整經過</summary>
+          <p>當時那家公司什麼事都還沒發生，她非常信任。夥伴反覆提醒三件事：合法嗎、有沒有主管機關監管、資金安全怎麼保，建議優先看受監理的金融商品。如果當初貸款順利，她會背著 1,600 萬房貸看著錢全部進去，結婚、休養、備孕的安排一起被拖下去。她後來重新做完規劃，現在已順利結婚，照原本安排在家備孕。</p>
+        </details>
+        <div class="pt">👉 資產活化做對了，不是幫她借到 1,600 萬，是先把她擋下來、再重新規劃。借之前有沒有人幫忙煞車，才決定會不會出事。</div>
+      </div>
     </div>
 
     <div class="cta" style="margin-top:16px;">
