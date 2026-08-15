@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>繼承的房子該不該賣的判斷表 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px; height: 72px; display: block; margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header h1 {
+    font-size: 32px; font-weight: 800; color: #2C2A26;
+    line-height: 1.3; margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero { margin: 0 auto 30px; display: block; width: 100%; max-width: 420px; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF; border-left: 5px solid #D9342B;
+    padding: 20px 22px; margin-bottom: 36px; border-radius: 6px;
+    font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 判斷表（核心區塊） === */
+  .checklist {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); margin-bottom: 18px;
+    border-top: 5px solid #D9342B;
+  }
+  .checklist-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+  }
+  .checklist-head svg { width: 40px; height: 40px; flex: 0 0 40px; }
+  .checklist h2 {
+    font-size: 22px; font-weight: 800; color: #2C2A26; line-height: 1.35;
+  }
+  .checklist .lead {
+    font-size: 15px; color: #6B6660; margin: 10px 0 20px; line-height: 1.7;
+  }
+  .q-row {
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px dashed #E8E1D5;
+  }
+  .q-row:last-of-type { border-bottom: none; }
+  .q-box {
+    flex: 0 0 22px; height: 22px; margin-top: 3px;
+    border: 2px solid #C9BFAE; border-radius: 5px; background: #FDFBF7;
+  }
+  .q-text { font-size: 15.5px; color: #3A3630; line-height: 1.65; }
+  .q-text b { color: #2C2A26; font-weight: 700; }
+  .q-hint { display: block; font-size: 13.5px; color: #8C8477; margin-top: 3px; }
+
+  .verdicts { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .verdict {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; border-radius: 10px; font-size: 15px; line-height: 1.65;
+  }
+  .verdict .vtag {
+    flex: 0 0 auto; font-weight: 800; font-size: 14px;
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .v-sell { background: #FDECEA; color: #8C2B23; }
+  .v-sell .vtag { background: #D9342B; color: #FFF; }
+  .v-hold { background: #FFF5E0; color: #6B5230; }
+  .v-hold .vtag { background: #F5B946; color: #4A3A18; }
+  .v-wait { background: #EFF3EE; color: #3E4B3C; }
+  .v-wait .vtag { background: #7C8F78; color: #FFF; }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
+  }
+  .point-icon {
+    position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; opacity: 0.9;
+  }
+  .point-number {
+    font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1;
+    letter-spacing: -1px; margin-bottom: 8px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block; width: 36px; height: 3px; background: #D9342B;
+    margin-bottom: 16px; border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px; font-weight: 700; color: #2C2A26;
+    margin-bottom: 12px; line-height: 1.4; padding-right: 46px;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px; padding: 14px 16px; background: #FFF5E0;
+    border-radius: 10px; font-size: 15px; color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 時間軸視覺 === */
+  .timeline { width: 100%; height: auto; margin: 18px 0 4px; display: block; }
+
+  /* === 話術框 === */
+  .script-box {
+    margin-top: 14px; padding: 18px 18px 16px; background: #F6F1E8;
+    border-radius: 10px; border: 1px dashed #C9BFAE;
+    font-size: 15.5px; color: #3A3630; line-height: 1.8;
+  }
+  .script-box .who {
+    display: block; font-size: 13px; font-weight: 700; color: #8C7A53;
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
+
+  /* === 文件清單 === */
+  .doc-list { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .doc-list span {
+    font-size: 14px; background: #F1EDE4; color: #5A5348;
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* === 免責 === */
+  .disclaimer {
+    font-size: 13.5px; color: #8C8477; line-height: 1.7;
+    background: #F4F1EA; border-radius: 10px; padding: 16px 18px; margin-bottom: 36px;
+  }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4; padding: 28px 24px; border-radius: 14px; text-align: center;
+    font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF; padding: 32px 24px; border-radius: 18px; text-align: center;
+    margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p {
+    font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block; background: #FFF; color: #2C2A26;
+    padding: 14px 32px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF; border: 2px solid #2C2A26; color: #2C2A26;
+    padding: 26px 24px; border-radius: 18px; text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block; background: #2C2A26; color: #FFF;
+    padding: 13px 30px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed; right: 16px; bottom: 20px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+<!-- 內建瀏覽器提示條（全站標配，必含不可刪） -->
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>繼承的房子<span class="highlight">該不該賣的判斷表</span></h1>
+      <p class="subtitle">先勾完六題，再決定要不要開家庭會議。</p>
+    </div>
+
+    <!-- Hero 插圖 -->
+    <svg class="hero" viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="一間老房子與兩個正在跳動的碼表">
+      <rect x="0" y="0" width="420" height="200" fill="none"/>
+      <!-- 地面 -->
+      <line x1="24" y1="168" x2="396" y2="168" stroke="#E0D7C6" stroke-width="3" stroke-linecap="round"/>
+      <!-- 房子 -->
+      <path d="M110 168V96l58-40 58 40v72z" fill="#FFFFFF" stroke="#2C2A26" stroke-width="3.5" stroke-linejoin="round"/>
+      <path d="M98 100l70-48 70 48" fill="none" stroke="#D9342B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="150" y="122" width="36" height="46" rx="3" fill="#F6F1E8" stroke="#2C2A26" stroke-width="3"/>
+      <circle cx="178" cy="146" r="2.6" fill="#2C2A26"/>
+      <rect x="124" y="112" width="20" height="18" rx="2.5" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.5"/>
+      <rect x="192" y="112" width="20" height="18" rx="2.5" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.5"/>
+      <!-- 碼表一 -->
+      <g transform="translate(280,54)">
+        <rect x="14" y="-9" width="14" height="7" rx="2" fill="#2C2A26"/>
+        <circle cx="21" cy="24" r="24" fill="#FFFFFF" stroke="#2C2A26" stroke-width="3.5"/>
+        <path d="M21 24V9" stroke="#D9342B" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M21 24l11 8" stroke="#2C2A26" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="21" cy="24" r="2.6" fill="#2C2A26"/>
+      </g>
+      <text x="266" y="122" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" font-weight="700" fill="#6B6660">土增稅</text>
+      <!-- 碼表二 -->
+      <g transform="translate(336,86)">
+        <rect x="14" y="-9" width="14" height="7" rx="2" fill="#2C2A26"/>
+        <circle cx="21" cy="24" r="24" fill="#FFFFFF" stroke="#2C2A26" stroke-width="3.5"/>
+        <path d="M21 24V9" stroke="#D9342B" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M21 24l-10 9" stroke="#2C2A26" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="21" cy="24" r="2.6" fill="#2C2A26"/>
+      </g>
+      <text x="318" y="154" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" font-weight="700" fill="#6B6660">房地合一</text>
+    </svg>
+
+    <!-- 引言 -->
+    <div class="intro">
+      這份不是要勸你賣，也不是要勸你留。是要讓你在跟家人開口之前，先知道自己家屬於哪一種，以及再拖一年的代價大概是多少。決定權在你，但至少不要在不知道的情況下決定。
+    </div>
+
+    <!-- 判斷表 -->
+    <div class="checklist">
+      <div class="checklist-head">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="6" y="4" width="28" height="32" rx="4" fill="#FFF" stroke="#2C2A26" stroke-width="2.6"/>
+          <path d="M12 13l3 3 6-6" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 23l3 3 6-6" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="24" y1="15" x2="29" y2="15" stroke="#C9BFAE" stroke-width="2.6" stroke-linecap="round"/>
+          <line x1="24" y1="25" x2="29" y2="25" stroke="#C9BFAE" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <h2>先勾這六題，看你家是哪一種</h2>
+      </div>
+      <p class="lead">拿筆或用手指，一題一題對。勾到的越多，代表你越接近哪一個結論，下面會告訴你怎麼看。</p>
+
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>這間房子有三個人以上一起持分。</b>
+          <span class="q-hint">人越多，越沒有人想當先開口的那個。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>目前沒有人真的住進去，未來六年內也不會。</b>
+          <span class="q-hint">會住滿六年，稅的算法完全不一樣。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>爸媽是民國一〇四年底以後才取得這間房子。</b>
+          <span class="q-hint">一〇四年底以前取得的，可能適用舊制，稅負常常低很多。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>有繼承人聯絡不到、人在國外，或講不出下一步。</b>
+          <span class="q-hint">拖到後面，會變成想賣也賣不掉。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>房子有漏水、壁癌或老舊問題，但沒有人敢先出錢修。</b>
+          <span class="q-hint">屋況每拖一年，成交價就再往下修一次。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>賣掉的那筆錢，已經知道要放到哪裡去。</b>
+          <span class="q-hint">沒有下一站的錢，賣掉只是換一種焦慮。</span></div>
+      </div>
+
+      <div class="verdicts">
+        <div class="verdict v-sell">
+          <span class="vtag">該處理</span>
+          <div>勾到四題以上，而且第六題有勾。時間站在稅那一邊不是站在你這邊，建議先把家庭會議排出來。</div>
+        </div>
+        <div class="verdict v-hold">
+          <span class="vtag">可以留</span>
+          <div>第二題沒勾（有人真的會住滿六年），或第三題沒勾（爸媽很早就取得）。你的條件跟別人不一樣，先算過再說。</div>
+        </div>
+        <div class="verdict v-wait">
+          <span class="vtag">先別動</span>
+          <div>第四題有勾。持分還沒喬好之前不要談價格，先把遺產分割協議做完，不然談再久都是白談。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 重點卡片 -->
+    <div class="points">
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="22" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/>
+          <rect x="16" y="4" width="8" height="5" rx="1.6" fill="#2C2A26"/>
+          <path d="M20 22V13" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M20 22l7 5" stroke="#2C2A26" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <div class="point-number">01</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">繼承那一天，國稅局按下了兩個碼表</div>
+        <div class="point-body">
+          很多人以為「先放著」是零成本。實際上從繼承登記那天開始，有兩件事在背後跑。
+          <ul>
+            <li><strong>土地增值稅</strong>：前次移轉現值重新用繼承當天的公告土地現值計算，土增稅等於歸零重算，這是繼承最大的紅利。但稅率是累進的，公告現值年年調，放越久越容易從百分之二十跳到三十、四十那幾格。</li>
+            <li><strong>長期持有減徵也跟著歸零</strong>：爸媽持有四十年本來能減徵，你繼承之後要重新再等二十年才拿得回來。</li>
+            <li><strong>房地合一稅</strong>：這條才是真的會咬人。繼承取得的房地，賣的時候成本不是市價，是繼承當時的房屋評定現值加公告土地現值，通常只有市價的三到五成。</li>
+          </ul>
+          <div class="point-example">
+            成本不會跟著市場長大，但你的售價會。你在遺產稅那一關省下來的，國稅局在你賣掉的那一關等你。
+          </div>
+          <svg class="timeline" viewBox="0 0 560 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="持有時間越長，課稅級距往上跳的示意圖">
+            <line x1="40" y1="118" x2="530" y2="118" stroke="#E0D7C6" stroke-width="3" stroke-linecap="round"/>
+            <rect x="52" y="88" width="86" height="30" rx="5" fill="#F5D9D6"/>
+            <text x="95" y="108" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="15" font-weight="800" fill="#8C2B23">20%</text>
+            <rect x="196" y="66" width="86" height="52" rx="5" fill="#EFAFA9"/>
+            <text x="239" y="98" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="15" font-weight="800" fill="#7A241D"/>
+            <text x="239" y="98" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="15" font-weight="800" fill="#7A241D">30%</text>
+            <rect x="340" y="40" width="86" height="78" rx="5" fill="#D9342B"/>
+            <text x="383" y="86" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">40%</text>
+            <text x="95" y="140" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" fill="#6B6660">漲價未達 1 倍</text>
+            <text x="239" y="140" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" fill="#6B6660">1 到 2 倍</text>
+            <text x="383" y="140" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" fill="#6B6660">超過 2 倍</text>
+            <path d="M452 118L520 118" stroke="#C9BFAE" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 7"/>
+            <text x="486" y="140" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" fill="#8C8477">越放越右</text>
+            <text x="40" y="28" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13.5" font-weight="700" fill="#2C2A26">土增稅級距，會隨著你放的時間往右走</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="20" r="15" fill="#FFF" stroke="#2C2A26" stroke-width="2.4"/>
+          <path d="M15.5 15.5a4.5 4.5 0 117 3.8c-1.4.9-2 1.6-2 3" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="20.4" cy="28" r="1.9" fill="#D9342B"/>
+        </svg>
+        <div class="point-number">02</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">三個最常聽到的誤會，先破除</div>
+        <div class="point-body">
+          這三句話我幾乎每個月都會聽到一次，而且都讓人做錯決定。
+          <ul>
+            <li><strong>「繼承兩年內賣會被課四成五。」</strong>多數情況是假的。房地合一計算適用稅率的持有期間，可以合併爸媽的持有年數。爸媽住了二十年的老家，你繼承隔年賣，走的是最低那一級。</li>
+            <li><strong>「繼承就要先繳一大筆稅才能過戶。」</strong>遺產稅有免稅額與扣除額，很多一般家庭的老屋根本課不到。真正會咬人的是後面賣的時候，不是前面繼承的時候。</li>
+            <li><strong>「一定要全部的人都同意才能賣。」</strong>不一定。共有物的處分有其他法律途徑，但那是最後手段、也最傷感情。先談，是為了不用走到那一步。</li>
+          </ul>
+          <div class="point-example">
+            真正吃掉你錢的不是稅率，是稅基。稅率你左右不了，稅基跟時間有關，而時間是你可以決定的。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 30V16l12-8 12 8v14z" fill="#FFF" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M20 30v-8" stroke="#7C8F78" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="20" cy="17" r="3" fill="#7C8F78"/>
+        </svg>
+        <div class="point-number">03</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">四種情況，我反而會叫你先別急著賣</div>
+        <div class="point-body">
+          判斷表勾出「可以留」或「先別動」的，通常就是落在這四種裡面。
+          <ul>
+            <li><strong>你或家人真的會住，而且住得滿六年</strong>：自住優惠的免稅額度與稅率，跟一般情況差很多。</li>
+            <li><strong>最近一位被繼承人是民國一〇四年底以前取得</strong>：可能適用舊制，稅負常常低很多，先查清楚再談。</li>
+            <li><strong>持分還沒喬好</strong>：先做遺產分割協議，再談賣。順序反了，前面談的全部要重來。</li>
+            <li><strong>賣掉的錢沒有下一站</strong>：房子換成現金，如果沒有規劃，只是把問題換一個形狀。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="9" y="6" width="22" height="28" rx="3" fill="#FFF" stroke="#2C2A26" stroke-width="2.4"/>
+          <line x1="14" y1="14" x2="26" y2="14" stroke="#D9342B" stroke-width="2.4" stroke-linecap="round"/>
+          <line x1="14" y1="20" x2="26" y2="20" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/>
+          <line x1="14" y1="26" x2="21" y2="26" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <div class="point-number">04</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">決定要處理之後，先做這三件事</div>
+        <div class="point-body">
+          這一段影片沒有講完，但它決定你後面順不順。順序不要跳。
+          <ul>
+            <li><strong>先做遺產分割協議書</strong>：把誰拿什麼、怎麼分寫清楚。沒有這張，後面每一個環節都會卡住。</li>
+            <li><strong>去調繼承當時的房屋評定現值與公告土地現值</strong>：這兩個數字就是你的成本，也是你能不能估出真實稅負的關鍵。地政與稅捐單位都查得到。</li>
+            <li><strong>確認被繼承人的取得年份</strong>：這一題決定你走新制還是舊制，也決定要不要調整賣的時間點。</li>
+          </ul>
+          <div class="point-example">
+            這三件事做完，你才有辦法把「賣掉大概實拿多少」算出一個能拿去跟家人講的數字。在那之前談價格，都是各憑感覺。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 10h17a3 3 0 013 3v8a3 3 0 01-3 3h-8l-6 5v-5H6a3 3 0 01-3-3v-8a3 3 0 013-3z" transform="translate(2,2)" fill="#FFF" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/>
+          <circle cx="13" cy="19" r="1.8" fill="#D9342B"/>
+          <circle cx="19" cy="19" r="1.8" fill="#D9342B"/>
+          <circle cx="25" cy="19" r="1.8" fill="#D9342B"/>
+        </svg>
+        <div class="point-number">05</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">最難的不是稅，是誰先開口</div>
+        <div class="point-body">
+          我遇過五個兄弟姊妹，一人五分之一，都說先放著。一放六年，房子漏水沒人敢修，有一個移民失聯，最後屋況差到打了八折。
+          沒有人做錯什麼，只是都不想當先開口的那個，因為先開口的人好像就變成最計較的那個。
+          所以開口的方式很重要。<strong>不要從「我們要不要賣」開始，要從「我們先把數字弄清楚」開始。</strong>
+          <div class="script-box">
+            <span class="who">你可以這樣起頭</span>
+            我最近去查了一下爸媽這間房子的資料，發現放著也有成本，不是不動就沒事。<br>
+            我沒有要決定什麼，也不是要催誰。我想說我們先把三個數字弄清楚：現在市價大概多少、賣掉稅要繳多少、每個人實拿多少。<br>
+            數字出來之後，大家再一起決定要留還是要處理。我先去查，查好了傳到群組給大家看。
+          </div>
+          <div class="point-example">
+            這段話的重點是：你把自己放在「查資料的人」，不是「想賣房子的人」。角色對了，家人才聽得進去。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 5l13 5v9c0 7.5-5.2 13.6-13 16-7.8-2.4-13-8.5-13-16v-9z" fill="#FFF" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M14.5 19.5l4 4 7.5-7.5" fill="none" stroke="#D9342B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="point-number">06</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">什麼時候該找人幫忙，要先備哪些資料</div>
+        <div class="point-body">
+          有三個訊號出現，就不要再自己查了：<strong>有人聯絡不到</strong>、<strong>有人主張自己照顧比較多所以要多拿</strong>、<strong>房子有貸款或被設定</strong>。這三種自己處理，通常會拖成好幾年。
+          要開始問之前，把下面這些先找出來，一次就能問到重點。
+          <div class="doc-list">
+            <span>被繼承人的除戶謄本</span>
+            <span>全體繼承人的戶籍謄本</span>
+            <span>土地與建物謄本</span>
+            <span>繼承當年度的房屋稅單</span>
+            <span>地價稅單</span>
+            <span>遺產稅完稅或免稅證明</span>
+            <span>如果有貸款，帶上貸款餘額</span>
+          </div>
+          <div class="point-example">
+            資料備齊，你要問誰都會比較快。真的卡住，也可以直接用右下角的 LINE 傳給我，我幫你看一次是哪一關卡住。
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 免責 -->
+    <div class="disclaimer">
+      這份判斷表是用來幫你抓方向、決定下一步要做什麼，不是稅務試算，也不能取代個案評估。每一家的取得年份、持分比例、自住情形都不一樣，實際稅額請以國稅局核定為準，必要時請找地政士或稅務專業人員確認。
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      真正吃掉你錢的不是<span class="accent">稅率</span>，是<span class="accent">稅基</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+
+    </div>
+
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.08.15</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
