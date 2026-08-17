@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>租客篩選 4 步檢核表 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4; color: #2C2A26; line-height: 1.75;
+    -webkit-font-smoothing: antialiased; font-size: 16px;
+  }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 120px; }
+
+  .brand-header { text-align:center; padding:16px 0 28px; border-bottom:2px solid #FCE4E1; margin-bottom:28px; }
+  .brand-header .brand-logo { width:72px; height:72px; display:block; margin:0 auto 10px; }
+  .brand-header .brand-name { font-size:15px; color:#2C2A26; font-weight:700; letter-spacing:1px; }
+  .brand-header .brand-name .accent { color:#D9342B; }
+
+  .header { text-align:center; margin-bottom:24px; }
+  .header h1 { font-size:32px; font-weight:800; color:#2C2A26; line-height:1.3; margin-bottom:14px; }
+  .header h1 .highlight { background:linear-gradient(180deg,transparent 60%,#FFE5A0 60%); padding:0 4px; }
+  .subtitle { font-size:17px; color:#6B6660; line-height:1.6; }
+
+  .hero { margin:0 auto 28px; display:block; width:100%; max-width:420px; }
+
+  .intro { background:#FFF; border-left:5px solid #D9342B; padding:20px 22px; margin-bottom:28px;
+    border-radius:6px; font-size:16px; color:#4A463F; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+
+  .costbox { background:#FFF; border-radius:14px; padding:24px 22px; margin-bottom:36px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.05); }
+  .costbox h3 { font-size:18px; font-weight:800; margin-bottom:6px; }
+  .costbox .note { font-size:14px; color:#8A8378; margin-bottom:16px; }
+  .bar-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .bar-label { font-size:14px; color:#4A463F; width:96px; flex:none; }
+  .bar-track { flex:1; background:#F1ECE3; border-radius:999px; height:26px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:999px; display:flex; align-items:center; padding-left:10px;
+    color:#FFF; font-size:13px; font-weight:700; white-space:nowrap; }
+  .bar-a { background:#B89968; width:18%; }
+  .bar-b { background:#D9342B; width:100%; }
+
+  .points { display:flex; flex-direction:column; gap:18px; margin-bottom:36px; }
+  .point-card { background:#FFF; border-radius:14px; padding:28px 24px 26px; box-shadow:0 2px 12px rgba(0,0,0,0.05); position:relative; }
+  .point-icon { position:absolute; top:22px; right:22px; width:38px; height:38px; opacity:0.9; }
+  .point-number { font-size:36px; font-weight:900; color:#D9342B; line-height:1; letter-spacing:-1px;
+    margin-bottom:8px; font-family:"Helvetica Neue","Arial",sans-serif; }
+  .point-number-bar { display:block; width:36px; height:3px; background:#D9342B; margin-bottom:16px; border-radius:2px; }
+  .point-title { font-size:20px; font-weight:700; color:#2C2A26; margin-bottom:12px; line-height:1.4; padding-right:46px; }
+  .point-body { font-size:16px; color:#4A463F; line-height:1.75; }
+  .point-body strong { color:#D9342B; font-weight:700; }
+  .point-body ul { margin:12px 0 0 20px; }
+  .point-body li { margin-bottom:8px; }
+  .point-body a { color:#B0522B; font-weight:700; word-break:break-all; }
+  .point-example { margin-top:14px; padding:14px 16px; background:#FFF5E0; border-radius:10px;
+    font-size:15px; color:#6B5230; border-left:3px solid #F5B946; }
+  .point-example::before { content:"💡 "; }
+  .say { margin-top:14px; padding:14px 16px; background:#F4F7F3; border-left:3px solid #6FA07A;
+    border-radius:10px; font-size:15px; color:#3C4F40; }
+  .say b { display:block; font-size:13px; color:#6FA07A; margin-bottom:6px; letter-spacing:1px; }
+
+  .checklist { background:#2C2A26; color:#FAF8F4; border-radius:14px; padding:26px 24px; margin-bottom:36px; }
+  .checklist h3 { font-size:19px; font-weight:800; margin-bottom:6px; color:#FFD06A; }
+  .checklist p.note { font-size:14px; opacity:0.75; margin-bottom:16px; }
+  .checklist ul { list-style:none; }
+  .checklist li { padding:9px 0 9px 30px; border-bottom:1px solid rgba(250,248,244,0.12);
+    font-size:15px; line-height:1.6; position:relative; }
+  .checklist li:last-child { border-bottom:none; }
+  .checklist li::before { content:"☐"; position:absolute; left:0; top:8px; font-size:18px; color:#FFD06A; }
+
+  .conclusion { background:linear-gradient(135deg,#2C2A26 0%,#3D3833 100%); color:#FAF8F4;
+    padding:28px 24px; border-radius:14px; text-align:center; font-size:19px; font-weight:600;
+    line-height:1.6; margin-bottom:40px; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .conclusion .accent { color:#FFD06A; }
+
+  .cta-section { margin-bottom:36px; }
+  .community-cta { background:linear-gradient(135deg,#D9342B 0%,#B89968 100%); color:#FFF;
+    padding:32px 24px; border-radius:18px; text-align:center; margin-bottom:16px;
+    box-shadow:0 6px 20px rgba(217,52,43,0.2); }
+  .community-cta h3 { font-size:22px; font-weight:800; margin-bottom:14px; }
+  .community-cta p { font-size:15px; line-height:1.7; margin-bottom:20px; opacity:0.95; }
+  .community-cta .cta-button { display:inline-block; background:#FFF; color:#2C2A26; padding:14px 32px;
+    border-radius:999px; text-decoration:none; font-weight:700; font-size:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+  .card-cta { background:#FFF; border:2px solid #2C2A26; color:#2C2A26; padding:26px 24px;
+    border-radius:18px; text-align:center; }
+  .card-cta h3 { font-size:20px; font-weight:700; margin-bottom:16px; }
+  .card-cta .cta-button { display:inline-block; background:#2C2A26; color:#FFF; padding:13px 30px;
+    border-radius:999px; text-decoration:none; font-weight:700; font-size:15px; }
+
+  .brand-footer { text-align:center; padding-top:32px; border-top:2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width:44px; height:44px; display:block; margin:0 auto 8px; opacity:0.85; }
+  .brand-footer .footer-name { font-size:13px; color:#6B6660; letter-spacing:1px; margin-bottom:4px; }
+  .brand-footer .footer-name .accent { color:#D9342B; font-weight:700; }
+  .brand-footer .footer-date { font-size:12px; color:#A89F92; }
+  .brand-footer .disclaimer { font-size:12px; color:#A89F92; line-height:1.7; margin-top:12px; }
+
+  .floating-actions { position:fixed; right:16px; bottom:20px; display:flex; flex-direction:column; gap:12px; z-index:999; }
+  .floating-actions a { width:58px; height:58px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,0.25); text-decoration:none; transition:transform 0.2s; }
+  .floating-actions a:active { transform:scale(0.92); }
+  .floating-actions .fab-line { background:#06C755; }
+  .floating-actions .fab-phone { background:#D9342B; }
+  .floating-actions a svg { width:28px; height:28px; fill:#FFF; }
+
+  @media (min-width:768px) {
+    body { font-size:17px; }
+    .container { padding:32px 24px 56px; }
+    .header h1 { font-size:38px; }
+    .point-title { font-size:22px; }
+    .point-body { font-size:17px; }
+    .point-number { font-size:42px; }
+    .brand-header .brand-logo { width:80px; height:80px; }
+    .floating-actions { right:24px; bottom:24px; }
+    .floating-actions a { width:64px; height:64px; }
+    .floating-actions a svg { width:32px; height:32px; }
+  }
+</style>
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <div class="header">
+      <h1>租客篩選<span class="highlight">4 步檢核表</span></h1>
+      <p class="subtitle">簽約前照著走一遍，擋掉一半的麻煩。</p>
+    </div>
+
+    <svg class="hero" viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="房子與檢核表插圖">
+      <rect x="0" y="0" width="420" height="180" fill="none"/>
+      <rect x="24" y="52" width="150" height="96" rx="8" fill="#FFF" stroke="#E3DACB" stroke-width="2"/>
+      <path d="M18 56 L99 12 L180 56 Z" fill="#D9342B" opacity="0.9"/>
+      <rect x="52" y="86" width="34" height="34" rx="4" fill="#FFF5E0" stroke="#E3DACB" stroke-width="2"/>
+      <rect x="112" y="86" width="34" height="34" rx="4" fill="#FFF5E0" stroke="#E3DACB" stroke-width="2"/>
+      <rect x="82" y="124" width="34" height="24" rx="3" fill="#B89968"/>
+      <rect x="228" y="30" width="168" height="126" rx="10" fill="#FFF" stroke="#E3DACB" stroke-width="2"/>
+      <rect x="228" y="30" width="168" height="26" rx="10" fill="#2C2A26"/>
+      <rect x="244" y="40" width="72" height="6" rx="3" fill="#FFD06A"/>
+      <g fill="none" stroke="#6FA07A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M246 78 l7 7 l13 -14"/>
+        <path d="M246 104 l7 7 l13 -14"/>
+        <path d="M246 130 l7 7 l13 -14"/>
+      </g>
+      <rect x="278" y="76" width="98" height="7" rx="3.5" fill="#E3DACB"/>
+      <rect x="278" y="102" width="86" height="7" rx="3.5" fill="#E3DACB"/>
+      <rect x="278" y="128" width="72" height="7" rx="3.5" fill="#E3DACB"/>
+    </svg>
+
+    <div class="intro">
+      房子空著只是少賺，租錯人才是倒賠。這份表是喵爸幫屋主出租時，簽約前一定會走完的四個動作，加上實際要查哪裡、要問什麼、遇到不對勁怎麼收尾。照著走一遍，大部分的麻煩在簽約前就擋掉了。
+    </div>
+
+    <div class="costbox">
+      <h3>先看一筆帳：空一個月 vs 租錯人</h3>
+      <p class="note">以中壢兩房、月租約 1 萬 8 估算。</p>
+      <div class="bar-row">
+        <div class="bar-label">空一個月</div>
+        <div class="bar-track"><div class="bar-fill bar-a">約 1.8 萬</div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">租錯一個人</div>
+        <div class="bar-track"><div class="bar-fill bar-b">約 20 到 30 萬 ＋ 一年心力</div></div>
+      </div>
+      <div class="point-example" style="margin-top:16px">
+        欠租三個月才發現約 5.4 萬，走存證信函、調解到法院請他搬，快的半年、慢的超過一年，這段時間房子被住著、租金收不到。人走了留下的清運與修繕再幾萬起跳。押金兩個月根本補不回來。實際金額依個案狀況而定。
+      </div>
+    </div>
+
+    <div class="points">
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+        <div class="point-number">01</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">查紀錄：公開的裁判書自己查得到</div>
+        <div class="point-body">
+          司法院的裁判書查詢系統是公開的，任何人都能查。把租客的姓名打進去，看有沒有<strong>欠租、遷讓房屋、給付租金、毀損</strong>這類案件。
+          <ul>
+            <li>查詢入口：<a href="https://judgment.judicial.gov.tw/FJUD/default.aspx" target="_blank" rel="noopener">司法院裁判書查詢系統</a>。</li>
+            <li>關鍵字建議搭配：姓名＋「遷讓房屋」、姓名＋「給付租金」。</li>
+            <li>同名同姓很多，看到結果先對<strong>年齡區間與居住地區</strong>，對不上就不算數。</li>
+          </ul>
+          <div class="point-example">
+            查到不代表對方一定有問題，也不要拿這個去質問人。這一步的目的只是「決定要不要再多問幾句」，不是給人定罪。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/><circle cx="19" cy="18" r="3"/></svg>
+        <div class="point-number">02</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">交叉確認：一個地方看到不算數</div>
+        <div class="point-body">
+          房東社團的黑名單、新聞、公開資訊都可以對一輪。重點是<strong>兩個以上互不相干的來源指向同一件事</strong>，才拿來當判斷依據。
+          <ul>
+            <li>只有一個人在社團說某某人不好，那是單一說法，不是事實。</li>
+            <li>網路上的黑名單常常沒查證，看到要留意有沒有具體時間、地點、金額。</li>
+            <li>對不上就當作沒看到，不要把「聽說」放進你的決定裡。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h8"/><path d="M8 14h5"/><path d="M4 5h16v12H9l-5 4z"/></svg>
+        <div class="point-number">03</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">聽需求：不問薪水，問生活</div>
+        <div class="point-body">
+          直接問收入很尷尬，對方也不一定講真話。改問生活，講得出來、前後對得上，就是真的要住。
+          <div class="say">
+            <b>看屋時可以這樣問</b>
+            「原本住哪一區，怎麼會想搬過來？」<br>
+            「幾個人住？有沒有小孩或長輩？」<br>
+            「打算住多久，工作在附近嗎？」<br>
+            「平常幾點回家、假日大多在家還是外出？」<br>
+            「之前那間住多久，為什麼搬？」
+          </div>
+          <div class="point-example">
+            五題問完，前後兜不起來的地方就是要留意的地方。另外，如果租金明顯超過他收入的三成，之後拖欠的機會就會高一些，這個要自己心裡有數。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h4"/></svg>
+        <div class="point-number">04</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">看證明：不是每個人都要看，但這幾種一定看</div>
+        <div class="point-body">
+          在職證明、薪轉紀錄、勞保明細，<strong>看一樣就好</strong>，不用全要。以下情況建議一定看：
+          <ul>
+            <li>租金偏高、或占他收入比重明顯偏高。</li>
+            <li>要養寵物、或想一次簽兩年以上。</li>
+            <li>前面三步有任何一步讓你覺得怪怪的。</li>
+          </ul>
+          <div class="say">
+            <b>開口可以這樣講</b>
+            「不好意思，這是我們固定的流程，簽約前會請房客提供一份在職或收入證明，資料我只確認一下就好，不會留存。」
+          </div>
+          <div class="point-example">
+            他不願意給，本身就是一個訊號。不用逼，但你可以把這件事放進你的判斷。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div class="point-number">05</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">簽約前，這幾件事白紙黑字寫清楚</div>
+        <div class="point-body">
+          篩人只是前半段，契約沒寫清楚，後面一樣會吵。簽之前確認這幾項有沒有寫進去：
+          <ul>
+            <li>租金與押金金額、繳款日、匯款帳戶。</li>
+            <li>水電、瓦斯、管理費、網路各自由誰負擔，怎麼分攤。</li>
+            <li>修繕責任怎麼分：什麼情況房東修、什麼情況房客自理。</li>
+            <li>能不能養寵物、能不能轉租或分租、能不能設戶籍。</li>
+            <li>提前解約怎麼算、遲繳幾天算違約、點交時的屋況怎麼認定。</li>
+            <li>入住當天拍照存證：牆面、地板、家電、衛浴各拍一輪，雙方留一份。</li>
+          </ul>
+          <div class="point-example">
+            契約用內政部公告的租賃定型化契約版本比較安全。實際條款以現行法規與雙方約定為準，金額較高或條件特殊時，簽前找專業的人看一次。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v9"/><circle cx="12" cy="17.5" r="1.2" fill="#D9342B" stroke="none"/><path d="M12 2.5L1.8 20.5h20.4z"/></svg>
+        <div class="point-number">06</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">覺得不對勁，怎麼收尾不撕破臉</div>
+        <div class="point-body">
+          你不需要解釋為什麼不租給他，也不用編理由。留一句得體的話就好。
+          <div class="say">
+            <b>婉拒可以這樣說</b>
+            「不好意思，這間我這邊還有其他人在談，等確定了我再跟你聯絡，謝謝你特地跑一趟。」
+          </div>
+          <ul>
+            <li>不要說「你被列在黑名單」或「你有官司」，會有爭議。</li>
+            <li>已經收了訂金但決定不租，要盡快退還並留下紀錄。</li>
+            <li>寧願多空一個月，也不要為了補這個月的租金，簽下一個要處理一年的人。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="checklist">
+      <h3>簽約前逐項打勾</h3>
+      <p class="note">看屋帶著這張，簽約前對一遍。</p>
+      <ul>
+        <li>已用司法院裁判書系統查過姓名，並比對過年齡與地區。</li>
+        <li>公開資訊至少有兩個來源交叉確認過。</li>
+        <li>五個生活問題都問過，前後說法對得上。</li>
+        <li>租金占收入比重心裡有數。</li>
+        <li>需要看證明的情況，已看過其中一樣。</li>
+        <li>契約寫清楚了租金、押金、費用分攤、修繕責任。</li>
+        <li>寵物、轉租、設戶籍的規定寫進契約。</li>
+        <li>提前解約與遲繳的處理方式寫清楚。</li>
+        <li>入住當天屋況照片拍好，雙方各留一份。</li>
+        <li>我可以接受這個人住我房子兩年。</li>
+      </ul>
+    </div>
+
+    <div class="conclusion">
+      房子空著是<span class="accent">少賺</span>，租錯人是<span class="accent">倒賠</span>。
+    </div>
+
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.08.17</div>
+      <p class="disclaimer">本清單為實務經驗整理，供屋主自行判斷參考，不構成法律意見。契約條款與相關規定以現行法規及各方約定為準，個案情況請洽專業人員。</p>
+    </div>
+
+  </div>
+
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>

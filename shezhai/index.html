@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>桃園人社宅三條路懶人包 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4; color: #2C2A26; line-height: 1.75;
+    -webkit-font-smoothing: antialiased; font-size: 16px;
+  }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 120px; }
+
+  .brand-header { text-align:center; padding:16px 0 28px; border-bottom:2px solid #FCE4E1; margin-bottom:28px; }
+  .brand-header .brand-logo { width:72px; height:72px; display:block; margin:0 auto 10px; }
+  .brand-header .brand-name { font-size:15px; color:#2C2A26; font-weight:700; letter-spacing:1px; }
+  .brand-header .brand-name .accent { color:#D9342B; }
+
+  .header { text-align:center; margin-bottom:24px; }
+  .header h1 { font-size:32px; font-weight:800; color:#2C2A26; line-height:1.3; margin-bottom:14px; }
+  .header h1 .highlight { background:linear-gradient(180deg,transparent 60%,#FFE5A0 60%); padding:0 4px; }
+  .subtitle { font-size:17px; color:#6B6660; line-height:1.6; }
+
+  .hero { margin:0 auto 28px; display:block; width:100%; max-width:420px; }
+
+  .intro { background:#FFF; border-left:5px solid #D9342B; padding:20px 22px; margin-bottom:28px;
+    border-radius:6px; font-size:16px; color:#4A463F; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+
+  .roadmap { background:#FFF; border-radius:14px; padding:24px 22px; margin-bottom:36px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.05); }
+  .roadmap h3 { font-size:18px; font-weight:800; margin-bottom:14px; }
+  .road { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px dashed #EFE8DC; }
+  .road:last-child { border-bottom:none; }
+  .road .tag { flex:none; width:74px; text-align:center; font-size:13px; font-weight:800; color:#FFF;
+    border-radius:999px; padding:5px 0; }
+  .t1 { background:#D9342B; } .t2 { background:#B89968; } .t3 { background:#6FA07A; }
+  .road .txt { font-size:15px; color:#4A463F; line-height:1.6; }
+  .road .txt b { color:#2C2A26; }
+
+  .points { display:flex; flex-direction:column; gap:18px; margin-bottom:36px; }
+  .point-card { background:#FFF; border-radius:14px; padding:28px 24px 26px; box-shadow:0 2px 12px rgba(0,0,0,0.05); position:relative; }
+  .point-icon { position:absolute; top:22px; right:22px; width:38px; height:38px; opacity:0.9; }
+  .point-number { font-size:36px; font-weight:900; color:#D9342B; line-height:1; letter-spacing:-1px;
+    margin-bottom:8px; font-family:"Helvetica Neue","Arial",sans-serif; }
+  .point-number-bar { display:block; width:36px; height:3px; background:#D9342B; margin-bottom:16px; border-radius:2px; }
+  .point-title { font-size:20px; font-weight:700; color:#2C2A26; margin-bottom:12px; line-height:1.4; padding-right:46px; }
+  .point-body { font-size:16px; color:#4A463F; line-height:1.75; }
+  .point-body strong { color:#D9342B; font-weight:700; }
+  .point-body ul { margin:12px 0 0 20px; }
+  .point-body li { margin-bottom:8px; }
+  .point-body a { color:#B0522B; font-weight:700; word-break:break-all; }
+  .point-example { margin-top:14px; padding:14px 16px; background:#FFF5E0; border-radius:10px;
+    font-size:15px; color:#6B5230; border-left:3px solid #F5B946; }
+  .point-example::before { content:"💡 "; }
+  .kv { margin-top:14px; background:#F7F4EE; border-radius:10px; padding:14px 16px; font-size:15px; color:#4A463F; }
+  .kv div { padding:5px 0; border-bottom:1px solid #EFE8DC; }
+  .kv div:last-child { border-bottom:none; }
+  .kv b { color:#2C2A26; }
+
+  .checklist { background:#2C2A26; color:#FAF8F4; border-radius:14px; padding:26px 24px; margin-bottom:36px; }
+  .checklist h3 { font-size:19px; font-weight:800; margin-bottom:6px; color:#FFD06A; }
+  .checklist p.note { font-size:14px; opacity:0.75; margin-bottom:16px; }
+  .checklist ul { list-style:none; }
+  .checklist li { padding:9px 0 9px 30px; border-bottom:1px solid rgba(250,248,244,0.12);
+    font-size:15px; line-height:1.6; position:relative; }
+  .checklist li:last-child { border-bottom:none; }
+  .checklist li::before { content:"☐"; position:absolute; left:0; top:8px; font-size:18px; color:#FFD06A; }
+
+  .conclusion { background:linear-gradient(135deg,#2C2A26 0%,#3D3833 100%); color:#FAF8F4;
+    padding:28px 24px; border-radius:14px; text-align:center; font-size:19px; font-weight:600;
+    line-height:1.6; margin-bottom:40px; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .conclusion .accent { color:#FFD06A; }
+
+  .cta-section { margin-bottom:36px; }
+  .community-cta { background:linear-gradient(135deg,#D9342B 0%,#B89968 100%); color:#FFF;
+    padding:32px 24px; border-radius:18px; text-align:center; margin-bottom:16px;
+    box-shadow:0 6px 20px rgba(217,52,43,0.2); }
+  .community-cta h3 { font-size:22px; font-weight:800; margin-bottom:14px; }
+  .community-cta p { font-size:15px; line-height:1.7; margin-bottom:20px; opacity:0.95; }
+  .community-cta .cta-button { display:inline-block; background:#FFF; color:#2C2A26; padding:14px 32px;
+    border-radius:999px; text-decoration:none; font-weight:700; font-size:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
+  .card-cta { background:#FFF; border:2px solid #2C2A26; color:#2C2A26; padding:26px 24px;
+    border-radius:18px; text-align:center; }
+  .card-cta h3 { font-size:20px; font-weight:700; margin-bottom:16px; }
+  .card-cta .cta-button { display:inline-block; background:#2C2A26; color:#FFF; padding:13px 30px;
+    border-radius:999px; text-decoration:none; font-weight:700; font-size:15px; }
+
+  .brand-footer { text-align:center; padding-top:32px; border-top:2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width:44px; height:44px; display:block; margin:0 auto 8px; opacity:0.85; }
+  .brand-footer .footer-name { font-size:13px; color:#6B6660; letter-spacing:1px; margin-bottom:4px; }
+  .brand-footer .footer-name .accent { color:#D9342B; font-weight:700; }
+  .brand-footer .footer-date { font-size:12px; color:#A89F92; }
+  .brand-footer .disclaimer { font-size:12px; color:#A89F92; line-height:1.7; margin-top:12px; }
+
+  .floating-actions { position:fixed; right:16px; bottom:20px; display:flex; flex-direction:column; gap:12px; z-index:999; }
+  .floating-actions a { width:58px; height:58px; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,0.25); text-decoration:none; transition:transform 0.2s; }
+  .floating-actions a:active { transform:scale(0.92); }
+  .floating-actions .fab-line { background:#06C755; }
+  .floating-actions .fab-phone { background:#D9342B; }
+  .floating-actions a svg { width:28px; height:28px; fill:#FFF; }
+
+  @media (min-width:768px) {
+    body { font-size:17px; }
+    .container { padding:32px 24px 56px; }
+    .header h1 { font-size:38px; }
+    .point-title { font-size:22px; }
+    .point-body { font-size:17px; }
+    .point-number { font-size:42px; }
+    .brand-header .brand-logo { width:80px; height:80px; }
+    .floating-actions { right:24px; bottom:24px; }
+    .floating-actions a { width:64px; height:64px; }
+    .floating-actions a svg { width:32px; height:32px; }
+  }
+</style>
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <div class="header">
+      <h1>桃園人社宅<span class="highlight">三條路懶人包</span></h1>
+      <p class="subtitle">中央這批沒有桃園，但你有三條路可以同時走。</p>
+    </div>
+
+    <svg class="hero" viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="社宅與三條路徑插圖">
+      <rect x="26" y="60" width="88" height="98" rx="6" fill="#FFF" stroke="#E3DACB" stroke-width="2"/>
+      <path d="M20 64 L70 28 L120 64 Z" fill="#D9342B" opacity="0.9"/>
+      <g fill="#FFF5E0" stroke="#E3DACB" stroke-width="2">
+        <rect x="42" y="80" width="24" height="22" rx="3"/><rect x="76" y="80" width="24" height="22" rx="3"/>
+        <rect x="42" y="112" width="24" height="22" rx="3"/><rect x="76" y="112" width="24" height="22" rx="3"/>
+      </g>
+      <g stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M124 78 C 180 78, 200 60, 254 60" stroke="#D9342B"/>
+        <path d="M124 104 C 180 104, 200 104, 254 104" stroke="#B89968"/>
+        <path d="M124 130 C 180 130, 200 148, 254 148" stroke="#6FA07A"/>
+      </g>
+      <g font-family="-apple-system, PingFang TC, Microsoft JhengHei, sans-serif" font-size="14" font-weight="700">
+        <rect x="258" y="46" width="140" height="28" rx="14" fill="#D9342B"/>
+        <text x="272" y="65" fill="#FFF">桃園社宅・隨到隨辦</text>
+        <rect x="258" y="90" width="118" height="28" rx="14" fill="#B89968"/>
+        <text x="272" y="109" fill="#FFF">包租代管</text>
+        <rect x="258" y="134" width="118" height="28" rx="14" fill="#6FA07A"/>
+        <text x="272" y="153" fill="#FFF">租金補貼</text>
+      </g>
+    </svg>
+
+    <div class="intro">
+      中央社宅 115 年第 3 季這批 6 案 1,500 戶，桃園一戶都沒有。但這不代表桃園人只能等下一批。這份整理三條你現在就能走的路，以及該先送哪一件。
+    </div>
+
+    <div class="roadmap">
+      <h3>三條路，一次看懂差別</h3>
+      <div class="road">
+        <div class="tag t1">路一</div>
+        <div class="txt"><b>桃園市自己的社宅</b>：不用抽籤，隨時送件排遞補名單，有空戶依序通知看屋。多數人不知道有這條。</div>
+      </div>
+      <div class="road">
+        <div class="tag t2">路二</div>
+        <div class="txt"><b>包租代管</b>：不用抽、不用排，租金大約市價八到九折，租約與糾紛由業者處理。</div>
+      </div>
+      <div class="road">
+        <div class="tag t3">路三</div>
+        <div class="txt"><b>租金補貼</b>：住在一般租屋也能領，隨到隨辦，每月約 2,000 到 8,000 元。</div>
+      </div>
+    </div>
+
+    <div class="points">
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+        <div class="point-number">01</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">中央這批在招什麼，先把事實講清楚</div>
+        <div class="point-body">
+          國土署與國家住都中心公告，115 年第 3 季中央社宅招租共 6 案、1,500 戶。
+          <div class="kv">
+            <div><b>案件</b>：新北板橋玫瑰好室、江翠好室，鶯歌鶯陶安居，南投公誠安居，臺南開南安居，高雄仁武安居。</div>
+            <div><b>受理</b>：115 年 8 月 14 日到 9 月 14 日。</div>
+            <div><b>抽籤</b>：115 年 12 月 16 日。</div>
+            <div><b>最快入住</b>：116 年 3 月 1 日。</div>
+            <div><b>申請入口</b>：<a href="https://www.socialhousing.tw" target="_blank" rel="noopener">安居好室入口網</a>，專線 02-8979-1799。</div>
+          </div>
+          <div class="point-example">
+            資格看的是「社宅所在地」。你戶籍在桃園、人在新北上班或上學，板橋、鶯歌那三案是可以申請的。純桃園設籍、桃園上班的，這批確實沒份。細節以受理公告為準。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+        <div class="point-number">02</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">路一：桃園社宅隨到隨辦，這條最多人不知道</div>
+        <div class="point-body">
+          桃園市的社會住宅從 114 年 4 月 1 日起改成隨到隨辦。<strong>不是一季抽一次籤，是隨時線上送件、審過就排進遞補名單</strong>，有空戶釋出時會通知看屋選屋。
+          <div class="kv">
+            <div><b>誰可以申請</b>：年滿 18 歲；桃園市民，或在桃園就學、就業（沒有桃園戶籍也可以）。</div>
+            <div><b>房產限制</b>：在北北基桃竹竹都沒有自有住宅。</div>
+            <div><b>所得財產</b>：114 年度標準為每人每月平均收入 5 萬 8,688 元以內、家庭年所得 136 萬元以內、不動產 663 萬元以內、動產 310 萬元以內。這組數字每年會調。</div>
+            <div><b>租期</b>：租約 3 年一期，一般戶最長 6 年、政策戶最長 12 年。</div>
+            <div><b>申請入口</b>：<a href="https://housing.tycg.gov.tw/HouseRent" target="_blank" rel="noopener">桃園市社宅申請系統</a>，諮詢電話 03-3331481。</div>
+          </div>
+          <div class="point-example">
+            孕婦手冊在手、或三代同堂，在桃園就算政策戶，租期最長到 12 年。另外，通知看屋沒接電話、沒回覆會視同放棄這次遞補，聯絡方式一定要填對。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3"/><path d="M9 13h6"/></svg>
+        <div class="point-number">03</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">路二：包租代管，不用抽也不用排</div>
+        <div class="point-body">
+          政府找專業業者當中間人：房東把房子交出去、租客用略低於市價的租金住進去，租約與糾紛由業者處理。
+          <ul>
+            <li>對租客：租金大約市價八到九折，弱勢身分另有優惠，出問題不用自己跟房東吵。</li>
+            <li>對房東：房子交給業者管，租金收入在一定額度內有所得稅優惠，另有修繕與公證補助。</li>
+            <li>查媒合物件與合作業者：<a href="https://housing.tycg.gov.tw/TYRentAgent/Default" target="_blank" rel="noopener">桃園市包租代管服務網</a>，電話 03-3324700 分機 1125。</li>
+          </ul>
+          <div class="point-example">
+            急著搬、不想排隊的人優先看這條。實際折扣與補助額度以現行公告為準。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h5M9.5 14.5h5"/></svg>
+        <div class="point-number">04</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">路三：租金補貼，現在租房就先申請起來</div>
+        <div class="point-body">
+          住在一般租屋、暫時排不到社宅的人，這條最快，而且今年也是隨到隨辦。
+          <div class="kv">
+            <div><b>受理期間</b>：到 12 月 31 日。</div>
+            <div><b>補貼金額</b>：每戶每月約 2,000 到 8,000 元，依縣市與身分加碼，青年、婚育、弱勢另有加成。</div>
+            <div><b>所得門檻</b>：依縣市不同，確切數字以國土署公告為準。</div>
+            <div><b>申請入口</b>：<a href="https://has.nlma.gov.tw" target="_blank" rel="noopener">國土署住宅補貼線上申請</a>，桃園諮詢 03-3324700 分機 6。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9a4 4 0 017-2.6A4 4 0 0119 11c0 4.6-7 9-7 9z"/></svg>
+        <div class="point-number">05</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">新婚或有小孩，記得勾婚育身分</div>
+        <div class="point-body">
+          住宅法修正後，社會住宅<strong>至少 20% 保留給新婚 2 年內、或育有未成年子女的家庭</strong>。
+          <ul>
+            <li>白話講：同一批社宅，婚育家庭是另外一個池子在抽，中籤機會本來就比一般戶高。</li>
+            <li>申請時記得勾選婚育身分，備妥結婚登記或子女戶籍資料，證明文件以各案公告為準。</li>
+            <li>年底 9 個縣市會再釋出上千戶婚育宅，3 年內再加 1 萬戶，育有學齡前幼兒最長可續租 12 年。</li>
+          </ul>
+          <div class="point-example">
+            桃園市自己的社宅雖然沒有叫「婚育宅」，但孕婦手冊與三代同堂列為政策戶，功能上很接近。中央會不會在桃園再釋婚育宅，等公告，喵爸不亂猜。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="2" fill="#D9342B" stroke="none"/><circle cx="14" cy="12" r="2" fill="#D9342B" stroke="none"/><circle cx="10" cy="18" r="2" fill="#D9342B" stroke="none"/></svg>
+        <div class="point-number">06</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">三條路不是三選一，是同時走</div>
+        <div class="point-body">
+          我遇過的人多半只知道第一條：新聞出來就衝去登記中央的，沒抽到就當這件事結束了。比較聰明的走法是這樣排：
+          <ul>
+            <li><strong>今天先送</strong>桃園市社宅隨到隨辦，排進遞補名單，不用等公告。</li>
+            <li><strong>同時申請</strong>租金補貼，現在租房就先領著。</li>
+            <li><strong>急著搬</strong>就上包租代管服務網找媒合物件。</li>
+            <li>排到社宅之後，簽約前依規定切結放棄原補助即可，<strong>不用二選一</strong>。</li>
+            <li>在新北上班上學的，8/14 到 9/14 這批板橋、鶯歌三案一併申請。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="checklist">
+      <h3>今天就可以做的事</h3>
+      <p class="note">照順序打勾，不用一次做完。</p>
+      <ul>
+        <li>確認自己符不符合桃園社宅資格（年滿 18、桃園設籍或就學就業、北北基桃竹竹無自有住宅）。</li>
+        <li>把去年的所得與財產資料找出來，先對一次門檻。</li>
+        <li>上桃園市社宅申請系統送件，排進遞補名單。</li>
+        <li>新婚 2 年內或有未成年子女，記得勾婚育身分並備妥證明。</li>
+        <li>孕婦手冊或三代同堂的，確認自己算不算政策戶。</li>
+        <li>同時上國土署系統申請租金補貼。</li>
+        <li>急著搬的，上包租代管服務網看有沒有合適物件。</li>
+        <li>在新北上班上學的，9/14 前把中央那三案也送出去。</li>
+        <li>把聯絡電話與地址填正確，通知看屋沒接會視同放棄。</li>
+      </ul>
+    </div>
+
+    <div class="conclusion">
+      社宅不是<span class="accent">抽到</span>才有，是<span class="accent">排隊</span>的人才有。
+    </div>
+
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.08.17</div>
+      <p class="disclaimer">本懶人包依國土署、國家住都中心、桃園市住宅發展處 2026 年 8 月公開資訊整理。招租時程、資格、金額每年調整，個案以各主管機關最新公告及審查結果為準。</p>
+    </div>
+
+  </div>
+
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+</body>
+</html>
