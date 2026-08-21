@@ -17,6 +17,7 @@
     --tag:#2a3140;
     --tagtxt:#cdd6e6;
     --ok:#4ade80;
+    --warn:#f87171;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   body{
@@ -28,15 +29,15 @@
   }
   header{
     position:sticky;top:0;z-index:20;
-    background:linear-gradient(180deg,#15181f 0%,rgba(21,24,31,.96) 100%);
+    background:linear-gradient(180deg,#15181f 0%,rgba(21,24,31,.97) 100%);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
-    padding:18px 16px 14px;
+    padding:14px 16px 10px;
   }
   .title{font-size:20px;font-weight:800;letter-spacing:.5px;}
   .title span{color:var(--accent);}
   .subtitle{font-size:12.5px;color:var(--sub);margin-top:3px;}
-  .search-wrap{margin-top:12px;position:relative;}
+  .search-wrap{margin-top:10px;position:relative;}
   #search{
     width:100%;padding:12px 40px 12px 14px;font-size:15px;
     background:var(--card);border:1px solid var(--line);border-radius:12px;
@@ -47,10 +48,28 @@
     position:absolute;right:10px;top:50%;transform:translateY(-50%);
     color:var(--sub);font-size:18px;cursor:pointer;padding:4px 8px;display:none;
   }
-  .stat{font-size:12px;color:var(--sub);margin-top:8px;}
+  .stat{font-size:12px;color:var(--sub);margin-top:7px;}
   .stat b{color:var(--accent2);}
+  .nav{
+    display:flex;gap:6px;overflow-x:auto;margin-top:9px;padding-bottom:3px;
+    scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .nav::-webkit-scrollbar{display:none;}
+  .nav a{
+    flex:0 0 auto;font-size:12px;text-decoration:none;
+    background:var(--tag);color:var(--tagtxt);
+    padding:5px 10px;border-radius:20px;border:1px solid var(--line);white-space:nowrap;
+  }
+  .nav a:active{background:var(--accent);color:#13151a;}
   main{padding:8px 14px 0;max-width:760px;margin:0 auto;}
-  .cat{margin-top:22px;}
+  .cat{margin-top:24px;scroll-margin-top:var(--hh,150px);}
+  @media(max-width:430px){
+    header{padding:11px 14px 8px;}
+    .title{font-size:18px;}
+    .subtitle{display:none;}
+    #search{padding:10px 38px 10px 12px;font-size:14px;}
+    .stat{margin-top:6px;}
+  }
   .cat-h{
     font-size:14px;font-weight:800;color:var(--accent2);
     display:flex;align-items:center;gap:8px;margin-bottom:10px;
@@ -66,8 +85,19 @@
   }
   .card-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
   .name{font-size:15.5px;font-weight:800;color:var(--txt);}
-  .code{font-size:11px;color:var(--accent);font-family:ui-monospace,Menlo,monospace;opacity:.85;}
+  .code{font-size:11px;color:var(--accent);font-family:ui-monospace,Menlo,monospace;opacity:.85;text-align:right;flex:0 0 auto;}
+  .pkg{
+    display:inline-block;font-size:10px;font-weight:700;
+    padding:1px 6px;border-radius:5px;margin-left:6px;vertical-align:2px;
+    background:var(--tag);color:var(--sub);border:1px solid var(--line);
+  }
   .desc{font-size:13px;color:var(--sub);margin:7px 0 10px;}
+  .flag{
+    font-size:12px;color:var(--accent2);background:rgba(255,138,61,.09);
+    border-left:3px solid var(--accent);padding:6px 10px;border-radius:0 8px 8px 0;
+    margin:0 0 10px;
+  }
+  .flag.dead{color:var(--warn);border-left-color:var(--warn);background:rgba(248,113,113,.08);}
   .trig-label{font-size:11px;color:var(--sub);margin-bottom:5px;font-weight:700;}
   .trigs{display:flex;flex-wrap:wrap;gap:6px;}
   .trig{
@@ -77,8 +107,13 @@
   }
   .trig:active{transform:scale(.95);}
   .trig.copied{background:var(--accent);color:#13151a;border-color:var(--accent2);}
+  .plain{font-size:12.5px;color:var(--tagtxt);line-height:2;}
+  .plain code{
+    background:var(--tag);padding:2px 7px;border-radius:6px;
+    font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--accent2);
+  }
   .empty{text-align:center;color:var(--sub);padding:50px 20px;font-size:14px;display:none;}
-  footer{text-align:center;color:var(--sub);font-size:11.5px;margin-top:30px;padding:0 16px;}
+  footer{text-align:center;color:var(--sub);font-size:11.5px;margin-top:34px;padding:0 16px;line-height:1.9;}
   .toast{
     position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
     background:var(--accent);color:#13151a;font-weight:700;font-size:13px;
@@ -86,6 +121,12 @@
     box-shadow:0 6px 20px rgba(0,0,0,.4);
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .top{
+    position:fixed;right:16px;bottom:20px;z-index:40;
+    background:var(--card2);border:1px solid var(--line);color:var(--sub);
+    width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;
+    display:none;align-items:center;justify-content:center;
+  }
 </style>
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
 </head>
@@ -97,65 +138,166 @@
     <input id="search" type="text" placeholder="搜尋技能、觸發詞、用途…（例：爆款、估價、選題）" autocomplete="off">
     <span class="clear" id="clear">✕</span>
   </div>
-  <div class="stat">共 <b id="count">26</b> 個自訂技能 ・ 分 9 大類</div>
+  <div class="stat">自訂技能 <b id="count">—</b> 支 ・ 分 <b id="catcount">—</b> 類 ・ 另有系統內建 65（見最後一區）</div>
+  <nav class="nav" id="nav"></nav>
 </header>
 
 <main id="main"></main>
 <div class="empty" id="empty">找不到符合的技能 🥲 換個關鍵字試試</div>
 
 <footer>
-  中壢專業房仲喵爸 ・ 系統內建 Word / PDF / PPT / Excel 處理不需觸發詞，需要時自動啟用<br>
-  更新日：2026.06.10
+  中壢專業房仲喵爸<br>
+  系統內建 Word / PDF / PPT / Excel 處理不需觸發詞，需要時自動啟用<br>
+  ⚠️ <b>jifu-photos</b>（下 591 照片）與 <b>property-dm</b>（DM 海報）不在表上——它們沒有 SKILL.md，是 Node 程式不是技能，喊了不會動<br>
+  更新日：2026.08.21
 </footer>
 
 <div class="toast" id="toast">已複製 ✓</div>
+<div class="top" id="top">↑</div>
 
 <script>
 const DATA = [
-  {cat:"一、FB 爆款貼文", skills:[
-    {name:"FB 爆款貼文寫作", code:"fb-baokuan", desc:"把錄音逐字稿轉成你個人風格的 FB 爆款貼文，走完整 SOP：採訪稿檢查→萃取五件事+300字感動敘述→套指令→40條風格規則改稿→標題金句。", trigs:["幫我寫爆款 FB","寫 FB 爆款","寫一篇爆款","FB 貼文"]},
-    {name:"FB 爆款採訪", code:"fb-baokuan-interview", desc:"案子講不出來時，用 22 題結構化問答幫你抽故事，產出逐字稿再餵給 fb-baokuan。", trigs:["幫我採訪這個案子","幫我採訪","我案子講不完整","幫我抓重點"]},
-    {name:"熱點→FB 爆款", code:"fb-baokuan-trend", desc:"不上網搜，直接把熱點資料一氣呵成寫成 3 篇可貼 FB 的爆款貼文。", trigs:["寫時事 FB","把這個熱點寫成 FB 文","寫 FB 爆款（接熱點）"]},
+  {cat:"🚀 一條龍入口", id:"c1", skills:[
+    {name:"內容產線總指揮", code:"meowdad-content-line", pkg:1, desc:"一個觸發詞跑完「選題／素材 → 蟬師選題重構 → 寫稿 → 文體量表自檢 → 軍師 Theo ＋蟬師 280 人雙審 → 寫回 Notion」整條鏈。它不自己寫稿，負責路由到下面的引擎。", flag:"寫內容想不到要喊哪支，就喊這支。", trigs:["跑產線","內容產線","一條龍","幫我寫一篇 FB","幫我寫一支短影音","把這個做成內容"]},
+    {name:"Q寶 · 行銷團隊營運長", code:"qbao", pkg:1, desc:"行銷任務的唯一入口。任務派發、進度追蹤、跨角色協作，會自動叫 Leon／Jack／Maya／Iris／Theo 出場。", flag:"🔴 所有對外行銷的東西都從這裡進，不要自己做完就上。", trigs:["/qbao","Q寶","hello Q寶","叫Q寶","策略分析","我接下來該做什麼"]},
+    {name:"Nora 營運長（Q寶本體）", code:"hello-nora", pkg:1, desc:"跟 Q寶 是同一套，對學員示範時才用 Nora 這個名字。也負責團隊更新。", trigs:["/hello-nora","更新團隊","team update","行銷健診"]},
   ]},
-  {cat:"二、短影音 / 腳本", skills:[
-    {name:"熱點偵查局", code:"hotspot-radar", desc:"跑四條搜尋線上網找時事 → 過議題層 → 產出 8 個熱點清單 + 5 個重構標題。", trigs:["找熱點","熱點偵查","今天有什麼熱點","這個月的熱點"]},
-    {name:"短影音爆款腳本", code:"short-video-script-meowdad", desc:"融合七宗罪情緒引擎+八大模板+九大引流法則，產 60～85 秒逐字稿。", trigs:["幫我寫短影音腳本","寫一支短影音","Reels 腳本","TikTok 腳本"]},
-    {name:"蟬師腳本全流程", code:"cicada-script-workflow", desc:"完整流程（受眾→選題→標題→腳本→評審）或單步執行都行。", trigs:["腳本","受眾","選題","標題","評審","健檢","跑流程"]},
+
+  {cat:"📝 FB 爆款貼文", id:"c2", skills:[
+    {name:"FB 爆款貼文寫作", code:"fb-baokuan", pkg:2, desc:"把錄音逐字稿轉成你個人風格的 FB 爆款貼文，走完整 SOP：採訪稿檢查→萃取五件事+300字感動敘述→套指令→40條風格規則改稿→標題金句。", trigs:["幫我寫爆款 FB","寫 FB 爆款","寫一篇爆款","FB 貼文"]},
+    {name:"FB 爆款採訪", code:"fb-baokuan-interview", pkg:2, desc:"案子講不出來時，用 22 題結構化問答幫你抽故事，產出逐字稿再餵給 fb-baokuan。", trigs:["幫我採訪這個案子","幫我採訪","我案子講不完整","幫我抓重點"]},
+    {name:"熱點→FB 爆款", code:"fb-baokuan-trend", pkg:"1+2", desc:"不上網搜，直接把熱點資料一氣呵成寫成 3 篇可貼 FB 的爆款貼文。", flag:"兩包都有，第 1 包較新（07-25），會吃到哪份要注意。", trigs:["寫時事 FB","把這個熱點寫成 FB 文","寫 FB 爆款（接熱點）"]},
   ]},
-  {cat:"三、懶人包 / 部署", skills:[
-    {name:"FB 懶人包生成器", code:"fb-lazypack-generator", desc:"把影片文案轉成 HTML 圖文懶人包 + 私訊話術。", trigs:["幫我生懶人包","做這支的懶人包","粉絲留言要的東西"]},
-    {name:"HTML 部署", code:"fb-lazypack-deployer", desc:"把任何 HTML 推到你的 GitHub Pages（catpawwedding/lazypack），回傳公開網址。", trigs:["幫我部署","上線","推上去","給我網址","我的網址呢"]},
+
+  {cat:"🎬 短影音 / 腳本", id:"c3", skills:[
+    {name:"熱點偵查局", code:"hotspot-radar", pkg:2, desc:"跑四條搜尋線上網找時事 → 過議題層 → 產出 8 個熱點清單 + 5 個重構標題。", flag:"🔴 沒給主題就要拍片時，先跑這支選題，不要反過來問你要拍什麼。", trigs:["找熱點","熱點偵查","今天有什麼熱點","這個月的熱點","這週有什麼可以蹭"]},
+    {name:"短影音爆款腳本", code:"short-video-script-meowdad", pkg:"1+2", desc:"融合七宗罪情緒引擎+八大模板+九大引流法則，產 60～85 秒逐字稿。", flag:"兩包都有，第 1 包較新（07-25，多 6KB）。", trigs:["幫我寫短影音腳本","寫一支短影音","把這個拍成短影音","Reels 腳本","TikTok 腳本"]},
+    {name:"逐字稿爆款拆解", code:"transcript-viral-breakdown", pkg:1, desc:"別人的逐字稿／字幕／草稿 → 反推它為什麼會爆 → 重寫成你能直接拍的版本。給主題＋素材或丟別人的稿走這條。", trigs:["拆稿","拆逐字稿","爆款拆解","幫我拆這支","改成短影音腳本"]},
+    {name:"蟬師腳本全流程", code:"cicada-script-workflow", pkg:2, desc:"完整流程（受眾→選題→標題→腳本→評審）或單步執行都行。", flag:"🔴 蟬師只接「選題重構」與「280 人評審」兩步，絕不用蟬師寫稿。", trigs:["選題重構","280 人評審","腳本健檢","受眾分析"]},
+    {name:"物件開箱文案", code:"property-video-script", pkg:1, desc:"貼物調表／PDF／截圖／attest 連結 → 產可拍的開箱逐字稿。規則吃 _shared/property-video-rules.md，跟 script.cathome.tw 同一套，兩邊產出一致。", trigs:["給物調給我開箱文案","幫我寫開箱文案","開箱影片文案","這間幫我拍開箱","寫拍片文案"]},
+    {name:"物件／區域／社區 三模式", code:"property-video-script-meowdad", pkg:2, desc:"比上面那支多了「區域介紹」與「社區開箱」兩種模式。逆向工程 24 支真實高流量房仲 Reels 拆出 8 大架構。", flag:"名字跟上面那支很像，會喊錯——要拍區域或社區才用這支。", trigs:["幫我寫區域介紹影片","介紹體育園區","社區開箱","介紹這個社區","區域商耕影片"]},
   ]},
-  {cat:"四、房仲業務工具", skills:[
-    {name:"快速估價", code:"quick-valuation", desc:"三階段：收地址→收謄本→收樂居截圖，產客戶端 HTML 協尋單 + 你自己改的完整估價報告書。", trigs:["估價 ○○路○○號","幫我估個價","客戶問這個地址多少錢"]},
-    {name:"帶看排程控場路線官", code:"showings-router", desc:"把物件+出發地+鑰匙+屋主時間窗排成最順路線，產業務版+客人版，附 Google Maps 連結。", trigs:["幫我排帶看路線","帶看排程","控場路線","這幾間怎麼帶比較順"]},
-    {name:"LINE 社群小編", code:"community-editor-meowdad", desc:"軍師型小編，判讀群內狀況、給話術+下一步指令。", trigs:["社群小編","LINE 社群","幫我顧群","群裡冷掉了","有新人進來"]},
+
+  {cat:"✅ 審稿品管 · 發完之後", id:"c4", skills:[
+    {name:"Theo 軍師（審稿唯一關）", code:"theo", pkg:2, desc:"Threads / IG 爆款教練，用 Meta 演算法邏輯挑戰你的內容有沒有寫到「流量最大化」的方向。", flag:"🔴 所有對外文案的審稿關。重寫過＝要重審一次，不能只審第一版。", trigs:["用軍師看這則貼文","請軍師看","軍師幫我看","叫軍師"]},
+    {name:"去 AI 味", code:"humanizer-zh-tw", pkg:1, desc:"偵測並修掉 AI 寫作特徵：誇大象徵、宣傳語言、模糊歸因、破折號過度、三段式法則、否定式排比、過多連接語。", flag:"🔴 只用 22 條——「對比句／三段式／金句」那 3 條不採用，那是你的文體不是 AI 味。", trigs:["去掉 AI 味","讓文字更像人寫的","洗一下這段"]},
+    {name:"巡留言（三平台）", code:"comment-patrol", pkg:1, desc:"用 API 掃 Threads／FB 粉專／IG，比對誰已經被回過，算出真正還沒回的，附分類標籤（真問題／政治雷／推銷／灌水／道謝），順便拉觸及與互動數。", flag:"🔴 不能用眼睛看，「待回 0」是假的。預設掃 12 篇要改成 30 篇。", trigs:["巡留言","掃留言","誰還沒回","待回留言","留言有沒有漏"]},
+    {name:"FB 數字回寫 Notion", code:"fb-stats-sync", pkg:1, desc:"開你已登入的個人 FB，抓近 7 天發布影片的觀看數，寫回 Notion「2.影片產出計畫表」的流量數欄。個人 FB 無 API，只能瀏覽器自動化。", trigs:["跑 FB 數字","更新 FB 數據","抓這週流量","FB 數據回寫"]},
+    {name:"流量判官", code:"viral-gatekeeper", pkg:1, desc:"發布前用你自己的真實 FB 流量數據預測會不會爆。", flag:"⚠️ 已退役——審稿一律改用 Theo 軍師。", dead:true, trigs:[]},
   ]},
-  {cat:"五、設計", skills:[
-    {name:"LOGO 設計", code:"logo-design", desc:"產出 LOGO 視覺架構+AI 製圖提示詞，涵蓋十大 LOGO 類型。", trigs:["LOGO 設計","標誌設計","做一個 Logo","品牌識別"]},
-    {name:"名片設計", code:"namecard-design", desc:"名片正反面排版架構+AI 製圖提示詞。", trigs:["名片設計","做名片","名片正反面"]},
-    {name:"廣告圖片設計", code:"ad-design", desc:"依文案產出指定尺寸的廣告圖排版架構+AI 製圖提示詞。", trigs:["廣告設計","Banner 設計","FB 廣告","海報設計"]},
-    {name:"廣告風格優化", code:"ad-style-optimizer", desc:"把廣告圖依八大視覺風格優化調整。", trigs:["廣告風格","換風格","想要更有質感","這個廣告感覺不對"]},
+
+  {cat:"🏠 房仲業務工具", id:"c5", skills:[
+    {name:"單一物件機能判讀", code:"property-area-scan", pkg:1, desc:"丟一個物件／地址／物調表截圖／591 連結 → 判讀客戶真正在意什麼 → 用真實路網算學校/公園/採買/醫療/交通的走路與騎車距離 → 產內部判讀筆記 + 可直接貼客戶的 LINE 話術（附導航連結）。", flag:"🔴 影片文案裡距離只講公尺不講分鐘（分鐘＝廣告不實）。", trigs:["這個物件周邊機能","幫我判讀客戶需求","離學校多遠","幫我看一下這間的生活機能","丟物件前先幫我準備"]},
+    {name:"一批物件距離快篩", code:"property-filter", pkg:1, desc:"一批物件 + 客戶開的距離條件 → 對每間算最近目標點的走路/騎車時間 → 用 AND 邏輯篩出符合的，排序表附實際距離，不符合的也列出哪條不過。", trigs:["幫我篩物件","這批物件離火車站多近","哪幾間走路到學校 10 分內","批量篩距離"]},
+    {name:"帶看網頁版（控場＋客人版）", code:"showings-html", pkg:1, desc:"一場帶看（3-4 間）做成三件套：業務控場版 HTML（含鑰匙/開發/控場＋可點周邊地圖）、客人圖文版、路線。", trigs:["帶看 HTML","幫我做帶看頁","這場帶看做成頁面"]},
+    {name:"帶看排程控場路線官", code:"showings-router", pkg:2, desc:"把物件+出發地+鑰匙+屋主時間窗排成最順路線，產業務版+客人版，附 Google Maps 連結。", trigs:["幫我排帶看路線","帶看排程","控場路線","這幾間怎麼帶比較順"]},
+    {name:"這塊地能蓋多少", code:"zoning-capacity", pkg:1, desc:"丟地址／地號／591 連結／座標 → 打桃園市府圖台（免金鑰、50ms）查分區＋建蔽率＋容積率＋法定但書 → 算可建量，產內部判讀＋客戶白話版。", trigs:["建蔽率多少","容積率多少","這塊地能蓋幾坪","這是什麼分區","屋主說可以蓋是真的嗎"]},
+    {name:"社區謄本批次撈取", code:"tengben-extract", pkg:1, desc:"走 API 重放、零點擊，把永慶 i智慧「社區大樓經營→二維透視」整棟人頭謄本撈下來，解析標示部/所有權部/他項權利部、去重、推進 Notion 開發名單，再逐戶補通訊地址。", flag:"篩選（繼承/逾6年/他項非銀行/外地屋主）是你自己做，這支只負責撈。需 Chrome 登入永慶 i智慧。", trigs:["撈謄本","撈這個社區的謄本","謄本開發","社區謄本"]},
+    {name:"快速估價", code:"quick-valuation", pkg:2, desc:"三階段：收地址→收謄本→收樂居截圖，產客戶端 HTML 協尋單 + 你自己改的完整估價報告書。", flag:"🔴 敏感報告絕不上 lazypack，走 noindex + 亂檔名。", trigs:["估價 ○○路○○號","幫我估個價","客戶問這個地址多少錢"]},
+    {name:"房地合一稅試算", code:"tax-calc-capital-gains", pkg:"1+2", desc:"新制 2.0，用財政部官方級距試算賣方要繳多少。第 1 包較新。", flag:"標明「以國稅局核定為準」，不要把稅講死。", trigs:["賣掉要繳多少稅","房地合一稅","持有幾年賣要繳多少","自住賣免稅嗎"]},
+    {name:"重購退稅試算", code:"tax-calc-repurchase", pkg:"1+2", desc:"換屋（賣一買一，2 年內）能退多少：房地合一所得稅 + 舊制土增稅兩種都算。第 1 包較新。", trigs:["重購退稅","換屋可以省多少稅","買大換小退稅","賣了再買退稅"]},
+    {name:"每週早會報案彙整", code:"baoan-weekly", pkg:"1+2", desc:"各店格式不一的早會報案 Excel（6-8 個）→ 跨店總表 + 物件連結按順序做成瀏覽器書籤，開會右鍵一次全開。第 1 包較新。", flag:"連結藏在 hyperlink 裡要挖出來，不是看儲存格文字。", trigs:["彙整報案","做報案總表","報案彙整","幫我把連結加到我的最愛"]},
+    {name:"名片入庫", code:"namecard-intake", pkg:1, desc:"辨識名片→分流兩本 Notion（人脈進名片庫、買賣方進喵爸貴人）→產 48 小時跟進話術。", flag:"🔴 正式路徑是叫他去 card.cathome.tw 自己拍。絕不群發 email。", trigs:["入名片","跑名片","名片入庫","處理名片"]},
+    {name:"促銷帶出官", code:"promo-recall", pkg:1, desc:"把兩個 LINE 群裡開發貼的促銷內容（行情／實登／人況物況價況／底價可談／銀行鑑價／紅包獎勵）整理帶出。", flag:"🔴 產的是促銷「文案」不是資料卡；缺人況底價用【】留空別編；卡不給買方。", trigs:["帶促銷","列促銷","促銷總表"]},
+    {name:"房屋照片批次修圖", code:"photo-prep-meowdad", pkg:2, desc:"判讀 → 雜物移除 → 調光 → 廣告規格輸出，最多 10 張，全程在 Claude 內完成。", trigs:["批次修圖","幫我修圖","修這些照片","批次調光"]},
+    {name:"591 自動上架", code:"jifu-591-upload", pkg:1, desc:"Notion「吉富物件廣告池」勾了「上架591」→ Node + Playwright 自動填表刊登、上傳照片、關掉付費彈窗、設關閉、回寫 591 狀態與連結。", flag:"🔴 一律設關閉、絕不花錢。第一次先喊「來校正591」校選擇器。需 591＋JIFU 登入。", trigs:["上架591","來校正591","撈吉富","更新廣告池"]},
   ]},
-  {cat:"六、銷售頁", skills:[
-    {name:"銷售頁文案", code:"lp-copywriting", desc:"產出完整銷售頁文案架構（繁中提示詞）。", trigs:["銷售頁文案","LP 文案","一頁式文案","條圖文案"]},
-    {name:"銷售頁條圖設計", code:"lp-bar-design", desc:"把文案拆成 4-6 個長條圖區塊+AI 製圖提示詞。", trigs:["條圖設計","LP 設計","一頁式設計","條圖架構"]},
-    {name:"銷售頁風格優化", code:"lp-style-optimizer", desc:"把條圖設計依六大風格優化。", trigs:["風格優化","換風格","設計感覺不對"]},
+
+  {cat:"👥 行銷團隊角色", id:"c6", skills:[
+    {name:"Leon · 設計總監", code:"leon-design", pkg:1, desc:"廣告素材 brief、Landing Page、Sales Page、IG 九宮格的視覺方向與完整文案內容。", flag:"🔴 LP／銷售頁／懶人包網頁／廣告圖 出去前一定要過他這關。", trigs:["做 LP","設計 SP","廣告圖","IG 九宮格","視覺方向","做廣告素材"]},
+    {name:"Jack · 廣告投放手", code:"jack-ads", pkg:1, desc:"Meta 廣告策略、廣告文案、Hook、預算分配、數據診斷、CAPI 追蹤。", trigs:["寫廣告","Meta 數據","廣告 hook","預算分配","廣告優化","ROAS"]},
+    {name:"Maya · 社群小編", code:"maya-social", pkg:1, desc:"FB / IG / Threads / 小紅書 貼文、電子報 EDM、排程、改寫，以及 LINE 社群（OpenChat）日常經營。", trigs:["想 hook","排這週貼文","改寫這篇","IG 發什麼","Threads 開頭"]},
+    {name:"Iris · 內容 SEO 策略師", code:"iris-seo", pkg:1, desc:"關鍵字研究、競品拆解、SEO 文章（網站版＋臉書版）、AI 收錄優化。", flag:"官網 CTR 的病根是選題沒搜尋量——標題 ≤30 全形字、去品牌後綴、搜尋字前置。", trigs:["找關鍵字","SEO","拆競品","內容策略","讓 AI 找到我"]},
+    {name:"LINE 社群小編", code:"community-editor-meowdad", pkg:2, desc:"軍師型小編，判讀群內狀況、給話術+下一步指令。", trigs:["社群小編","LINE 社群","幫我顧群","群裡冷掉了","有新人進來"]},
+    {name:"Irene · 剪輯團隊入口", code:"hello-irene", pkg:1, desc:"剪輯後製團隊統籌＋數據派 IG 策略師，判斷需求後調度五位專家（字幕醫生／素材整理／字幕翻譯／卡點剪／口播重剪）。剪片相關一律從她進。", trigs:["嗨 Irene","找 Irene","/hello-irene","我該用哪個技能"]},
   ]},
-  {cat:"七、SOIL 教學簡報", skills:[
-    {name:"可編輯 pptx（文字+AI 插圖）", code:"soil-teaching-deck", desc:"李俊儀教授六引擎，產文字可編輯+AI 插圖的混合教學簡報。", trigs:["幫我做教學簡報","用 SOIL 做簡報","做一份上課用的投影片"]},
-    {name:"純圖片 pptx", code:"soil-image-deck", desc:"每頁一張 AI 全版圖，適合快速產出、視覺強烈場合。", trigs:["做純圖片簡報","全圖簡報","每頁都是 AI 生的圖"]},
-    {name:"HTML 互動簡報", code:"soil-html-deck", desc:"自由度最高，可嵌互動圖表、可分享連結，直播/線上研習用。", trigs:["做 HTML 簡報","網頁版簡報","互動式簡報","可分享連結的簡報"]},
+
+  {cat:"⚡ 一鍵快速指令", id:"c7", skills:[
+    {name:"一鍵社群貼文", code:"post", pkg:1, desc:"直接交給 Maya 產出貼文。", trigs:["/post","快速貼文","生社群貼文"]},
+    {name:"一鍵銷售信", code:"sales", pkg:1, desc:"直接交給 Maya 產出完整銷售信 / EDM。", trigs:["/sales","快速銷售信","寫銷售信","寫一封推銷信"]},
+    {name:"一鍵廣告文案", code:"ad", pkg:1, desc:"直接交給 Jack 產出廣告 Hook + 完整文案。", trigs:["/ad","快速廣告","生廣告文案"]},
+    {name:"成效簡報", code:"deck", pkg:1, desc:"把行銷成效彙整成給客戶／老闆看的 HTML 投影片，可一鍵存 PDF。", trigs:["/deck","做成簡報","客戶簡報","月報簡報","成效簡報"]},
+    {name:"策略彙整報告", code:"report", pkg:1, desc:"Nora 讀全團隊互動記錄＋Jack 廣告數據＋公司商品現況，一次彙整成策略報告。", trigs:["/report","給我報告","彙整一下","我接下來該做什麼","策略建議"]},
   ]},
-  {cat:"八、度哥廣告三件套", skills:[
-    {name:"度哥選題", code:"duge-ad-topic-picker", desc:"輸入客群+產品+核心訊息，跑五層漏斗產 21 個重拳標題，含軸線+七宗罪標註。", trigs:["選題","想標題","重拳標題","想拍什麼","給我幾個標題"]},
-    {name:"度哥腳本擴寫", code:"duge-ad-script-writer", desc:"把標題/痛點擴寫成度哥風格四段式短影音腳本，可附分鏡。", trigs:["寫腳本","腳本擴寫","分鏡","拍攝腳本"]},
-    {name:"度哥 AI 影片提示詞", code:"duge-ad-ai-video-prompt", desc:"把腳本轉成 Banana Pro 出圖 + Seedance 出影片的完整 AI 提示詞包。", trigs:["AI 影片提示詞","Banana Pro 提示詞","Seedance 提示詞","腳本變影片"]},
+
+  {cat:"🎨 設計 · 圖卡 · 簡報", id:"c8", skills:[
+    {name:"社群圖卡產生器", code:"cards", pkg:1, desc:"文章／筆記／任何文字 → 品牌風格 IG 圖卡（藍黑系 / 橘白系，4:5 或 1:1），AI 自動拆卡、預覽、匯出 2x PNG。", trigs:["/cards","做圖卡","幫我做 IG 圖","把這篇做成圖卡"]},
+    {name:"AI 生圖（gpt-image-2）", code:"draw", pkg:1, desc:"畫封面、插圖、示意圖、分鏡。", flag:"🔴 中文字絕不交 AI 生（會生錯字），只生無字背景再用 CSS 疊字。", trigs:["畫一張","生一張圖","產生圖片","畫插圖","畫示意圖","畫分鏡"]},
+    {name:"LOGO 設計", code:"logo-design", pkg:2, desc:"產出 LOGO 視覺架構+AI 製圖提示詞，涵蓋十大 LOGO 類型。", trigs:["LOGO 設計","標誌設計","做一個 Logo","品牌識別"]},
+    {name:"名片設計", code:"namecard-design", pkg:2, desc:"名片正反面排版架構+AI 製圖提示詞。", flag:"紅貓屋標＝全品牌唯一 Logo。", trigs:["名片設計","做名片","名片正反面"]},
+    {name:"廣告圖片設計", code:"ad-design", pkg:2, desc:"依文案產出指定尺寸的廣告圖排版架構+AI 製圖提示詞。", trigs:["廣告設計","Banner 設計","FB 廣告","海報設計"]},
+    {name:"廣告風格優化", code:"ad-style-optimizer", pkg:2, desc:"把廣告圖依八大視覺風格優化調整。", trigs:["廣告風格","換風格","想要更有質感","這個廣告感覺不對"]},
+    {name:"UI/UX 設計系統", code:"ui-ux-pro-max", pkg:1, desc:"67 種風格、96 組色票、57 組字體配對、25 種圖表、13 種技術棧。做網站／落地頁／儀表板前先過。", trigs:["設計這個頁面","UI 檢查","介面設計","版面優化"]},
+    {name:"撈 PPT 招（母版補貨）", code:"ppt-tricks-restock", pkg:1, desc:"撈 FB 專頁 PPT Tutorial 的新貼文與 Reel，篩掉純動畫與非 PPT 題材，把有功能的招加一頁進 200_Reference/templates/簡報招式母版.pptx，回報收了什麼、丟了什麼、為什麼。", flag:"🔴 只維護那一個母版檔，不寫課程內容、不做選題。", trigs:["撈PPT招","補招式","更新簡報招式","母版加新招"]},
+    {name:"SOIL 可編輯教學簡報", code:"soil-teaching-deck", pkg:2, desc:"李俊儀教授六引擎，產文字可編輯+AI 插圖的混合教學簡報。", trigs:["幫我做教學簡報","用 SOIL 做簡報","做一份上課用的投影片"]},
+    {name:"SOIL 純圖片簡報", code:"soil-image-deck", pkg:2, desc:"每頁一張 AI 全版圖，適合快速產出、視覺強烈場合。", trigs:["做純圖片簡報","全圖簡報","每頁都是 AI 生的圖"]},
+    {name:"SOIL HTML 互動簡報", code:"soil-html-deck", pkg:2, desc:"自由度最高，可嵌互動圖表、可分享連結，直播/線上研習用。", trigs:["做 HTML 簡報","網頁版簡報","互動式簡報","可分享連結的簡報"]},
   ]},
-  {cat:"九、金流 / 發票串接", skills:[
-    {name:"EZPAY 電子發票", code:"ezpay-invoice", desc:"ezPay 電子發票 API 完整串接指引：開立/作廢/折讓/查詢/載具。", trigs:["電子發票","ezPay","發票 API","載具","手機條碼"]},
-    {name:"藍新金流", code:"newebpay-integration", desc:"NewebPay 金流串接：MPG 收款、定期定額、查詢、退款。", trigs:["藍新金流","NewebPay","金流串接","信用卡付款"]},
+
+  {cat:"💰 銷售頁 · 懶人包 · 部署", id:"c9", skills:[
+    {name:"引導式銷售頁", code:"landing", pkg:1, desc:"問完 17 題後產出完整 HTML + Tailwind + 可選倒數計時，覆蓋活動／線上課／數位產品三種銷售頁。整合 UI UX Pro Max。", trigs:["做一頁式","引導式銷售頁","做活動頁","課程報名頁"]},
+    {name:"銷售頁文案", code:"lp-copywriting", pkg:2, desc:"產出完整銷售頁文案架構（繁中提示詞）。", trigs:["銷售頁文案","LP 文案","一頁式文案","條圖文案"]},
+    {name:"銷售頁條圖設計", code:"lp-bar-design", pkg:2, desc:"把文案拆成 4-6 個長條圖區塊+AI 製圖提示詞。", trigs:["條圖設計","LP 設計","一頁式設計","條圖架構"]},
+    {name:"銷售頁風格優化", code:"lp-style-optimizer", pkg:2, desc:"把條圖設計依六大風格優化。", trigs:["風格優化","換風格","設計感覺不對"]},
+    {name:"FB 懶人包生成器", code:"fb-lazypack-generator", pkg:2, desc:"把影片文案轉成 HTML 圖文懶人包 + 私訊話術。關鍵字與懶人包名稱要你自己在文案裡寫好，它只負責抓出來。", flag:"🔴 下暗號前先打開那個網址看它到底是什麼，別承諾一個不存在的東西。", trigs:["幫我生懶人包","做這支的懶人包","粉絲留言要的東西"]},
+    {name:"HTML 部署", code:"fb-lazypack-deployer", pkg:2, desc:"把任何 HTML 推到 GitHub Pages（catpawwedding/lazypack），回傳公開網址。", trigs:["幫我部署","上線","推上去","給我網址","我的網址呢"]},
+    {name:"實建家懶人包（代操版）", code:"fb-lazypack-shijianjia", pkg:2, desc:"實建家室內設計專用的懶人包生成器。", flag:"🔴 絕不殘留喵爸痕跡。", trigs:["幫實建家生懶人包","實建家懶人包"]},
   ]},
+
+  {cat:"📽️ 影片剪輯（Irene 團隊）", id:"c10", skills:[
+    {name:"卡點剪輯師", code:"beat-cut-editor", pkg:1, desc:"一整包素材 → 跟著音樂節拍剪成完成的短影音 MP4（素材→文字時間軸→EDL→ffmpeg 渲染）。產 AI 初剪版，你再說「第3段換掉」「副歌切慢一點」迭代。", flag:"🔴 鐵律：一刀下去，景別和字幕至少換一個。", trigs:["幫我剪成 vlog","卡點剪輯","跟著音樂剪","幫我剪出一支影片"]},
+    {name:"字幕醫生", code:"caption-doctor", pkg:1, desc:"清任何來源的 .srt（剪映／DaVinci／YouTube／Premiere／Whisper／Zoom）：辨識錯字、簡轉繁、斷句，回傳可直接匯回的乾淨 SRT。", trigs:["字幕好亂幫我修","清一下這個 srt","字幕簡轉繁"]},
+    {name:"素材整理師", code:"footage-sifter", pkg:1, desc:"一堆散素材 → 狠篩、同機位分組、每組挑最佳一條、排出 selects 順序、產安全的改名腳本與 DaVinci selects 時間軸（FCPXML）。", trigs:["幫我整理素材","哪一條比較好","素材篩選"]},
+    {name:"字幕翻譯", code:"subtitle-translator", pkg:1, desc:"把 SRT 翻成別的語言，時間軸完全對齊。", trigs:["字幕翻成英文","加日文字幕","翻譯這個 SRT"]},
+    {name:"B-Roll 動態標題卡", code:"broll-animation-studio", pkg:1, desc:"一句文案 → 十種視覺風格的電視級動態標題卡（Vox 紀錄片 / 極簡 / 普普 / VHS / 粉彩程式 / 深夜終端 / 雜誌 / 霓虹 / 液態玻璃 / 翻牌看板）。", trigs:["做一張動態標題卡","B-Roll 動畫","開場動畫"]},
+    {name:"口播加圖卡重剪", code:"talking-head-recut", pkg:1, desc:"口播／訪談／Podcast 影片 → 疊上跟逐字稿同步的圖卡：動態標題、下三分之一、數據 callout、引言、側欄、子母畫面。原片不動。", trigs:["幫這支加圖卡","口播加字卡","加下三分之一"]},
+    {name:"嵌入式／特效字幕", code:"embedded-captions", pkg:1, desc:"單人口播影片加字幕，不動原片：純逐字字幕、字躲在人身後的電影感字幕、特效字幕，或 35 種風格目錄裡指定一種。", trigs:["加字幕","炸裂字幕","酷炫字幕","字躲在人後面"]},
+    {name:"Irene 安裝管家", code:"irene-setup", pkg:1, desc:"Hello Irene 技能包的安裝、健檢、更新三件事。裝到一半斷掉也是找它。", trigs:["幫我安裝 Irene","檢查 Irene 裝好了沒","更新 Irene","裝到一半斷掉了"]},
+    {name:"HyperFrames 影片框架（8 支）", code:"hyperframes ＋ core/cli/animation/creative/audio/keyframes/registry", n:8, pkg:1, desc:"做動態影片／動畫／轉場／宣傳片／解說片的完整框架，含 CLI、動畫引擎、關鍵影格、音訊混音、元件庫。", flag:"🔴 入口一律先讀 hyperframes 這支，它會路由到其他 7 支。", trigs:["做一支動畫影片","做宣傳影片","做解說動畫"]},
+    {name:"素材解析（BGM/音效/圖/字型）", code:"media-use", pkg:1, desc:"HyperFrames 專案的素材總管：BGM、音效、圖片、圖示、Logo、配音、調色 LUT 一律從這裡解析成本機檔案；目錄裡沒有的就用 TTS / 音樂 / 生圖模型生。", trigs:["找配樂","要一個音效","這支影片配什麼音樂"]},
+  ]},
+
+  {cat:"🧭 開工前流程（度哥那套）", id:"c11", skills:[
+    {name:"① 需求釐清", code:"requirement-clarify", pkg:1, desc:"一次一題、層層追問到核心，把「我想做一個 XXX」問成一份「為什麼要做、會怎麼被用」講清楚的需求文件。", flag:"🔴 全程禁止寫程式。", trigs:["我想做一個","幫我釐清需求","這個需求先問清楚"]},
+    {name:"② 系統規劃", code:"system-planning", pkg:1, desc:"吃需求文件，問清使用形式、功能拆解、資料與串接、落地條件，以提案方式定案技術選型。", flag:"🔴 要覆蓋成 Supabase + Vercel；CLAUDE.md 絕不寫進 vault 根目錄。", trigs:["幫我規劃系統","這個要怎麼做","技術選型"]},
+    {name:"③ 盲點掃描", code:"blind-spot", pkg:1, desc:"開工前最後一關。不問「你要做什麼」，問「這件事哪裡會踩雷、我現在還不知道什麼」——資料拿不拿得到／權限會不會過期／環境跑不跑得起來／對方會不會擋／哪步只有你能做／要不要錢。", flag:"🔴 「應該有」不算有，🟢 要貼實測證據。只輸出盲點清單，全程不寫程式。", trigs:["開始做","來做這個","幫我建一個系統","這個可以做嗎"]},
+    {name:"想法變計劃書", code:"brainstorm", pkg:1, desc:"引導式問答把模糊想法變成具體計劃書，存進 100_Todo/plans/。", trigs:["/brainstorm","幫我想一下","這個想法幫我整理"]},
+    {name:"做新技能", code:"skill-creator", pkg:"1+2", desc:"從零建 skill、改既有 skill、跑 eval 測效果、優化 description 讓它更會被觸發。", flag:"🔴 這組是第 2 包較新（08-14），其他 5 組重複都是第 1 包新。", trigs:["做一個新技能","改這支 skill","這個流程做成技能"]},
+  ]},
+
+  {cat:"🔧 系統維運", id:"c12", skills:[
+    {name:"平台 token 健檢", code:"health-check", pkg:1, desc:"檢查 FB / IG / LINE / Meta 廣告 / WordPress / Cloudinary 還正不正常，主動測出已失效的 token。", flag:"⚠️ 只驗平台 token，不驗網站。網站要另外巡（site-patrol）。", trigs:["/health-check","檢查設定","token 還能用嗎","發不出去"]},
+    {name:"安全防護設定", code:"safety-setup", pkg:1, desc:"危險指令黑名單、權限模式檢查、保護客戶個資、自動允許白名單。", trigs:["設定安全防護","不想每次都按允許","自動允許","白名單"]},
+    {name:"平台串接精靈", code:"setup", pkg:1, desc:"一步步把 FB、IG、LINE、Meta 廣告接上，每步即時驗證、卡關看截圖帶路、報錯自動診斷。", flag:"🔴 金鑰你自己貼，我不代打。", trigs:["/setup","幫我設定","怎麼接 FB","token 怎麼拿"]},
+    {name:"Cowork 設定", code:"setup-cowork", pkg:2, desc:"依角色安裝對應外掛、接工具、試跑一支技能。", trigs:["/setup-cowork"]},
+    {name:"品牌資料驗收 / 建置", code:"brand-check ／ brand-setup", n:2, pkg:1, desc:"檢查或建立 _brand/ 底下 4 份品牌核心檔案（product-info、icp、voice-profile、brand-guide）。", trigs:["/brand-check","/brand-setup","檢查品牌資料"]},
+    {name:"記憶壓縮", code:"consolidate-memory", pkg:2, desc:"回頭掃記憶檔：合併重複、修掉過期的事實、整理索引。", flag:"⚠️ 裝了但一直沒用。記憶已 270+ 檔，該定期跑。", trigs:["整理記憶","壓縮 memory","記憶重整"]},
+    {name:"排定期任務", code:"schedule", pkg:2, desc:"建立或修改自動執行的排程任務。", trigs:["每天早上","提醒我","每週一跑一次"]},
+    {name:"用量說明", code:"explain-usage", pkg:2, desc:"這次對話的 token 花去哪，一張圖白話講。", trigs:["解釋用量","token 花去哪"]},
+    {name:"學習日記 / 早晨簡報", code:"journal ／ morning", n:2, pkg:"1／2", desc:"每天 5 個問題回顧當天學習與工作，自動產 Markdown 日記並追蹤待辦；morning 是把晨間簡報渲染成 HTML。", trigs:["寫日記","今天結束了","復盤一下","/morning"]},
+    {name:"Office / PDF 檔案處理", code:"docx ／ pptx ／ xlsx ／ pdf", n:4, pkg:2, desc:"讀、改、產 Word / PowerPoint / Excel / PDF。", flag:"不需要觸發詞——只要對話裡出現這幾種檔案就會自動啟用。", trigs:[]},
+  ]},
+
+  {cat:"🧰 客戶案子 · 金流發票", id:"c13", skills:[
+    {name:"度哥選題", code:"duge-ad-topic-picker", pkg:2, desc:"輸入客群+產品+核心訊息，跑五層漏斗產 21 個重拳標題，含軸線+七宗罪標註。", trigs:["選題","想標題","重拳標題","給我幾個標題"]},
+    {name:"度哥腳本擴寫", code:"duge-ad-script-writer", pkg:2, desc:"把標題/痛點擴寫成度哥風格四段式短影音腳本，可附分鏡。", trigs:["寫腳本","腳本擴寫","分鏡","拍攝腳本"]},
+    {name:"度哥 AI 影片提示詞", code:"duge-ad-ai-video-prompt", pkg:2, desc:"把腳本轉成 Banana Pro 出圖 + Seedance 出影片的完整 AI 提示詞包。", trigs:["AI 影片提示詞","Banana Pro 提示詞","Seedance 提示詞"]},
+    {name:"EZPAY 電子發票", code:"ezpay-invoice", pkg:2, desc:"ezPay 電子發票 API 完整串接指引：開立/作廢/折讓/查詢/載具。", trigs:["電子發票","ezPay","發票 API","載具","手機條碼"]},
+    {name:"藍新金流", code:"newebpay-integration", pkg:2, desc:"NewebPay 金流串接：MPG 收款、定期定額、查詢、退款。", trigs:["藍新金流","NewebPay","金流串接","信用卡付款"]},
+  ]},
+];
+
+const SYS = [
+  {t:"⌨️ SuperClaude 工程指令（29 支・打 /sc:xxx）",
+   note:"寫程式／做系統時用的，房仲業務跟寫文案用不到。忘記有哪支就打 <code>/sc:recommend</code>，它會推薦該用哪支。",
+   items:["/sc:recommend｜描述你要幹嘛，它推薦指令","/sc:analyze｜掃程式碼：品質/安全/效能/架構","/sc:troubleshoot｜出事了，診斷 code/build/部署","/sc:research｜深度網路研究","/sc:index-repo｜整個 repo 索引成摘要（省 94% token）","/sc:agent","/sc:brainstorm","/sc:build","/sc:business-panel","/sc:cleanup","/sc:design","/sc:document","/sc:estimate","/sc:explain","/sc:git","/sc:help","/sc:implement","/sc:improve","/sc:index","/sc:pm","/sc:sc","/sc:select-tool","/sc:spawn","/sc:spec-panel","/sc:task","/sc:test","/sc:workflow"],
+   warn:"🔴 /sc:load、/sc:save、/sc:reflect 這 3 支不能用——吃 Serena MCP，機器上沒裝。"},
+  {t:"🤖 Sub Agent（20 個）",
+   note:"高輸出但只要結論的活丟給它（大量搜尋、掃檔、讀逐字稿），不塞爆主對話。",
+   items:["root-cause-analyst｜查病根","Explore｜大範圍找檔","Plan｜排實作計畫","deep-research｜深度研究","security-engineer","performance-engineer","quality-engineer","refactoring-expert","backend-architect","frontend-architect","system-architect","devops-architect","python-expert","requirements-analyst","business-panel-experts","repo-index","technical-writer","learning-guide","socratic-mentor","pm-agent","self-review","general-purpose"]},
+  {t:"🧩 Claude Code 原生 skill（16 支）",
+   note:"Anthropic 內建，不用裝。",
+   items:["fewer-permission-prompts｜一直要按「允許」很煩時打這個","code-review｜審 diff／PR（ultra 版要你自己打）","security-review｜安全掃描","dataviz｜🔴 畫任何圖表前先讀","run｜把專案跑起來看畫面","loop｜每 X 分鐘跑一次","schedule｜排雲端定期 agent","update-config｜改設定/權限/hooks","keybindings-help｜改快捷鍵","claude-api｜查 Claude 型號與價格","simplify｜只做簡化不抓 bug","init｜產 CLAUDE.md","design｜多畫板視覺設計稿","artifact-design","artifact-diagramming","artifact-capabilities"]},
 ];
 
 const main = document.getElementById('main');
@@ -163,35 +305,53 @@ const empty = document.getElementById('empty');
 const search = document.getElementById('search');
 const clearBtn = document.getElementById('clear');
 const toast = document.getElementById('toast');
+const nav = document.getElementById('nav');
+const topBtn = document.getElementById('top');
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function render(){
-  main.innerHTML = DATA.map((c,ci)=>`
-    <section class="cat" data-cat>
+  main.innerHTML = DATA.map(c=>`
+    <section class="cat" id="${c.id}" data-cat>
       <div class="cat-h"><span class="n">${c.skills.length}</span>${c.cat}</div>
       ${c.skills.map(s=>`
-        <div class="card" data-search="${(s.name+' '+s.code+' '+s.desc+' '+s.trigs.join(' ')).toLowerCase()}">
+        <div class="card" data-search="${esc((s.name+' '+s.code+' '+s.desc+' '+(s.flag||'')+' '+s.trigs.join(' ')).toLowerCase())}">
           <div class="card-top">
-            <div class="name">${s.name}</div>
-            <div class="code">${s.code}</div>
+            <div class="name">${s.name}<span class="pkg">${s.pkg===1?'自建':s.pkg===2?'課程':'包 '+s.pkg}</span></div>
+            <div class="code">${esc(s.code)}</div>
           </div>
           <div class="desc">${s.desc}</div>
-          <div class="trig-label">觸發詞（點一下複製）</div>
+          ${s.flag?`<div class="flag${s.dead?' dead':''}">${s.flag}</div>`:''}
+          ${s.trigs.length?`<div class="trig-label">觸發詞（點一下複製）</div>
           <div class="trigs">
-            ${s.trigs.map(t=>`<span class="trig" data-copy="${t.replace(/"/g,'&quot;')}">${t}</span>`).join('')}
-          </div>
+            ${s.trigs.map(t=>`<span class="trig" data-copy="${esc(t)}">${esc(t)}</span>`).join('')}
+          </div>`:''}
         </div>
       `).join('')}
     </section>
+  `).join('') + SYS.map((g,i)=>`
+    <section class="cat" id="sys${i}" data-cat>
+      <div class="cat-h"><span class="n">${g.items.length}</span>${g.t}</div>
+      <div class="card" data-search="${esc((g.t+' '+g.note+' '+g.items.join(' ')).toLowerCase())}">
+        <div class="desc">${g.note}</div>
+        ${g.warn?`<div class="flag">${g.warn}</div>`:''}
+        <div class="plain">${g.items.map(x=>x.startsWith('/')?`<code>${esc(x.split('｜')[0])}</code>${x.includes('｜')?' '+esc(x.split('｜')[1]):''}`:esc(x)).join('<br>')}</div>
+      </div>
+    </section>
   `).join('');
+
+  nav.innerHTML = DATA.map(c=>`<a href="#${c.id}">${c.cat.replace(/^\S+\s/,'')}</a>`).join('')
+    + `<a href="#sys0">系統內建</a>`;
+
+  const total = DATA.reduce((a,c)=>a+c.skills.reduce((x,s)=>x+(s.n||1),0),0);
+  document.getElementById('count').textContent = total;
+  document.getElementById('catcount').textContent = DATA.length;
   bindCopy();
 }
 
 function bindCopy(){
   document.querySelectorAll('.trig').forEach(el=>{
-    el.addEventListener('click',()=>{
-      const txt = el.getAttribute('data-copy');
-      copy(txt, el);
-    });
+    el.addEventListener('click',()=>copy(el.getAttribute('data-copy'), el));
   });
 }
 
@@ -238,8 +398,20 @@ function filter(){
 
 search.addEventListener('input',filter);
 clearBtn.addEventListener('click',()=>{search.value='';filter();search.focus();});
+topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+window.addEventListener('scroll',()=>{
+  topBtn.style.display = window.scrollY>600 ? 'flex':'none';
+});
+
+// 讓錨點跳轉不會被 sticky header 蓋住（header 高度會隨螢幕寬度變）
+function syncHeaderH(){
+  const h = document.querySelector('header').offsetHeight;
+  document.documentElement.style.setProperty('--hh', (h+12)+'px');
+}
+window.addEventListener('resize', syncHeaderH);
 
 render();
+syncHeaderH();
 </script>
 </body>
 </html>
