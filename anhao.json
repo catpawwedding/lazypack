@@ -352,6 +352,36 @@
    "status": "poll",
    "verified": "2026-08-22",
    "reply": null
+  },
+  {
+   "key": "自住",
+   "type": "poll",
+   "topic": "自住 vs 幾年後轉手（同一份數字兩種結論）",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "自備",
+   "type": "poll",
+   "topic": "卡自備款不夠 vs 怕後面每期繳不出來",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "轉手",
+   "type": "poll",
+   "topic": "自住 vs 幾年後轉手（同一份數字兩種結論）",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
   }
  ]
 }
