@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>暗號罐頭 · 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4; color: #2C2A26;
+    padding: 0 0 40px; line-height: 1.6;
+  }
+
+  /* ── 置頂列 ── */
+  .bar {
+    position: sticky; top: 0; z-index: 20;
+    background: #2C2A26; color: #FFF5E0;
+    padding: 12px 14px calc(12px + env(safe-area-inset-top, 0px));
+    padding-top: calc(12px + env(safe-area-inset-top, 0px));
+    box-shadow: 0 2px 12px rgba(0,0,0,.18);
+  }
+  .bar-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .bar h1 { font-size: 17px; font-weight: 800; letter-spacing: .5px; }
+  .bar .count { font-size: 12.5px; opacity: .72; white-space: nowrap; }
+  .search { margin-top: 10px; position: relative; }
+  .search input {
+    width: 100%; font-size: 17px; font-family: inherit; color: #2C2A26;
+    padding: 12px 40px 12px 14px; border: none; border-radius: 10px;
+    background: #FFF; -webkit-appearance: none;
+  }
+  .search input:focus { outline: 3px solid #C9A24B; }
+  .search .clear {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border: none; background: transparent;
+    font-size: 20px; color: #8C857A; display: none; cursor: pointer;
+  }
+  .search.has-text .clear { display: block; }
+
+  /* ── 區塊 ── */
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 12px; }
+  .sec-title {
+    font-size: 13px; font-weight: 800; color: #6B6660; letter-spacing: 1px;
+    margin: 22px 4px 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .sec-title .dot { width: 8px; height: 8px; border-radius: 50%; background: #D9342B; }
+  .sec-title.muted .dot { background: #C9BFAE; }
+  .sec-note { font-size: 12.5px; color: #8C857A; font-weight: 500; letter-spacing: 0; }
+
+  /* ── 卡片 ── */
+  .card {
+    background: #FFF; border: 2px solid #E8E1D4; border-radius: 12px;
+    padding: 14px; margin-bottom: 10px; cursor: pointer;
+    transition: background .12s, border-color .12s, transform .08s;
+  }
+  .card:active { transform: scale(.985); }
+  .card.copied { background: #E8F0E4; border-color: #3E6B33; }
+  .card-head { display: flex; align-items: center; gap: 10px; }
+  .key {
+    font-size: 22px; font-weight: 800; letter-spacing: .5px; color: #2C2A26;
+    flex: 1; min-width: 0;
+  }
+  .card.copied .key { color: #2C5424; }
+  .copy-tag {
+    font-size: 13px; font-weight: 800; color: #FFF; background: #D9342B;
+    padding: 7px 14px; border-radius: 999px; white-space: nowrap;
+  }
+  .card.copied .copy-tag { background: #3E6B33; }
+  .promise { font-size: 14px; color: #6B6660; margin-top: 4px; }
+  .topic { font-size: 12.5px; color: #A89F92; margin-top: 2px; }
+  .toggle {
+    display: inline-block; margin-top: 10px; font-size: 13px; font-weight: 700;
+    color: #8C7A53; border: none; background: transparent; padding: 4px 0; cursor: pointer;
+  }
+  .reply-body {
+    display: none; margin-top: 10px; padding: 12px;
+    background: #F6F1E8; border-radius: 8px; border: 1px dashed #C9BFAE;
+    font-size: 14px; color: #3A3630; white-space: pre-wrap; word-break: break-word;
+  }
+  .card.open .reply-body { display: block; }
+  .card.dim { opacity: .62; cursor: default; }
+  .card.dim:active { transform: none; }
+  .badge {
+    font-size: 11.5px; font-weight: 800; padding: 5px 10px; border-radius: 999px;
+    background: #F1EDE4; color: #8C857A; white-space: nowrap;
+  }
+
+  /* ── 提示 ── */
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px);
+    background: #2C2A26; color: #FFF5E0; padding: 13px 22px; border-radius: 999px;
+    font-size: 15px; font-weight: 700; opacity: 0; pointer-events: none;
+    transition: opacity .18s, transform .18s; z-index: 50; box-shadow: 0 6px 20px rgba(0,0,0,.3);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .empty { text-align: center; color: #8C857A; font-size: 15px; padding: 44px 20px; }
+  .status-line { font-size: 12px; color: #A89F92; text-align: center; padding: 20px 12px 0; }
+  .status-line b { color: #6B6660; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-top">
+    <h1>暗號罐頭</h1>
+    <span class="count" id="count">讀取中…</span>
+  </div>
+  <div class="search" id="searchWrap">
+    <input id="q" type="search" placeholder="打暗號或關鍵字，例如 租客" autocomplete="off" enterkeyhint="search">
+    <button class="clear" id="clearBtn" aria-label="清除">×</button>
+  </div>
+</div>
+
+<div class="wrap" id="list"></div>
+<div class="status-line" id="status"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  var SRC = '../anhao.json';
+  var CACHE = 'meowdad-anhao-cache';
+  var RECENT = 'meowdad-anhao-recent';
+  var listEl = document.getElementById('list');
+  var qEl = document.getElementById('q');
+  var countEl = document.getElementById('count');
+  var statusEl = document.getElementById('status');
+  var toastEl = document.getElementById('toast');
+  var wrapEl = document.getElementById('searchWrap');
+  var DATA = [];
+
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { toastEl.classList.remove('show'); }, 1600);
+  }
+
+  function getRecent() {
+    try { return JSON.parse(localStorage.getItem(RECENT) || '[]'); } catch (e) { return []; }
+  }
+  function pushRecent(key) {
+    var r = getRecent().filter(function (k) { return k !== key; });
+    r.unshift(key);
+    try { localStorage.setItem(RECENT, JSON.stringify(r.slice(0, 8))); } catch (e) {}
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      ok ? resolve() : reject(new Error('copy failed'));
+    });
+  }
+
+  function makeCard(a) {
+    var card = document.createElement('div');
+    var canCopy = a.status === 'ready' && a.reply;
+    card.className = 'card' + (canCopy ? '' : ' dim');
+
+    var head = document.createElement('div');
+    head.className = 'card-head';
+    var key = document.createElement('div');
+    key.className = 'key';
+    key.textContent = a.key;
+    head.appendChild(key);
+
+    if (canCopy) {
+      var tag = document.createElement('span');
+      tag.className = 'copy-tag';
+      tag.textContent = '複製';
+      head.appendChild(tag);
+    } else {
+      var b = document.createElement('span');
+      b.className = 'badge';
+      b.textContent = a.status === 'poll' ? '投票型・不用回' : '話術待補';
+      head.appendChild(b);
+    }
+    card.appendChild(head);
+
+    if (a.promise) {
+      var p = document.createElement('div');
+      p.className = 'promise';
+      p.textContent = a.promise;
+      card.appendChild(p);
+    }
+    if (a.topic) {
+      var t = document.createElement('div');
+      t.className = 'topic';
+      t.textContent = a.topic;
+      card.appendChild(t);
+    }
+
+    if (canCopy) {
+      var btn = document.createElement('button');
+      btn.className = 'toggle';
+      btn.textContent = '▸ 看話術';
+      var body = document.createElement('div');
+      body.className = 'reply-body';
+      body.textContent = a.reply;
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        card.classList.toggle('open');
+        btn.textContent = card.classList.contains('open') ? '▾ 收起' : '▸ 看話術';
+      });
+      card.appendChild(btn);
+      card.appendChild(body);
+
+      card.addEventListener('click', function () {
+        copyText(a.reply).then(function () {
+          card.classList.add('copied');
+          if (tag) tag.textContent = '已複製 ✓';
+          pushRecent(a.key);
+          toast('已複製，切回 FB 貼上');
+          setTimeout(function () {
+            card.classList.remove('copied');
+            if (tag) tag.textContent = '複製';
+          }, 2200);
+        }).catch(function () {
+          // 複製被瀏覽器擋下來時，直接把話術選起來，長按就能複製，不讓它靜默失敗
+          card.classList.add('open');
+          btn.textContent = '▾ 收起';
+          try {
+            var range = document.createRange();
+            range.selectNodeContents(body);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            body.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          } catch (e) {}
+          toast('字已幫你選好，長按複製');
+        });
+      });
+    }
+    return card;
+  }
+
+  function render() {
+    var kw = (qEl.value || '').trim().toLowerCase();
+    wrapEl.classList.toggle('has-text', !!kw);
+
+    var match = DATA.filter(function (a) {
+      if (!kw) return true;
+      return [a.key, a.promise, a.topic, a.reply].filter(Boolean)
+        .join(' ').toLowerCase().indexOf(kw) >= 0;
+    });
+
+    var recent = getRecent();
+    var ready = match.filter(function (a) { return a.status === 'ready' && a.reply; });
+    var pending = match.filter(function (a) { return a.status === 'ready' && !a.reply; });
+    var poll = match.filter(function (a) { return a.status === 'poll'; });
+
+    // 最近用過的排前面
+    ready.sort(function (x, y) {
+      var ix = recent.indexOf(x.key), iy = recent.indexOf(y.key);
+      if (ix === -1 && iy === -1) return 0;
+      if (ix === -1) return 1;
+      if (iy === -1) return -1;
+      return ix - iy;
+    });
+
+    listEl.innerHTML = '';
+    if (!match.length) {
+      listEl.innerHTML = '<div class="empty">找不到「' + kw + '」<br>換個字試試</div>';
+      return;
+    }
+
+    function section(title, note, arr, muted) {
+      if (!arr.length) return;
+      var h = document.createElement('div');
+      h.className = 'sec-title' + (muted ? ' muted' : '');
+      h.innerHTML = '<span class="dot"></span>' + title +
+        (note ? ' <span class="sec-note">' + note + '</span>' : '');
+      listEl.appendChild(h);
+      arr.forEach(function (a) { listEl.appendChild(makeCard(a)); });
+    }
+
+    section('可以回的', '點整張卡就複製', ready, false);
+    section('有東西、話術還沒寫', '寫好才會出現在上面', pending, true);
+    section('投票型', '這種不用給東西，回一句聊天就好', poll, true);
+  }
+
+  function boot(data, src) {
+    DATA = (data.anhao || []);
+    var n = DATA.filter(function (a) { return a.status === 'ready' && a.reply; }).length;
+    countEl.textContent = n + ' 則可回 / 共 ' + DATA.length;
+    statusEl.innerHTML = '暗號表更新於 <b>' + (data.updated || '?') + '</b>　來源：' + src +
+      '<br>這頁會自動跟著暗號表更新，不用重做';
+    render();
+  }
+
+  qEl.addEventListener('input', render);
+  document.getElementById('clearBtn').addEventListener('click', function () {
+    qEl.value = ''; render(); qEl.focus();
+  });
+
+  fetch(SRC + '?t=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (d) {
+      if (!d.anhao || !d.anhao.length) throw new Error('表是空的');
+      try { localStorage.setItem(CACHE, JSON.stringify(d)); } catch (e) {}
+      boot(d, '線上');
+    })
+    .catch(function (e) {
+      var raw = null;
+      try { raw = JSON.parse(localStorage.getItem(CACHE) || 'null'); } catch (e2) {}
+      if (raw && raw.anhao && raw.anhao.length) {
+        boot(raw, '離線快取（線上失敗：' + e.message + '）');
+      } else {
+        countEl.textContent = '讀不到';
+        listEl.innerHTML = '<div class="empty">暗號表讀不到，也沒有離線快取<br>' +
+          '<span style="font-size:13px">' + e.message + '</span></div>';
+      }
+    });
+})();
+</script>
+
+</body>
+</html>
