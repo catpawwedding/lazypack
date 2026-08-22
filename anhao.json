@@ -1,0 +1,343 @@
+{
+ "version": "2026-08-22",
+ "updated": "2026-08-22",
+ "note": "暗號唯一真相源。三邊共讀：寫稿 skill／本機 keyword_reply.py／雲端巡留言 routine。",
+ "rules": [
+  "🔴 不在這張表上、或 status != ready 的暗號，一律不准在第一則留言下——改兩行版（二選一問句＋補一刀）。",
+  "🔴 reply 為 null＝喵爸尚未核准，機器人必須跳過不回（安全預設，寧可不回也不亂回）。",
+  "🔴 新增懶人包時同步加進這張表並實測 200，否則機器人不認得。",
+  "type=deliver 索取型（丟連結）／type=poll 表態型（二選一問句，回聊天不丟連結）。"
+ ],
+ "anhao": [
+  {
+   "key": "租客",
+   "type": "deliver",
+   "topic": "房東篩租客／租霸",
+   "promise": "租客篩選 4 步檢核表",
+   "asset": "https://catpawwedding.github.io/lazypack/zuke/",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "繼承",
+   "type": "deliver",
+   "topic": "繼承流程／該不該賣",
+   "promise": "繼承的房子該不該賣判斷表",
+   "asset": "https://catpawwedding.github.io/lazypack/inherit-check.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "判斷表",
+   "type": "deliver",
+   "topic": "繼承要不要賣",
+   "promise": "該不該賣的判斷表",
+   "asset": "https://catpawwedding.github.io/lazypack/inherit-check.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "學區",
+   "type": "deliver",
+   "topic": "學區／單雙號",
+   "promise": "桃園學區地圖 全市13區查詢",
+   "asset": "https://map.cathome.tw",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "青安",
+   "type": "deliver",
+   "topic": "青安3.0／資格",
+   "promise": "青安3.0 資格檢測 30秒測額度",
+   "asset": "https://loan.cathome.tw",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "額度",
+   "type": "deliver",
+   "topic": "可貸額度／被砍額度",
+   "promise": "青安3.0 資格檢測＋可貸額度試算",
+   "asset": "https://loan.cathome.tw",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "月付",
+   "type": "deliver",
+   "topic": "月付試算／買得起多少",
+   "promise": "萬能房產計算機（月付試算）",
+   "asset": "https://math.cathome.tw",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "計算機",
+   "type": "deliver",
+   "topic": "房貸／稅／坪效試算",
+   "promise": "萬能房產計算機",
+   "asset": "https://math.cathome.tw",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "贈與",
+   "type": "deliver",
+   "topic": "贈與／預告登記",
+   "promise": "房子給小孩怎麼還保有選擇權",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E9%99%84%E8%B2%A0%E6%93%94%E8%B4%88%E8%88%87%E9%A0%90%E5%91%8A%E7%99%BB%E8%A8%98-20260528.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "看屋",
+   "type": "deliver",
+   "topic": "中古屋帶看前該查什麼",
+   "promise": "買中古屋帶看前該查完的 6 件事",
+   "asset": "https://catpawwedding.github.io/lazypack/check6.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "遺囑",
+   "type": "deliver",
+   "topic": "遺囑執行人",
+   "promise": "遺囑執行人懶人包",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E9%81%BA%E5%9B%91%E5%9F%B7%E8%A1%8C%E4%BA%BA%E6%87%B6%E4%BA%BA%E5%8C%85-20260614.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "執行人",
+   "type": "deliver",
+   "topic": "遺囑執行人",
+   "promise": "遺囑執行人懶人包",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E9%81%BA%E5%9B%91%E5%9F%B7%E8%A1%8C%E4%BA%BA%E6%87%B6%E4%BA%BA%E5%8C%85-20260614.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "社宅",
+   "type": "deliver",
+   "topic": "社宅／租金補貼",
+   "promise": "桃園人社宅三條路懶人包",
+   "asset": "https://catpawwedding.github.io/lazypack/shezhai/",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "房貸",
+   "type": "deliver",
+   "topic": "房貸總論／利率",
+   "promise": "房貸完全攻略",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E6%88%BF%E8%B2%B8%E5%AE%8C%E5%85%A8%E6%94%BB%E7%95%A5-20260530.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "信用",
+   "type": "deliver",
+   "topic": "聯徵／信用分數",
+   "promise": "信用分數養成懶人包",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E4%BF%A1%E7%94%A8%E5%88%86%E6%95%B8%E9%A4%8A%E6%88%90%E6%87%B6%E4%BA%BA%E5%8C%85-20260530.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "漏水",
+   "type": "deliver",
+   "topic": "漏水屋",
+   "promise": "漏水屋自保SOP",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E6%BC%8F%E6%B0%B4%E5%B1%8B%E8%87%AA%E4%BF%9DSOP-20260530.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "議價",
+   "type": "deliver",
+   "topic": "議價／出價",
+   "promise": "買房實戰議價話術清單",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E5%AF%A6%E6%88%B0%E8%AD%B0%E5%83%B9%E8%A9%B1%E8%A1%93%E6%B8%85%E5%96%AE-20260711.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "借戶籍",
+   "type": "deliver",
+   "topic": "借戶籍",
+   "promise": "借戶籍避雷清單",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E5%80%9F%E6%88%B6%E7%B1%8D%E9%81%BF%E9%9B%B7%E6%B8%85%E5%96%AE-20260530.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "監護",
+   "type": "deliver",
+   "topic": "意定監護",
+   "promise": "意定監護懶人包",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E6%84%8F%E5%AE%9A%E7%9B%A3%E8%AD%B7%E6%87%B6%E4%BA%BA%E5%8C%85-20260614.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "補件",
+   "type": "deliver",
+   "topic": "賣屋成本／補件",
+   "promise": "成本補件清單",
+   "asset": "https://catpawwedding.github.io/lazypack/lazypack-%E6%88%90%E6%9C%AC%E8%A3%9C%E4%BB%B6%E6%B8%85%E5%96%AE-20260530.html",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "寬限期",
+   "type": "deliver",
+   "topic": "寬限期到期",
+   "promise": "寬限期到期試算器",
+   "asset": "https://tools.cathome.tw/grace-calc",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "資產活化",
+   "type": "deliver",
+   "topic": "寬限期自救／資產活化",
+   "promise": "寬限期自救包 到期前該做的三件事",
+   "asset": "https://catpawwedding.github.io/lazypack/grace-rescue/",
+   "status": "ready",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "實拿",
+   "type": "deliver",
+   "topic": "賣方實拿速算",
+   "promise": "⚠️承諾「賣方實拿速算」，實物是萬能計算機（非專用速算）",
+   "asset": "https://catpawwedding.github.io/lazypack/seller-net-calc.html",
+   "status": "mismatch",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "房地合一稅",
+   "type": "deliver",
+   "topic": "自用400萬免稅額踩雷",
+   "promise": "⚠️承諾「帶你看哪裡最容易踩雷」，實物是計算機（非踩雷清單）",
+   "asset": "https://math.cathome.tw",
+   "status": "mismatch",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "稅單",
+   "type": "deliver",
+   "topic": "地價稅自用稅率／9-22死線",
+   "promise": "🔴無實物。影片已發布(8/10)，粉絲留言拿不到東西",
+   "asset": null,
+   "status": "no_asset",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "收租",
+   "type": "poll",
+   "topic": "租金收得穩 vs 未來會漲",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "增值",
+   "type": "poll",
+   "topic": "租金收得穩 vs 未來會漲",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "先買",
+   "type": "poll",
+   "topic": "先買 vs 先等",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "先等",
+   "type": "poll",
+   "topic": "先買 vs 先等",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "斡旋",
+   "type": "poll",
+   "topic": "斡旋 vs 要約書",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "要約",
+   "type": "poll",
+   "topic": "斡旋 vs 要約書",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "採光",
+   "type": "poll",
+   "topic": "先看採光 vs 先看旁邊會不會被蓋",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  },
+  {
+   "key": "公園",
+   "type": "poll",
+   "topic": "先看採光 vs 先看旁邊會不會被蓋",
+   "promise": null,
+   "asset": null,
+   "status": "poll",
+   "verified": "2026-08-22",
+   "reply": null
+  }
+ ]
+}
