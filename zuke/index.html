@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex, nofollow">
 <title>租客篩選 4 步檢核表 · 中壢專業房仲 喵爸</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,118 +10,267 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
                  "Microsoft JhengHei", "Helvetica Neue", sans-serif;
-    background: #FAF8F4; color: #2C2A26; line-height: 1.75;
-    -webkit-font-smoothing: antialiased; font-size: 16px;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
   }
-  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 120px; }
 
-  .brand-header { text-align:center; padding:16px 0 28px; border-bottom:2px solid #FCE4E1; margin-bottom:28px; }
-  .brand-header .brand-logo { width:72px; height:72px; display:block; margin:0 auto 10px; }
-  .brand-header .brand-name { font-size:15px; color:#2C2A26; font-weight:700; letter-spacing:1px; }
-  .brand-header .brand-name .accent { color:#D9342B; }
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
 
-  .header { text-align:center; margin-bottom:24px; }
-  .header h1 { font-size:32px; font-weight:800; color:#2C2A26; line-height:1.3; margin-bottom:14px; }
-  .header h1 .highlight { background:linear-gradient(180deg,transparent 60%,#FFE5A0 60%); padding:0 4px; }
-  .subtitle { font-size:17px; color:#6B6660; line-height:1.6; }
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px; height: 72px; display: block; margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
 
-  .hero { margin:0 auto 28px; display:block; width:100%; max-width:420px; }
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header h1 {
+    font-size: 32px; font-weight: 800; color: #2C2A26;
+    line-height: 1.3; margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
 
-  .intro { background:#FFF; border-left:5px solid #D9342B; padding:20px 22px; margin-bottom:28px;
-    border-radius:6px; font-size:16px; color:#4A463F; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  /* === Hero 插圖 === */
+  .hero { margin: 0 auto 30px; display: block; width: 100%; max-width: 420px; }
 
-  .costbox { background:#FFF; border-radius:14px; padding:24px 22px; margin-bottom:36px;
-    box-shadow:0 2px 12px rgba(0,0,0,0.05); }
-  .costbox h3 { font-size:18px; font-weight:800; margin-bottom:6px; }
-  .costbox .note { font-size:14px; color:#8A8378; margin-bottom:16px; }
-  .bar-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-  .bar-label { font-size:14px; color:#4A463F; width:96px; flex:none; }
-  .bar-track { flex:1; background:#F1ECE3; border-radius:999px; height:26px; overflow:hidden; }
-  .bar-fill { height:100%; border-radius:999px; display:flex; align-items:center; padding-left:10px;
-    color:#FFF; font-size:13px; font-weight:700; white-space:nowrap; }
-  .bar-a { background:#B89968; width:18%; }
-  .bar-b { background:#D9342B; width:100%; }
+  /* === 引言 === */
+  .intro {
+    background: #FFF; border-left: 5px solid #D9342B;
+    padding: 20px 22px; margin-bottom: 36px; border-radius: 6px;
+    font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
 
-  .points { display:flex; flex-direction:column; gap:18px; margin-bottom:36px; }
-  .point-card { background:#FFF; border-radius:14px; padding:28px 24px 26px; box-shadow:0 2px 12px rgba(0,0,0,0.05); position:relative; }
-  .point-icon { position:absolute; top:22px; right:22px; width:38px; height:38px; opacity:0.9; }
-  .point-number { font-size:36px; font-weight:900; color:#D9342B; line-height:1; letter-spacing:-1px;
-    margin-bottom:8px; font-family:"Helvetica Neue","Arial",sans-serif; }
-  .point-number-bar { display:block; width:36px; height:3px; background:#D9342B; margin-bottom:16px; border-radius:2px; }
-  .point-title { font-size:20px; font-weight:700; color:#2C2A26; margin-bottom:12px; line-height:1.4; padding-right:46px; }
-  .point-body { font-size:16px; color:#4A463F; line-height:1.75; }
-  .point-body strong { color:#D9342B; font-weight:700; }
-  .point-body ul { margin:12px 0 0 20px; }
-  .point-body li { margin-bottom:8px; }
-  .point-body a { color:#B0522B; font-weight:700; word-break:break-all; }
-  .point-example { margin-top:14px; padding:14px 16px; background:#FFF5E0; border-radius:10px;
-    font-size:15px; color:#6B5230; border-left:3px solid #F5B946; }
-  .point-example::before { content:"💡 "; }
-  .say { margin-top:14px; padding:14px 16px; background:#F4F7F3; border-left:3px solid #6FA07A;
-    border-radius:10px; font-size:15px; color:#3C4F40; }
-  .say b { display:block; font-size:13px; color:#6FA07A; margin-bottom:6px; letter-spacing:1px; }
+  /* === 判斷表（核心區塊） === */
+  .checklist {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); margin-bottom: 18px;
+    border-top: 5px solid #D9342B;
+  }
+  .checklist-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+  }
+  .checklist-head svg { width: 40px; height: 40px; flex: 0 0 40px; }
+  .checklist h2 {
+    font-size: 22px; font-weight: 800; color: #2C2A26; line-height: 1.35;
+  }
+  .checklist .lead {
+    font-size: 15px; color: #6B6660; margin: 10px 0 20px; line-height: 1.7;
+  }
+  .q-row {
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px dashed #E8E1D5;
+  }
+  .q-row:last-of-type { border-bottom: none; }
+  .q-box {
+    flex: 0 0 22px; height: 22px; margin-top: 3px;
+    border: 2px solid #C9BFAE; border-radius: 5px; background: #FDFBF7;
+  }
+  .q-text { font-size: 15.5px; color: #3A3630; line-height: 1.65; }
+  .q-text b { color: #2C2A26; font-weight: 700; }
+  .q-hint { display: block; font-size: 13.5px; color: #8C8477; margin-top: 3px; }
 
-  .checklist { background:#2C2A26; color:#FAF8F4; border-radius:14px; padding:26px 24px; margin-bottom:36px; }
-  .checklist h3 { font-size:19px; font-weight:800; margin-bottom:6px; color:#FFD06A; }
-  .checklist p.note { font-size:14px; opacity:0.75; margin-bottom:16px; }
-  .checklist ul { list-style:none; }
-  .checklist li { padding:9px 0 9px 30px; border-bottom:1px solid rgba(250,248,244,0.12);
-    font-size:15px; line-height:1.6; position:relative; }
-  .checklist li:last-child { border-bottom:none; }
-  .checklist li::before { content:"☐"; position:absolute; left:0; top:8px; font-size:18px; color:#FFD06A; }
+  .verdicts { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .verdict {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; border-radius: 10px; font-size: 15px; line-height: 1.65;
+  }
+  .verdict .vtag {
+    flex: 0 0 auto; font-weight: 800; font-size: 14px;
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .v-sell { background: #FDECEA; color: #8C2B23; }
+  .v-sell .vtag { background: #D9342B; color: #FFF; }
+  .v-hold { background: #FFF5E0; color: #6B5230; }
+  .v-hold .vtag { background: #F5B946; color: #4A3A18; }
+  .v-wait { background: #EFF3EE; color: #3E4B3C; }
+  .v-wait .vtag { background: #7C8F78; color: #FFF; }
 
-  .conclusion { background:linear-gradient(135deg,#2C2A26 0%,#3D3833 100%); color:#FAF8F4;
-    padding:28px 24px; border-radius:14px; text-align:center; font-size:19px; font-weight:600;
-    line-height:1.6; margin-bottom:40px; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
-  .conclusion .accent { color:#FFD06A; }
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
+  }
+  .point-icon {
+    position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; opacity: 0.9;
+  }
+  .point-number {
+    font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1;
+    letter-spacing: -1px; margin-bottom: 8px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block; width: 36px; height: 3px; background: #D9342B;
+    margin-bottom: 16px; border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px; font-weight: 700; color: #2C2A26;
+    margin-bottom: 12px; line-height: 1.4; padding-right: 46px;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px; padding: 14px 16px; background: #FFF5E0;
+    border-radius: 10px; font-size: 15px; color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
 
-  .cta-section { margin-bottom:36px; }
-  .community-cta { background:linear-gradient(135deg,#D9342B 0%,#B89968 100%); color:#FFF;
-    padding:32px 24px; border-radius:18px; text-align:center; margin-bottom:16px;
-    box-shadow:0 6px 20px rgba(217,52,43,0.2); }
-  .community-cta h3 { font-size:22px; font-weight:800; margin-bottom:14px; }
-  .community-cta p { font-size:15px; line-height:1.7; margin-bottom:20px; opacity:0.95; }
-  .community-cta .cta-button { display:inline-block; background:#FFF; color:#2C2A26; padding:14px 32px;
-    border-radius:999px; text-decoration:none; font-weight:700; font-size:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); }
-  .card-cta { background:#FFF; border:2px solid #2C2A26; color:#2C2A26; padding:26px 24px;
-    border-radius:18px; text-align:center; }
-  .card-cta h3 { font-size:20px; font-weight:700; margin-bottom:16px; }
-  .card-cta .cta-button { display:inline-block; background:#2C2A26; color:#FFF; padding:13px 30px;
-    border-radius:999px; text-decoration:none; font-weight:700; font-size:15px; }
+  /* === 時間軸視覺 === */
+  .timeline { width: 100%; height: auto; margin: 18px 0 4px; display: block; }
 
-  .brand-footer { text-align:center; padding-top:32px; border-top:2px solid #FCE4E1; }
-  .brand-footer .footer-logo { width:44px; height:44px; display:block; margin:0 auto 8px; opacity:0.85; }
-  .brand-footer .footer-name { font-size:13px; color:#6B6660; letter-spacing:1px; margin-bottom:4px; }
-  .brand-footer .footer-name .accent { color:#D9342B; font-weight:700; }
-  .brand-footer .footer-date { font-size:12px; color:#A89F92; }
-  .brand-footer .disclaimer { font-size:12px; color:#A89F92; line-height:1.7; margin-top:12px; }
+  /* === 話術框 === */
+  .script-box {
+    margin-top: 14px; padding: 18px 18px 16px; background: #F6F1E8;
+    border-radius: 10px; border: 1px dashed #C9BFAE;
+    font-size: 15.5px; color: #3A3630; line-height: 1.8;
+  }
+  .script-box .who {
+    display: block; font-size: 13px; font-weight: 700; color: #8C7A53;
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
 
-  .floating-actions { position:fixed; right:16px; bottom:20px; display:flex; flex-direction:column; gap:12px; z-index:999; }
-  .floating-actions a { width:58px; height:58px; border-radius:50%; display:flex; align-items:center;
-    justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,0.25); text-decoration:none; transition:transform 0.2s; }
-  .floating-actions a:active { transform:scale(0.92); }
-  .floating-actions .fab-line { background:#06C755; }
-  .floating-actions .fab-phone { background:#D9342B; }
-  .floating-actions a svg { width:28px; height:28px; fill:#FFF; }
+  /* === 文件清單 === */
+  .doc-list { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .doc-list span {
+    font-size: 14px; background: #F1EDE4; color: #5A5348;
+    padding: 6px 12px; border-radius: 999px;
+  }
 
-  @media (min-width:768px) {
-    body { font-size:17px; }
-    .container { padding:32px 24px 56px; }
-    .header h1 { font-size:38px; }
-    .point-title { font-size:22px; }
-    .point-body { font-size:17px; }
-    .point-number { font-size:42px; }
-    .brand-header .brand-logo { width:80px; height:80px; }
-    .floating-actions { right:24px; bottom:24px; }
-    .floating-actions a { width:64px; height:64px; }
-    .floating-actions a svg { width:32px; height:32px; }
+  /* === 免責 === */
+  .disclaimer {
+    font-size: 13.5px; color: #8C8477; line-height: 1.7;
+    background: #F4F1EA; border-radius: 10px; padding: 16px 18px; margin-bottom: 36px;
+  }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4; padding: 28px 24px; border-radius: 14px; text-align: center;
+    font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF; padding: 32px 24px; border-radius: 18px; text-align: center;
+    margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p {
+    font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block; background: #FFF; color: #2C2A26;
+    padding: 14px 32px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF; border: 2px solid #2C2A26; color: #2C2A26;
+    padding: 26px 24px; border-radius: 18px; text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block; background: #2C2A26; color: #FFF;
+    padding: 13px 30px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed; right: 16px; bottom: 20px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+
+  /* ── 四步總覽條（本份新增） ── */
+  .flow { margin-top: 26px; }
+  .flow-title {
+    font-size: 15px; font-weight: 800; color: #5A5348;
+    letter-spacing: 1px; text-align: center; margin-bottom: 14px;
+  }
+  .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .flow-step {
+    background: #FFFFFF; border: 2px solid #E0D7C6; border-radius: 12px;
+    padding: 14px 10px; text-align: center;
+  }
+  .flow-step .fs-num {
+    display: inline-block; font-size: 12px; font-weight: 800; color: #FFF5E0;
+    background: #2C2A26; border-radius: 999px; padding: 3px 10px; letter-spacing: 1px;
+  }
+  .flow-step svg { display: block; width: 34px; height: 34px; margin: 10px auto 8px; }
+  .flow-step .fs-label { font-size: 15px; font-weight: 800; color: #2C2A26; }
+  .flow-step .fs-sub { font-size: 12.5px; color: #6B6660; margin-top: 4px; line-height: 1.5; }
+  @media (min-width: 620px) {
+    .flow-grid { grid-template-columns: repeat(4, 1fr); }
   }
 </style>
+<!-- 內建瀏覽器提示條（全站標配，必含不可刪） -->
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
 </head>
 <body>
   <div class="container">
 
+    <!-- 頁首品牌區 -->
     <div class="brand-header">
       <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
            srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
@@ -130,192 +278,295 @@
       <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
     </div>
 
+        <!-- 主標題 -->
     <div class="header">
-      <h1>租客篩選<span class="highlight">4 步檢核表</span></h1>
-      <p class="subtitle">簽約前照著走一遍，擋掉一半的麻煩。</p>
+      <h1>租客篩選 <span class="highlight">4 步檢核表</span></h1>
+      <p class="subtitle">簽名之前照著對一遍，比事後告他快一百倍。</p>
     </div>
 
-    <svg class="hero" viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="房子與檢核表插圖">
-      <rect x="0" y="0" width="420" height="180" fill="none"/>
-      <rect x="24" y="52" width="150" height="96" rx="8" fill="#FFF" stroke="#E3DACB" stroke-width="2"/>
-      <path d="M18 56 L99 12 L180 56 Z" fill="#D9342B" opacity="0.9"/>
-      <rect x="52" y="86" width="34" height="34" rx="4" fill="#FFF5E0" stroke="#E3DACB" stroke-width="2"/>
-      <rect x="112" y="86" width="34" height="34" rx="4" fill="#FFF5E0" stroke="#E3DACB" stroke-width="2"/>
-      <rect x="82" y="124" width="34" height="24" rx="3" fill="#B89968"/>
-      <rect x="228" y="30" width="168" height="126" rx="10" fill="#FFF" stroke="#E3DACB" stroke-width="2"/>
-      <rect x="228" y="30" width="168" height="26" rx="10" fill="#2C2A26"/>
-      <rect x="244" y="40" width="72" height="6" rx="3" fill="#FFD06A"/>
-      <g fill="none" stroke="#6FA07A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M246 78 l7 7 l13 -14"/>
-        <path d="M246 104 l7 7 l13 -14"/>
-        <path d="M246 130 l7 7 l13 -14"/>
-      </g>
-      <rect x="278" y="76" width="98" height="7" rx="3.5" fill="#E3DACB"/>
-      <rect x="278" y="102" width="86" height="7" rx="3.5" fill="#E3DACB"/>
-      <rect x="278" y="128" width="72" height="7" rx="3.5" fill="#E3DACB"/>
+    <!-- Hero 插圖 -->
+    <svg class="hero" viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="一份租約、一支放大鏡與一串鑰匙">
+      <ellipse cx="210" cy="178" rx="150" ry="12" fill="#F1EDE4"/>
+      <rect x="118" y="34" width="132" height="128" rx="8" fill="#FFFFFF" stroke="#2C2A26" stroke-width="3"/>
+      <rect x="140" y="20" width="88" height="24" rx="6" fill="#FFF5E0" stroke="#2C2A26" stroke-width="3"/>
+      <line x1="140" y1="72" x2="228" y2="72" stroke="#C9BFAE" stroke-width="4" stroke-linecap="round"/>
+      <line x1="140" y1="92" x2="212" y2="92" stroke="#C9BFAE" stroke-width="4" stroke-linecap="round"/>
+      <path d="M140 116l8 8 16-16" fill="none" stroke="#D9342B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="176" y1="118" x2="228" y2="118" stroke="#C9BFAE" stroke-width="4" stroke-linecap="round"/>
+      <path d="M140 140l8 8 16-16" fill="none" stroke="#D9342B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <line x1="176" y1="142" x2="220" y2="142" stroke="#C9BFAE" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="292" cy="88" r="34" fill="#FFF5E0" fill-opacity="0.85" stroke="#2C2A26" stroke-width="4"/>
+      <line x1="315" y1="112" x2="344" y2="142" stroke="#2C2A26" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="285" cy="80" r="9" fill="#FFFFFF" fill-opacity="0.9"/>
+      <circle cx="92" cy="120" r="17" fill="none" stroke="#8C7A53" stroke-width="6"/>
+      <path d="M104 130l26 26" stroke="#8C7A53" stroke-width="6" stroke-linecap="round"/>
+      <path d="M124 150l9-9M132 158l7-7" stroke="#8C7A53" stroke-width="6" stroke-linecap="round"/>
     </svg>
 
     <div class="intro">
-      房子空著只是少賺，租錯人才是倒賠。這份表是喵爸幫屋主出租時，簽約前一定會走完的四個動作，加上實際要查哪裡、要問什麼、遇到不對勁怎麼收尾。照著走一遍，大部分的麻煩在簽約前就擋掉了。
+      房子空著，你少的是一個月的租金。租錯一個人，你少的是一整年，還要倒貼清運跟訴訟。這份表不是要你懷疑每一個來看房的人，是讓你在簽名之前有一套固定動作可以做，不用靠感覺，也不用不好意思開口。
     </div>
 
-    <div class="costbox">
-      <h3>先看一筆帳：空一個月 vs 租錯人</h3>
-      <p class="note">以中壢兩房、月租約 1 萬 8 估算。</p>
-      <div class="bar-row">
-        <div class="bar-label">空一個月</div>
-        <div class="bar-track"><div class="bar-fill bar-a">約 1.8 萬</div></div>
+    <!-- 檢核表 -->
+    <div class="checklist">
+      <div class="checklist-head">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="6" y="4" width="28" height="32" rx="4" fill="#FFF" stroke="#2C2A26" stroke-width="2.6"/>
+          <path d="M12 13l3 3 6-6" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 23l3 3 6-6" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="24" y1="15" x2="29" y2="15" stroke="#C9BFAE" stroke-width="2.6" stroke-linecap="round"/>
+          <line x1="24" y1="25" x2="29" y2="25" stroke="#C9BFAE" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <h2>簽約前，這十項你能勾幾個</h2>
       </div>
-      <div class="bar-row">
-        <div class="bar-label">租錯一個人</div>
-        <div class="bar-track"><div class="bar-fill bar-b">約 20 到 30 萬 ＋ 一年心力</div></div>
+      <p class="lead">用手指一項一項對。勾不到七項就先不要簽，下面每一步都有怎麼做。</p>
+
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>我查過司法院裁判書，這個名字沒有欠租或遷讓房屋的紀錄。</b>
+          <span class="q-hint">公開查得到，不用花錢，五分鐘的事。</span></div>
       </div>
-      <div class="point-example" style="margin-top:16px">
-        欠租三個月才發現約 5.4 萬，走存證信函、調解到法院請他搬，快的半年、慢的超過一年，這段時間房子被住著、租金收不到。人走了留下的清運與修繕再幾萬起跳。押金兩個月根本補不回來。實際金額依個案狀況而定。
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>我在第二個管道再確認過一次，兩邊對得上。</b>
+          <span class="q-hint">只有一個來源說他不好，那不算數。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>我問過他為什麼要搬，理由講得出來也對得上。</b>
+          <span class="q-hint">支支吾吾、每次講的不一樣，就是訊號。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>我問過幾個人住、預計住多久，跟租約寫的一致。</b>
+          <span class="q-hint">口頭三個人、租約寫兩個人，之後就是爭議。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>我看過在職證明、薪轉或勞保明細其中一樣。</b>
+          <span class="q-hint">看一樣就好，不是要查他家戶口。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>他願意提供，過程沒有迴避或轉移話題。</b>
+          <span class="q-hint">不肯給本身就是答案。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>簽約時我核對過身分證正本跟本人。</b>
+          <span class="q-hint">看影本等於沒看。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>租約寫清楚用途、居住人數，並註明不得轉租。</b>
+          <span class="q-hint">沒寫，之後他轉租你也拿他沒辦法。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>押金收滿兩個月。</b>
+          <span class="q-hint">少收一個月，出事就少一個月的緩衝。</span></div>
+      </div>
+      <div class="q-row">
+        <div class="q-box"></div>
+        <div class="q-text"><b>水電瓦斯度數當場拍照，全屋屋況也拍過一輪。</b>
+          <span class="q-hint">交屋照是日後唯一講得清楚的東西。</span></div>
       </div>
     </div>
 
+    <!-- 四步總覽 -->
+    <div class="flow">
+      <div class="flow-title">簽約前的四個動作</div>
+      <div class="flow-grid">
+        <div class="flow-step">
+          <span class="fs-num">01</span>
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="17" cy="17" r="11" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.6"/><path d="M25 25l9 9" stroke="#D9342B" stroke-width="3" stroke-linecap="round"/></svg>
+          <div class="fs-label">查紀錄</div>
+          <div class="fs-sub">司法院裁判書，免費公開</div>
+        </div>
+        <div class="flow-step">
+          <span class="fs-num">02</span>
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 14h24M8 26h24" stroke="#C9BFAE" stroke-width="2.6" stroke-linecap="round"/><path d="M14 8v24M26 8v24" stroke="#2C2A26" stroke-width="2.6" stroke-linecap="round"/><circle cx="26" cy="26" r="5" fill="#D9342B"/></svg>
+          <div class="fs-label">交叉確認</div>
+          <div class="fs-sub">兩個地方對上才算數</div>
+        </div>
+        <div class="flow-step">
+          <span class="fs-num">03</span>
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="5" y="8" width="22" height="17" rx="4" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><path d="M11 25l-1 6 7-6" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/><circle cx="12" cy="16" r="1.8" fill="#D9342B"/><circle cx="18" cy="16" r="1.8" fill="#D9342B"/></svg>
+          <div class="fs-label">聽需求</div>
+          <div class="fs-sub">不問薪水，問生活細節</div>
+        </div>
+        <div class="flow-step">
+          <span class="fs-num">04</span>
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="9" y="5" width="22" height="30" rx="4" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2.4"/><line x1="14" y1="14" x2="26" y2="14" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="21" x2="26" y2="21" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/><path d="M14 28l3 3 6-6" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="fs-label">看證明</div>
+          <div class="fs-sub">三選一，看一樣就好</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 四步詳解 -->
     <div class="points">
 
       <div class="point-card">
-        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></svg>
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><path d="M20 11v18" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round"/><path d="M25 16c0-2-2.2-3-5-3s-5 1-5 3 2.2 3 5 3 5 1 5 3-2.2 3-5 3-5-1-5-3" fill="none" stroke="#2C2A26" stroke-width="2.4" stroke-linecap="round"/></svg>
         <div class="point-number">01</div>
         <span class="point-number-bar"></span>
-        <div class="point-title">查紀錄：公開的裁判書自己查得到</div>
+        <div class="point-title">先算一筆帳，你就知道值不值得花這 30 分鐘</div>
         <div class="point-body">
-          司法院的裁判書查詢系統是公開的，任何人都能查。把租客的姓名打進去，看有沒有<strong>欠租、遷讓房屋、給付租金、毀損</strong>這類案件。
+          很多房東的想法是「先租出去再說，空著才是損失」。這個想法在算術上是錯的。
           <ul>
-            <li>查詢入口：<a href="https://judgment.judicial.gov.tw/FJUD/default.aspx" target="_blank" rel="noopener">司法院裁判書查詢系統</a>。</li>
-            <li>關鍵字建議搭配：姓名＋「遷讓房屋」、姓名＋「給付租金」。</li>
-            <li>同名同姓很多，看到結果先對<strong>年齡區間與居住地區</strong>，對不上就不算數。</li>
+            <li>房子空一個月，你少一個月租金，以中壢一般兩房來說大約一萬八，痛但可控。</li>
+            <li>租錯一個人，通常欠到第三個月才發現，五萬四先沒了。</li>
+            <li>接下來存證信函、調解、走到法院請他搬，快的半年，慢的超過一年，這段期間租金一毛收不到。</li>
+            <li>人走了留一屋垃圾，清運加修繕又是好幾萬。</li>
+            <li>加起來大約二十到三十萬，押金兩個月根本補不回來。</li>
           </ul>
+          <svg class="timeline" viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="空一個月少一萬八，租錯一年賠二十到三十萬的對比長條圖">
+            <line x1="40" y1="128" x2="530" y2="128" stroke="#E0D7C6" stroke-width="3" stroke-linecap="round"/>
+            <rect x="96" y="110" width="120" height="18" rx="5" fill="#F5D9D6"/>
+            <text x="156" y="124" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" font-weight="800" fill="#8C2B23">1.8 萬</text>
+            <text x="156" y="150" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" fill="#6B6660">空一個月</text>
+            <rect x="326" y="26" width="120" height="102" rx="5" fill="#D9342B"/>
+            <text x="386" y="84" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">20–30 萬</text>
+            <text x="386" y="150" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="13" fill="#6B6660">租錯一個人</text>
+          </svg>
           <div class="point-example">
-            查到不代表對方一定有問題，也不要拿這個去質問人。這一步的目的只是「決定要不要再多問幾句」，不是給人定罪。
+            空一個月是少賺，租錯一個人是倒賠，而且你賠掉的不只是錢，是一整年拿不回來的時間。
           </div>
         </div>
       </div>
 
       <div class="point-card">
-        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h10"/><circle cx="19" cy="18" r="3"/></svg>
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="17" cy="17" r="11" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.6"/><path d="M25 25l9 9" stroke="#D9342B" stroke-width="3" stroke-linecap="round"/></svg>
         <div class="point-number">02</div>
         <span class="point-number-bar"></span>
-        <div class="point-title">交叉確認：一個地方看到不算數</div>
+        <div class="point-title">第一步 查紀錄｜司法院裁判書是公開的</div>
         <div class="point-body">
-          房東社團的黑名單、新聞、公開資訊都可以對一輪。重點是<strong>兩個以上互不相干的來源指向同一件事</strong>，才拿來當判斷依據。
+          這是四步裡面最快、最便宜、也最多人不知道可以做的一步。上司法院裁判書查詢系統，把租客的名字打進去，就能看到他有沒有被告過。
           <ul>
-            <li>只有一個人在社團說某某人不好，那是單一說法，不是事實。</li>
-            <li>網路上的黑名單常常沒查證，看到要留意有沒有具體時間、地點、金額。</li>
-            <li>對不上就當作沒看到，不要把「聽說」放進你的決定裡。</li>
+            <li>要看的案由：給付租金、遷讓房屋、損害賠償、支付命令。</li>
+            <li>紅燈訊號：同一個名字在不同房東之間反覆出現，或近三年內有遷讓房屋的判決。</li>
+            <li>查詢網址：<a href="https://judgment.judicial.gov.tw/FJUD/default.aspx" target="_blank" rel="noopener">judgment.judicial.gov.tw</a>，免註冊、免費。</li>
           </ul>
+          <div class="doc-list">
+            <span>給付租金</span><span>遷讓房屋</span><span>損害賠償</span><span>支付命令</span>
+          </div>
+          <div class="point-example">
+            同名同姓的人很多，查到不代表就是他。查到只是提醒你「這個名字要再確認一次」，不是直接判他出局。
+          </div>
         </div>
       </div>
 
       <div class="point-card">
-        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10h8"/><path d="M8 14h5"/><path d="M4 5h16v12H9l-5 4z"/></svg>
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 14h24M8 26h24" stroke="#C9BFAE" stroke-width="2.6" stroke-linecap="round"/><path d="M14 8v24M26 8v24" stroke="#2C2A26" stroke-width="2.6" stroke-linecap="round"/><circle cx="26" cy="26" r="5" fill="#D9342B"/></svg>
         <div class="point-number">03</div>
         <span class="point-number-bar"></span>
-        <div class="point-title">聽需求：不問薪水，問生活</div>
+        <div class="point-title">第二步 交叉確認｜兩個地方對上才算數</div>
         <div class="point-body">
-          直接問收入很尷尬，對方也不一定講真話。改問生活，講得出來、前後對得上，就是真的要住。
-          <div class="say">
-            <b>看屋時可以這樣問</b>
-            「原本住哪一區，怎麼會想搬過來？」<br>
-            「幾個人住？有沒有小孩或長輩？」<br>
-            「打算住多久，工作在附近嗎？」<br>
-            「平常幾點回家、假日大多在家還是外出？」<br>
-            「之前那間住多久，為什麼搬？」
-          </div>
+          網路上的房東社團、租屋黑名單、地方新聞都可以查，但不能單獨採信。
+          <ul>
+            <li>單一來源可能是私人恩怨，也可能是同名誤傳，只有一個地方說他不好，那不算數。</li>
+            <li>兩個以上互不相關的來源指向同一件事，才把它當成真的。</li>
+            <li>黑名單不是法律文件，只能當作「再查一次」的理由，不要拿它當拒絕的唯一依據。</li>
+          </ul>
           <div class="point-example">
-            五題問完，前後兜不起來的地方就是要留意的地方。另外，如果租金明顯超過他收入的三成，之後拖欠的機會就會高一些，這個要自己心裡有數。
+            這一步的目的不是找理由拒絕人，是避免你被單一片面的說法誤導，錯過一個好房客。
           </div>
         </div>
       </div>
 
       <div class="point-card">
-        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h4"/></svg>
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="5" y="8" width="22" height="17" rx="4" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><path d="M11 25l-1 6 7-6" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/><circle cx="12" cy="16" r="1.8" fill="#D9342B"/><circle cx="18" cy="16" r="1.8" fill="#D9342B"/></svg>
         <div class="point-number">04</div>
         <span class="point-number-bar"></span>
-        <div class="point-title">看證明：不是每個人都要看，但這幾種一定看</div>
+        <div class="point-title">第三步 聽需求｜不問薪水，問這三個</div>
         <div class="point-body">
-          在職證明、薪轉紀錄、勞保明細，<strong>看一樣就好</strong>，不用全要。以下情況建議一定看：
+          很多房東一開口就問「你月薪多少」，既尷尬又測不出東西，因為他可以隨口說一個數字。真正測得出來的是生活細節，因為細節編不出來，也對不齊。
+          <div class="script-box">
+            <span class="who">你可以這樣問</span>
+            方便問一下為什麼想搬嗎，是換工作還是原本那邊有狀況？<br>
+            這邊大概會住幾個人，有沒有長輩或小朋友？<br>
+            預計住多久呢，我這邊比較希望能長租。
+          </div>
           <ul>
-            <li>租金偏高、或占他收入比重明顯偏高。</li>
-            <li>要養寵物、或想一次簽兩年以上。</li>
-            <li>前面三步有任何一步讓你覺得怪怪的。</li>
+            <li>講得出來、前後對得上、跟他的工作地點與生活動線吻合，才是真的要住。</li>
+            <li>支支吾吾、每次講的版本不一樣，或急著跳過這一段，就是訊號。</li>
+            <li>口頭說三個人、租約卻只寫兩個人，那是之後一定會吵的事，現在就要對齊。</li>
           </ul>
-          <div class="say">
-            <b>開口可以這樣講</b>
-            「不好意思，這是我們固定的流程，簽約前會請房客提供一份在職或收入證明，資料我只確認一下就好，不會留存。」
-          </div>
-          <div class="point-example">
-            他不願意給，本身就是一個訊號。不用逼，但你可以把這件事放進你的判斷。
-          </div>
         </div>
       </div>
 
       <div class="point-card">
-        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="9" y="5" width="22" height="30" rx="4" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2.4"/><line x1="14" y1="14" x2="26" y2="14" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/><line x1="14" y1="21" x2="26" y2="21" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/><path d="M14 28l3 3 6-6" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="point-number">05</div>
         <span class="point-number-bar"></span>
-        <div class="point-title">簽約前，這幾件事白紙黑字寫清楚</div>
+        <div class="point-title">第四步 看證明｜三選一，看一樣就好</div>
         <div class="point-body">
-          篩人只是前半段，契約沒寫清楚，後面一樣會吵。簽之前確認這幾項有沒有寫進去：
-          <ul>
-            <li>租金與押金金額、繳款日、匯款帳戶。</li>
-            <li>水電、瓦斯、管理費、網路各自由誰負擔，怎麼分攤。</li>
-            <li>修繕責任怎麼分：什麼情況房東修、什麼情況房客自理。</li>
-            <li>能不能養寵物、能不能轉租或分租、能不能設戶籍。</li>
-            <li>提前解約怎麼算、遲繳幾天算違約、點交時的屋況怎麼認定。</li>
-            <li>入住當天拍照存證：牆面、地板、家電、衛浴各拍一輪，雙方留一份。</li>
-          </ul>
+          在職證明、薪資轉帳紀錄、勞保投保明細，三種擇一即可。目的不是查他家戶口，是確認他有一份穩定的收入。
+          <div class="script-box">
+            <span class="who">怎麼開口不尷尬</span>
+            我這邊固定都會請房客提供一份工作證明，在職證明、薪轉或勞保明細都可以，你方便的那一種就好。
+          </div>
+          <div class="script-box">
+            <span class="who">他不肯給的時候</span>
+            沒關係，那我們再看看，謝謝你今天過來。
+          </div>
           <div class="point-example">
-            契約用內政部公告的租賃定型化契約版本比較安全。實際條款以現行法規與雙方約定為準，金額較高或條件特殊時，簽前找專業的人看一次。
+            不用爭辯，也不用解釋為什麼要看。他不肯給，本身就是答案。
           </div>
         </div>
       </div>
 
       <div class="point-card">
-        <svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v9"/><circle cx="12" cy="17.5" r="1.2" fill="#D9342B" stroke="none"/><path d="M12 2.5L1.8 20.5h20.4z"/></svg>
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 4l13 5v11c0 8-5.6 13.6-13 16-7.4-2.4-13-8-13-16V9z" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/><path d="M14 20l4 4 8-8" fill="none" stroke="#D9342B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="point-number">06</div>
         <span class="point-number-bar"></span>
-        <div class="point-title">覺得不對勁，怎麼收尾不撕破臉</div>
+        <div class="point-title">簽約前最後 5 分鐘，這五件事漏一件前面全白做</div>
         <div class="point-body">
-          你不需要解釋為什麼不租給他，也不用編理由。留一句得體的話就好。
-          <div class="say">
-            <b>婉拒可以這樣說</b>
-            「不好意思，這間我這邊還有其他人在談，等確定了我再跟你聯絡，謝謝你特地跑一趟。」
-          </div>
+          前面四步是在篩人，這五件事是在保住你自己。人篩對了但這五件沒做，出事一樣講不清楚。
           <ul>
-            <li>不要說「你被列在黑名單」或「你有官司」，會有爭議。</li>
-            <li>已經收了訂金但決定不租，要盡快退還並留下紀錄。</li>
-            <li>寧願多空一個月，也不要為了補這個月的租金，簽下一個要處理一年的人。</li>
+            <li>核對身分證正本跟本人，不是看影本，也不是看照片。</li>
+            <li>租約寫清楚使用用途、實際居住人數，並註明不得轉租。</li>
+            <li>押金收滿兩個月，這是你唯一的緩衝。</li>
+            <li>水電瓦斯度數當場拍照，數字要看得清楚。</li>
+            <li>交屋當天全屋屋況拍一輪，雙方各留一份。</li>
           </ul>
+          <div class="point-example">
+            這五件事加起來不到五分鐘，但日後真的走到調解或法院，能講清楚的就只有這幾張照片跟那一份寫清楚的租約。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="21" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><rect x="16" y="3" width="8" height="5" rx="1.6" fill="#2C2A26"/><path d="M20 21v-8" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round"/><path d="M20 21l6 4" stroke="#2C2A26" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <div class="point-number">07</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">已經租出去才發現不對，三個階段越早動越便宜</div>
+        <div class="point-body">
+          如果你是看完影片才發現自己正在這個狀況裡，重點只有一個：越早動，成本越低。
+          <ul>
+            <li><strong>第一個月就聯絡</strong>：不要等到欠三個月才處理。第一次遲繳就用文字訊息或書面通知，留下紀錄。</li>
+            <li><strong>寄存證信函</strong>：這不只是嚇他，是後續終止租約與求償在程序上的前提。</li>
+            <li><strong>調解或訴訟</strong>：快的半年，慢的超過一年，時間跟費用依個案差很多，走之前先找專業人員評估。</li>
+          </ul>
+          <div class="point-example">
+            🔴 不管他欠多久，都不可以自己換鎖、斷水斷電，或把他的東西搬出去。這些動作可能讓原本站得住腳的你反過來要負責，遇到了請先問律師或地政士。
+          </div>
         </div>
       </div>
 
     </div>
 
-    <div class="checklist">
-      <h3>簽約前逐項打勾</h3>
-      <p class="note">看屋帶著這張，簽約前對一遍。</p>
-      <ul>
-        <li>已用司法院裁判書系統查過姓名，並比對過年齡與地區。</li>
-        <li>公開資訊至少有兩個來源交叉確認過。</li>
-        <li>五個生活問題都問過，前後說法對得上。</li>
-        <li>租金占收入比重心裡有數。</li>
-        <li>需要看證明的情況，已看過其中一樣。</li>
-        <li>契約寫清楚了租金、押金、費用分攤、修繕責任。</li>
-        <li>寵物、轉租、設戶籍的規定寫進契約。</li>
-        <li>提前解約與遲繳的處理方式寫清楚。</li>
-        <li>入住當天屋況照片拍好，雙方各留一份。</li>
-        <li>我可以接受這個人住我房子兩年。</li>
-      </ul>
+    <div class="disclaimer">
+      這份是出租前的實務檢核，不是法律意見。租賃契約的權利義務、終止與求償程序個案差異很大，已經發生糾紛時請找律師或地政士確認。查詢公開資料時請留意同名同姓，也不要把單一來源的黑名單當成拒絕的唯一理由。
     </div>
 
+    <!-- 結論 -->
     <div class="conclusion">
       房子空著是<span class="accent">少賺</span>，租錯人是<span class="accent">倒賠</span>。
     </div>
 
+    <!-- 雙按鈕 CTA -->
     <div class="cta-section">
       <div class="community-cta">
         <h3>看完還有想問的？</h3>
@@ -328,17 +579,18 @@
         <a href="https://tools.cathome.tw" class="cta-button" target="_blank" rel="noopener">免費工具箱 →</a>
       </div>
     </div>
+    <!-- 頁尾品牌區 -->
     <div class="brand-footer">
       <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
            srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
            alt="中壢專業房仲 喵爸" class="footer-logo">
       <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
-      <div class="footer-date">2026.08.17</div>
-      <p class="disclaimer">本清單為實務經驗整理，供屋主自行判斷參考，不構成法律意見。契約條款與相關規定以現行法規及各方約定為準，個案情況請洽專業人員。</p>
+      <div class="footer-date">2026.08.22</div>
     </div>
 
   </div>
 
+  <!-- 浮動按鈕 -->
   <div class="floating-actions">
     <a href="https://line.me/R/ti/p/@056ohivi" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
