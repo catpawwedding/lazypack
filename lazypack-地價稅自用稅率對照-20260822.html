@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地價稅自用稅率對照 · 中壢專業房仲 喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px; height: 72px; display: block; margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header h1 {
+    font-size: 32px; font-weight: 800; color: #2C2A26;
+    line-height: 1.3; margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero { margin: 0 auto 30px; display: block; width: 100%; max-width: 420px; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF; border-left: 5px solid #D9342B;
+    padding: 20px 22px; margin-bottom: 36px; border-radius: 6px;
+    font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 判斷表（核心區塊） === */
+  .checklist {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); margin-bottom: 18px;
+    border-top: 5px solid #D9342B;
+  }
+  .checklist-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+  }
+  .checklist-head svg { width: 40px; height: 40px; flex: 0 0 40px; }
+  .checklist h2 {
+    font-size: 22px; font-weight: 800; color: #2C2A26; line-height: 1.35;
+  }
+  .checklist .lead {
+    font-size: 15px; color: #6B6660; margin: 10px 0 20px; line-height: 1.7;
+  }
+  .q-row {
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px dashed #E8E1D5;
+  }
+  .q-row:last-of-type { border-bottom: none; }
+  .q-box {
+    flex: 0 0 22px; height: 22px; margin-top: 3px;
+    border: 2px solid #C9BFAE; border-radius: 5px; background: #FDFBF7;
+  }
+  .q-text { font-size: 15.5px; color: #3A3630; line-height: 1.65; }
+  .q-text b { color: #2C2A26; font-weight: 700; }
+  .q-hint { display: block; font-size: 13.5px; color: #8C8477; margin-top: 3px; }
+
+  .verdicts { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .verdict {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; border-radius: 10px; font-size: 15px; line-height: 1.65;
+  }
+  .verdict .vtag {
+    flex: 0 0 auto; font-weight: 800; font-size: 14px;
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .v-sell { background: #FDECEA; color: #8C2B23; }
+  .v-sell .vtag { background: #D9342B; color: #FFF; }
+  .v-hold { background: #FFF5E0; color: #6B5230; }
+  .v-hold .vtag { background: #F5B946; color: #4A3A18; }
+  .v-wait { background: #EFF3EE; color: #3E4B3C; }
+  .v-wait .vtag { background: #7C8F78; color: #FFF; }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
+  }
+  .point-icon {
+    position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; opacity: 0.9;
+  }
+  .point-number {
+    font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1;
+    letter-spacing: -1px; margin-bottom: 8px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block; width: 36px; height: 3px; background: #D9342B;
+    margin-bottom: 16px; border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px; font-weight: 700; color: #2C2A26;
+    margin-bottom: 12px; line-height: 1.4; padding-right: 46px;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px; padding: 14px 16px; background: #FFF5E0;
+    border-radius: 10px; font-size: 15px; color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 時間軸視覺 === */
+  .timeline { width: 100%; height: auto; margin: 18px 0 4px; display: block; }
+
+  /* === 話術框 === */
+  .script-box {
+    margin-top: 14px; padding: 18px 18px 16px; background: #F6F1E8;
+    border-radius: 10px; border: 1px dashed #C9BFAE;
+    font-size: 15.5px; color: #3A3630; line-height: 1.8;
+  }
+  .script-box .who {
+    display: block; font-size: 13px; font-weight: 700; color: #8C7A53;
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
+
+  /* === 文件清單 === */
+  .doc-list { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .doc-list span {
+    font-size: 14px; background: #F1EDE4; color: #5A5348;
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* === 免責 === */
+  .disclaimer {
+    font-size: 13.5px; color: #8C8477; line-height: 1.7;
+    background: #F4F1EA; border-radius: 10px; padding: 16px 18px; margin-bottom: 36px;
+  }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4; padding: 28px 24px; border-radius: 14px; text-align: center;
+    font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF; padding: 32px 24px; border-radius: 18px; text-align: center;
+    margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p {
+    font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block; background: #FFF; color: #2C2A26;
+    padding: 14px 32px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF; border: 2px solid #2C2A26; color: #2C2A26;
+    padding: 26px 24px; border-radius: 18px; text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block; background: #2C2A26; color: #FFF;
+    padding: 13px 30px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed; right: 16px; bottom: 20px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+
+  /* ── 試算器（本份新增） ── */
+  .calc {
+    margin-top: 18px; padding: 20px 18px; background: #FFFFFF;
+    border: 2px solid #2C2A26; border-radius: 12px;
+  }
+  .calc label { display: block; font-size: 14px; font-weight: 700; color: #5A5348; margin-bottom: 8px; }
+  .calc .calc-input { display: flex; align-items: center; gap: 8px; }
+  .calc input {
+    flex: 1; min-width: 0; font-size: 20px; font-weight: 700; color: #2C2A26;
+    padding: 12px 14px; border: 2px solid #C9BFAE; border-radius: 8px;
+    background: #FAF8F4; font-family: inherit; -webkit-appearance: none;
+  }
+  .calc input:focus { outline: none; border-color: #D9342B; }
+  .calc .unit { font-size: 15px; color: #6B6660; font-weight: 700; white-space: nowrap; }
+  .calc .calc-hint { font-size: 13px; color: #6B6660; margin-top: 8px; line-height: 1.6; }
+  .calc-out { margin-top: 16px; display: flex; gap: 10px; }
+  .calc-out > div { flex: 1; padding: 14px 10px; border-radius: 10px; text-align: center; }
+  .calc-out .o-normal { background: #F5D9D6; }
+  .calc-out .o-self { background: #E8F0E4; }
+  .calc-out .o-label { font-size: 12.5px; color: #6B6660; font-weight: 700; }
+  .calc-out .o-num { font-size: 22px; font-weight: 800; margin-top: 4px; letter-spacing: -0.5px; }
+  .calc-out .o-normal .o-num { color: #8C2B23; }
+  .calc-out .o-self .o-num { color: #3E6B33; }
+  .calc-gap {
+    margin-top: 12px; padding: 14px; border-radius: 10px; background: #2C2A26;
+    color: #FFF5E0; text-align: center; font-size: 15px; line-height: 1.7;
+  }
+  .calc-gap b { color: #C9A24B; font-size: 21px; font-weight: 800; }
+  /* ── 頂部死線提醒（小徽章，正式區塊仍留在頁尾收行動） ── */
+  .deadline-mini {
+    margin-top: 16px; display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border-radius: 10px;
+    background: #FFF1EF; border: 1px solid #F0BDB7;
+    font-size: 14.5px; line-height: 1.6; color: #8C2B23;
+  }
+  .deadline-mini b { color: #D9342B; font-weight: 800; }
+  .deadline-mini svg { flex: 0 0 22px; width: 22px; height: 22px; }
+  /* ── 死線區塊 ── */
+  .deadline {
+    margin-top: 26px; padding: 22px 18px; border-radius: 12px;
+    background: #D9342B; color: #FFF; text-align: center;
+  }
+  .deadline .d-date { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
+  .deadline .d-label { font-size: 14px; font-weight: 700; opacity: .92; margin-bottom: 6px; }
+  .deadline .d-body { font-size: 15px; line-height: 1.8; margin-top: 10px; opacity: .95; }
+  @media (max-width: 380px) {
+    .calc-out { flex-direction: column; }
+  }
+    .deadline-countdown{margin:12px 0 0;font-weight:700;color:#D9342B;font-size:1.02rem;line-height:1.6}
+    .deadline-countdown b{font-size:1.25em}
+</style>
+<!-- 內建瀏覽器提示條（全站標配，必含不可刪） -->
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+        <!-- 主標題 -->
+    <div class="header">
+      <h1>地價稅<span class="highlight">自用稅率對照</span></h1>
+      <p class="subtitle">同一條路、同樣的房子，差的只是有沒有去申請。</p>
+    </div>
+
+    <!-- Hero 插圖 -->
+    <svg class="hero" viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="兩張稅單並排，左邊金額小、右邊金額大">
+      <ellipse cx="210" cy="180" rx="152" ry="12" fill="#F1EDE4"/>
+      <rect x="52" y="58" width="130" height="112" rx="8" fill="#FFFFFF" stroke="#2C2A26" stroke-width="3"/>
+      <rect x="52" y="58" width="130" height="26" rx="8" fill="#E8F0E4"/>
+      <text x="117" y="77" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="14" font-weight="800" fill="#3E6B33">自用 2‰</text>
+      <text x="117" y="126" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="26" font-weight="800" fill="#2C2A26">2,000</text>
+      <line x1="72" y1="146" x2="162" y2="146" stroke="#C9BFAE" stroke-width="3.5" stroke-linecap="round"/>
+      <rect x="238" y="34" width="130" height="136" rx="8" fill="#FFFFFF" stroke="#2C2A26" stroke-width="3"/>
+      <rect x="238" y="34" width="130" height="26" rx="8" fill="#F5D9D6"/>
+      <text x="303" y="53" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="14" font-weight="800" fill="#8C2B23">一般 10‰</text>
+      <text x="303" y="112" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="30" font-weight="800" fill="#D9342B">10,000</text>
+      <line x1="258" y1="134" x2="348" y2="134" stroke="#C9BFAE" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="258" y1="150" x2="330" y2="150" stroke="#C9BFAE" stroke-width="3.5" stroke-linecap="round"/>
+      <text x="210" y="112" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="22" font-weight="800" fill="#8C7A53">VS</text>
+    </svg>
+
+    <div class="intro">
+      地價稅有兩種稅率，一般用地千分之十，自用住宅千分之二，整整差五倍。而且它不會自動幫你用便宜的那一種，要你自己去申請才會改。這份是拿來對照你自己情況的，先算出差多少，再看你屬不屬於該去申請的那一種。
+    </div>
+
+    <div class="deadline-mini">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="12" cy="13" r="9" fill="#FFFFFF" stroke="#D9342B" stroke-width="2"/>
+        <path d="M12 13V8" stroke="#D9342B" stroke-width="2" stroke-linecap="round"/>
+        <path d="M12 13l4 3" stroke="#8C2B23" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 2h6" stroke="#D9342B" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>今年要送件的期限是 <b>9 月 22 日</b>，晚一天就要再等一整年。先往下算算看你差多少。</span>
+    </div>
+
+    <!-- 試算 -->
+    <div class="calc">
+      <label for="landValue">你的申報地價總額（稅單上找得到）</label>
+      <div class="calc-input">
+        <input id="landValue" type="number" inputmode="numeric" value="1000000" min="0" step="10000" aria-describedby="calcHint">
+        <span class="unit">元</span>
+      </div>
+      <div class="calc-out">
+        <div class="o-normal">
+          <div class="o-label">一般稅率 10‰</div>
+          <div class="o-num" id="outNormal">10,000</div>
+        </div>
+        <div class="o-self">
+          <div class="o-label">自用稅率 2‰</div>
+          <div class="o-num" id="outSelf">2,000</div>
+        </div>
+      </div>
+      <div class="calc-gap">
+        沒申請的話，你每年多繳 <b id="outGap">8,000</b> 元<br>
+        十年就是 <b id="outTen">80,000</b> 元
+      </div>
+      <p class="deadline-countdown">離 9 月 22 日還有 <b id="daysLeft">—</b> 天，今年錯過就要再等一年</p>
+      <p class="calc-hint" id="calcHint">以基本稅率 10‰ 估算。申報地價超過你所在縣市的累進起點時，一般稅率會往上跳，差距只會更大。實際金額以稅單與稅捐機關核定為準。</p>
+    </div>
+
+    <div class="points">
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 20c4-7 10-10 16-10s12 3 16 10c-4 7-10 10-16 10S8 27 4 20z" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="20" r="5.5" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2.4"/><circle cx="20" cy="20" r="2.4" fill="#D9342B"/></svg>
+        <div class="point-number">01</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">30 秒自我檢查，翻出去年那張稅單就好</div>
+        <div class="point-body">
+          地價稅每年 11 月開徵，稅單會寄到你的戶籍地或通訊地址。翻出去年那一張，只看一個欄位。
+          <ul>
+            <li>找「稅率」或「適用稅率」那一欄。</li>
+            <li>寫 <strong>10‰（千分之十）</strong>，代表你是一般用地，就是多繳的那一個。</li>
+            <li>寫 <strong>2‰（千分之二）</strong>，代表已經是自用住宅用地，這份你可以放心收起來。</li>
+            <li>稅單找不到了，可以帶身分證去任一地方稅務局或分局臨櫃查，也可以用自然人憑證線上查。</li>
+          </ul>
+          <div class="point-example">
+            同一條路、同樣的房子，一個繳兩千、一個繳一萬，差的不是房子，是有沒有去申請那一張表。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="14" cy="13" r="6" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><path d="M4 33c0-5.5 4.5-9 10-9s10 3.5 10 9" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/><circle cx="29" cy="16" r="4.5" fill="#FFFFFF" stroke="#D9342B" stroke-width="2.4"/><path d="M23 33c0-4.4 2.8-7.5 6-7.5s7 3.1 7 7.5" fill="none" stroke="#D9342B" stroke-width="2.4" stroke-linejoin="round"/></svg>
+        <div class="point-number">02</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">三種人最容易多繳，看看有沒有你</div>
+        <div class="point-body">
+          <ul>
+            <li><strong>剛買房，戶籍還沒遷過去</strong>：沒有人設籍就是一般稅率，直接差五倍。補救方式：先把戶籍遷過去，再送申請。</li>
+            <li><strong>房子借親戚朋友設籍，自己戶籍在別的地方</strong>：設籍的人必須是你本人、配偶或直系親屬，借給朋友設籍不算數。補救方式：改由本人或直系親屬設籍。</li>
+            <li><strong>名下有兩間以上</strong>：自用稅率全國只能挑一處，挑錯了等於白省。補救方式：挑申報地價總額比較高的那一間，省下來的才多。</li>
+          </ul>
+          <div class="point-example">
+            第三種最可惜。你明明有資格，只是挑錯了那一間，一年差好幾千塊。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="7" y="5" width="26" height="30" rx="4" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2.4"/><path d="M12 13l2.5 2.5L19 11" fill="none" stroke="#D9342B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22l2.5 2.5L19 20" fill="none" stroke="#D9342B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><line x1="22" y1="14" x2="28" y2="14" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/><line x1="22" y1="23" x2="28" y2="23" stroke="#C9BFAE" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <div class="point-number">03</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">完整五個要件，缺一個就過不了</div>
+        <div class="point-body">
+          影片講的是最常見的那幾種，這裡把法定要件完整列出來，你可以一條一條對。依土地稅法第 17 條，五個要件必須同時成立。
+          <ul>
+            <li>土地所有權人或其配偶、直系親屬，已在那筆土地上辦好戶籍登記。</li>
+            <li>該筆土地沒有出租，也沒有供營業使用。</li>
+            <li><strong>土地上的房屋，必須是土地所有權人本人或其配偶、直系親屬所有。</strong>地是你的、房子是別人的，一樣不符合。</li>
+            <li>面積上限：都市土地不超過三公畝（三百平方公尺，約 90.75 坪）；非都市土地不超過七公畝（七百平方公尺，約 211.75 坪）。超過的部分按一般稅率課。</li>
+            <li>土地所有權人與其配偶、未成年受扶養親屬，適用自用住宅用地稅率者，全國以一處為限。</li>
+          </ul>
+          <div class="point-example">
+            第三項是最多人漏掉的。很多長輩的地登記在自己名下、房子卻登記在子女名下，看起來一家人，稅法上就是不符合。
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 20L35 7l-6 27-8-9-9 6z" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4" stroke-linejoin="round"/><path d="M35 7L21 25" stroke="#D9342B" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <div class="point-number">04</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">怎麼辦、去哪辦，線上就送得出去</div>
+        <div class="point-body">
+          不用請假跑一趟，線上就能申請。
+          <ul>
+            <li>線上申辦：<a href="https://www.etax.nat.gov.tw/etwmain/etw109w/cases/services/OLF013008/0" target="_blank" rel="noopener">財政部稅務入口網 · 申請地價稅自用住宅用地稅率</a>，需自然人憑證或已註冊的健保卡。</li>
+            <li>桃園的說明與申請書：<a href="https://tytax.tycg.gov.tw/News_Content.aspx?n=4537&amp;s=578931" target="_blank" rel="noopener">桃園市政府地方稅務局</a>，也可以下載表格臨櫃或郵寄。</li>
+            <li>臨櫃：帶身分證與印章，到土地所在地的地方稅務局或分局。</li>
+          </ul>
+          <div class="doc-list">
+            <span>申請書</span><span>身分證</span><span>印章</span><span>戶籍已遷入</span><span>無出租營業</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M32 20a12 12 0 1 1-3.6-8.6" fill="none" stroke="#2C2A26" stroke-width="2.6" stroke-linecap="round"/><path d="M29 4v9h-9" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="point-number">05</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">已經申請過的，不用每年重辦</div>
+        <div class="point-body">
+          這是很多人白跑一趟的原因。
+          <ul>
+            <li>先前已申請並核准，且用途沒有變更的，<strong>免再申請</strong>，稅務機關會沿用。</li>
+            <li>但只要情況變了就要重辦：房子改成出租、改做營業使用、戶籍遷出、或換了一間要適用，都要重新申請或申報變更。</li>
+            <li>用途變了沒去申報，之後被查到會補稅，這一點要特別注意。</li>
+          </ul>
+          <div class="point-example">
+            所以真正要做的只有兩種人：從來沒申請過的，以及情況變了還沒去改的。
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 死線 -->
+    <div class="deadline">
+      <div class="d-label">今年最後期限</div>
+      <div class="d-date">9 月 22 日</div>
+      <div class="d-body">
+        115 年地價稅 11 月 1 日開徵，申請要在開徵 40 日前送到。<br>
+        這天以前送出，今年 11 月那張稅單就用新稅率。<br>
+        晚一天，就要再等一整年。
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      這份整理依土地稅法第 17 條與各地方稅務局公告內容製作，用來幫你判斷要不要去申請，不是稅額試算，也不能取代個案認定。每一筆土地的申報地價、面積、使用情形都不一樣，實際稅額與核定結果請以稅捐稽徵機關為準，情況特殊時請洽當地地方稅務局或找地政士確認。
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      政府不會主動幫你<span class="accent">省稅</span>，但你可以自己<span class="accent">拿回來</span>。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>看完還有想問的？</h3>
+        <p>這份只能幫你避開常見的坑。真的遇到哪一間、哪個地段、哪個條件，情況都不一樣。<br>把地址或物件連結直接丟給我，我把該查的查完再跟你講結果，不用先講你要不要買。</p>
+        <a href="https://line.me/R/ti/p/@056ohivi" class="cta-button" target="_blank" rel="noopener">加 LINE 問喵爸 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>自己先玩玩看</h3>
+        <p style="font-size:14px;line-height:1.6;margin:0 0 16px;opacity:.78">房貸試算、青安資格、學區地圖、垃圾車時間，十幾個工具不用註冊</p>
+        <a href="https://tools.cathome.tw" class="cta-button" target="_blank" rel="noopener">免費工具箱 →</a>
+      </div>
+    </div>
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.08.22</div>
+    </div>
+
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/R/ti/p/@056ohivi" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+
+<script>
+(function () {
+  var input = document.getElementById('landValue');
+  if (!input) return;
+  var outNormal = document.getElementById('outNormal');
+  var outSelf = document.getElementById('outSelf');
+  var outGap = document.getElementById('outGap');
+  var outTen = document.getElementById('outTen');
+
+  function fmt(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function calc() {
+    var v = parseFloat(input.value);
+    if (!isFinite(v) || v < 0) { v = 0; }
+    var normal = v * 0.010;
+    var self = v * 0.002;
+    outNormal.textContent = fmt(normal);
+    outSelf.textContent = fmt(self);
+    outGap.textContent = fmt(normal - self);
+    outTen.textContent = fmt((normal - self) * 10);
+  }
+
+  input.addEventListener('input', calc);
+  calc();
+})();
+</script>
+<script>
+(function(){
+  var now=new Date(), y=now.getFullYear();
+  var due=new Date(y,8,22);
+  if(now>due){ due=new Date(y+1,8,22); }
+  var d=Math.ceil((due-now)/86400000);
+  var el=document.getElementById('daysLeft');
+  if(el){ el.textContent=d; }
+})();
+</script>
+</body>
+</html>
