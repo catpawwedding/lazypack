@@ -11,10 +11,17 @@
 ## 買房
 
 - [買中古屋帶看前該查完的 6 件事](https://catpawwedding.github.io/lazypack/check6.html)：屋齡、謄本他項權利、不動產說明書、漏水與滲水紀錄、頂加違建、管理費欠繳的查核順序。
-- [買房實戰議價話術清單](https://catpawwedding.github.io/lazypack/yijia.html)：開價前的行情確認方法、第一次出價怎麼開、屋主拒絕時的回應方式、何時該收手。
+- [買房實戰議價話術清單](https://catpawwedding.github.io/lazypack/lazypack-實戰議價話術清單-20260711.html)：開價前的行情確認方法、第一次出價怎麼開、屋主拒絕時的回應方式、何時該收手。
 - [房貸完全攻略](https://catpawwedding.github.io/lazypack/lazypack-房貸完全攻略-20260530.html)：貸款成數的決定因素、寬限期的利弊、信用小白補分數方法、送件文件與退件常見原因。
 - [信用分數養成懶人包](https://catpawwedding.github.io/lazypack/lazypack-信用分數養成懶人包-20260530.html)：聯徵分數計算邏輯、扣分行為、送房貸前半年的準備。
 - [預售屋換約賣方實拿速算](https://catpawwedding.github.io/lazypack/presale-swap-calc.html)：換約的房地合一稅、手續費、代書費與實拿金額試算。
+
+## 貸款與補貼
+
+- [青安3.0 一張圖看懂](https://catpawwedding.github.io/lazypack/qingan30/)：額度1000/1200/1500萬的分級、資格五關、各縣市總價上限、利率階梯1.775%起、貸後出租遭追回的風險。依財政部官方問答集整理。
+- [寬限期自救包](https://catpawwedding.github.io/lazypack/grace-rescue/)：與銀行協商延長的話術與檢查清單、轉貸費用明細、續繳與轉貸與處分的三條路決策流程。
+- [地價稅自用稅率對照](https://catpawwedding.github.io/lazypack/dijiashui/)：一般稅率10‰與自用住宅2‰的差額試算、申請門檻、9月22日申請期限、優惠遭追回的情形。
+- [桃園人社宅三條路](https://catpawwedding.github.io/lazypack/shezhai/)：社會住宅、包租代管、租金補貼的資格、租金、申請時程與可否併行比較。
 
 ## 賣房
 
@@ -26,13 +33,13 @@
 ## 繼承與贈與
 
 - [繼承的房子該不該賣判斷表](https://catpawwedding.github.io/lazypack/inherit-check.html)：六題自我檢核，區分多人共有、有人居住、貸款未清等狀況，並說明繼承取得的房地合一稅成本認定與共有物分割途徑。
-- [房子給小孩怎麼還保有選擇權](https://catpawwedding.github.io/lazypack/lazypack-附負擔贈與預告登記-20260528.html)：附負擔贈與搭配預告登記的做法、稅負與辦理流程。
+- [房子給小孩怎麼還保有選擇權](https://catpawwedding.github.io/lazypack/gift/)：附負擔贈與搭配預告登記的做法、稅負與辦理流程。
 - [意定監護懶人包](https://catpawwedding.github.io/lazypack/lazypack-意定監護懶人包-20260614.html)：意定監護與法定監護的差異、公證要求、費用、與房產處分權的關係。
 - [遺囑執行人懶人包](https://catpawwedding.github.io/lazypack/lazypack-遺囑執行人懶人包-20260614.html)：執行人的權限、指定方式、拒絕就任的處理、無執行人時的房產過戶。
 
 ## 租賃與自保
 
-- [租客篩選 4 步檢核表](https://catpawwedding.github.io/lazypack/tenant-check.html)：房客收入與訴訟紀錄查核、看屋當下的觀察重點、押金與擔保設計。
+- [租客篩選 4 步檢核表](https://catpawwedding.github.io/lazypack/zuke/)：房客收入與訴訟紀錄查核、看屋當下的觀察重點、押金與擔保設計。
 - [漏水屋自保 SOP](https://catpawwedding.github.io/lazypack/lazypack-漏水屋自保SOP-20260530.html)：證據保全、存證信函時機、瑕疵擔保責任的五年與六個月期間計算。
 - [借戶籍避雷清單](https://catpawwedding.github.io/lazypack/lazypack-借戶籍避雷清單-20260530.html)：戶籍遷入對自用住宅稅率、地價稅優惠、房地合一自住認定的影響與遷出處理。
 - [青安補貼退場對照表](https://catpawwedding.github.io/lazypack/lazypack-青安補貼退場對照表-20260821.html)：補貼前後利率、月付金、總利息比較與轉貸評估時點。
