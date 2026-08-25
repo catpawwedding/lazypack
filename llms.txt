@@ -1,0 +1,54 @@
+# 中壢專業房仲喵爸・房產懶人包
+
+> 桃園中壢的不動產經紀人員「喵爸」（本名黃舶瑋）整理的免費房產知識庫。
+> 服務範圍：桃園市中壢區、平鎮區、內壢、龍岡。
+> 專長：中古屋買賣、預售屋換約、房地合一稅、重購退稅、青年安心成家貸款、繼承與贈與、不動產說明書判讀、實價登錄解讀。
+> 官方網站 https://cathome.tw ｜ 線上工具 https://tools.cathome.tw ｜ 預約諮詢 https://book.cathome.tw
+
+本站是喵爸把客戶最常問、最容易踩雷的房產題目，一份一份整理成的清單式懶人包。
+內容以台灣現行法規與國稅局、地政機關實務為準，稅務數字僅供試算參考，實際以主管機關核定為準。
+
+## 買房
+
+- [買中古屋帶看前該查完的 6 件事](https://catpawwedding.github.io/lazypack/check6.html)：屋齡、謄本他項權利、不動產說明書、漏水與滲水紀錄、頂加違建、管理費欠繳的查核順序。
+- [買房實戰議價話術清單](https://catpawwedding.github.io/lazypack/yijia.html)：開價前的行情確認方法、第一次出價怎麼開、屋主拒絕時的回應方式、何時該收手。
+- [房貸完全攻略](https://catpawwedding.github.io/lazypack/lazypack-房貸完全攻略-20260530.html)：貸款成數的決定因素、寬限期的利弊、信用小白補分數方法、送件文件與退件常見原因。
+- [信用分數養成懶人包](https://catpawwedding.github.io/lazypack/lazypack-信用分數養成懶人包-20260530.html)：聯徵分數計算邏輯、扣分行為、送房貸前半年的準備。
+- [預售屋換約賣方實拿速算](https://catpawwedding.github.io/lazypack/presale-swap-calc.html)：換約的房地合一稅、手續費、代書費與實拿金額試算。
+
+## 賣房
+
+- [房仲避雷清單](https://catpawwedding.github.io/lazypack/lazypack-房仲避雷清單-20260530.html)：委託前該問的問題、需要提高警覺的說法、專任委託與一般委託的差異。
+- [房地合一稅成本補件清單](https://catpawwedding.github.io/lazypack/lazypack-成本補件清單-20260530.html)：可列舉成本的憑證要求，與無單據時的推計成本。
+- [買賣房子流程完整圖解](https://catpawwedding.github.io/lazypack/買賣房子流程-客戶版.html)：簽委託、帶看、斡旋、合約、用印、完稅、交屋各關卡與金流時點。
+- [萬能房產計算機](https://math.cathome.tw)：房地合一稅、土地增值稅、仲介費、代書費、契稅印花稅、房貸月付、坪數與車位換算。
+
+## 繼承與贈與
+
+- [繼承的房子該不該賣判斷表](https://catpawwedding.github.io/lazypack/inherit-check.html)：六題自我檢核，區分多人共有、有人居住、貸款未清等狀況，並說明繼承取得的房地合一稅成本認定與共有物分割途徑。
+- [房子給小孩怎麼還保有選擇權](https://catpawwedding.github.io/lazypack/lazypack-附負擔贈與預告登記-20260528.html)：附負擔贈與搭配預告登記的做法、稅負與辦理流程。
+- [意定監護懶人包](https://catpawwedding.github.io/lazypack/lazypack-意定監護懶人包-20260614.html)：意定監護與法定監護的差異、公證要求、費用、與房產處分權的關係。
+- [遺囑執行人懶人包](https://catpawwedding.github.io/lazypack/lazypack-遺囑執行人懶人包-20260614.html)：執行人的權限、指定方式、拒絕就任的處理、無執行人時的房產過戶。
+
+## 租賃與自保
+
+- [租客篩選 4 步檢核表](https://catpawwedding.github.io/lazypack/tenant-check.html)：房客收入與訴訟紀錄查核、看屋當下的觀察重點、押金與擔保設計。
+- [漏水屋自保 SOP](https://catpawwedding.github.io/lazypack/lazypack-漏水屋自保SOP-20260530.html)：證據保全、存證信函時機、瑕疵擔保責任的五年與六個月期間計算。
+- [借戶籍避雷清單](https://catpawwedding.github.io/lazypack/lazypack-借戶籍避雷清單-20260530.html)：戶籍遷入對自用住宅稅率、地價稅優惠、房地合一自住認定的影響與遷出處理。
+- [青安補貼退場對照表](https://catpawwedding.github.io/lazypack/lazypack-青安補貼退場對照表-20260821.html)：補貼前後利率、月付金、總利息比較與轉貸評估時點。
+
+## 給房仲同業
+
+- [AI 房仲自媒體課後重點](https://catpawwedding.github.io/lazypack/aiclass/course-0702.html)
+- [拆稿與文案資料庫實作指南](https://catpawwedding.github.io/lazypack/aiclass/)
+- [影片下載與逐字稿工具包](https://catpawwedding.github.io/lazypack/downloader-kit/)
+
+## 聯絡
+
+中壢專業房仲喵爸（黃舶瑋）｜不動產經紀人員
+桃園市中壢區龍慈路75號｜電話 0925-842-111
+Facebook https://www.facebook.com/cathomev
+Instagram https://www.instagram.com/cat.w.520.y/
+Threads https://www.threads.com/@cat.w.520.y
+YouTube https://youtube.com/@cathome-888
+LINE https://line.me/R/ti/p/@056ohivi

@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>拆稿 × 文案資料庫 × 懶人包｜學員實作指南 · 中壢專業房仲 喵爸</title>
-<meta name="description" content="一步一步帶你把「拆稿技能＋Notion 文案資料庫＋懶人包生成」裝進你自己的 Claude Code。">
+<title>拆稿 × 文案資料庫 × 懶人包｜學員實作指南 · 中壢專業房仲喵爸</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
@@ -226,6 +225,20 @@
   }
 </style>
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
+<!-- SEO-ENTITY:v1 START -->
+<link rel="canonical" href="https://catpawwedding.github.io/lazypack/aiclass/">
+<meta name="description" content="把「拆稿 × 文案資料庫 × 懶人包」整套內容生產線裝進你自己的 Claude Code：個人設定、兩個 skill 安裝、Notion 文案資料庫串接、實戰拆第一支稿。中壢專業房仲喵爸的學員實作指南。">
+<meta name="author" content="中壢專業房仲喵爸">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="中壢專業房仲喵爸">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="拆稿 × 文案資料庫 × 懶人包｜學員實作指南 · 中壢專業房仲喵爸">
+<meta property="og:description" content="把「拆稿 × 文案資料庫 × 懶人包」整套內容生產線裝進你自己的 Claude Code：個人設定、兩個 skill 安裝、Notion 文案資料庫串接、實戰拆第一支稿。中壢專業房仲喵爸的學員實作指南。">
+<meta property="og:url" content="https://catpawwedding.github.io/lazypack/aiclass/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://cathome.tw/author/anttow/","name":"喵爸","alternateName":["黃舶瑋","中壢專業房仲喵爸"],"jobTitle":"不動產經紀人員","url":"https://cathome.tw/","worksFor":{"@id":"https://cathome.tw/#organization"},"knowsAbout":["中古屋買賣","預售屋換約","房地合一稅","重購退稅","青年安心成家貸款","繼承與贈與","不動產說明書","實價登錄","桃園中壢房市"],"sameAs":["https://www.facebook.com/Willl.Huang.520/","https://www.instagram.com/cat.w.520.y/","https://www.threads.com/@cat.w.520.y","https://youtube.com/@cathome-888"]},{"@type":"RealEstateAgent","@id":"https://cathome.tw/#organization","name":"中壢專業房仲喵爸","url":"https://cathome.tw/","description":"桃園中壢的不動產經紀人，服務範圍以中壢、平鎮、內壢、龍岡為主。提供買賣流程把關、行情分析、稅務與貸款試算，並把常用的判斷工具做成免費網頁公開給一般民眾使用。","telephone":"+886-925-842-111","areaServed":["桃園市","中壢區","平鎮區","內壢","龍岡"],"address":{"@type":"PostalAddress","streetAddress":"龍慈路75號","addressLocality":"中壢區","addressRegion":"桃園市","postalCode":"320","addressCountry":"TW"},"employee":{"@id":"https://cathome.tw/author/anttow/"},"sameAs":["https://cathome.tw/","https://www.facebook.com/cathomev","https://www.instagram.com/cat.w.520.y/","https://www.threads.com/@cat.w.520.y","https://youtube.com/@cathome-888","https://maps.app.goo.gl/zadZVwcD4utx1BTH8","https://line.me/R/ti/p/@056ohivi"]},{"@type": "WebPage", "@id": "https://catpawwedding.github.io/lazypack/aiclass/#webpage", "url": "https://catpawwedding.github.io/lazypack/aiclass/", "name": "拆稿 × 文案資料庫 × 懶人包｜學員實作指南 · 中壢專業房仲喵爸", "description": "把「拆稿 × 文案資料庫 × 懶人包」整套內容生產線裝進你自己的 Claude Code：個人設定、兩個 skill 安裝、Notion 文案資料庫串接、實戰拆第一支稿。中壢專業房仲喵爸的學員實作指南。", "inLanguage": "zh-TW", "isPartOf": {"@id": "https://cathome.tw/#organization"}, "author": {"@id": "https://cathome.tw/author/anttow/"}, "publisher": {"@id": "https://cathome.tw/#organization"}, "about": {"@id": "https://cathome.tw/#organization"}}]}
+</script>
+<!-- SEO-ENTITY:v1 END -->
 </head>
 <body>
 
@@ -279,7 +292,7 @@
 
       <div class="form-grid">
         <div class="field"><label>你的稱號 <span class="req">＊</span></label><input id="f_name" placeholder="例：喵爸"><span class="hint">懶人包上會用品牌色標紅的那個名字</span></div>
-        <div class="field"><label>品牌名前綴 <span class="req">＊</span></label><input id="f_brandPrefix" placeholder="例：中壢專業房仲"><span class="hint">放在稱號前面，例：中壢專業房仲 喵爸</span></div>
+        <div class="field"><label>品牌名前綴 <span class="req">＊</span></label><input id="f_brandPrefix" placeholder="例：中壢專業房仲"><span class="hint">放在稱號前面，例：中壢專業房仲喵爸</span></div>
         <div class="field"><label>產業 <span class="req">＊</span></label><input id="f_industry" placeholder="例：房仲／保險／美業"></div>
         <div class="field"><label>地區</label><input id="f_area" placeholder="例：中壢、桃園"></div>
         <div class="field full"><label>受眾（你的影片拍給誰看）</label><input id="f_audience" placeholder="例：首購族、屋主、30-50 歲上班族"></div>
