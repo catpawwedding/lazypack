@@ -1,6 +1,6 @@
 {
-  "version": "2026-08-22",
-  "updated": "2026-08-22",
+  "version": "2026-08-26",
+  "updated": "2026-08-26",
   "note": "暗號唯一真相源。三邊共讀：寫稿 skill／本機 keyword_reply.py／雲端巡留言 routine。",
   "rules": [
     "🔴 不在這張表上、或 status != ready 的暗號，一律不准在第一則留言下——改兩行版（二選一問句＋補一刀）。",
@@ -394,6 +394,74 @@
       "status": "poll",
       "verified": "2026-08-22",
       "reply": null
+    },
+    {
+      "key": "農地",
+      "type": "deliver",
+      "topic": "國土計畫法／農業發展地區五分類",
+      "promise": "農地五分類對照＋六題自查表",
+      "asset": "https://pack.cathome.tw/nongdi5/",
+      "status": "ready",
+      "verified": "2026-08-26",
+      "reply": null,
+      "reply_draft": "來了🙌 農一到農五一張表看完，後面附六題自查：\nhttps://pack.cathome.tw/nongdi5/\n先破一個最多人被嚇到的，農舍不是看你被劃到農一還農二，只要原本是編定的農牧用地，兩類都能依農業發展條例申請\n對不出來自己那塊在哪一類的，加 LINE 把地號給我，我幫你查：https://line.me/R/ti/p/@056ohivi",
+      "approved": "2026-08-26 待軍師 Theo 審＋喵爸核准（核准前 reply 保持 null，機器人跳過）"
+    },
+    {
+      "key": "青埔",
+      "type": "deliver",
+      "topic": "空屋率誤讀／青埔賣壓",
+      "promise": "空屋率的真相＋買前該查的五件事",
+      "asset": "https://pack.cathome.tw/qingpu/",
+      "status": "ready",
+      "verified": "2026-08-26",
+      "reply": null,
+      "reply_draft": "給你🙌 空屋率到底怎麼算的，還有買之前該查的五件事：\nhttps://pack.cathome.tw/qingpu/\n先講一個最多人不知道的，內政部說的空屋是「11、12 月平均每月用電 60 度以下」，剛交屋還在裝潢的也被算進去\n在看哪一棟的，加 LINE 把社區名給我，我把成交紀錄跟同棟在賣的調出來：https://line.me/R/ti/p/@056ohivi",
+      "approved": "2026-08-26 待軍師 Theo 審＋喵爸核准（核准前 reply 保持 null，機器人跳過）"
+    },
+    {
+      "key": "總價",
+      "type": "poll",
+      "topic": "買房先看總價 vs 先看這一帶有沒有工作",
+      "promise": null,
+      "asset": null,
+      "status": "ready",
+      "verified": "2026-08-26",
+      "reply": null,
+      "approved": "2026-08-26 poll 型，表態用不丟連結"
+    },
+    {
+      "key": "工作",
+      "type": "poll",
+      "topic": "買房先看總價 vs 先看這一帶有沒有工作",
+      "promise": null,
+      "asset": null,
+      "status": "ready",
+      "verified": "2026-08-26",
+      "reply": null,
+      "approved": "2026-08-26 poll 型，表態用不丟連結"
+    },
+    {
+      "key": "增貸",
+      "type": "poll",
+      "topic": "會不會拿房子增貸去投資（增貸 vs 不碰）",
+      "promise": null,
+      "asset": null,
+      "status": "ready",
+      "verified": "2026-08-26",
+      "reply": null,
+      "approved": "2026-08-26 poll 型，表態用不丟連結"
+    },
+    {
+      "key": "不碰",
+      "type": "poll",
+      "topic": "會不會拿房子增貸去投資（增貸 vs 不碰）",
+      "promise": null,
+      "asset": null,
+      "status": "ready",
+      "verified": "2026-08-26",
+      "reply": null,
+      "approved": "2026-08-26 poll 型，表態用不丟連結"
     }
   ]
 }
