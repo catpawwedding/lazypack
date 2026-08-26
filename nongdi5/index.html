@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>農地五分類對照自查 · 中壢專業房仲喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px; height: 72px; display: block; margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header h1 {
+    font-size: 32px; font-weight: 800; color: #2C2A26;
+    line-height: 1.3; margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero { margin: 0 auto 30px; display: block; width: 100%; max-width: 420px; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF; border-left: 5px solid #D9342B;
+    padding: 20px 22px; margin-bottom: 36px; border-radius: 6px;
+    font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 判斷表（核心區塊） === */
+  .checklist {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); margin-bottom: 18px;
+    border-top: 5px solid #D9342B;
+  }
+  .checklist-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+  }
+  .checklist-head svg { width: 40px; height: 40px; flex: 0 0 40px; }
+  .checklist h2 {
+    font-size: 22px; font-weight: 800; color: #2C2A26; line-height: 1.35;
+  }
+  .checklist .lead {
+    font-size: 15px; color: #6B6660; margin: 10px 0 20px; line-height: 1.7;
+  }
+  .q-row {
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px dashed #E8E1D5;
+  }
+  .q-row:last-of-type { border-bottom: none; }
+  .q-box {
+    flex: 0 0 22px; height: 22px; margin-top: 3px;
+    border: 2px solid #C9BFAE; border-radius: 5px; background: #FDFBF7;
+  }
+  .q-text { font-size: 15.5px; color: #3A3630; line-height: 1.65; }
+  .q-text b { color: #2C2A26; font-weight: 700; }
+  .q-hint { display: block; font-size: 13.5px; color: #8C8477; margin-top: 3px; }
+
+  .verdicts { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .verdict {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; border-radius: 10px; font-size: 15px; line-height: 1.65;
+  }
+  .verdict .vtag {
+    flex: 0 0 auto; font-weight: 800; font-size: 14px;
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .v-sell { background: #FDECEA; color: #8C2B23; }
+  .v-sell .vtag { background: #D9342B; color: #FFF; }
+  .v-hold { background: #FFF5E0; color: #6B5230; }
+  .v-hold .vtag { background: #F5B946; color: #4A3A18; }
+  .v-wait { background: #EFF3EE; color: #3E4B3C; }
+  .v-wait .vtag { background: #7C8F78; color: #FFF; }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
+  }
+  .point-icon {
+    position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; opacity: 0.9;
+  }
+  .point-number {
+    font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1;
+    letter-spacing: -1px; margin-bottom: 8px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block; width: 36px; height: 3px; background: #D9342B;
+    margin-bottom: 16px; border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px; font-weight: 700; color: #2C2A26;
+    margin-bottom: 12px; line-height: 1.4; padding-right: 46px;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px; padding: 14px 16px; background: #FFF5E0;
+    border-radius: 10px; font-size: 15px; color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 時間軸視覺 === */
+  .timeline { width: 100%; height: auto; margin: 18px 0 4px; display: block; }
+
+  /* === 話術框 === */
+  .script-box {
+    margin-top: 14px; padding: 18px 18px 16px; background: #F6F1E8;
+    border-radius: 10px; border: 1px dashed #C9BFAE;
+    font-size: 15.5px; color: #3A3630; line-height: 1.8;
+  }
+  .script-box .who {
+    display: block; font-size: 13px; font-weight: 700; color: #8C7A53;
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
+
+  /* === 文件清單 === */
+  .doc-list { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .doc-list span {
+    font-size: 14px; background: #F1EDE4; color: #5A5348;
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* === 免責 === */
+  .disclaimer {
+    font-size: 13.5px; color: #8C8477; line-height: 1.7;
+    background: #F4F1EA; border-radius: 10px; padding: 16px 18px; margin-bottom: 36px;
+  }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4; padding: 28px 24px; border-radius: 14px; text-align: center;
+    font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF; padding: 32px 24px; border-radius: 18px; text-align: center;
+    margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p {
+    font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block; background: #FFF; color: #2C2A26;
+    padding: 14px 32px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF; border: 2px solid #2C2A26; color: #2C2A26;
+    padding: 26px 24px; border-radius: 18px; text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block; background: #2C2A26; color: #FFF;
+    padding: 13px 30px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed; right: 16px; bottom: 20px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+
+  /* ── 試算器（本份新增） ── */
+  .calc {
+    margin-top: 18px; padding: 20px 18px; background: #FFFFFF;
+    border: 2px solid #2C2A26; border-radius: 12px;
+  }
+  .calc label { display: block; font-size: 14px; font-weight: 700; color: #5A5348; margin-bottom: 8px; }
+  .calc .calc-input { display: flex; align-items: center; gap: 8px; }
+  .calc input {
+    flex: 1; min-width: 0; font-size: 20px; font-weight: 700; color: #2C2A26;
+    padding: 12px 14px; border: 2px solid #C9BFAE; border-radius: 8px;
+    background: #FAF8F4; font-family: inherit; -webkit-appearance: none;
+  }
+  .calc input:focus { outline: none; border-color: #D9342B; }
+  .calc .unit { font-size: 15px; color: #6B6660; font-weight: 700; white-space: nowrap; }
+  .calc .calc-hint { font-size: 13px; color: #6B6660; margin-top: 8px; line-height: 1.6; }
+  .calc-out { margin-top: 16px; display: flex; gap: 10px; }
+  .calc-out > div { flex: 1; padding: 14px 10px; border-radius: 10px; text-align: center; }
+  .calc-out .o-normal { background: #F5D9D6; }
+  .calc-out .o-self { background: #E8F0E4; }
+  .calc-out .o-label { font-size: 12.5px; color: #6B6660; font-weight: 700; }
+  .calc-out .o-num { font-size: 22px; font-weight: 800; margin-top: 4px; letter-spacing: -0.5px; }
+  .calc-out .o-normal .o-num { color: #8C2B23; }
+  .calc-out .o-self .o-num { color: #3E6B33; }
+  .calc-gap {
+    margin-top: 12px; padding: 14px; border-radius: 10px; background: #2C2A26;
+    color: #FFF5E0; text-align: center; font-size: 15px; line-height: 1.7;
+  }
+  .calc-gap b { color: #C9A24B; font-size: 21px; font-weight: 800; }
+  /* ── 頂部死線提醒（小徽章，正式區塊仍留在頁尾收行動） ── */
+  .deadline-mini {
+    margin-top: 16px; display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; border-radius: 10px;
+    background: #FFF1EF; border: 1px solid #F0BDB7;
+    font-size: 14.5px; line-height: 1.6; color: #8C2B23;
+  }
+  .deadline-mini b { color: #D9342B; font-weight: 800; }
+  .deadline-mini svg { flex: 0 0 22px; width: 22px; height: 22px; }
+  /* ── 死線區塊 ── */
+  .deadline {
+    margin-top: 26px; padding: 22px 18px; border-radius: 12px;
+    background: #D9342B; color: #FFF; text-align: center;
+  }
+  .deadline .d-date { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
+  .deadline .d-label { font-size: 14px; font-weight: 700; opacity: .92; margin-bottom: 6px; }
+  .deadline .d-body { font-size: 15px; line-height: 1.8; margin-top: 10px; opacity: .95; }
+  @media (max-width: 380px) {
+    .calc-out { flex-direction: column; }
+  }
+    .deadline-countdown{margin:12px 0 0;font-weight:700;color:#D9342B;font-size:1.02rem;line-height:1.6}
+    .deadline-countdown b{font-size:1.25em}
+</style>
+<!-- 內建瀏覽器提示條（全站標配，必含不可刪） -->
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+<!-- SEO-ENTITY:v1 START -->
+<link rel="canonical" href="https://pack.cathome.tw/nongdi5/">
+<meta name="description" content="國土計畫法延到 2031 年，農業發展地區會分成農1到農5共五類。這份把五類的劃設條件、各自能做什麼一次列出來，附六題自查表，並說明農舍申請跟分類的關係。中壢專業房仲喵爸整理，桃園農地地主適用。">
+<meta name="author" content="中壢專業房仲喵爸">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="中壢專業房仲喵爸">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="農地五分類對照自查 · 中壢專業房仲喵爸">
+<meta property="og:description" content="國土計畫法延到 2031 年，農業發展地區會分成農1到農5共五類。這份把五類的劃設條件、各自能做什麼一次列出來，附六題自查表，並說明農舍申請跟分類的關係。中壢專業房仲喵爸整理，桃園農地地主適用。">
+<meta property="og:url" content="https://pack.cathome.tw/nongdi5/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://cathome.tw/author/anttow/","name":"喵爸","alternateName":["黃舶瑋","中壢專業房仲喵爸"],"jobTitle":"不動產經紀人員","url":"https://cathome.tw/","worksFor":{"@id":"https://cathome.tw/#organization"},"knowsAbout":["中古屋買賣","預售屋換約","房地合一稅","重購退稅","青年安心成家貸款","繼承與贈與","不動產說明書","實價登錄","桃園中壢房市"],"sameAs":["https://www.facebook.com/Willl.Huang.520/","https://www.instagram.com/cat.w.520.y/","https://www.threads.com/@cat.w.520.y","https://youtube.com/@cathome-888"]},{"@type":"RealEstateAgent","@id":"https://cathome.tw/#organization","name":"中壢專業房仲喵爸","url":"https://cathome.tw/","description":"桃園中壢的不動產經紀人，服務範圍以中壢、平鎮、內壢、龍岡為主。提供買賣流程把關、行情分析、稅務與貸款試算，並把常用的判斷工具做成免費網頁公開給一般民眾使用。","telephone":"+886-925-842-111","areaServed":["桃園市","中壢區","平鎮區","內壢","龍岡"],"address":{"@type":"PostalAddress","streetAddress":"龍慈路75號","addressLocality":"中壢區","addressRegion":"桃園市","postalCode":"320","addressCountry":"TW"},"employee":{"@id":"https://cathome.tw/author/anttow/"},"sameAs":["https://cathome.tw/","https://www.facebook.com/cathomev","https://www.instagram.com/cat.w.520.y/","https://www.threads.com/@cat.w.520.y","https://youtube.com/@cathome-888","https://maps.app.goo.gl/zadZVwcD4utx1BTH8","https://line.me/R/ti/p/@056ohivi"]},{"@type": "WebPage", "@id": "https://pack.cathome.tw/nongdi5/#webpage", "url": "https://pack.cathome.tw/nongdi5/", "name": "農地五分類對照自查 · 中壢專業房仲喵爸", "description": "國土計畫法延到 2031 年，農業發展地區會分成農1到農5共五類。這份把五類的劃設條件、各自能做什麼一次列出來，附六題自查表，並說明農舍申請跟分類的關係。中壢專業房仲喵爸整理，桃園農地地主適用。", "inLanguage": "zh-TW", "isPartOf": {"@id": "https://cathome.tw/#organization"}, "author": {"@id": "https://cathome.tw/author/anttow/"}, "publisher": {"@id": "https://cathome.tw/#organization"}, "about": {"@id": "https://cathome.tw/#organization"}}]}
+</script>
+<!-- SEO-ENTITY:v1 END -->
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://pack.cathome.tw/assets/logo.png"
+           srcset="https://pack.cathome.tw/assets/logo@2x.png 2x"
+           alt="中壢專業房仲喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <div class="header">
+      <h1>農地<span class="highlight">五分類</span>對照自查</h1>
+      <p class="subtitle">同一塊農地，被分到農二跟被分到農五，未來能做的事差很多。</p>
+    </div>
+
+    <svg class="hero" viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="一塊農地被分成五個區塊，各自標記編號一到五">
+      <ellipse cx="210" cy="184" rx="160" ry="11" fill="#F1EDE4"/>
+      <text x="210" y="30" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="15" font-weight="800" fill="#6B6660">2031 年，全台土地重新分班</text>
+      <rect x="40" y="52" width="68" height="118" fill="#E4EDDD"/>
+      <rect x="108" y="52" width="68" height="118" fill="#EFF4EA"/>
+      <rect x="176" y="52" width="68" height="118" fill="#F6F2E4"/>
+      <rect x="244" y="52" width="68" height="118" fill="#FBEFE0"/>
+      <rect x="312" y="52" width="68" height="118" fill="#F9DFDB"/>
+      <rect x="40" y="52" width="340" height="118" rx="10" fill="none" stroke="#2C2A26" stroke-width="3"/>
+      <line x1="108" y1="52" x2="108" y2="170" stroke="#2C2A26" stroke-width="2"/>
+      <line x1="176" y1="52" x2="176" y2="170" stroke="#2C2A26" stroke-width="2"/>
+      <line x1="244" y1="52" x2="244" y2="170" stroke="#2C2A26" stroke-width="2"/>
+      <line x1="312" y1="52" x2="312" y2="170" stroke="#2C2A26" stroke-width="2"/>
+      <text x="74" y="122" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="30" font-weight="800" fill="#3E6B33">1</text>
+      <text x="142" y="122" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="30" font-weight="800" fill="#4F7A42">2</text>
+      <text x="210" y="122" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="30" font-weight="800" fill="#8A7A3C">3</text>
+      <text x="278" y="122" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="30" font-weight="800" fill="#A8672C">4</text>
+      <text x="346" y="122" text-anchor="middle" font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="30" font-weight="800" fill="#8C2B23">5</text>
+    </svg>
+
+    <div class="intro">
+      國土計畫法沒有取消，是<b>延到 2031 年</b>。<br><br>
+      很多地主聽到延六年，第一個反應是「太好了，又多了時間」。<br>
+      喵爸的看法剛好相反——<b>延六年不是放假，是倒數才剛開始。</b>
+      等國土功能分區圖公告那天，你那塊地被分在哪一類就定了。那時候才開始研究，很多規劃已經來不及。<br><br>
+      這份幫你先自己對一遍。
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-head">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="4" width="28" height="32" rx="4" fill="#FFF" stroke="#D9342B" stroke-width="2.5"/><line x1="12" y1="13" x2="28" y2="13" stroke="#C9BFAE" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="20" x2="28" y2="20" stroke="#C9BFAE" stroke-width="2.5" stroke-linecap="round"/><line x1="12" y1="27" x2="22" y2="27" stroke="#C9BFAE" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <h2>六題先自己對一遍</h2>
+      </div>
+      <p class="lead">拿出土地謄本，一題一題勾。勾不出來的那幾題，就是你接下來要去查的。</p>
+
+      <div class="q-row"><div class="q-box"></div><div class="q-text"><b>謄本上的「使用地類別」寫的是農牧用地嗎</b><span class="q-hint">看土地登記謄本標示部，欄位寫「使用分區／使用地類別」</span></div></div>
+      <div class="q-row"><div class="q-box"></div><div class="q-text"><b>這塊地是不是在成片的大面積農業區裡</b><span class="q-hint">周圍整片都是農地，幾乎沒有夾雜工廠或住宅</span></div></div>
+      <div class="q-row"><div class="q-box"></div><div class="q-text"><b>是不是落在山坡地保育區範圍</b><span class="q-hint">地籍圖上會標示，或到縣市政府水土保持單位查</span></div></div>
+      <div class="q-row"><div class="q-box"></div><div class="q-text"><b>原本是不是編定為「鄉村區」</b><span class="q-hint">聚落型、周邊有住家與小型店面的那種</span></div></div>
+      <div class="q-row"><div class="q-box"></div><div class="q-text"><b>是不是在都市計畫的「農業區」裡</b><span class="q-hint">很多人以為在都市計畫裡比較好，這一類反而要注意</span></div></div>
+      <div class="q-row"><div class="q-box"></div><div class="q-text"><b>你查過縣市政府公告的國土功能分區圖草案了嗎</b><span class="q-hint">拿地號到縣市政府地政局，或該縣市的國土計畫專區查</span></div></div>
+
+      <div class="verdicts">
+        <div class="verdict v-sell"><span class="vtag">要注意</span><div>第 5 題勾了 → 大機率是<b>農五</b>，未來管制要往農一靠，是五類裡最容易被忽略的一類</div></div>
+        <div class="verdict v-hold"><span class="vtag">看情況</span><div>第 1、2 題都勾了 → 大機率落在<b>農一</b>，管制最嚴，原則上只做農作物產銷</div></div>
+        <div class="verdict v-wait"><span class="vtag">先去查</span><div>六題有一半答不出來 → 這就是接下來六年最該做的第一件事，先把分區圖查清楚</div></div>
+      </div>
+    </div>
+
+    <div class="points">
+
+      <div class="point-card">
+        <div class="point-number">農1</div><span class="point-number-bar"></span>
+        <div class="point-title">優良平地農業</div>
+        <div class="point-body">
+          劃設條件是<b>成片 25 公頃以上</b>、農業生產使用面積比例達 <b>80% 以上</b>。<br>
+          具優良農業生產環境、維持糧食安全功能，或曾經投入重大農業改良設施的地區。<br><br>
+          五類裡<b>管制最嚴</b>，原則上限於農作物產銷之用。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">農2</div><span class="point-number-bar"></span>
+        <div class="point-title">良好平地農業</div>
+        <div class="point-body">
+          平地農地<b>未達農一劃設條件</b>的，劃為農二。<br>
+          具良好農業生產環境，或屬農業發展多元化地區。<br><br>
+          能做的事比農一多：<b>農產加工、休閒農業</b>，產、銷、儲、運都在範圍內，可以發展農漁村的六級化產業。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">農3</div><span class="point-number-bar"></span>
+        <div class="point-title">山坡地農業</div>
+        <div class="point-body">
+          位在<b>山坡地</b>的農地。管制強度接近農二，<br>
+          但因為在山坡地，<b>水土保持</b>方面需要更多的規範與審查。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">農4</div><span class="point-number-bar"></span>
+        <div class="point-title">鄉村聚落</div>
+        <div class="point-body">
+          原依區域計畫法<b>劃定之鄉村區</b>，包含原住民族土地或原民聚落。<br>
+          是農村主要的人口集居地區，與農業生產、生活、生態關係密切。<br><br>
+          可以從事<b>簡單零售</b>，以及設置小型公共設施。
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-number">農5</div><span class="point-number-bar"></span>
+        <div class="point-title">都市計畫農業區 <span style="color:#D9342B">← 最多人忽略</span></div>
+        <div class="point-body">
+          都市計畫裡的<b>農業區</b>，按都市計畫規定辦理。<br>
+          未來國土功能分區圖上路後，<b>管制將盡量與農一相同</b>。<br><br>
+          很多地主以為「在都市計畫範圍裡，將來比較有機會變更」——這一類反而要先看清楚。
+        </div>
+      </div>
+
+    </div>
+
+    <div class="intro" style="border-left-color:#7C8F78">
+      <b>先破除一個最多人聽到的恐嚇</b><br><br>
+      「隔壁可以蓋，你不一定可以」——這句話用在<b>農舍</b>上並不成立。<br><br>
+      只要你的地是在原依區域計畫法編定的<b>農牧用地、養殖用地、鹽業用地</b>範圍內，
+      不論被劃為農一還是農二，<b>都能依《農業發展條例》相關規定申請興建農舍</b>。<br><br>
+      真正會變的，是這塊地<b>能不能變更做別的用途</b>。分清楚這兩件事，你才不會被嚇著急著賤賣。
+    </div>
+
+    <div class="conclusion">
+      這六年不是讓你<span class="accent">安心</span>的，<br>是讓你把地<span class="accent">盤點完</span>的。
+    </div>
+
+    <div class="intro" style="font-size:14px;color:#8C8477;border-left-color:#C9BFAE">
+      本頁整理自國土計畫法與農業發展地區劃設相關規定，供一般理解之用。<br>
+      實際分類<b>以各縣市政府公告之國土功能分區圖為準</b>，個案請洽當地地政機關或專業地政士確認。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>看完還有想問的？</h3>
+        <p>這份只能幫你避開常見的坑。真的遇到哪一筆、哪個地段、哪個條件，情況都不一樣。<br>把地號直接丟給我，我把該查的查完再跟你講結果，不用先講你要不要賣。</p>
+        <a href="https://line.me/R/ti/p/@056ohivi" class="cta-button" target="_blank" rel="noopener">加 LINE 問喵爸 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>自己先玩玩看</h3>
+        <p style="font-size:14px;line-height:1.6;margin:0 0 16px;opacity:.78">房貸試算、青安資格、學區地圖、垃圾車時間，十幾個工具不用註冊</p>
+        <a href="https://tools.cathome.tw" class="cta-button" target="_blank" rel="noopener">免費工具箱 →</a>
+      </div>
+    </div>
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://pack.cathome.tw/assets/logo.png"
+           srcset="https://pack.cathome.tw/assets/logo@2x.png 2x"
+           alt="中壢專業房仲喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.08.26</div>
+    </div>
+
+  </div>
+<!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/R/ti/p/@056ohivi" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+
+<script>
+(function () {
+  var input = document.getElementById('landValue');
+  if (!input) return;
+  var outNormal = document.getElementById('outNormal');
+  var outSelf = document.getElementById('outSelf');
+  var outGap = document.getElementById('outGap');
+  var outTen = document.getElementById('outTen');
+
+  function fmt(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function calc() {
+    var v = parseFloat(input.value);
+    if (!isFinite(v) || v < 0) { v = 0; }
+    var normal = v * 0.010;
+    var self = v * 0.002;
+    outNormal.textContent = fmt(normal);
+    outSelf.textContent = fmt(self);
+    outGap.textContent = fmt(normal - self);
+    outTen.textContent = fmt((normal - self) * 10);
+  }
+
+  input.addEventListener('input', calc);
+  calc();
+})();
+</script>
+<script>
+(function(){
+  var now=new Date(), y=now.getFullYear();
+  var due=new Date(y,8,22);
+  if(now>due){ due=new Date(y+1,8,22); }
+  var d=Math.ceil((due-now)/86400000);
+  var el=document.getElementById('daysLeft');
+  if(el){ el.textContent=d; }
+})();
+</script>
+</body>
+</html>
