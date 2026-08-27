@@ -1,0 +1,440 @@
+<style>
+.jf{--navy:#13314F;--orange:#ff6a3d;--line:#E7ECF1;--soft:#F5F8FC;--muted:#6E7480}
+.jf .kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:28px 0}
+.jf .kv .r{display:flex !important;border-bottom:1px solid var(--line);font-size:16px;min-width:0}
+.jf .kv .r:nth-child(2n){border-left:1px solid var(--line)}
+.jf .kv .r k{flex:0 0 40%;background:var(--soft);color:var(--muted);padding:12px 14px;font-weight:600;border-right:1px solid var(--line)}
+.jf .kv .r v{flex:1;padding:12px 14px;color:var(--navy);font-weight:700;min-width:0;word-break:break-word}
+.jf .near{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:12px;margin:26px 0}
+.jf .near .n{border:1px solid var(--line);border-radius:12px;padding:14px 15px;background:#fff;line-height:1.4;min-width:0}
+.jf .near .n em{display:block;font-style:normal;font-size:14px;color:var(--muted);margin-bottom:6px;font-weight:600}
+.jf .near .n b{display:block;font-size:20px;color:var(--navy);font-weight:800}
+.jf .near .n.key{background:var(--soft);border-color:#C9D6E4}
+.jf .near .n.key b{color:var(--orange)}
+.jf .cal{border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:18px 20px;margin:30px 0;background:var(--soft)}
+.jf .cal p{margin:0 0 10px !important}.jf .cal p:last-child{margin:0 !important}
+.jf .tl{border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:28px 0}
+.jf .tl div{position:relative;padding:9px 0 9px 22px;font-size:16px;border-bottom:1px solid var(--line)}
+.jf .tl div:last-child{border-bottom:0}
+.jf .tl div::before{content:"";position:absolute;left:0;top:17px;width:8px;height:8px;border-radius:50%;background:#C9D6E4}
+.jf .tl div.on::before{background:var(--orange)}
+.jf .tl b{color:var(--navy);margin-right:.7em}
+.jf .bar{display:flex !important;height:52px;border-radius:12px;overflow:hidden;margin:26px 0 14px}
+.jf .bar>div{display:flex !important;flex-direction:column;justify-content:center;align-items:center;color:#fff;font-size:13px;line-height:1.35}
+.jf .bar .s1{flex:25;background:var(--orange)}
+.jf .bar .s2{flex:75;background:var(--navy)}
+.jf .bar b{font-size:16px;font-weight:800}
+.jf .paylist{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:12px;margin:0 0 30px}
+.jf .paylist div{border:1px solid var(--line);border-radius:12px;padding:13px;text-align:center}
+.jf .paylist em{display:block;font-style:normal;font-size:13px;color:var(--muted);margin-bottom:5px}
+.jf .paylist b{display:block;font-size:18px;color:var(--navy);font-weight:800}
+.jf .paylist i{display:block;font-style:normal;font-size:12.5px;color:#9AA3AD;margin-top:3px}
+.jf .two{display:grid;grid-template-columns:1fr 1fr !important;gap:18px;margin:28px 0}
+.jf .two>div{border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.jf .two h4{margin:0 0 12px !important;font-size:17px;font-weight:800;color:var(--navy);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.jf .two ul{margin:0 !important;padding-left:1.2em}
+.jf .two li{font-size:15.5px;line-height:1.8;margin:.35em 0}
+.jf .mat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:14px;margin:28px 0}
+.jf .mat .m{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.jf .mat .m .bn{display:block;font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.jf .mat .m .bu{display:block;font-size:14px;color:var(--muted);line-height:1.65}
+.jf .note{font-size:14px;color:var(--muted);line-height:1.75;margin:14px 0 30px !important}
+.jf .cw-tool{background:linear-gradient(135deg,#13314f,#1d4a75) !important;border-radius:16px;padding:30px 28px;margin:34px 0;text-align:center;box-shadow:0 10px 30px rgba(19,49,79,.18)}
+.jf .cw-tool .tt{color:#ffd24a !important;font-weight:800;font-size:13.5px;letter-spacing:1.5px;margin:0 0 10px !important}
+.jf .cw-tool h3{color:#fff !important;font-size:22px;font-weight:800;margin:0 0 12px !important;padding:0;line-height:1.5}
+.jf .cw-tool p.d{color:#cfe0f0 !important;font-size:16px;margin:0 0 20px !important;line-height:1.75}
+.jf .cw-tool a.tbtn{display:inline-block;background:#ff6a3d !important;color:#fff !important;font-weight:800;font-size:17px;padding:14px 36px;border-radius:999px;text-decoration:none !important;box-shadow:0 6px 18px rgba(255,106,61,.32)}
+@media(max-width:820px){.jf .near,.jf .mat,.jf .paylist{grid-template-columns:repeat(2,minmax(0,1fr)) !important}}
+@media(max-width:600px){.jf .kv,.jf .two{grid-template-columns:1fr !important}.jf .kv .r:nth-child(2n){border-left:0}.jf .near{grid-template-columns:repeat(2,minmax(0,1fr)) !important}.jf .mat{grid-template-columns:1fr !important}}
+.jf.jf .kv,.jf.jf .tl,.jf.jf .two>div,.jf.jf .mat .m{background:#fff;box-shadow:0 1px 3px rgba(19,49,79,.06)}.jf.jf .near .n{box-shadow:0 2px 8px rgba(19,49,79,.07)}.jf.jf .near .n.park{background:#EDF5EF;border-color:#CDE3D5}.jf.jf .near .n.park b{color:#2F6B42}.jf.jf .near .n.shop{background:#FFF4EC;border-color:#F3D9C6}.jf.jf .near .n.shop b{color:#B4541F}.jf.jf .near .n.edu{background:#EEF3FA;border-color:#CFDCEC}.jf.jf .near .n.edu b{color:#2A4870}.jf.jf .near .n.tra{background:#F5F8FC;border-color:#C9D6E4}.jf.jf .near .n.tra b{color:#13314F}.jf.jf .near .n.key{background:#fff;border:1.5px solid #ff6a3d;box-shadow:0 3px 12px rgba(255,106,61,.16)}.jf.jf .near .n.key b{color:#ff6a3d}.jf.jf .near .n.key em{color:#13314F;font-weight:700}.jf.jf .cal{box-shadow:0 1px 3px rgba(19,49,79,.05)}.jf.jf .paylist div{background:#fff;box-shadow:0 1px 3px rgba(19,49,79,.05)}.jf.jf .bar{box-shadow:0 3px 12px rgba(19,49,79,.12)}</style>
+
+<div class="jf">
+
+<p>在龍岡看房子，大家第一個問的通常是兩件事：生活方不方便，還有——<strong>這裡還買得到透天嗎。</strong></p>
+
+<p>吉富璞苑兩件都有答案。</p>
+
+<p>我把地址丟進地圖，一條一條走過：<strong>全聯 592 公尺、忠貞市場 754 公尺</strong>，龍江公園、龍安運動公園、慈安三村公園都在步行範圍內。龍東路上銀行、藥局、診所、餐飲一應俱全，巷弄裡還有好幾家道地的滇緬泰料理。<strong>這些不用等，現在就在。</strong></p>
+
+<p>產品是 31 戶的<strong>四層電梯別墅</strong>，76 到 89 坪，每一戶配有專屬電梯、一樓車庫停得下兩台車，土地持分 28 到 33 坪。<strong>在龍岡這一帶，全新透天的機會已經不多。</strong></p>
+
+<p>而這一帶接下來還會再加兩件事——</p>
+
+<p>離基地 <strong>137 公尺</strong>的八德霄裡公園，2026 年 8 月 4 日經內政部都市計畫委員會通過變更，將興建<strong>桃園第一座市立醫院</strong>：投資 91.4 億元、核定急性一般病床 499 床，衛福部設立許可已經核發，預計 2033 年營運。同一帶還規劃有<strong>捷運綠線 G29 站</strong>，預計 2031 年通車。</p>
+
+<div class="cal">
+<p><strong>先有成熟的生活圈，後面再等兩項重大建設到位——這是這個案子的基本盤。</strong></p>
+<p>本案 2027 年第三季交屋，等待期在預售屋裡算短的。</p>
+</div>
+
+<p>我是中壢在地房仲。這個案子客戶一直問，我就把資料要過來，一張圖一張圖看、一個數字一個數字算。<strong>好的講，要注意的也講。</strong></p>
+
+<h2>一、基本資料</h2>
+
+<div class="kv"><div class="r"><k>基地面積</k><v>928.27 坪</v></div><div class="r"><k>基地位置</k><v>八德區新生路 100 巷</v></div><div class="r"><k>建蔽率</k><v>59.78%</v></div><div class="r"><k>土地使用分區</k><v>農業區建地目</v></div><div class="r"><k>投資興建</k><v>吉富開發建設</v></div><div class="r"><k>營造</k><v>富石營造</v></div><div class="r"><k>建築設計</k><v>簡明山建築師事務所</v></div><div class="r"><k>建造執照</k><v>(114) 會德 00075-01</v></div><div class="r"><k>樓層規劃</k><v>地上 4 層＋屋突層</v></div><div class="r"><k>戶數</k><v>31 戶住家</v></div><div class="r"><k>建築構造</k><v>RC 造</v></div><div class="r"><k>產品規劃</k><v>3 房 76～77 坪／4 房約 89 坪</v></div><div class="r"><k>土地持分</k><v>約 28～33 坪</v></div><div class="r"><k>車位</k><v>一樓自家車庫</v></div><div class="r"><k>電梯</k><v>每戶自有</v></div><div class="r"><k>充電設備</k><v>有（含預留）</v></div><div class="r"><k>開價</k><v>39～40 萬／坪</v></div><div class="r"><k>總價</k><v>2,900～3,200 萬</v></div><div class="r"><k>預計完工</k><v>2027 年第三季</v></div><div class="r"><k>接待會館</k><v>平鎮區中正五路 37 號</v></div></div>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-spec-3d.webp" alt="吉富璞苑3D外觀與基本資料－基地928坪、31戶、地上4層" loading="lazy" decoding="async"><figcaption class="wp-element-caption">3D 外觀與本案基本資料（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h3>兩個數字先看懂</h3>
+
+<p><strong>建蔽率 59.78%，這是透天的邏輯。</strong>大樓的建蔽率通常在 30% 上下，剩下的地拿來做中庭與綠地；透天是反過來的，建蔽率接近上限，換來的是每一戶都有自己的土地——928 坪切成 31 戶，每戶持分 28 到 33 坪。</p>
+
+<p>所以不能拿建蔽率去嫌它密，那是產品邏輯。但要知道：<strong>這個社區不會有大中庭花園，綠地要往外面找。</strong>好在附近就有（第二節會講）。</p>
+
+<p><strong>31 戶，是小社區。</strong>戶數少，好處是單純、鄰居認得完；管理上，依公寓大廈管理條例，這類集合住宅完工後會成立管理委員會，本案也規劃有管理室。<strong>社區內設有垃圾處理區，不用追垃圾車</strong>——這對雙薪家庭是每天有感的事。</p>
+
+<div class="cal">
+<p><strong>現場要確認的</strong>：管理費怎麼收、包含哪些項目、私設通路與公共照明將來的維護方式。這些寫進規約，日後比較不會有爭議。</p>
+</div>
+
+<h3>工程進度</h3>
+
+<div class="tl">
+<div><b>2026 年 1 月</b>開案銷售</div>
+<div><b>2026 年 6 月</b>結構體上樑</div>
+<div class="on"><b>2026 年 8 月</b>結構體完成（目前進度）</div>
+<div><b>2027 年第三季</b>預計完工交屋</div>
+</div>
+
+<p><strong>結構體已經完成。</strong>這代表現在到現場，看得到房子的骨架，不是一塊空地——棟距、面寬、採光都能實際感受，這是預售屋少有的條件。</p>
+
+<h2>二、位置與生活機能</h2>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-location-map.webp" alt="吉富璞苑區位圖－八德龍江路，鄰捷運綠線G29站與桃園市立醫院預定地" loading="lazy" decoding="async"><figcaption class="wp-element-caption">基地區位與周邊重大建設（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<p>這一帶的日常，靠的是龍岡這一側。以下是實際量測的距離：</p>
+
+<h3>走得到的（步行路線實測）</h3><div class="near"><div class="n key"><em>八德霄裡公園<br><small>市立醫院預定地</small></em><b>137 m</b></div><div class="n park"><em>中壢龍江公園</em><b>304 m</b></div><div class="n park"><em>中壢龍安運動公園</em><b>380 m</b></div><div class="n park"><em>慈安三村公園</em><b>537 m</b></div><div class="n shop"><em>全聯 中壢龍東店</em><b>592 m</b></div><div class="n edu"><em>霄裡國小</em><b>592 m</b></div><div class="n shop"><em>忠貞市場</em><b>754 m</b></div></div>
+
+<h3>開車的（行車路線實測）</h3><div class="near"><div class="n park"><em>龍岡萬坪公園</em><b>1.4 km</b></div><div class="n edu"><em>南亞技術學院</em><b>1.5 km</b></div><div class="n shop"><em>興仁花園夜市</em><b>2.5 km</b></div><div class="n park"><em>龍岡大操場</em><b>2.8 km</b></div><div class="n park"><em>龍岡森林公園</em><b>3.5 km</b></div><div class="n edu"><em>元智大學</em><b>4.9 km</b></div><div class="n tra"><em>中壢火車站</em><b>5.1 km</b></div><div class="n tra"><em>國道三號 大溪交流道</em><b>6.2 km</b></div></div>
+
+<p class="note">※ 以上為地圖工具實際量測之<strong>路線距離</strong>（非直線距離）：一公里內以步行路線計算，一公里以上以行車路線計算。實際會因路線選擇而異，僅供參考，建議以現場實走為準。</p>
+
+<h3>這幾個數字的意思</h3>
+
+<p><strong>採買機能是完整的。</strong>全聯龍東店在龍東路 360 號，步行約 592 公尺；忠貞市場 754 公尺，生鮮蔬果、熟食、南北雜貨一次補齊。<strong>龍東路本身就是一條成熟的生活動線</strong>，銀行、藥局、五金、診所、餐飲、補習班沿線都有，食衣住行的行業別相當齊全，日常不必特地跑遠。</p>
+
+<p><strong>飲食是這一帶的特色。</strong>龍東路與周邊巷弄有多家滇緬泰料理——米干、雲泰、雲南大食館、眷村菜，走路的距離就有好幾家。龍岡是全台滇緬泰飲食最集中的聚落，每年還有龍岡米干節，這個生活風景桃園其他地方沒有。</p>
+
+<p><strong>綠地是既有的，不用等。</strong>中壢龍江公園 304 公尺、龍安運動公園 380 公尺、慈安三村公園 537 公尺，走路都到得了；開車十分鐘內還有龍岡萬坪公園與龍岡森林公園。<strong>這幾座跟霄裡公園是不同的地塊，不受醫院開發影響</strong>——社區內沒有大中庭，這一點正好由外部補上。</p>
+
+<h3>交通</h3>
+
+<p>這一帶目前以開車為主，國道三號大溪交流道約 6.2 公里，出入桃園、中壢、大溪都算順。一樓車庫可停兩台車，對多車家庭是實際的加分。</p>
+
+<p>軌道的部分在路上：桃園捷運綠線延伸中壢已於 2025 年 5 月經中央核定，全長 7.2 公里、設 G25 至 G30 共 6 站，其中 <strong>G29 站就在市立醫院預定地一帶</strong>，預計 2031 年通車。</p>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-mrt-green-line.webp" alt="桃園捷運綠線延伸中壢路線圖－G25至G30共6站，預計2031年通車" loading="lazy" decoding="async"><figcaption class="wp-element-caption">捷運綠線延伸中壢（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h2>三、137 公尺外的桃園市立醫院</h2>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-hospital-site-map.webp" alt="桃園市立醫院選址八德霄裡公園位置圖－距吉富璞苑約137公尺" loading="lazy" decoding="async"><figcaption class="wp-element-caption">市立醫院預定地與基地相對位置（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h3>進度到哪了</h3>
+
+<div class="tl">
+<div><b>2024–2025</b>市府評估 19 處，選定八德區霄裡公園</div>
+<div><b>2025</b>規模定案：投資約 91.4 億元，市府自建自營</div>
+<div class="on"><b>2026 / 08 / 04</b>內政部都委會通過 4.8 公頃醫療用地都市計畫變更</div>
+<div class="on"><b>2026 / 08 / 12</b>取得衛福部設立許可</div>
+<div><b>2026 年底</b>都市計畫發布實施，地目由公園轉為醫療用地</div>
+<div><b>2028 年底</b>目標完成土地取得</div>
+<div><b>2029 年初</b>預計動工</div>
+<div><b>2032 年底</b>預計完工</div>
+<div><b>2033 年</b>預計正式營運</div>
+</div>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-taoyuan-city-hospital.webp" alt="桃園市立醫院規劃－499床急性一般病床，投資91.4億元" loading="lazy" decoding="async"><figcaption class="wp-element-caption">桃園市立醫院規劃（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<p>規模上，核定急性一般病床 499 床，加上特殊與專科病床約 250 床。定位是區域醫院、往準醫學中心規劃，設有 24 小時兒科急診、婦幼與高齡照護，以及綜合式長照機構，服務八德、中壢、平鎮、大溪、復興約 90 萬人。</p>
+
+<h3>三件事，你自己衡量</h3>
+
+<p><strong>一、確定性相對高。</strong>都市計畫變更通過、衛福部許可核發、預算編列到位。以公共建設而言，該過的關它都過了。</p>
+
+<p><strong>二、土地取得還在進行。</strong>4.8 公頃約九成是公有地，其餘一成為私有土地，持分人將近 600 位。市府說明這一段作業約需一到兩年，目標 2028 年底完成，完成後才能進入動工階段。</p>
+
+<p><strong>三、圖上的公園，未來是醫院。</strong>建商文宣把霄裡公園列在周邊綠地裡，那在製作當下是事實；但都市計畫變更已經通過，<strong>買房子看的是未來，那塊地未來的用途要先算進去。</strong></p>
+
+<div class="cal">
+<p><strong>時間差是這個案子的核心。</strong>交屋在 2027 年，醫院動工在 2029 年、營運在 2033 年。中間那幾年，隔壁是一塊 4.8 公頃的施工基地——這是要先知道的事。</p>
+<p>換個角度看，也代表<strong>現在進場的價格，還沒有把 2033 年的機能算進去。</strong>願意等的人，時間就是條件。</p>
+</div>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-hospital-mrt-g29.webp" alt="桃園市立醫院與捷運綠線G29站相對位置示意" loading="lazy" decoding="async"><figcaption class="wp-element-caption">醫院與 G29 站相對位置（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h2>四、產品規劃</h2>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-site-plan-1f.webp" alt="吉富璞苑1F全區平面配置圖－含私設通路與各戶一樓車庫位置" loading="lazy" decoding="async"><figcaption class="wp-element-caption">1F 全區平面配置（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h3>76 坪，實際是怎麼用的</h3>
+
+<p>以主力的 A 戶為例，銷售面積約 76 到 77 坪，土地持分約 28 坪，面寬約 485 公分、深度約 1,025 公分。</p>
+
+<div class="kv"><div class="r"><k>1F</k><v>車庫（可停 2 台）・玄關・電梯・衛浴</v></div><div class="r"><k>2F</k><v>客廳・餐廳・廚房・陽台</v></div><div class="r"><k>3F</k><v>主臥（含衛浴）・起居書房區</v></div><div class="r"><k>4F</k><v>兩間臥室・衛浴・露台</v></div><div class="r"><k>屋突層</k><v>樓梯間・電梯・屋頂平台</v></div></div>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-unit-a.webp" alt="吉富璞苑A戶傢俱配置參考圖－銷售面積約76至77坪、土地持分約28坪，一樓車庫可停兩台車" loading="lazy" decoding="async"><figcaption class="wp-element-caption">A 戶傢俱配置參考圖，1F 車庫可停兩台車（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<p><strong>透天的坪數要分兩件事看：權狀多少，以及居住空間在哪幾層。</strong>這個案子一樓規劃為車庫，居住機能從二樓開始，加上屋突層的屋頂平台，垂直分佈在四個層面上。</p>
+
+<p>我不在這裡替你換算「實際幾坪」，因為家配圖的尺寸標註是局部的，硬換算容易失真。<strong>現場請建商提供權狀面積分配表</strong>，看清楚各層各佔多少、露台與屋突如何計算——這張表建議在簽約前一定要看到。</p>
+
+<h3>垂直生活，是這類產品的特性</h3>
+
+<p>面寬約 4.85 公尺、深度約 10.25 公尺，每一層是窄而長的格局，動線單純。二樓要容納客廳、餐廳、廚房三個機能，建議到現場實際站一次，圖面的比例感跟身體的感受是兩回事。</p>
+
+<p>三房的配置是主臥在三樓、次臥在四樓，客廳在二樓。<strong>好處是每個世代都有自己的樓層，隱私與作息互不干擾</strong>，這也是很多人選透天的原因；相對的，家人分處不同樓層，生活節奏跟平面式的大樓不一樣。本案每戶配有專屬電梯，上下樓的負擔比傳統透天輕很多，長輩同住也比較從容。</p>
+
+<p>登記格局上，三房產品為 3 房 2 廳 5 衛、四房產品為 4 房 2 廳 6 衛——<strong>每一層都有衛浴，早上不用排隊，客人來訪也不必進臥室。</strong></p>
+
+<h3>三種戶型</h3>
+
+<div class="kv"><div class="r"><k>A 戶（主力 A1–A25）</k><v>約 76／77 坪・地坪 28 坪</v></div><div class="r"><k>B 戶（B1、B2）</k><v>約 75.67 坪・地坪 28 坪</v></div><div class="r"><k>D 戶（D1）</k><v>約 72.83 坪・含後院 2.5 坪</v></div></div>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-unit-b.webp" alt="吉富璞苑B戶傢俱配置參考圖－銷售面積約75.67坪、土地持分約28坪" loading="lazy" decoding="async"></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-unit-d.webp" alt="吉富璞苑D戶傢俱配置參考圖－銷售面積約72.83坪，另有後院約2.5坪" loading="lazy" decoding="async"><figcaption class="wp-element-caption">B 戶與 D 戶傢俱配置參考圖（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<p>另有 C1、C2、E1 戶與 4 房約 89 坪的產品，銷售文宣未附獨立家配圖，現場可單獨索取。</p>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-plan-2f.webp" alt="吉富璞苑2F全區平面配置圖－客廳餐廳廚房層" loading="lazy" decoding="async"></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-plan-3f.webp" alt="吉富璞苑3F全區平面配置圖－主臥層" loading="lazy" decoding="async"></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-plan-4f.webp" alt="吉富璞苑4F全區平面配置圖－次臥層" loading="lazy" decoding="async"></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-plan-roof.webp" alt="吉富璞苑屋突層平面配置圖－屋頂平台" loading="lazy" decoding="async"><figcaption class="wp-element-caption">2F／3F／4F／屋突層全區平面（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h2>五、建材與設備</h2>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-materials.webp" alt="吉富璞苑建材設備品牌總覽－STOSA廚具、KOHLER衛浴、櫻花電梯、安固麗氣密窗" loading="lazy" decoding="async"><figcaption class="wp-element-caption">建材設備品牌總覽（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<p>透天沒有華麗公設可以講，錢會花在每天摸得到的地方。這個案子的配置如下：</p>
+
+<div class="mat">
+<div class="m"><span class="bn">廚具系統</span><span class="bu">義大利 STOSA，具 100% Made in Italy 原產地認證</span></div>
+<div class="m"><span class="bn">廚房三機</span><span class="bu">Rinnai 排油煙機、玻璃雙口爐、嵌門式烘碗機</span></div>
+<div class="m"><span class="bn">檯面</span><span class="bu">LG 人造石，耐磨、可打磨修復</span></div>
+<div class="m"><span class="bn">衛浴・五金</span><span class="bu">美國 KOHLER，主臥配全自動電腦馬桶與恆溫龍頭</span></div>
+<div class="m"><span class="bn">電梯</span><span class="bu">台灣櫻花，每戶自有</span></div>
+<div class="m"><span class="bn">磁磚</span><span class="bu">台灣三洋，客餐廳 80×80</span></div>
+<div class="m"><span class="bn">木地板</span><span class="bu">比利時原裝進口超耐磨</span></div>
+<div class="m"><span class="bn">氣密窗</span><span class="bu">台灣安固麗，2024 台灣精品門窗</span></div>
+<div class="m"><span class="bn">綠能</span><span class="bu">太陽能與儲能電池管線預留</span></div>
+</div>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-stosa-kitchen.webp" alt="吉富璞苑廚具－義大利STOSA系統廚具與Rinnai三機、LG人造石檯面" loading="lazy" decoding="async"></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-kohler-bathroom.webp" alt="吉富璞苑衛浴－美國KOHLER全套衛浴設備，主臥含全自動電腦馬桶" loading="lazy" decoding="async"><figcaption class="wp-element-caption">STOSA 廚具與 KOHLER 衛浴（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<p><strong>整體來看，這個總價帶該有的水準都到位了</strong>，台、日、義、美的一線品牌組合，屬於誠意型的配置。有三個地方，看的時候留意一下就好：</p>
+
+<p><strong>文宣上標示的市售價，是廠商的建議售價</strong>，用意是讓你對配置的等級有概念。實際的價值仍以品項與型號為準，參考就好。</p>
+
+<p><strong>太陽能與儲能的部分寫的是「管線預留」</strong>，意思是線路先幫你留好，未來要安裝比較方便，設備本身另計。這是加分的設計。</p>
+
+<p><strong>真正具有效力的是買賣契約後附的「建材設備表」</strong>，那份會載明品牌與型號，也是契約的一部分。簽約前逐項核對，尤其確認型號——同一個品牌會有不同等級的產品線。</p>
+
+<div class="cal">
+<p><strong>現場可以問的幾題</strong>：氣密窗的 CNS 水密性、氣密性、抗風壓、隔音各是幾級？浴室防水做到多高、有沒有做蓄水試驗？木地板耐磨等級？電梯保養費怎麼計算？</p>
+</div>
+
+<h2>六、價格與付款</h2>
+
+<p>開價 39 到 40 萬／坪，總價 2,900 到 3,200 萬。</p>
+
+<p>依內政部實價登錄（各平台彙整，2026 年 8 月），本案已揭露的成交約 10 筆，<strong>成交均價約 36.4 萬／坪</strong>，總價區間 2,690 萬到 3,376 萬。</p>
+
+<div class="cal">
+<p>查詢時可以留意一下：實價登錄上有「吉富<strong>璞</strong>苑」與「吉富<strong>樸</strong>苑」兩種寫法，<strong>兩者的建照號碼與基地位置相同，是同一個案子</strong>。正確的寫法是「璞」。查資料時兩個都看一下，才不會只看到一半。</p>
+</div>
+
+<p class="note">※ 上述為已揭露成交的統計，不是保證，也不代表現在買得到這個數字。價格會隨銷況、戶別、條件變動，實際以現場價目表與正式簽約為準。</p>
+
+<h3>付款流程</h3>
+
+<p>以總價 2,900 萬概估，付款的節奏大致是這樣：</p>
+
+<div>
+<div class="bar"><div class="s1">自備款 25%<b>約 725 萬</b></div><div class="s2">銀行貸款 75%<b>約 2,175 萬</b></div></div>
+<div class="paylist">
+<div><em>訂金</em><b>10 萬</b><i>先卡位</i></div>
+<div><em>簽約</em><b>12%</b><i>約 348 萬</i></div>
+<div><em>工程期</em><b>8%</b><i>約 232 萬</i></div>
+<div><em>交屋款</em><b>5%</b><i>約 145 萬</i></div>
+</div>
+</div>
+
+<p><strong>自備款合計約 25%，也就是 725 萬左右。</strong>工程期的部分依結構完成、外飾完成、使照取得分期繳納。</p>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-payment.webp" alt="吉富璞苑付款方式－訂金10萬、簽約12%、銀行貸款75%，自備款合計25%" loading="lazy" decoding="async"><figcaption class="wp-element-caption">付款方式（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h3>2027 年交屋：等待期短，是這個案子的特點</h3>
+
+<p>一般預售屋從簽約到交屋常要三到五年，這個案子 2027 年第三季完工，時程明顯短很多。</p>
+
+<p><strong>對很多人來說，這正是選它的理由。</strong>買預售屋最怕的就是等太久——中間房市怎麼走、利率怎麼變、家裡人口有沒有變化，變數都跟著時間放大。時程短，等於變數少，也代表你比較快能真正住進去。</p>
+
+<p>相對的，自備款的到位節奏也會比較集中。<strong>不過會看這個總價帶的客群，本身多半已經有相當的資金規劃</strong>，換屋族用既有房產的處分價金銜接、或本來就備妥現金的情況都很常見。<strong>重點不是「來不來得及」，而是把時間點跟你自己的資金安排對起來。</strong></p>
+
+<p>貸款的部分，付款辦法規劃的成數是七成五，實際核貸仍由銀行依個人條件與該筆房地的鑑價審核。<strong>建議在簽約前先找往來銀行做一次初步評估</strong>，把數字確認清楚再進場，會比較踏實。</p>
+<div class="cw-tool">
+<p class="tt">免費工具</p>
+<h3>先算清楚自備款與每月房貸</h3>
+<p class="d">輸入總價與自備款成數，一次算出各期要準備多少、交屋後每月要繳多少。<br>看得懂數字，才知道這個總價帶適不適合自己。</p>
+<a class="tbtn" href="https://math.cathome.tw/" target="_blank" rel="noopener">開始試算</a>
+</div>
+
+<div class="cal">
+<p>另外提醒一點：依現行平均地權條例，預售屋原則上禁止換約轉售。<strong>這個產品適合的是自住，不是短期進出。</strong></p>
+</div>
+
+<h2>七、未來性：分兩堆看</h2>
+
+<div class="two">
+<div ><h4>現在就有，可以驗證</h4><ul>
+<li>忠貞市場、龍東路商圈，採買機能完整</li>
+<li>全聯龍東店，步行約 592 公尺</li>
+<li>龍江公園、龍安運動公園，步行可到</li>
+<li>滇緬泰飲食聚落、龍岡米干節</li>
+<li>霄裡國小約 592 公尺</li>
+<li>國道三號大溪交流道約 6.2 公里</li>
+<li>結構體已完成，看得到實體</li>
+</ul></div>
+<div ><h4>還在路上，看時程</h4><ul>
+<li>桃園市立醫院（2033 年營運）</li>
+<li>捷運綠線 G29 站（2031 年通車）</li>
+<li>醫院周邊機能，隨醫院落成而生</li>
+<li>八德擴大重劃區後續開發</li>
+</ul></div>
+</div>
+
+<p><strong>買預售屋，自備款買到的是左邊那一堆。右邊是加分題，不是必考題。</strong></p>
+
+<h3>兩條時間線</h3>
+
+<div class="tl">
+<div class="on"><b>2027 Q3</b>交屋入住</div>
+<div><b>2029 初</b>市立醫院動工</div>
+<div><b>2031</b>捷運綠線延伸中壢通車</div>
+<div><b>2032 底</b>市立醫院完工</div>
+<div><b>2033</b>市立醫院營運</div>
+</div>
+
+<p>入住後的前幾年，是這一帶的建設期。等這兩項到位，生活圈的樣貌會跟現在不同。</p>
+
+<p>這兩件事的確定性都比一般的規劃案高——都市計畫過了、中央核定了、預算編了。<strong>但「確定會發生」跟「什麼時候發生」是兩件事，進場前要把時間算進去。</strong></p>
+
+<h2>八、誰適合，誰再想一下</h2>
+
+<div class="two">
+<div ><h4>適合</h4><ul>
+<li>已住在龍岡、忠貞一帶，想從公寓換透天的家庭</li>
+<li>三代同堂、需要垂直分層，每一代一層</li>
+<li>兩台車以上的家庭，一樓車庫停得下</li>
+<li>希望縮短等待、盡快交屋的人</li>
+<li>打算長期自住、願意等生活圈成形</li>
+<li>重視醫療可近性的家庭</li>
+</ul></div>
+<div ><h4>建議再想一下</h4><ul>
+<li>只打算住三到五年——醫院與捷運需要時間</li>
+<li>需要大眾運輸通勤——目前以開車為主</li>
+<li>希望買在中壢行政區——這裡門牌屬八德</li>
+<li>想短期轉手——預售屋禁止換約轉售</li>
+<li>對施工期環境敏感——鄰地未來有醫院工程</li>
+<li>偏好平面式生活動線——這是四層垂直格局</li>
+</ul></div>
+</div>
+
+<h2>九、常見問題</h2>
+
+<h3>Q1：吉富璞苑在中壢還是八德？</h3>
+<p>行政區屬八德區，生活圈在龍岡。戶籍、稅籍、區公所在八德，日常採買、商圈則靠龍岡這一側。兩件事都成立，先知道就不會有落差。</p>
+
+<h3>Q2：實價登錄查不到，或只查到幾筆？</h3>
+<p>登錄上有「吉富<strong>璞</strong>苑」與「吉富<strong>樸</strong>苑」兩種寫法，建照號碼與基地位置相同，是同一個案子。兩個都查，資料才完整。</p>
+
+<h3>Q3：開價 39 到 40 萬會不會太高？</h3>
+<p>已揭露成交均價約 36.4 萬／坪。透天與大樓的計算基礎不同（透天幾乎沒有公設、含土地持分），單價不能直接互比，建議以總價對應到手坪數與土地持分來衡量。</p>
+
+<h3>Q4：農業區建地目是什麼？可以買嗎？</h3>
+<p>可以。這是指土地在都市計畫上屬農業區、地目為「建」，本來就能合法建築。本案有正式建照、由建築師設計、營造廠施工，完工後會取得使用執照並辦理產權登記。桃園八德、龍潭、平鎮一帶有不少這類土地興建的透天，市場流通正常。</p>
+
+<h3>Q5：訂金 10 萬就能買嗎？</h3>
+<p>訂金是卡位，自備款合計約 25%（以 2,900 萬計約 725 萬），依簽約、工程期、交屋分階段繳納，其餘七成五為銀行貸款。實際金額以現場價目表為準。</p>
+
+<h3>Q6：76 坪是不是很大？</h3>
+<p>一樓規劃為車庫，居住空間從二樓到屋突層。面寬約 4.85 公尺，是窄長型的垂直格局。現場請索取權狀面積分配表，確認各層坪數與露台、屋突的計算方式。</p>
+
+<h3>Q7：市立醫院確定會蓋嗎？</h3>
+<p>都市計畫變更已於 2026 年 8 月 4 日經內政部都委會通過，衛福部設立許可亦已取得，市府編列約 91.4 億元。土地取得預計 2028 年底完成，2029 年動工、2033 年營運。</p>
+
+<h3>Q8：有管理嗎？垃圾怎麼處理？</h3>
+<p>依公寓大廈管理條例，完工後會成立管理委員會，本案規劃有管理室。社區設有垃圾處理區，不需要追垃圾車。管理費與規約內容以現場說明及正式文件為準。</p>
+
+<h3>Q9：這個案子好不好轉手？</h3>
+<p>預售屋現行禁止換約轉售，交屋前沒有轉手空間。就產品本身而言，總價近三千萬的透天，買方族群相對集中，<strong>比較適合自住需求，而不是短期價差。</strong></p>
+
+<h3>Q10：現在去看得到什麼？</h3>
+<p>結構體已完成，現場可以實際感受棟距、面寬與採光；接待會館在平鎮區中正五路 37 號，備有模型與建材展示。</p>
+
+<h2>十、總評</h2>
+
+<div class="kv"><div class="r"><k>地點</k><v>龍岡生活圈・八德行政區</v></div><div class="r"><k>產品</k><v>76–89 坪四層電梯別墅</v></div><div class="r"><k>特色</k><v>每戶專屬電梯・一樓雙車庫</v></div><div class="r"><k>機能</k><v>採買、公園步行可達</v></div><div class="r"><k>建材</k><v>台日義美一線品牌</v></div><div class="r"><k>時程</k><v>2027 Q3 交屋，等待期短</v></div><div class="r"><k>未來性</k><v>醫院 2033・捷運 2031</v></div><div class="r"><k>適合</k><v>長期自住、三代同堂</v></div></div>
+
+<p><strong>最強的地方</strong>：位置。137 公尺外未來是一座區域醫院，一帶還有捷運 G29 站，而且都不是紙上規劃——都市計畫過了、許可拿了、預算編了。加上採買與綠地都在步行範圍，<strong>現在住得舒服，往後還有加分。</strong></p>
+
+<p><strong>要衡量的地方</strong>：時間。醫院與捷運分別要到 2033 年與 2031 年，中間有一段建設期。這個產品適合的是打算長住的人，把時間放進來一起算。</p>
+
+<div class="cal">
+<p><strong>一句話</strong>：這是一個「先買到生活，再等到機能」的案子。</p>
+<p>想長住、需要垂直空間跟一整棟自己的房子——它站得住腳。只打算住三五年、或一定要買在中壢行政區——那可以再看看別的。</p>
+</div>
+
+<h2>十一、有問題直接問我</h2>
+
+<p>看完還有疑問，或想去現場但不知道怎麼問——</p>
+
+<ul>
+<li><strong>想實際去看</strong>：我陪你去，該確認的我幫你問到底</li>
+<li><strong>想先算清楚</strong>：<a href="https://math.cathome.tw/">購屋能力試算</a>，或直接打給我，我幫你算</li>
+<li><strong>想比一比</strong>：八德、龍岡這一帶還有哪些選擇，我一起帶你看</li>
+<li><strong>算完發現不適合</strong>：我會直接跟你講，不會硬推</li>
+</ul>
+
+<p><strong>📞 0925-842-111</strong>（中壢專業房仲喵爸）</p>
+
+<h2>附錄：圖庫</h2>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-longgang-life.webp" alt="龍岡生活圈介紹－忠貞市場、龍岡圓環、忠貞新村商圈" loading="lazy" decoding="async"><figcaption class="wp-element-caption">龍岡生活圈（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-yunnan-culture.webp" alt="龍岡滇緬泰文化聚落－米干、雲南料理與龍岡米干節" loading="lazy" decoding="async"><figcaption class="wp-element-caption">龍岡滇緬泰飲食文化（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-parks.webp" alt="吉富璞苑周邊公園綠地分布－霄裡公園、龍岡萬坪公園、慈安三村公園" loading="lazy" decoding="async"><figcaption class="wp-element-caption">周邊公園綠地分布。圖中霄裡公園即市立醫院預定地，未來將變更為醫療用地（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<figure class="wp-block-image size-large"><img src="https://cathome.tw/wp-content/uploads/2026/08/jifu-puyuan-developer.webp" alt="吉富開發建設公司與團隊介紹" loading="lazy" decoding="async"><figcaption class="wp-element-caption">建設公司與團隊（圖片來源：吉富開發建設銷售文宣）</figcaption></figure>
+
+<h2>免責聲明</h2>
+
+<ul style="font-size:.9em;color:#666">
+<li><strong>本文性質</strong>：在地房仲的建案開箱與市場觀察。建案規格、坪數、建材、付款辦法等資訊均引述自建商公開之銷售資料（資料時間：2026 年 8 月），非本人所訂定。</li>
+<li>行情數據來源：內政部實價登錄（經各平台彙整），查詢時間 2026 年 8 月。各平台更新時間不同，筆數與均價略有出入，實際以內政部公告為準。</li>
+<li>建照、土地使用分區、建蔽率等資料引自公開資訊，實際以主管機關核發文件為準。</li>
+<li>重大建設進度（桃園市立醫院、捷運綠線延伸中壢）資料來源：桃園市政府、內政部、衛生福利部及公開新聞報導，查詢時間 2026 年 8 月。實際進度以主管機關公告為準。</li>
+<li>距離為地圖工具量測之路線距離，僅供參考，實際請以現場體驗為準。</li>
+<li>家配圖、平面圖均為示意圖，家具、植栽及空間配置僅供情境參考。實際格局、尺寸、設備、建材及交付內容，依買賣契約、主管機關核定圖說及現場為準。</li>
+<li>付款辦法所載貸款成數為建商規劃之付款比例，非貸款成數保證，實際核貸由承貸銀行依買方條件審核。</li>
+<li>管理組織、管理費及規約內容以現場說明及正式文件為準。</li>
+<li>價格與付款辦法為本文撰寫時之資訊，後續如有調整，一律以建設公司之官方公告、現場最新價目表、付款辦法及正式簽約文件為準。</li>
+<li>本文為市場觀察與行情分析，不構成投資建議，亦不構成要約。</li>
+</ul>
+
+<h2>延伸閱讀</h2>
+
+<ul>
+<li><a href="https://cathome.tw/neili-yuansheng-zhuoyuan/">元生琢苑開箱｜2848坪基地、常樂公園第一排</a>　內壢站前，同一套方法把規格逐條攤開</li>
+<li><a href="https://cathome.tw/zhongli-a20-jiarui-sencheng/">中壢A20建案開箱｜佳瑞森城</a>　A20 興南重劃區</li>
+<li><a href="https://math.cathome.tw/">購屋能力試算</a>　把訂簽、工程期到交屋要準備的自備款先算清楚</li>
+</ul>
+
+</div>
