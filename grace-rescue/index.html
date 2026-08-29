@@ -100,6 +100,14 @@ footer{margin-top:28px;font-size:14px;color:#8A94A0;line-height:1.7;text-align:c
 .case details summary{cursor:pointer;font-size:15px;font-weight:700;color:var(--gold-text);margin-top:8px;list-style:none;}
 .case details summary::before{content:"＋ ";}
 .case details[open] summary::before{content:"－ ";}
+
+/* 案例內 CTA（2026-08-29 加：完整版導個人FB＋LINE） */
+.ccta{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.ccta a{display:block;text-align:center;text-decoration:none;border-radius:12px;padding:13px 12px;font-weight:900;font-size:16px;line-height:1.4}
+.ccta .fbx{background:#fff;color:#1877F2;border:2px solid #1877F2}
+.ccta .lnx{background:#06C755;color:#fff}
+.ccta a:active{transform:scale(.985)}
+.byline{font-size:14px;color:#6B7885;margin-top:4px;line-height:1.5}
 </style>
 <!-- SEO-ENTITY:v1 START -->
 <link rel="canonical" href="https://pack.cathome.tw/grace-rescue/">
@@ -120,6 +128,7 @@ footer{margin-top:28px;font-size:14px;color:#8A94A0;line-height:1.7;text-align:c
 <div class="wrap">
   <header>
     <div class="brand">中壢專業房仲喵爸｜寬限期自救包</div>
+    <div class="byline">黃舶瑋・不動產經紀人員｜服務中壢、平鎮、內壢、龍岡</div>
     <h1>寬限期到期前<br>該做的三件事</h1>
     <p class="lead">月付要跳 2 倍之前，你其實有很多牌可以打<br>這份自救包，把每張牌攤給你看</p>
     <div class="hero">
@@ -163,62 +172,16 @@ footer{margin-top:28px;font-size:14px;color:#8A94A0;line-height:1.7;text-align:c
     <p class="why">合作夥伴經手的真實個案，已去識別化。不是「借到多少錢」的故事，是「健檢之後，多出多少選擇」的故事</p>
 
     <div class="case">
-      <div class="ph"><img src="img/case1.jpg" alt="老屋門口塞滿通知的信箱" loading="lazy"></div>
-      <div class="bd">
-        <span class="tag">案例一｜保住房・看產權</span>
-        <h3>7 萬多的罰單，查封了一間房——一家人還住在裡面，沒人知道</h3>
-        <p>台南，房子在媽媽名下。弟弟長期負債，媽媽最怕自己走了以後房子被弟弟的債捲進去。夥伴幫他們做資產活化，<b>第一步不是借錢，是把房子攤開檢查一次</b>——流程跑到一半，銀行來電：「這間房子已經被查封了。」</p>
-        <details><summary>看完整經過</summary>
-          <p>查下去，兩個星期前就進入查封程序，全家沒人知道。原因是弟弟開媽媽名下的車，闖紅燈、違停、停車費未繳，罰鍰累積 7 萬多；媽媽戶籍還在老家，一張通知都沒收到，直接進強制執行。好在及早發現，款項與程序處理完，房子保下來，產權也重新安排好，弟弟再出狀況也影響不到這間房。</p>
-        </details>
-        <div class="pt">👉 資產活化的第 1 關是看產權。這一家人第 1 關就查出一張查封——房子沒事是感覺，謄本才是事實。</div>
-      </div>
-    </div>
-
-    <div class="case">
-      <div class="ph"><img src="img/case2.jpg" alt="桌上的鑰匙、文件與計算機" loading="lazy"></div>
-      <div class="bd">
-        <span class="tag">案例二｜煞車・重新規劃</span>
-        <h3>她差點用房子借 1,600 萬去投資，一個月後那家公司的司法案件上了新聞</h3>
-        <p>30 出頭、下個月結婚、婚後要備孕的女生，房子是媽媽 5 年逐年贈與來的。她聽完講座想貸 1,600 萬全部投進一家投資公司。夥伴多問一句「錢要用在哪」，<b>沒幫她辦貸款，反而踩了煞車</b>——最後她沒投，整份規劃重新調過。不到一個月，那家公司的司法案件爆發。</p>
-        <details><summary>看完整經過</summary>
-          <p>當時那家公司什麼事都還沒發生，她非常信任。夥伴反覆提醒三件事：合法嗎、有沒有主管機關監管、資金安全怎麼保，建議優先看受監理的金融商品。如果當初貸款順利，她會背著 1,600 萬房貸看著錢全部進去，結婚、休養、備孕的安排一起被拖下去。她後來重新做完規劃，現在已順利結婚，照原本安排在家備孕。</p>
-        </details>
-        <div class="pt">👉 資產活化做對了，不是幫她借到 1,600 萬，是先把她擋下來、再重新規劃。借之前有沒有人幫忙煞車，才決定會不會出事。</div>
-      </div>
-    </div>
-
-
-    <div class="case">
-      <div class="ph"><img src="img/case3.jpg" alt="夜裡的計程車駕駛座" loading="lazy"></div>
-      <div class="bd">
-        <span class="tag">案例三｜多領・退休現金流</span>
-        <h3>名下快 2,000 萬的房子，他卻在開計程車</h3>
-        <p>55 歲上校退伍，終身俸穩定，台南精華地段一間房，房貸只剩 300 萬。一輩子最怕欠銀行錢，積蓄全拿去還房貸。<b>退休後 18% 優惠存款調整、孩子還在念書</b>，現金流一緊，他跑去開計程車補家用。</p>
-        <details><summary>看完整經過</summary><p>夥伴花很長時間陪他重新理解「資產」：拚命還掉的房貸、漲上去的房價，全停在房子裡，沒有回來照顧生活。後來把退休收入、房屋價值、貸款、家庭開銷、風險保障與傳承一層一層排進規劃——不是單純借錢，每一層都先把風險算進去。完成後每月多出約 5 萬現金流，不用再開計程車，一家人重新能一起旅行、吃飯。</p></details>
-        <div class="pt">👉 資產累積的目的，不只是把房子變成自己的——是不工作的那天，資產能反過來照顧自己。</div>
-      </div>
-    </div>
-
-    <div class="case">
-      <div class="ph"><img src="img/case4.jpg" alt="打烊後的美容工作室與帳單" loading="lazy"></div>
-      <div class="bd">
-        <span class="tag">案例四｜少繳・家人接手</span>
-        <h3>每個月還 8 萬，還到夫妻談離婚</h3>
-        <p>美容師創業開工作室，裝潢超支、周轉金沒抓夠，跟融資公司借了約 200 萬，<b>每月光還款就要 8 萬多</b>。兩個小孩、先生收入不高，夫妻天天為錢吵，一度談到離婚。</p>
-        <details><summary>看完整經過</summary><p>夥伴把狀況攤開整理後，去跟公公好好談了一次。公公願意用自己的房子協助，重新安排後月還款從 8 萬多降到約 1 萬，每月少掉 7 萬多的支出；公公自己的生活不受影響，還多出退休零用金。債還是要慢慢還，但家的狀態完全不一樣，現在一家 4 口能一起出遊。</p></details>
-        <div class="pt">👉 很多家庭不是沒資源，是資源放在不同人的房子裡——攤開來看，才知道誰能接住誰。</div>
-      </div>
-    </div>
-
-
-    <div class="case">
       <div class="ph"><img src="img/case5.jpg" alt="黃昏中的透天厝" loading="lazy"></div>
       <div class="bd">
-        <span class="tag">案例五｜繼承房・被銀行拒絕後</span>
+        <span class="tag">案例一｜繼承房・被銀行拒絕後</span>
         <h3>她們連家都不敢回，最後接住這個家的是爸爸留下的那棟透天</h3>
         <p>爸爸過世後留下一棟透天，媽媽退休、女兒在一樓開美甲工作室。女兒離婚後前夫不斷騷擾，母女帶著孩子搬出去租房——<b>店開不了、收入停了，房租、生活費、律師費一筆都沒停</b>。媽媽拿房子跑了 3 間銀行想貸款，被拒絕 3 次：「退休了、沒有收入證明，沒辦法承作。」</p>
         <details><summary>看完整經過</summary><p>夥伴看完資料只說一句：「這房子不是不能貸，是條件沒有被整理過。」重新整理收入呈現、需求金額與談的對象後，順利媒合到願意承作的銀行，讓這棟動不了的房子變出一筆資金。這筆錢分成兩份：一份做穩健安排，成為母女每個月的生活現金流；一份特別留下來，是把官司打完要用的律師費。</p></details>
+        <div class="ccta">
+          <a class="fbx" href="https://www.facebook.com/share/p/1E91Zc9GXQ/" target="_blank" rel="noopener">📖 看喵爸寫的完整版（我的臉書）</a>
+          <a class="lnx" href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">你家的狀況也像嗎？LINE 問喵爸</a>
+        </div>
         <div class="pt">👉 被銀行拒絕，很多時候不是房子不行，是條件沒有被好好整理過。</div>
       </div>
     </div>
@@ -306,7 +269,73 @@ footer{margin-top:28px;font-size:14px;color:#8A94A0;line-height:1.7;text-align:c
         <div class="b yes"><span class="tag">知道且有增值</span><b>→ 做房產健檢</b>增值的部分是選擇權：換屋、調整、或留著——先確認真實行情再決定</div>
         <div class="b no"><span class="tag">不知道</span><b>→ 先做行情評估</b>免費、用實價登錄逐筆比對，知道市值才有資格做上面任何決定</div>
       </div>
+    </div><div class="case">
+      <div class="ph"><img src="img/case3.jpg" alt="夜裡的計程車駕駛座" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">案例二｜多領・退休現金流</span>
+        <h3>名下快 2,000 萬的房子，他卻在開計程車</h3>
+        <p>55 歲上校退伍，終身俸穩定，台南精華地段一間房，房貸只剩 300 萬。一輩子最怕欠銀行錢，積蓄全拿去還房貸。<b>退休後 18% 優惠存款調整、孩子還在念書</b>，現金流一緊，他跑去開計程車補家用。</p>
+        <details><summary>看完整經過</summary><p>夥伴花很長時間陪他重新理解「資產」：拚命還掉的房貸、漲上去的房價，全停在房子裡，沒有回來照顧生活。後來把退休收入、房屋價值、貸款、家庭開銷、風險保障與傳承一層一層排進規劃——不是單純借錢，每一層都先把風險算進去。完成後每月多出約 5 萬現金流，不用再開計程車，一家人重新能一起旅行、吃飯。</p></details>
+        <div class="ccta">
+          <a class="fbx" href="https://www.facebook.com/share/p/1L6iUdcuqf/" target="_blank" rel="noopener">📖 看喵爸寫的完整版（我的臉書）</a>
+          <a class="lnx" href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">你家的狀況也像嗎？LINE 問喵爸</a>
+        </div>
+        <div class="pt">👉 資產累積的目的，不只是把房子變成自己的——是不工作的那天，資產能反過來照顧自己。</div>
+      </div>
+    </div><div class="case">
+      <div class="ph"><img src="img/case1.jpg" alt="老屋門口塞滿通知的信箱" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">案例三｜保住房・看產權</span>
+        <h3>7 萬多的罰單，查封了一間房——一家人還住在裡面，沒人知道</h3>
+        <p>台南，房子在媽媽名下。弟弟長期負債，媽媽最怕自己走了以後房子被弟弟的債捲進去。夥伴幫他們做資產活化，<b>第一步不是借錢，是把房子攤開檢查一次</b>——流程跑到一半，銀行來電：「這間房子已經被查封了。」</p>
+        <details><summary>看完整經過</summary>
+          <p>查下去，兩個星期前就進入查封程序，全家沒人知道。原因是弟弟開媽媽名下的車，闖紅燈、違停、停車費未繳，罰鍰累積 7 萬多；媽媽戶籍還在老家，一張通知都沒收到，直接進強制執行。好在及早發現，款項與程序處理完，房子保下來，產權也重新安排好，弟弟再出狀況也影響不到這間房。</p>
+        </details>
+        <div class="ccta">
+          <a class="fbx" href="https://www.facebook.com/share/p/14kpqrPLD1u/" target="_blank" rel="noopener">📖 看喵爸寫的完整版（我的臉書）</a>
+          <a class="lnx" href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">你家的狀況也像嗎？LINE 問喵爸</a>
+        </div>
+        <div class="pt">👉 資產活化的第 1 關是看產權。這一家人第 1 關就查出一張查封——房子沒事是感覺，謄本才是事實。</div>
+      </div>
+    </div><div class="case">
+      <div class="ph"><img src="img/case4.jpg" alt="打烊後的美容工作室與帳單" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">案例四｜少繳・家人接手</span>
+        <h3>每個月還 8 萬，還到夫妻談離婚</h3>
+        <p>美容師創業開工作室，裝潢超支、周轉金沒抓夠，跟融資公司借了約 200 萬，<b>每月光還款就要 8 萬多</b>。兩個小孩、先生收入不高，夫妻天天為錢吵，一度談到離婚。</p>
+        <details><summary>看完整經過</summary><p>夥伴把狀況攤開整理後，去跟公公好好談了一次。公公願意用自己的房子協助，重新安排後月還款從 8 萬多降到約 1 萬，每月少掉 7 萬多的支出；公公自己的生活不受影響，還多出退休零用金。債還是要慢慢還，但家的狀態完全不一樣，現在一家 4 口能一起出遊。</p></details>
+        <div class="ccta">
+          <a class="fbx" href="https://www.facebook.com/share/p/1Bz8VG8HTw/" target="_blank" rel="noopener">📖 看喵爸寫的完整版（我的臉書）</a>
+          <a class="lnx" href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">你家的狀況也像嗎？LINE 問喵爸</a>
+        </div>
+        <div class="pt">👉 很多家庭不是沒資源，是資源放在不同人的房子裡——攤開來看，才知道誰能接住誰。</div>
+      </div>
+    </div><div class="case">
+      <div class="ph"><img src="img/case2.jpg" alt="桌上的鑰匙、文件與計算機" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">案例五｜煞車・重新規劃</span>
+        <h3>她差點用房子借 1,600 萬去投資，一個月後那家公司的司法案件上了新聞</h3>
+        <p>30 出頭、下個月結婚、婚後要備孕的女生，房子是媽媽 5 年逐年贈與來的。她聽完講座想貸 1,600 萬全部投進一家投資公司。夥伴多問一句「錢要用在哪」，<b>沒幫她辦貸款，反而踩了煞車</b>——最後她沒投，整份規劃重新調過。不到一個月，那家公司的司法案件爆發。</p>
+        <details><summary>看完整經過</summary>
+          <p>當時那家公司什麼事都還沒發生，她非常信任。夥伴反覆提醒三件事：合法嗎、有沒有主管機關監管、資金安全怎麼保，建議優先看受監理的金融商品。如果當初貸款順利，她會背著 1,600 萬房貸看著錢全部進去，結婚、休養、備孕的安排一起被拖下去。她後來重新做完規劃，現在已順利結婚，照原本安排在家備孕。</p>
+        </details>
+        <div class="ccta">
+          <a class="fbx" href="https://www.facebook.com/share/p/1DHFrPjFxR/" target="_blank" rel="noopener">📖 看喵爸寫的完整版（我的臉書）</a>
+          <a class="lnx" href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">你家的狀況也像嗎？LINE 問喵爸</a>
+        </div>
+        <div class="pt">👉 資產活化做對了，不是幫她借到 1,600 萬，是先把她擋下來、再重新規劃。借之前有沒有人幫忙煞車，才決定會不會出事。</div>
+      </div>
     </div>
+
+    
+
+
+    
+
+    
+
+
+    
   </section>
 
   <div class="cta">
