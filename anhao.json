@@ -507,6 +507,19 @@
       "reply": null,
       "reply_approved": null,
       "reply_draft": "自查表在這，六件事對一遍就知道自己過不過：https://pack.cathome.tw/chonggou/ 最多人不知道的是第 4 條，退到手之後那間房子還被列管 5 年"
+    },
+    {
+      "key": "自查",
+      "type": "deliver",
+      "topic": "重購退稅自查表",
+      "promise": "重購退稅自查表",
+      "asset": "https://pack.cathome.tw/chonggou/",
+      "status": "ready",
+      "verified": "2026-09-01",
+      "reply": null,
+      "reply_approved": null,
+      "reply_draft": "自查表在這，六件事對一遍就知道自己過不過：https://pack.cathome.tw/chonggou/ 最多人不知道的是第 4 條，退到手之後那間房子還被列管 5 年",
+      "note": "與「重購」同一份資產，用於分流 FB 長文帶來的名單"
     }
   ]
 }
