@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重購退稅自查表 · 中壢專業房仲 喵爸</title>
+<meta name="description" content="換屋前先自己對一遍：2 年期限、戶籍與實際居住、國稅局實際查什麼，還有最多人不知道的重購後 5 年列管。">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4; color: #2C2A26; line-height: 1.75; -webkit-font-smoothing: antialiased; font-size: 16px; }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 120px; }
+  .brand-header { text-align: center; padding: 16px 0 28px; border-bottom: 2px solid #FCE4E1; margin-bottom: 28px; }
+  .brand-header .brand-logo { width: 72px; height: 72px; display: block; margin: 0 auto 10px; }
+  .brand-header .brand-name { font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px; }
+  .brand-header .brand-name .accent { color: #D9342B; }
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 { font-size: 32px; font-weight: 800; color: #2C2A26; line-height: 1.3; margin-bottom: 14px; }
+  .header h1 .highlight { background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%); padding: 0 4px; }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+  .hero { margin: 0 auto 28px; display:block; width:100%; max-width:420px; }
+  .intro { background: #FFF; border-left: 5px solid #D9342B; padding: 20px 22px; margin-bottom: 36px;
+    border-radius: 6px; font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card { background: #FFF; border-radius: 14px; padding: 28px 24px 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); position:relative; }
+  .point-icon { position:absolute; top:22px; right:20px; width:38px; height:38px; opacity:.9; }
+  .point-number { font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1; letter-spacing: -1px;
+    margin-bottom: 8px; font-family: "Helvetica Neue", "Arial", sans-serif; }
+  .point-number-bar { display: block; width: 36px; height: 3px; background: #D9342B; margin-bottom: 16px; border-radius: 2px; }
+  .point-title { font-size: 20px; font-weight: 700; color: #2C2A26; margin-bottom: 12px; line-height: 1.4; padding-right:46px; }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example { margin-top: 14px; padding: 14px 16px; background: #FFF5E0; border-radius: 10px;
+    font-size: 15px; color: #6B5230; border-left: 3px solid #F5B946; }
+  .point-example::before { content: "F4A1 "; }
+  .checkrow { display:flex; gap:12px; align-items:flex-start; padding:13px 0; border-bottom:1px dashed #EDE7DC; }
+  .checkrow:last-child { border-bottom:none; }
+  .checkbox { flex:none; width:22px; height:22px; border:2px solid #D9342B; border-radius:6px; margin-top:3px; }
+  .checkrow .t { font-size:15.5px; line-height:1.6; }
+  .checkrow .t b { display:block; color:#2C2A26; font-weight:700; margin-bottom:2px; }
+  .checkrow .t span { color:#6B6660; font-size:14.5px; }
+  .conclusion { background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%); color: #FAF8F4; padding: 28px 24px;
+    border-radius: 14px; text-align: center; font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .conclusion .accent { color: #FFD06A; }
+  .cta-section { margin-bottom: 36px; }
+  .community-cta { background: linear-gradient(135deg, #D9342B 0%, #B89968 100%); color: #FFF; padding: 32px 24px;
+    border-radius: 18px; text-align: center; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2); }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button { display: inline-block; background: #FFF; color: #2C2A26; padding: 14px 32px;
+    border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .card-cta { background: #FFF; border: 2px solid #2C2A26; color: #2C2A26; padding: 26px 24px; border-radius: 18px; text-align: center; }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button { display: inline-block; background: #2C2A26; color: #FFF; padding: 13px 30px;
+    border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 15px; }
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85; }
+  .brand-footer .footer-name { font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px; }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+  .floating-actions { position: fixed; right: 16px; bottom: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+  .floating-actions a { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none; transition: transform 0.2s; }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+</head>
+<body>
+<div class="container">
+<div class="brand-header"><img src="https://pack.cathome.tw/assets/logo.png" srcset="https://pack.cathome.tw/assets/logo@2x.png 2x" alt="中壢專業房仲喵爸" class="brand-logo"><div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div></div>
+<div class="header"><h1>重購退稅<span class="highlight">自查表</span></h1><p class="subtitle">換屋前先自己對一遍，別等國稅局來對。</p></div>
+<svg class="hero" viewBox="0 0 420 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="退稅那筆錢被列管五年">
+<rect x="14" y="66" width="122" height="94" rx="10" fill="#FFF" stroke="#E3DACB" stroke-width="2"/>
+<path d="M75 30 L142 74 H8 Z" fill="#D9342B" opacity=".9"/>
+<rect x="42" y="96" width="26" height="26" rx="4" fill="#FFE5A0"/>
+<rect x="84" y="96" width="26" height="26" rx="4" fill="#FFE5A0"/>
+<rect x="62" y="132" width="26" height="28" rx="3" fill="#B89968"/>
+<path d="M152 108 h48" stroke="#B89968" stroke-width="3" stroke-dasharray="7 6" stroke-linecap="round"/>
+<path d="M196 101 l10 7 -10 7z" fill="#B89968"/>
+<rect x="214" y="52" width="192" height="118" rx="12" fill="#FFF" stroke="#E3DACB" stroke-width="2"/>
+<rect x="214" y="52" width="192" height="30" rx="12" fill="#2C2A26"/>
+<rect x="214" y="70" width="192" height="12" fill="#2C2A26"/>
+<circle cx="246" cy="46" r="5" fill="#2C2A26"/><circle cx="374" cy="46" r="5" fill="#2C2A26"/>
+<text x="310" y="74" font-size="15" font-weight="700" fill="#FFD06A" text-anchor="middle" font-family="Helvetica,Arial,sans-serif">5 YEARS</text>
+<text x="310" y="128" font-size="42" font-weight="900" fill="#D9342B" text-anchor="middle" font-family="Helvetica,Arial,sans-serif">5</text>
+<text x="310" y="152" font-size="14" font-weight="700" fill="#6B6660" text-anchor="middle">年內不賣不租不借</text>
+</svg><div class="intro">大部分人問的是「要住多久才能賣」。這題其實沒有答案，因為法條上一天都沒有寫。真正會讓你退不成、或退了又被追回去的，是下面這六件事。先用這張表把自己的狀況對過一遍，再去談價格。</div>
+<div class="points"><div class="point-card"><svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 L10 6 L14 14 L20 6"/><circle cx="4" cy="18" r="1.6" fill="#D9342B"/><circle cx="20" cy="6" r="1.6" fill="#D9342B"/></svg><div class="point-number">01</div><span class="point-number-bar"></span><div class="point-title">先看你是哪一種，路不一樣</div><div class="point-body">重購退稅有兩條路，<strong>先買後賣</strong>跟<strong>先賣後買</strong>都可以，法條不管你誰先誰後。它只管一件事：舊房子跟新房子的<strong>移轉登記日期，中間不能超過 2 年</strong>。<ul><li>已經賣掉舊屋了，那就從完成移轉登記那天起算，2 年內要買回來。</li><li>新房子先買了才要賣舊的，一樣抓 2 年，只是方向反過來。</li><li>兩邊都還沒動，那你現在最有籌碼，時間可以自己排。</li></ul><div class="point-example">先確認你手上這兩個日期，再往下看。日期對不上，後面做再多都沒有用。</div></div></div><div class="point-card"><svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 10l2.5 2.5L16 7"/><path d="M8 16h6"/></svg><div class="point-number">02</div><span class="point-number-bar"></span><div class="point-title">四個門檻，缺一個就退不成</div><div class="point-body">這四項是同時要成立的，不是四選三。先拿你的情況一項一項對。<div class="checkrow"><div class="checkbox"></div><div class="t"><b>移轉登記日期差在 2 年以內</b><span>以地政完成移轉登記的日期為準，不是簽約日，也不是交屋日。</span></div></div><div class="checkrow"><div class="checkbox"></div><div class="t"><b>舊房子跟新房子都辦了戶籍</b><span>本人、配偶或未成年子女其中一個人設籍就算，但兩邊都要有。</span></div></div><div class="checkrow"><div class="checkbox"></div><div class="t"><b>兩邊都是真的住過，不是只有戶籍</b><span>這一項最多人卡住，第 3 點會講國稅局實際怎麼看。</span></div></div><div class="checkrow"><div class="checkbox"></div><div class="t"><b>兩邊都沒有出租、沒有供營業或執行業務使用</b><span>登記在那裡做網拍、做工作室，都算踩到。</span></div></div><div class="point-example">還有一項要先問清楚：出售與重購的登記名義人是不是同一人或配偶。這點各案認定不同，簽約前先問地政士或直接打國稅局確認。</div></div></div><div class="point-card"><svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></svg><div class="point-number">03</div><span class="point-number-bar"></span><div class="point-title">法條沒寫要住幾個月，所以國稅局改看軌跡</div><div class="point-body">很多人以為住 3 個月不夠、住 1 年才安全。<strong>法條上根本沒有這個天數</strong>，一天都沒寫。正因為沒有天數可以躲，國稅局就改用你的生活痕跡來認定。<ul><li>水電度數：整段持有期間低到不像有人住，這是最常被抓的一項。</li><li>戶籍遷入的時間點：簽約要賣了才遷進去，會被特別看。</li><li>信件、帳單寄到哪一個地址。</li><li>就醫紀錄、加油與 ETC 的行駛路線、日常消費刷在哪一區。</li></ul><div class="point-example">今天就能做的一件事：把水電單、瓦斯單、繳費紀錄全部收進同一個資料夾。被查的那一天，那疊單據是唯一能替你講話的東西。</div></div></div><div class="point-card"><svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><div class="point-number">04</div><span class="point-number-bar"></span><div class="point-title">退到手不是結束，是 5 年列管的開始</div><div class="point-body">這是整份自查表最貴的一條，因為它發生在退稅<strong>之後</strong>，那時候大家都以為事情辦完了。重購的那間房子，<strong>自重購後 5 年內改作其他用途或再行移轉，會被追繳原本退還的稅額</strong>。講白話就是這 5 年裡面三件事不能做：<ul><li>不賣：再行移轉就會被追回去。</li><li>不租：出租就是改作其他用途。</li><li>不借給人設籍做生意：供營業或執行業務使用，一樣踩到。</li></ul><div style="margin-top:16px;background:#FDF6EE;border-radius:12px;padding:16px 16px 14px;">
+<div style="font-size:13.5px;color:#8A7F70;margin-bottom:10px;">北區國稅局公布的案子，時間軸攤開來看</div>
+<div style="display:flex;align-items:flex-end;gap:8px;height:74px;">
+<div style="flex:1;text-align:center;"><div style="background:#B89968;height:46px;border-radius:5px 5px 0 0;"></div><div style="font-size:11.5px;color:#6B6660;margin-top:5px;line-height:1.35;">110/06<br>賣舊屋<br>繳 108 萬</div></div>
+<div style="flex:1;text-align:center;"><div style="background:#7FA86B;height:66px;border-radius:5px 5px 0 0;"></div><div style="font-size:11.5px;color:#6B6660;margin-top:5px;line-height:1.35;">111/09<br>買新屋<br>退回 108 萬</div></div>
+<div style="flex:1;text-align:center;"><div style="background:#D9342B;height:22px;border-radius:5px 5px 0 0;"></div><div style="font-size:11.5px;color:#D9342B;font-weight:700;margin-top:5px;line-height:1.35;">113/03<br>賣新屋<br>全數追繳</div></div>
+</div>
+<div style="margin-top:12px;padding-top:11px;border-top:1px dashed #E3DACB;font-size:14px;color:#2C2A26;">
+從退到手到被追回去，中間只隔了 <strong style="color:#D9342B;">1 年半</strong>。列管期是 <strong style="color:#D9342B;">5 年</strong>，他差了 3 年半。</div></div></div></div><div class="point-card"><svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16"/><path d="M6 8h12"/><path d="M6 8l-3 6h6z"/><path d="M18 8l-3 6h6z"/></svg><div class="point-number">05</div><span class="point-number-bar"></span><div class="point-title">退多少不是全有全無，看你換大還換小</div><div class="point-body">很多人以為只要條件過就是全額退，其實看的是新房子跟舊房子的價格關係。<ul><li><strong>換大屋</strong>，也就是重購價格高於或等於出售價格，可以就已繳稅額全額退還或扣抵。</li><li><strong>換小屋</strong>，重購價格比較低，就按重購價占出售價的比例退。</li></ul><div class="point-example">實際能退多少要看你這一案的原始取得成本、費用與持有年限，一句話算不出來。把兩張契約的金額備好，直接問國稅局或地政士，答案最準。</div></div></div><div class="point-card"><svg class="point-icon" viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 5h11l-2 3 2 3H5"/></svg><div class="point-number">06</div><span class="point-number-bar"></span><div class="point-title">今天就做的三件事</div><div class="point-body"><ul><li><strong>把兩個日期寫下來</strong>：舊屋移轉登記日、新屋移轉登記日，確認差距在 2 年內。</li><li><strong>開一個資料夾收單據</strong>：水電、瓦斯、管理費、繳費紀錄，兩邊房子都收。</li><li><strong>設一個 5 年提醒</strong>：退稅核准那天往後推 5 年，記進手機行事曆，備註寫「這間，5 年內不賣、不租、不借」。</li></ul><div class="point-example">這三件事花不到 20 分鐘，但它擋掉的是一筆可能上百萬的追繳。</div></div></div></div>
+<div class="conclusion">退稅那筆錢<span class="accent">不是退你，是先借你 5 年</span>。<br>能不能留下來，看的不是你算得多精，是你有沒有把證據留著。</div>
+<div class="cta-section"><div class="community-cta"><h3>不確定自己過不過？</h3><p>這張表只能幫你避開常見的坑。每一案的日期、名義人、持有情況都不一樣，差一項結果就翻盤。<br>把你的情況直接丟給我，我把該查的查完再跟你講結果，不用先講你要不要買。</p><a href="https://line.me/R/ti/p/@056ohivi" class="cta-button" target="_blank" rel="noopener">加 LINE 問喵爸 →</a></div><div class="card-cta"><h3>自己先玩玩看</h3><p style="font-size:14px;line-height:1.6;margin:0 0 16px;opacity:.78">房貸試算、青安資格、學區地圖、垃圾車時間，十幾個工具不用註冊</p><a href="https://tools.cathome.tw" class="cta-button" target="_blank" rel="noopener">免費工具箱 →</a></div></div>
+<div class="brand-footer"><img src="https://pack.cathome.tw/assets/logo.png" srcset="https://pack.cathome.tw/assets/logo@2x.png 2x" alt="中壢專業房仲喵爸" class="footer-logo"><div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div><div class="footer-date">2026.09.01</div><div style="font-size:11.5px;color:#B5AC9E;margin-top:10px;line-height:1.6;">本頁依所得稅法第 14 條之 8 及財政部公開資料整理，實際認定以國稅局核定為準</div></div>
+</div>
+<div class="floating-actions"><a href="https://line.me/R/ti/p/@056ohivi" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a><a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a></div>
+</body>
+</html>
