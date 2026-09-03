@@ -152,7 +152,7 @@
     <input id="search" type="text" placeholder="搜尋技能、觸發詞、用途…（例：爆款、估價、選題）" autocomplete="off">
     <span class="clear" id="clear">✕</span>
   </div>
-  <div class="stat">自訂技能 <b id="count">—</b> 支 ・ 分 <b id="catcount">—</b> 類 ・ 另有系統內建 65（見最後一區）</div>
+  <div class="stat">自訂技能 <b id="count">—</b> 支 ・ 分 <b id="catcount">—</b> 類 ・ 外接連接器 <b id="conncount">—</b> 個 ・ 另有系統內建 65（見最後一區）</div>
   <nav class="nav" id="nav"></nav>
 </header>
 
@@ -163,7 +163,7 @@
   中壢專業房仲喵爸<br>
   系統內建 Word / PDF / PPT / Excel 處理不需觸發詞，需要時自動啟用<br>
   ⚠️ <b>jifu-photos</b>（下 591 照片）與 <b>property-dm</b>（DM 海報）不在表上——它們沒有 SKILL.md，是 Node 程式不是技能，喊了不會動<br>
-  更新日：2026.08.21
+  更新日：2026.09.04
 </footer>
 
 <div class="toast" id="toast">已複製 ✓</div>
@@ -175,6 +175,7 @@ const DATA = [
     {name:"內容產線總指揮", code:"meowdad-content-line", pkg:1, desc:"一個觸發詞跑完「選題／素材 → 蟬師選題重構 → 寫稿 → 文體量表自檢 → 軍師 Theo ＋蟬師 280 人雙審 → 寫回 Notion」整條鏈。它不自己寫稿，負責路由到下面的引擎。", flag:"寫內容想不到要喊哪支，就喊這支。", trigs:["跑產線","內容產線","一條龍","幫我寫一篇 FB","幫我寫一支短影音","把這個做成內容"]},
     {name:"Q寶 · 行銷團隊營運長", code:"qbao", pkg:1, desc:"行銷任務的唯一入口。任務派發、進度追蹤、跨角色協作，會自動叫 Leon／Jack／Maya／Iris／Theo 出場。", flag:"🔴 所有對外行銷的東西都從這裡進，不要自己做完就上。", trigs:["/qbao","Q寶","hello Q寶","叫Q寶","策略分析","我接下來該做什麼"]},
     {name:"Nora 營運長（Q寶本體）", code:"hello-nora", pkg:1, desc:"跟 Q寶 是同一套，對學員示範時才用 Nora 這個名字。也負責團隊更新。", trigs:["/hello-nora","更新團隊","team update","行銷健診"]},
+    {name:"定位表產線引擎", code:"ip-content-engine", pkg:1, desc:"從 Supabase 的 A–H 定位表當燃料，產出「帶 basis／stance／hook_mechanism 的結構化選題」→ 四步寫稿鏈 → 可直接開拍的口播稿，強制補齊三件套（標題／hashtag／第一則留言含暗號／縮圖字），最後寫回 Supabase 與 Notion。", flag:"跟上面那支的分工：那支是路由總指揮（熱點／拆稿／FB），這支是「定位表 → 選題 → 稿 → 三件套 → 入庫」的主幹。沒主題時喊這支。", trigs:["產題","出選題","今天寫什麼","跑產線引擎","用定位表寫一篇","選題庫還有什麼","哪個鉤子最會爆"]},
   ]},
 
   {cat:"📝 FB 爆款貼文", id:"c2", skills:[
@@ -197,6 +198,7 @@ const DATA = [
     {name:"去 AI 味", code:"humanizer-zh-tw", pkg:1, desc:"偵測並修掉 AI 寫作特徵：誇大象徵、宣傳語言、模糊歸因、破折號過度、三段式法則、否定式排比、過多連接語。", flag:"🔴 只用 22 條——「對比句／三段式／金句」那 3 條不採用，那是你的文體不是 AI 味。", trigs:["去掉 AI 味","讓文字更像人寫的","洗一下這段"]},
     {name:"巡留言（三平台）", code:"comment-patrol", pkg:1, desc:"用 API 掃 Threads／FB 粉專／IG，比對誰已經被回過，算出真正還沒回的，附分類標籤（真問題／政治雷／推銷／灌水／道謝），順便拉觸及與互動數。", flag:"🔴 不能用眼睛看，「待回 0」是假的。預設掃 12 篇要改成 30 篇。", trigs:["巡留言","掃留言","誰還沒回","待回留言","留言有沒有漏"]},
     {name:"FB 數字回寫 Notion", code:"fb-stats-sync", pkg:1, desc:"開你已登入的個人 FB，抓近 7 天發布影片的觀看數，寫回 Notion「2.影片產出計畫表」的流量數欄。個人 FB 無 API，只能瀏覽器自動化。", trigs:["跑 FB 數字","更新 FB 數據","抓這週流量","FB 數據回寫"]},
+    {name:"內容測試官（測得出來嗎）", code:"content-ab-test", pkg:1, desc:"決定一支內容該怎麼測、測完怎麼判、什麼時候根本不該測。", flag:"🔴 第一件事不是幫你測，是先算「這個變數在你現在的量體下測不測得出來」——測不出來就直接講，不陪你跑一輪假實驗。", trigs:["測開頭","A/B 測試","哪個標題比較好","Trial Reels","這兩個開頭選哪個","幫我測"]},
     {name:"流量判官", code:"viral-gatekeeper", pkg:1, desc:"發布前用你自己的真實 FB 流量數據預測會不會爆。", flag:"⚠️ 已退役——審稿一律改用 Theo 軍師。", dead:true, trigs:[]},
   ]},
 
@@ -290,6 +292,8 @@ const DATA = [
     {name:"用量說明", code:"explain-usage", pkg:2, desc:"這次對話的 token 花去哪，一張圖白話講。", trigs:["解釋用量","token 花去哪"]},
     {name:"學習日記 / 早晨簡報", code:"journal ／ morning", n:2, pkg:"1／2", desc:"每天 5 個問題回顧當天學習與工作，自動產 Markdown 日記並追蹤待辦；morning 是把晨間簡報渲染成 HTML。", trigs:["寫日記","今天結束了","復盤一下","/morning"]},
     {name:"Office / PDF 檔案處理", code:"docx ／ pptx ／ xlsx ／ pdf", n:4, pkg:2, desc:"讀、改、產 Word / PowerPoint / Excel / PDF。", flag:"不需要觸發詞——只要對話裡出現這幾種檔案就會自動啟用。", trigs:[]},
+    {name:"Discord 頻道路由", code:"discord-inbox", pkg:1, desc:"手機在外面丟東西進 Discord 各頻道時的路由規則：哪個頻道收到什麼要做什麼、寫到哪、回什麼。", flag:"🔴 不用喊——從 Discord 進來就自動吃這份。頻道本身就是指令（丟進 #時事 就等於說「這是素材」）。🔴 客戶個資不進 Discord，一律用代號。", trigs:[]},
+    {name:"匯入其他 AI 的記憶", code:"import-memory", pkg:2, desc:"把別的 AI 助理匯出的記憶檔匯進 Claude 的記憶，逐條確認、只加不蓋。", trigs:["匯入記憶","把別的 AI 的記憶搬過來"]},
   ]},
 
   {cat:"🧰 客戶案子 · 金流發票", id:"c13", skills:[
@@ -298,6 +302,16 @@ const DATA = [
     {name:"度哥 AI 影片提示詞", code:"duge-ad-ai-video-prompt", pkg:2, desc:"把腳本轉成 Banana Pro 出圖 + Seedance 出影片的完整 AI 提示詞包。", trigs:["AI 影片提示詞","Banana Pro 提示詞","Seedance 提示詞"]},
     {name:"EZPAY 電子發票", code:"ezpay-invoice", pkg:2, desc:"ezPay 電子發票 API 完整串接指引：開立/作廢/折讓/查詢/載具。", trigs:["電子發票","ezPay","發票 API","載具","手機條碼"]},
     {name:"藍新金流", code:"newebpay-integration", pkg:2, desc:"NewebPay 金流串接：MPG 收款、定期定額、查詢、退款。", trigs:["藍新金流","NewebPay","金流串接","信用卡付款"]},
+  ]},
+
+  {cat:"🔌 外接連接器（不是技能・不用觸發詞）", id:"c14", skills:[
+    {name:"Meta 廣告數據", code:"連接器：mcp.facebook.com/ads", pkg:0, desc:"問廣告花多少、哪支素材最貴、同業在投什麼、你的數字跟房仲業平均比如何。60 個唯讀工具全開，直接講人話問就好。", flag:"🔴 2026-09-04 接上。建廣告／建活動／改預算／上傳素材已在 Claude 端設成 Blocked＝只能看不能花。要判斷「加碼還是暫停」是 Jack 的活，喊「寶寶」進去。", trigs:["我廣告花多少","哪支 CPM 最貴","同業在投什麼廣告","我的數字跟同業比如何","查廣告資料庫"]},
+    {name:"Google 搜尋成效（GSC）", code:"連接器：gsc", pkg:0, desc:"官網／懶人包的搜尋曝光、點擊、平均排名，還有哪些關鍵字快擠進前十。", flag:"🔴 sitemap 一律用 WP 內建 wp-sitemap.xml，絕不開 RankMath 的 Sitemap 模組（開了官網從 45 篇掉到 10 篇，犯過兩次）。", trigs:["撈 GSC","官網搜尋成效","哪些關鍵字快進前十","這篇有沒有被收錄"]},
+    {name:"Notion 資料庫", code:"連接器：notion", pkg:0, desc:"影片產出計畫表、FB 文案資料庫、選題雷達、素材收集箱、CRM、自動化清單、吉富廣告池——全部讀得到也寫得回去。", trigs:["查 Notion","寫進影片表","素材箱裡有什麼","這個月排了幾支"]},
+    {name:"Google 日曆", code:"連接器：google-calendar", pkg:0, desc:"查行程、排程、改期、找空檔。", flag:"🔴 我排的一律進副日曆「🤖 AI 排程」，主日曆只放你自己打的。查排程要記得撈副日曆，只撈主日曆會以為什麼都沒排。", trigs:["這週有什麼","幫我排","改到下週","今天要做什麼"]},
+    {name:"Google 地圖 · 距離", code:"連接器：google-maps", pkg:0, desc:"物件到周邊的真實路網距離與時間（走路／騎車），不是直線距離。", flag:"🔴 影片文案只講公尺不講分鐘——講分鐘＝廣告不實會出事。", trigs:["離火車站多遠","走路要幾分鐘","周邊有什麼"]},
+    {name:"YouTube 數據 · 逐字稿", code:"連接器：youtube-data ／ youtube-transcript", pkg:0, desc:"抓影片數據、頻道熱門排行、任何影片的逐字稿。拆別人的爆款用得到。", trigs:["這支影片的逐字稿","這個頻道最紅的幾支","比較這兩支影片"]},
+    {name:"網頁爬取 · 深度搜尋", code:"連接器：firecrawl", pkg:0, desc:"抓網頁全文、整站掃描、跑深度研究。時事查證、競品拆解用這個。", trigs:["幫我查","這篇文章寫什麼","掃一下這個網站"]},
   ]},
 ];
 
@@ -331,7 +345,7 @@ function render(){
       ${c.skills.map(s=>`
         <div class="card" data-search="${esc((s.name+' '+s.code+' '+s.desc+' '+(s.flag||'')+' '+s.trigs.join(' ')).toLowerCase())}">
           <div class="card-top">
-            <div class="name">${s.name}<span class="pkg">${s.pkg===1?'自建':s.pkg===2?'課程':'包 '+s.pkg}</span></div>
+            <div class="name">${s.name}<span class="pkg">${s.pkg===0?'連接器':s.pkg===1?'自建':s.pkg===2?'課程':'包 '+s.pkg}</span></div>
             <div class="code">${esc(s.code)}</div>
           </div>
           <div class="desc">${s.desc}</div>
@@ -357,9 +371,12 @@ function render(){
   nav.innerHTML = DATA.map(c=>`<a href="#${c.id}">${c.cat.replace(/^\S+\s/,'')}</a>`).join('')
     + `<a href="#sys0">系統內建</a>`;
 
-  const total = DATA.reduce((a,c)=>a+c.skills.reduce((x,s)=>x+(s.n||1),0),0);
+  const isConn = s => s.pkg === 0;
+  const total = DATA.reduce((a,c)=>a+c.skills.reduce((x,s)=>x+(isConn(s)?0:(s.n||1)),0),0);
+  const conns = DATA.reduce((a,c)=>a+c.skills.filter(isConn).length,0);
   document.getElementById('count').textContent = total;
-  document.getElementById('catcount').textContent = DATA.length;
+  document.getElementById('catcount').textContent = DATA.filter(c=>c.skills.some(s=>!isConn(s))).length;
+  document.getElementById('conncount').textContent = conns;
   bindCopy();
 }
 
