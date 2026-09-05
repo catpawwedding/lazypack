@@ -1,0 +1,23 @@
+# 官網 cathome.tw 的 WP-Cron 喚醒器：每 5 分鐘 GET wp-cron.php，讓 WordPress 的排程事件準時跑
+# （WP-Cron 只靠訪客觸發，低流量時段會延遲，Site Health 曾顯示「排程事件已延遲」。
+#   主機是廠商租的沒有 SSH，Vercel 免費方案只准每日排程，所以放這個公開 repo 用 Actions 跑。）
+name: wp-cron-ping
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wp-cron-ping
+  cancel-in-progress: false
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping wp-cron.php
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -m 60 -A 'lazypack wp-cron-ping/1.0' "https://cathome.tw/wp-cron.php?doing_wp_cron&t=$(date +%s)")
+          echo "HTTP $code"
+          case "$code" in 200|204|301|302) exit 0;; *) echo "::warning::wp-cron.php returned $code"; exit 0;; esac
