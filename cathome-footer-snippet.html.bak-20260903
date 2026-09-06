@@ -1,0 +1,41 @@
+<style>
+  .ct-footer{display:none!important}
+  .cwf{--navy:#13314f;--line:#e7ecf1;font-family:'Noto Sans TC',system-ui,sans-serif}
+  .cwf *{box-sizing:border-box;margin:0;padding:0}
+  .cwf .wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+  .cwf .ft{background:var(--navy);color:#c2d0de;padding:56px 0 26px;font-size:16px;line-height:1.75}
+  .cwf .ft .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .cwf .ft h5{color:#fff;font-size:17.5px;font-weight:700;margin-bottom:14px}
+  .cwf .ft a{color:#cdd9e6;text-decoration:none}
+  .cwf .ft a:hover{color:#fff}
+  .cwf .ft ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .cwf .ft p{color:#c2d0de}
+  .cwf .ft .legal{padding-top:22px;color:#90a6bc;font-size:14.5px;line-height:1.9}
+  .cwf .foot-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .cwf .foot-logo img{height:44px;background:#fff;border-radius:8px;padding:4px}
+  @media(max-width:900px){.cwf .ft .cols{grid-template-columns:1fr;gap:24px}}
+</style>
+
+<div class="cwf" id="cwInjFooter"><div class="ft"><div class="wrap">
+  <div class="cols">
+    <div>
+      <div class="foot-logo"><img src="https://cathome.tw/wp-content/uploads/2024/12/%E5%96%B5%E7%88%B8LOGO.png" alt=""><strong style="color:#fff;font-size:18.5px">中壢專業房仲喵爸</strong></div>
+      <p>提供不動產專業資訊與時事，讓買房賣房公開透明，服務買方與賣方。心存善念、堅持努力。</p>
+    </div>
+    <div><h5>服務項目</h5><ul>
+      <li>買房、賣房諮詢</li><li>各項稅費估算</li><li>行情評估</li><li>屋況與貸款評估</li>
+    </ul></div>
+    <div><h5>聯繫喵爸</h5><ul>
+      <li>📞 <a href="tel:0925842111">0925-842-111</a></li>
+      <li>LINE 官方帳號：<a href="https://line.me/R/ti/p/@056ohivi" target="_blank">加好友免費問房</a></li>
+      <li>LINE 找喵爸本人：<a href="https://line.me/ti/p/M-tek5DmH6" target="_blank">anttow</a></li>
+      <li><a href="https://www.facebook.com/cathomev/" target="_blank">Facebook 粉絲團</a></li>
+      <li>社群：桃園房產問喵爸</li>
+    </ul></div>
+  </div>
+  <div class="legal">
+    中壢專業房仲喵爸 © 2026 All Rights Reserved.<br>
+    有巢氏房屋 園區龍慈吉富加盟店　|　經紀業：吉富億隆有限公司　|　經紀人：丁玲玲 桃市經字第000108號
+  </div>
+</div></div></div>
+<script>document.addEventListener('DOMContentLoaded',function(){try{var fs=document.querySelectorAll('.cwf .ft, .cw .ft');if(fs.length>1){var i=document.getElementById('cwInjFooter');if(i)i.remove();}}catch(e){}});</script>
