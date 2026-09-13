@@ -36,6 +36,7 @@
   #summary { font-size: 14px; line-height: 1.9; }
   #summary .warn { color: #b45309; font-weight: 700; }
   #summary .ok { color: #15803d; font-weight: 700; }
+  #summary .info { color: #1d4ed8; }
   details { margin-top: 14px; font-size: 14px; }
   summary { cursor: pointer; font-weight: 700; color: #1F4E79; }
   details ol { margin: 10px 0 4px 22px; line-height: 2; }
@@ -106,7 +107,28 @@ const CATS = [
 const ORDER = CATS.concat(["精選物件"]);
 const norm = s => String(s ?? "").replace(/[\s（）()]/g, "");
 const CAT_MAP = Object.fromEntries(CATS.map(c => [norm(c), c]));
-const SKIP = new Set(["自行插入", "連結", "業務", "精選物件"].map(norm));
+const SKIP = new Set(["自行插入", "連結", "業務"].map(norm));
+
+// 分類標題容錯：各店標題常打漏字（例：「電梯華廈4房案件」少了「含以上」），不整句比對，改認關鍵字。順序有意義：「公寓」要先於「套房」
+const CAT_KEYS = [
+  [/精選/, "精選物件"],
+  [/公寓/, CATS[6]],
+  [/透天|別墅|店面/, CATS[0]],
+  [/土地|廠房|商辦/, CATS[1]],
+  [/[4-9]房|四房|五房/, CATS[5]],
+  [/3房|三房/, CATS[4]],
+  [/2房|二房|兩房/, CATS[3]],
+  [/套房|1房|一房/, CATS[2]],
+];
+function catFromTitle(nb) {
+  if (CAT_MAP[nb]) return CAT_MAP[nb];
+  for (const [re, cat] of CAT_KEYS) if (re.test(nb)) return cat;
+  return null;
+}
+// 標題列的三種長相：B 欄整句就是分類名／C 欄寫「業務」或 D 欄寫「連結」（範本欄名，且 D 沒真的掛超連結）／B 含「案件」且整列沒業務沒連結
+function isHeaderRow(nb, agent, dText, link) {
+  return !!CAT_MAP[nb] || norm(agent) === "業務" || (norm(dText) === "連結" && !link) || (!agent && !link && /案件/.test(nb));
+}
 
 let files = []; // {name, storeName, buffer}
 
@@ -118,10 +140,27 @@ dropEl.ondragleave = () => dropEl.classList.remove("over");
 dropEl.ondrop = e => { e.preventDefault(); dropEl.classList.remove("over"); addFiles(e.dataTransfer.files); };
 fileIn.onchange = () => { addFiles(fileIn.files); fileIn.value = ""; };
 
+// 店名推斷：先去掉「早會報案件」字樣，再剝掉各種日期寫法（0914／9-14／9.14／2026-09-14／9月14日），最後清空白符號
 function storeName(fname) {
   let base = fname.replace(/\.xlsx$/i, "");
-  base = base.replace(/早會報?案件?|報案件?|\d{3,8}|[\s_-]+/g, "");
+  base = base
+    .replace(/早會報?案件?|報案件?/g, "")
+    .replace(/[(（]\d+[)）]/g, "")
+    .replace(/\d{4}[-./年]\d{1,2}[-./月]\d{1,2}日?/g, "")
+    .replace(/(?<!\d)\d{1,2}[-./月]\d{1,2}日?(?!\d)/g, "")
+    .replace(/\d{3,8}/g, "")
+    .replace(/[\s_\-()（）]+/g, "");
   return base || fname;
+}
+
+// 日期代號：完整日期（2026-09-14）→ 8 位數（20260914）→ 4 位數（0914）→ 「9-14／9.14／9/14／9月14日」補成 0914
+function dateFromName(names) {
+  const pad = x => x.padStart(2, "0");
+  for (const n of names) { const m = n.match(/\d{4}[-./年](\d{1,2})[-./月](\d{1,2})/); if (m) return pad(m[1]) + pad(m[2]); }
+  for (const n of names) { const m = n.match(/(?<!\d)\d{4}(\d{4})(?!\d)/); if (m) return m[1]; }
+  for (const n of names) { const m = n.match(/(?<!\d)(\d{4})(?!\d)/); if (m) return m[1]; }
+  for (const n of names) { const m = n.match(/(?<!\d)(\d{1,2})[-./月](\d{1,2})日?(?!\d)/); if (m) return pad(m[1]) + pad(m[2]); }
+  return "";
 }
 
 async function addFiles(list) {
@@ -143,7 +182,7 @@ function renderList() {
       `<td><span class="del" onclick="files.splice(${i},1);renderList()">✕</span></td></tr>`).join("") + `</table>`;
   document.getElementById("goBtn").disabled = false;
   const d = document.getElementById("dateIn");
-  if (!d.value) { const m = files[0].name.match(/(\d{4})/); if (m) d.value = m[1]; }
+  if (!d.value) { const dd = dateFromName(files.map(f => f.name)); if (dd) d.value = dd; }
 }
 
 // ---- 讀檔用 SheetJS（容錯高：店檔常有重疊合併儲存格，ExcelJS 讀不動）----
@@ -161,7 +200,7 @@ function shLink(ws, r, c) {
 function shRange(ws) { return ws["!ref"] ? XLSX.utils.decode_range(ws["!ref"]) : null; }
 
 function parseWorkbook(wb, store) {
-  const items = [], pts = [];
+  const items = [], pts = [], fixes = [], unknown = [];
   const wsNew = wb.Sheets["新進物件"];
   if (wsNew && shRange(wsNew)) {
     let cur = null;
@@ -170,9 +209,17 @@ function parseWorkbook(wb, store) {
       const b = shText(wsNew, r, 1);
       if (!b) continue;
       const nb = norm(b);
-      if (CAT_MAP[nb]) { cur = CAT_MAP[nb]; continue; }
-      if (SKIP.has(nb) || !cur) continue;
-      items.push({ store, cat: cur, name: b, agent: shText(wsNew, r, 2), link: shLink(wsNew, r, 3) });
+      if (SKIP.has(nb)) continue;
+      const agent = shText(wsNew, r, 2), link = shLink(wsNew, r, 3);
+      if (isHeaderRow(nb, agent, shText(wsNew, r, 3), link)) {
+        const cat = catFromTitle(nb);
+        if (cat && norm(cat) !== nb) fixes.push(`${store}「${b}」→ 歸入「${cat}」`);
+        if (!cat) unknown.push(`${store}「${b}」`);
+        cur = cat || b; // 認不出關鍵字就用原標題自成一類，不丟資料
+        continue;
+      }
+      if (!cur) continue;
+      items.push({ store, cat: cur, name: b, agent, link });
     }
   }
   const wsSel = wb.Sheets["精選物件"];
@@ -180,8 +227,11 @@ function parseWorkbook(wb, store) {
     const end = shRange(wsSel).e.r;
     for (let r = 1; r <= end; r++) {
       const b = shText(wsSel, r, 1);
-      if (!b || SKIP.has(norm(b))) continue;
-      items.push({ store, cat: "精選物件", name: b, agent: shText(wsSel, r, 2), link: shLink(wsSel, r, 3) });
+      if (!b) continue;
+      const nb = norm(b);
+      const agent = shText(wsSel, r, 2), link = shLink(wsSel, r, 3);
+      if (SKIP.has(nb) || isHeaderRow(nb, agent, shText(wsSel, r, 3), link)) continue;
+      items.push({ store, cat: "精選物件", name: b, agent, link });
     }
   }
   // 商圈點數（工作表名含「商圈」；認表頭文字對欄位）
@@ -212,7 +262,7 @@ function parseWorkbook(wb, store) {
       }
     }
   }
-  return { items, pts };
+  return { items, pts, fixes, unknown };
 }
 
 const JH = "Microsoft JhengHei";
@@ -318,15 +368,18 @@ document.getElementById("goBtn").onclick = async () => {
   btn.disabled = true; btn.textContent = "彙整中…";
   try {
     const date = document.getElementById("dateIn").value.trim() || "本週";
-    let allItems = [], allPts = [];
+    let allItems = [], allPts = [], allFixes = [], allUnknown = [];
     const storeOrder = files.map(f => f.storeName);
     for (const f of files) {
       const wb = XLSX.read(f.buffer, { type: "array" });
-      const { items, pts } = parseWorkbook(wb, f.storeName);
+      const { items, pts, fixes, unknown } = parseWorkbook(wb, f.storeName);
       allItems = allItems.concat(items);
       allPts = allPts.concat(pts);
+      allFixes = allFixes.concat(fixes);
+      allUnknown = allUnknown.concat(unknown);
     }
-    allItems.sort((a, b) => (ORDER.indexOf(a.cat) - ORDER.indexOf(b.cat)) || (storeOrder.indexOf(a.store) - storeOrder.indexOf(b.store)));
+    const rank = c => c === "精選物件" ? 99 : (CATS.indexOf(c) >= 0 ? CATS.indexOf(c) : 50);
+    allItems.sort((a, b) => (rank(a.cat) - rank(b.cat)) || (storeOrder.indexOf(a.store) - storeOrder.indexOf(b.store)));
     const seen = new Set();
     for (const it of allItems) {
       const m = (it.link || "").match(/id=(\d+)/);
@@ -347,7 +400,8 @@ document.getElementById("goBtn").onclick = async () => {
       dls.push(dlLink(new Blob([ptsBuf],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), `${date}商圈點數.xlsx`, `${allPts.length} 筆點數`));
     }
     document.getElementById("dls").innerHTML = dls.join("");
-    const catCnt = ORDER.map(c => [c, allItems.filter(i => i.cat === c).length]).filter(x => x[1]);
+    const catsSeen = []; allItems.forEach(i => { if (!catsSeen.includes(i.cat)) catsSeen.push(i.cat); });
+    const catCnt = catsSeen.map(c => [c, allItems.filter(i => i.cat === c).length]);
     const storeCnt = {};
     allItems.forEach(i => storeCnt[i.store] = (storeCnt[i.store] || 0) + 1);
     const miss = allItems.filter(i => !i.link);
@@ -355,6 +409,8 @@ document.getElementById("goBtn").onclick = async () => {
     document.getElementById("summary").innerHTML =
       `共 <b>${files.length}</b> 店 <b>${allItems.length}</b> 筆案件、商圈點數 <b>${allPts.length}</b> 筆<br>` +
       catCnt.map(([c, n]) => `　${c}：${n} 筆`).join("<br>") + "<br>" +
+      (allFixes.length ? `<span class="info">ℹ 分類標題自動對齊 ${allFixes.length} 處：${allFixes.map(esc).join("；")}</span><br>` : "") +
+      (allUnknown.length ? `<span class="warn">⚠ 認不出的分類標題 ${allUnknown.length} 處（已自成一類，請檢查原檔）：${allUnknown.map(esc).join("；")}</span><br>` : "") +
       `各店：${Object.entries(storeCnt).map(([s, n]) => `${s} ${n}`).join("、")}<br>` +
       (miss.length ? `<span class="warn">⚠ 缺連結 ${miss.length} 筆：${miss.map(i => i.name).join("、")}</span><br>` : `<span class="ok">✔ 連結齊全</span><br>`) +
       (dups.length ? `<span class="warn">⚠ 重複連結 ${dups.length} 筆（總表黃底）：${dups.map(i => i.name).join("、")}</span>` : `<span class="ok">✔ 無重複</span>`);
