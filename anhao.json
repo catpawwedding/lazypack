@@ -29,10 +29,8 @@
       "asset": "https://pack.cathome.tw/inherit-check.html",
       "status": "ready",
       "verified": "2026-08-22",
-      "reply": "來了🙌 六題判斷表在這，勾一勾就知道你家那間該留還是該處理：\nhttps://pack.cathome.tw/inherit-check.html\n先破一個最多人搞錯的，繼承兩年內賣會被課四成五多數情況是假的，持有期間可以合併爸媽的年數\n勾完卡在哪一題，加 LINE 把地址丟給我，我調謄本幫你看實際狀況：https://line.me/R/ti/p/@056ohivi",
-      "reply_approved": "2026-08-22",
-      "reply_draft": "來了🙌 兩個都給你\n六題判斷表，勾一勾就知道你家那間該留還是該處理：\nhttps://pack.cathome.tw/inherit-check.html\n繼承分配計算機，點家裡有誰，每個人依法分多少、遺產稅繳不繳得到、現在過戶還是以後繼承差多少稅，一次算：\nhttps://tax.cathome.tw/inherit.html\n先破一個最多人搞錯的，繼承兩年內賣會被課四成五多數情況是假的，持有期間可以合併爸媽的年數\n算完卡在哪一格，加 LINE 把地址丟給我，我調謄本幫你看實際狀況：https://line.me/R/ti/p/@056ohivi",
-      "reply_draft_note": "2026-09-13 改成判斷表＋計算機一起送；Theo 已審、待喵爸核准後搬進 reply"
+      "reply": "來了🙌 兩個都給你\n六題判斷表，勾一勾就知道你家那間該留還是該處理：\nhttps://pack.cathome.tw/inherit-check.html\n繼承分配計算機，點家裡有誰，每個人依法分多少、遺產稅繳不繳得到、現在過戶還是以後繼承差多少稅，一次算：\nhttps://tax.cathome.tw/inherit.html\n先破一個最多人搞錯的，繼承兩年內賣會被課四成五多數情況是假的，持有期間可以合併爸媽的年數\n算完卡在哪一格，加 LINE 把地址丟給我，我調謄本幫你看實際狀況：https://line.me/R/ti/p/@056ohivi",
+      "reply_approved": "2026-09-13"
     },
     {
       "key": "判斷表",
@@ -531,9 +529,8 @@
       "asset": "https://tools.cathome.tw/will-draft",
       "status": "ready",
       "verified": "2026-09-13",
-      "reply": null,
-      "reply_draft": "來了🙌 遺囑樣本產生器在這，點一點家裡有誰、房子想給誰，就有一份可以照抄的自書遺囑樣本：\nhttps://tools.cathome.tw/will-draft\n最多人踩的地雷它會先幫你擋：用打字的、漏寫日期、找要分到房子的孩子當見證人\n房子那一段想先讓我看的，加 LINE 把你排的分法丟給我：https://line.me/R/ti/p/@056ohivi",
-      "reply_draft_note": "2026-09-13 新增；Theo 已審、待喵爸核准後搬進 reply"
+      "reply": "來了🙌 遺囑樣本產生器在這，點一點家裡有誰、房子想給誰，就有一份可以照抄的自書遺囑樣本：\nhttps://tools.cathome.tw/will-draft\n最多人踩的地雷它會先幫你擋：用打字的、漏寫日期、找要分到房子的孩子當見證人\n房子那一段想先讓我看的，加 LINE 把你排的分法丟給我：https://line.me/R/ti/p/@056ohivi",
+      "reply_approved": "2026-09-13"
     }
   ]
 }
