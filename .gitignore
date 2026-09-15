@@ -1,2 +1,7 @@
 __pycache__/
 *.pyc
+# 手動備份檔不上公開站（2026-09-15）
+*.bak
+*.bak-*
+*.bak.*
+_snippet-backups/
