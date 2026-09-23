@@ -1,6 +1,6 @@
 {
   "version": "2026-08-29",
-  "updated": "2026-08-31",
+  "updated": "2026-09-23",
   "note": "暗號唯一真相源。三邊共讀：寫稿 skill／本機 keyword_reply.py／雲端巡留言 routine。",
   "rules": [
     "🔴 不在這張表上、或 status != ready 的暗號，一律不准在第一則留言下——改兩行版（二選一問句＋補一刀）。",
@@ -530,6 +530,18 @@
       "verified": "2026-09-13",
       "reply": "來了🙌 遺囑樣本產生器在這，點一點家裡有誰、房子想給誰，就有一份可以照抄的自書遺囑樣本：\nhttps://tools.cathome.tw/will-draft\n最多人踩的地雷它會先幫你擋：用打字的、漏寫日期、找要分到房子的孩子當見證人\n房子那一段想先讓我看的，加 LINE 把你排的分法丟給我：https://line.me/R/ti/p/@056ohivi",
       "reply_approved": "2026-09-13"
+    },
+    {
+      "key": "烤肉",
+      "type": "deliver",
+      "topic": "中秋烤肉／社區規約",
+      "promise": "能不能烤、買多少剛好、怎麼收乾淨",
+      "asset": "https://pack.cathome.tw/bbq/",
+      "status": "ready",
+      "verified": "2026-09-23",
+      "reply": null,
+      "reply_approved": null,
+      "note": "reply 待喵爸核准；核准前機器人會跳過不回。"
     }
   ]
 }
