@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>退伍轉房仲：前 90 天作戰手冊 · 中壢專業房仲 喵爸</title>
+<meta name="description" content="給正在想「退伍後做什麼」的學長：房仲前 90 天會發生什麼、你適不適合，一次攤開給你看。">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4; color: #2C2A26; line-height: 1.75; -webkit-font-smoothing: antialiased; font-size: 16px;
+  }
+  .container { max-width: 640px; margin: 0 auto; padding: 24px 20px 120px; }
+
+  .brand-header { text-align: center; padding: 16px 0 28px; border-bottom: 2px solid #FCE4E1; margin-bottom: 32px; }
+  .brand-header .brand-logo { width: 72px; height: 72px; display: block; margin: 0 auto 10px; }
+  .brand-header .brand-name { font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px; }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 { font-size: 32px; font-weight: 800; color: #2C2A26; line-height: 1.3; margin-bottom: 14px; }
+  .header h1 .highlight { background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%); padding: 0 4px; }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  .hero { background: linear-gradient(160deg, #FFF7EC, #FCEDE6); border-radius: 18px; padding: 18px 12px 10px; margin-bottom: 28px; }
+  .hero svg { display: block; width: 100%; height: auto; max-width: 420px; margin: 0 auto; }
+
+  .who { text-align: center; margin: -14px 0 28px; font-size: 15px; color: #4A463F; }
+  .who b { color: #D9342B; }
+  .inline-cta { display: none; text-align: center; margin-top: 12px; }
+  .inline-cta.show { display: block; }
+  .inline-cta a { display: inline-block; background: #06C755; color: #FFF; padding: 12px 26px; border-radius: 999px; text-decoration: none; font-weight: 800; font-size: 15px; }
+  .intro { background: #FFF; border-left: 5px solid #D9342B; padding: 20px 22px; margin-bottom: 36px; border-radius: 6px; font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card { background: #FFF; border-radius: 14px; padding: 28px 24px 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+  .point-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .point-icon { width: 48px; height: 48px; border-radius: 12px; background: #FFF1EE; display: flex; align-items: center; justify-content: center; flex: none; }
+  .point-icon svg { width: 28px; height: 28px; }
+  .point-number { font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1; letter-spacing: -1px; margin-bottom: 8px; font-family: "Helvetica Neue", "Arial", sans-serif; }
+  .point-number-bar { display: block; width: 36px; height: 3px; background: #D9342B; margin-bottom: 16px; border-radius: 2px; }
+  .point-title { font-size: 20px; font-weight: 700; color: #2C2A26; margin-bottom: 12px; line-height: 1.4; }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example { margin-top: 14px; padding: 14px 16px; background: #FFF5E0; border-radius: 10px; font-size: 15px; color: #6B5230; border-left: 3px solid #F5B946; }
+  .point-example::before { content: "💡 "; }
+
+  /* 帶得走／要改 */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .split .col { border-radius: 10px; padding: 12px 12px 6px; font-size: 15px; }
+  .split .keep { background: #F3F7EF; }
+  .split .change { background: #FFF1EE; }
+  .split h4 { font-size: 15px; margin-bottom: 6px; }
+  .split .keep h4 { color: #4E6B3A; }
+  .split .change h4 { color: #D9342B; }
+  .split ul { margin: 0 0 0 16px; }
+  .split li { margin-bottom: 6px; line-height: 1.55; }
+
+  /* 自我檢查表 */
+  .check { list-style: none; margin: 12px 0 0 0 !important; }
+  .check li { position: relative; padding: 10px 12px 10px 44px; background: #FAF8F4; border-radius: 10px; margin-bottom: 8px; cursor: pointer; user-select: none; }
+  .check li::before { content: ""; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border: 2px solid #B89968; border-radius: 5px; background: #FFF; }
+  .check li.on { background: #FFF5E0; }
+  .check li.on::before { background: #D9342B; border-color: #D9342B; }
+  .check li.on::after { content: ""; position: absolute; left: 19px; top: 50%; width: 6px; height: 11px; border: solid #FFF; border-width: 0 3px 3px 0; transform: translateY(-65%) rotate(45deg); }
+  .score { margin-top: 10px; font-size: 15px; font-weight: 700; color: #2C2A26; text-align: center; }
+
+  /* 時間軸 */
+  .timeline { margin-top: 6px; position: relative; padding-left: 26px; }
+  .timeline::before { content: ""; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 3px; background: #F2D9C8; border-radius: 2px; }
+  .tl-item { position: relative; margin-bottom: 16px; }
+  .tl-item:last-child { margin-bottom: 0; }
+  .tl-item::before { content: ""; position: absolute; left: -24px; top: 6px; width: 15px; height: 15px; border-radius: 50%; background: #FFF; border: 3px solid #D9342B; }
+  .tl-day { font-size: 13px; font-weight: 700; color: #B89968; letter-spacing: 1px; }
+  .tl-name { font-size: 17px; font-weight: 800; color: #2C2A26; margin-bottom: 2px; }
+  .tl-text { font-size: 15px; color: #4A463F; line-height: 1.6; }
+
+  /* 四樣 */
+  .four { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .four .cell { background: #FAF8F4; border-radius: 12px; padding: 14px 12px; }
+  .four .cell b { display: block; font-size: 16px; color: #D9342B; margin-bottom: 4px; }
+  .four .cell span { font-size: 14px; color: #4A463F; line-height: 1.55; display: block; }
+
+  .recruit-cta { text-align: center; margin-top: 16px; }
+  .recruit-cta a { display: inline-block; background: #06C755; color: #FFF; padding: 14px 30px; border-radius: 999px; text-decoration: none; font-weight: 800; font-size: 16px; box-shadow: 0 4px 12px rgba(6,199,85,0.25); }
+  .recruit-cta small { display: block; font-size: 13px; color: #6B6660; margin-top: 8px; }
+
+  .conclusion { background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%); color: #FAF8F4; padding: 28px 24px; border-radius: 14px; text-align: center; font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 40px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .conclusion .accent { color: #FFD06A; }
+
+  .cta-section { margin-bottom: 36px; }
+  .community-cta { background: linear-gradient(135deg, #D9342B 0%, #B89968 100%); color: #FFF; padding: 32px 24px; border-radius: 18px; text-align: center; margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2); }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95; }
+  .community-cta .cta-button { display: inline-block; background: #FFF; color: #2C2A26; padding: 14px 32px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .card-cta { background: #FFF; border: 2px solid #2C2A26; color: #2C2A26; padding: 26px 24px; border-radius: 18px; text-align: center; }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button { display: inline-block; background: #2C2A26; color: #FFF; padding: 13px 30px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 15px; }
+
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo { width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85; }
+  .brand-footer .footer-name { font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px; }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  .floating-actions { position: fixed; right: 16px; bottom: 20px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+  .floating-actions a { width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none; transition: transform 0.2s; }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  @media (max-width: 380px) { .split, .four { grid-template-columns: 1fr; } }
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+</style>
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+</head>
+<body>
+  <div class="container">
+
+    <div class="brand-header">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+    <div class="header">
+      <h1>退伍轉房仲：<span class="highlight">前 90 天作戰手冊</span></h1>
+      <p class="subtitle">給正在想「退伍後做什麼」的學長：先看清楚，再決定。</p>
+    </div>
+
+    <!-- Hero：軍帽 → 三段路 → 房子鑰匙 -->
+    <div class="hero" aria-hidden="true">
+      <svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 140 C 120 140, 140 70, 230 75 S 330 120, 370 60" fill="none" stroke="#B89968" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round"/>
+        <!-- 軍帽 -->
+        <g transform="translate(22,92)">
+          <path d="M6 30 Q 30 -6 58 30 Z" fill="#6E7B4F"/>
+          <rect x="0" y="28" width="66" height="9" rx="4.5" fill="#56603C"/>
+          <path d="M33 12 l3 6 6 1 -4.5 4 1 6 -5.5-3 -5.5 3 1-6 -4.5-4 6-1z" fill="#F5B946"/>
+        </g>
+        <!-- 三個里程點 -->
+        <g font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="13" text-anchor="middle">
+          <circle cx="125" cy="118" r="15" fill="#FFF" stroke="#D9342B" stroke-width="3"/><text x="125" y="123" fill="#D9342B">30</text>
+          <circle cx="215" cy="76" r="15" fill="#FFF" stroke="#D9342B" stroke-width="3"/><text x="215" y="81" fill="#D9342B">60</text>
+          <circle cx="300" cy="97" r="15" fill="#FFF" stroke="#D9342B" stroke-width="3"/><text x="300" y="102" fill="#D9342B">90</text>
+        </g>
+        <!-- 房子 + 鑰匙 -->
+        <g transform="translate(316,4)">
+          <path d="M8 34 L36 10 L64 34" fill="none" stroke="#D9342B" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="16" y="32" width="40" height="32" rx="3" fill="#FFF" stroke="#2C2A26" stroke-width="3"/>
+          <rect x="31" y="44" width="11" height="20" rx="2" fill="#B89968"/>
+          <g transform="translate(-26,58) rotate(-20)">
+            <circle cx="0" cy="0" r="7" fill="none" stroke="#F5B946" stroke-width="4"/>
+            <path d="M7 0 H24 M19 0 V6 M24 0 V5" stroke="#F5B946" stroke-width="4" stroke-linecap="round"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="who">寫這份的人：<b>喵爸</b>，服役 20 年的裝甲兵士官長，退伍後在桃園做房仲。</div>
+
+    <div class="intro">
+      這份不是招募廣告。是把房仲前 90 天會發生什麼、你適不適合，一次攤開給你看。看完覺得適合，再來聊。
+    </div>
+
+    <div class="points">
+
+
+      <div class="point-card">
+        <div class="point-top">
+          <div><div class="point-number">01</div><span class="point-number-bar"></span></div>
+          <div class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11l-3-3M20 17H9l3 3"/></svg></div>
+        </div>
+        <div class="point-title">部隊那套，哪些帶得走、哪些要改</div>
+        <div class="point-body">
+          <div class="split">
+            <div class="col keep">
+              <h4>帶得走</h4>
+              <ul>
+                <li>守時，約了就到。</li>
+                <li>照表操課，每天有節奏。</li>
+                <li>被拒絕不倒。</li>
+                <li>團隊紀律。</li>
+              </ul>
+            </div>
+            <div class="col change">
+              <h4>要改</h4>
+              <ul>
+                <li>沒人派任務，每天自己決定打給誰。</li>
+                <li>沒有固定月薪，收入靠成交。</li>
+                <li>客人不聽命令，靠的是信任。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="point-example">抗壓你有了，真正要練的是「沒人下命令時，自己會動」。</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-top">
+          <div><div class="point-number">02</div><span class="point-number-bar"></span></div>
+          <div class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M9 12l2 2 4-4"/></svg></div>
+        </div>
+        <div class="point-title">先講實話，再自己打勾</div>
+        <div class="point-body">
+          房仲是<strong>純佣</strong>，前 3 個月可能沒有收入。這件事先講清楚，比進來才發現好。
+          點一下就能打勾：
+          <ul class="check" id="check">
+            <li>生活預備金撐得過 6 個月。</li>
+            <li>沒人盯，也能每天自己排行程。</li>
+            <li>被拒絕 10 次，第 11 通電話還打得出去。</li>
+            <li>晚上、週末可以配合客人看屋。</li>
+            <li>願意每週學一樣新東西，包括新工具。</li>
+          </ul>
+          <div class="score" id="score">勾幾題？</div>
+          <div class="inline-cta" id="inlineCta"><a href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">值得聊聊，加 LINE @056ohivi</a></div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-top">
+          <div><div class="point-number">03</div><span class="point-number-bar"></span></div>
+          <div class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></div>
+        </div>
+        <div class="point-title">前 90 天作戰圖</div>
+        <div class="point-body">
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-day">第 1–30 天</div>
+              <div class="tl-name">新訓</div>
+              <div class="tl-text">店長陪你看屋、聽你講電話，話術驗收過關，個人品牌三件事建好。</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">第 31–60 天</div>
+              <div class="tl-name">下部隊</div>
+              <div class="tl-text">第一次自己帶看，走完一次完整開發流程，每週發一篇自己的內容。</div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">第 61–90 天</div>
+              <div class="tl-name">獨立作戰</div>
+              <div class="tl-text">目標是第一份委託或第一筆成交。這是目標，不是保證。</div>
+            </div>
+          </div>
+          <div class="point-example">每週固定一次一對一，卡住當週就處理，不用一個人扛。</div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-top">
+          <div><div class="point-number">04</div><span class="point-number-bar"></span></div>
+          <div class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 20c0-2.5 1.5-4.5 4-4.5"/></svg></div>
+        </div>
+        <div class="point-title">這支團隊給你的四樣東西</div>
+        <div class="point-body">
+          2027 在桃園整合，不只是組隊，是把成交、流量和系統放在一起。
+          <div class="four">
+            <div class="cell"><b>成交實戰</b><span>千萬業績、帶過店的店長加入，親自帶你開發、議價、成交。</span></div>
+            <div class="cell"><b>品牌流量</b><span>喵爸經營自媒體，客人看內容主動找上門。</span></div>
+            <div class="cell"><b>AI 系統</b><span>文案、物件整理都有工具。你不用學 AI，我們幫你建好。</span></div>
+            <div class="cell"><b>團隊賦能</b><span>教育訓練、內容支援、每週一對一。</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="point-card">
+        <div class="point-top">
+          <div><div class="point-number">05</div><span class="point-number-bar"></span></div>
+          <div class="point-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#D9342B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+        </div>
+        <div class="point-title">下一步：先聊，不勉強</div>
+        <div class="point-body">
+          看完覺得適合，加 LINE 跟喵爸聊聊。不適合也沒關係，這份留著，哪天想清楚再來。
+          <div class="point-example">還在役的學長：現役不能兼職。先聊沒問題，等退伍日確定再說。</div>
+          <div class="recruit-cta">
+            <a href="https://line.me/R/ti/p/@056ohivi" target="_blank" rel="noopener">加 LINE 聊聊 @056ohivi</a>
+            <small>只是聊聊，不會一直推銷你</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="conclusion">
+      部隊練的是<span class="accent">紀律</span>，這行缺的也是<span class="accent">紀律</span>。
+    </div>
+
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>喵爸專屬社群</h3>
+        <p>這是喵爸獨創的社群,主要在於分享桃園市最新時事、重大建設發展、資產配置、稅務法規,歡迎加入以及討論哦!</p>
+        <a href="https://shorturl.at/IZWl2" class="cta-button" target="_blank" rel="noopener">立即加入 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>多認識喵爸</h3>
+        <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      <img src="https://catpawwedding.github.io/lazypack/assets/logo.png"
+           srcset="https://catpawwedding.github.io/lazypack/assets/logo@2x.png 2x"
+           alt="中壢專業房仲 喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.10.02</div>
+    </div>
+
+  </div>
+
+  <div class="floating-actions">
+    <a href="https://line.me/ti/p/M-tek5DmH6" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+<script>
+(function () {
+  var list = document.getElementById('check'), score = document.getElementById('score');
+  if (!list || !score) return;
+  var items = list.querySelectorAll('li');
+  function update() {
+    var n = list.querySelectorAll('li.on').length;
+    var c = document.getElementById('inlineCta'); if (c) c.className = 'inline-cta' + (n >= 4 ? ' show' : '');
+    score.textContent = n === 0 ? '勾幾題？' : (n >= 4 ? '勾了 ' + n + ' 題，值得聊聊。' : '勾了 ' + n + ' 題，先想清楚再來也不遲。');
+  }
+  for (var i = 0; i < items.length; i++) items[i].addEventListener('click', function () { this.classList.toggle('on'); update(); });
+})();
+</script>
+</body>
+</html>
