@@ -18,6 +18,7 @@
 - 青安貸款資格檢測：https://loan.cathome.tw/
 - 繼承分配計算機：https://tax.cathome.tw/inherit.html
 - 桃園學區・機能・垃圾車地圖：https://map.cathome.tw/
+- 全台 Gogoro 換電站地圖（2,707 站，含中壢 51 站，資料日期 2026/9/27）：https://cathome.tw/gogoro-gostation-google-map/
 - 房屋稅務諮詢：https://tax.cathome.tw/
 - 全部工具總覽：https://tools.cathome.tw/
 
