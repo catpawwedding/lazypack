@@ -74,6 +74,8 @@
   .who b { display: block; font-size: 18px; color: #FFF; line-height: 1.4; }
   .who span { display: block; font-size: 14px; color: var(--muted); line-height: 1.5; margin-top: 2px; }
 
+  .who .proof { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .who .proof a { font-size: 12px; font-weight: 700; color: var(--gold); text-decoration: none; padding: 3px 9px; border-radius: 999px; border: 1px solid rgba(232,196,106,0.45); background: rgba(232,196,106,0.08); }
   .intro { border-left: 3px solid var(--gold); padding: 6px 0 6px 16px; margin: 0 0 30px; font-size: 17px; color: #DCE2EC; }
 
   /* 卡片 */
@@ -156,6 +158,16 @@
   .card-cta { text-align: center; padding: 22px 20px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); }
   .card-cta h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #FFF; }
   .card-cta .cta-button { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+  .card-cta .links-sub { font-size: 14px; color: var(--muted); margin: -6px 0 14px; }
+  .links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; text-align: left; }
+  .links .lk { display: block; text-decoration: none; padding: 11px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); }
+  .links .lk b { display: block; font-size: 15px; color: #FFF; line-height: 1.35; }
+  .links .lk span { display: block; font-size: 12px; color: var(--muted); line-height: 1.4; margin-top: 2px; }
+  .links .lk.g { border-color: rgba(232,196,106,0.45); background: rgba(232,196,106,0.08); }
+  .links .lk.g b { color: var(--gold); }
+  .links .lk.b { border-color: rgba(69,174,255,0.45); background: rgba(69,174,255,0.08); }
+  .links .lk.b b { color: #8CCBFF; }
+  .links .lk:active { transform: scale(0.98); }
 
   .brand-footer { text-align: center; padding-top: 26px; border-top: 1px solid var(--line); }
   .brand-footer .footer-logo { width: 40px; height: 40px; background: #F4EFE6; border-radius: 10px; padding: 4px; margin: 0 auto 8px; display: block; }
@@ -211,6 +223,7 @@
         <small>寫這份的人</small>
         <b>喵爸，服役 20 年的裝甲兵士官長</b>
         <span>退伍後在桃園做房仲。</span>
+        <div class="proof"><a href="https://cathome.tw/media/" target="_blank" rel="noopener">媒體報導</a><a href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" rel="noopener">Google 評論</a><a href="https://www.youtube.com/@cathome-888" target="_blank" rel="noopener">YouTube</a></div>
       </div>
     </div>
 
@@ -329,6 +342,17 @@
       </div>
       <div class="card-cta">
         <h3>多認識喵爸</h3>
+        <p class="links-sub">要跟一個人走，先看他平常在做什麼。</p>
+        <div class="links">
+          <a href="https://cathome.tw/media/" target="_blank" rel="noopener" class="lk g"><b>媒體報導</b><span>中央社、聯合新聞網、鏡週刊</span></a>
+          <a href="https://www.google.com/maps?cid=1153831153845711871" target="_blank" rel="noopener" class="lk g"><b>Google 商家</b><span>看客人留下的評論</span></a>
+          <a href="https://www.youtube.com/@cathome-888" target="_blank" rel="noopener" class="lk b"><b>YouTube</b><span>影片頻道</span></a>
+          <a href="https://cathome.tw/" target="_blank" rel="noopener" class="lk b"><b>官方網站</b><span>cathome.tw</span></a>
+          <a href="https://www.facebook.com/Willl.Huang.520/" target="_blank" rel="noopener" class="lk"><b>個人 Facebook</b><span>每天的房市判斷</span></a>
+          <a href="https://www.facebook.com/cathomev/" target="_blank" rel="noopener" class="lk"><b>Facebook 粉專</b><span>中壢專業房仲喵爸</span></a>
+          <a href="https://www.instagram.com/cat.w.520.y/" target="_blank" rel="noopener" class="lk"><b>Instagram</b><span>@cat.w.520.y</span></a>
+          <a href="https://www.threads.com/@cat.w.520.y" target="_blank" rel="noopener" class="lk"><b>Threads</b><span>@cat.w.520.y</span></a>
+        </div>
         <a href="https://linkgoods.com/cathome" class="cta-button" target="_blank" rel="noopener">認識喵爸 →</a>
       </div>
     </div>
