@@ -127,8 +127,10 @@
     width:42px;height:42px;border-radius:50%;font-size:18px;cursor:pointer;
     display:none;align-items:center;justify-content:center;
   }
+  header [data-help-slot]{position:absolute;top:8px;right:12px;}
 </style>
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
+<script src="https://hub.cathome.tw/help.js" data-help="skills" data-name="Claude 技能速查表" defer></script>
 <!-- SEO-ENTITY:v1 START -->
 <link rel="canonical" href="https://pack.cathome.tw/skills-cheatsheet.html">
 <meta name="description" content="喵爸自建的 Claude Code 技能速查表，列出每個技能的觸發詞與用途。中壢專業房仲喵爸的 AI 工作流工具。">
@@ -147,6 +149,7 @@
 <body>
 <header>
   <div class="title">🐾 喵爸 <span>Claude</span> 技能速查表</div>
+  <span data-help-slot></span>
   <div class="subtitle">點觸發詞可直接複製，上面搜尋框可即時篩選</div>
   <div class="search-wrap">
     <input id="search" type="text" placeholder="搜尋技能、觸發詞、用途…（例：爆款、估價、選題）" autocomplete="off">
