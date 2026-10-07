@@ -298,6 +298,8 @@
   }
 </style>
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
+<style>/* 數字欄位不要上下箭頭（滑鼠滾輪滾過去會改到數字） */input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield}</style>
+<script>/* 滑鼠滾輪不改數字：游標停在正在輸入的數字欄位上滾動時先失焦，滾輪只捲畫面 */document.addEventListener("wheel",function(e){var el=e.target;if(el&&el.tagName==="INPUT"&&el.type==="number"&&document.activeElement===el)el.blur();},{passive:true,capture:true});</script>
 </head>
 <body>
   <div class="sheet">
