@@ -50,6 +50,7 @@
   .shot-hit{background:#fdecec;color:#c0392b;border:1.5px solid #e8a5a5}
   .shot-miss{background:#f3f1ec;color:#6b6255;border:1px solid #e5dfd5}
   .hit-store{color:#c0392b;font-weight:800;font-size:15.5px}
+  .maybe-store{color:#b86e00;font-weight:800;font-size:15px}
   .hit-from{font-size:12.5px;color:#8a8377;margin-top:1px}
   .other{font-size:13.5px;color:#8a8377;padding:5px 0 5px 10px;border-left:3px solid #eee7db;margin:4px 0;word-break:break-all}
   #shotCanvas{width:100%;border-radius:8px;border:1px solid #e5dfd5;margin-top:10px;display:block}
@@ -183,6 +184,7 @@ function approxDist(p,t,endAnchored){
 const STORE_WORD=/加盟店|直營店|不動產|房屋|有巢氏|永慶|永義|台慶/;
 const BRAND_RE=/^(永慶|有巢氏|永義|台慶)/,HAS_BRAND=/永慶|有巢|巢氏|永義|台慶/;
 const MS_CORE=MS_NORM.map(x=>x.replace(BRAND_RE,""));
+const segBrand=L=>/永慶/.test(L)?"永慶":/有巢|巢氏/.test(L)?"有巢氏":/永義/.test(L)?"永義":/台慶/.test(L)?"台慶":"";
 // seg＝一段店名（已切在「加盟店」前）。有品牌字就要整個店名對上；沒品牌字（例：園區龍慈吉富加盟店）只比品牌後面那段
 function matchSeg(seg){
   const tail=/(加盟店?|直營店?)$/.test(seg);
@@ -190,14 +192,18 @@ function matchSeg(seg){
   if(L.length<4)return null;
   const branded=HAS_BRAND.test(L);
   if(!branded&&!tail)return null; // 沒品牌又沒「加盟店」＝地址之類的雜字，不比
+  const brand=segBrand(L);
   let best=null;
   for(let i=0;i<MS_NORM.length;i++){
+    if(brand&&!MULTI_STORES[i].startsWith(brand))continue; // 品牌不同絕不算（有巢氏青埔IKEA≠永慶青埔IKEA）
     const x=branded?MS_NORM[i]:MS_CORE[i];
     if(x.length<4)continue;
     const thr=x.length>=9?2:(x.length>=6?1:0),d=approxDist(x,L,tail);
-    if(d<=thr&&(!best||d<best.d))best={i,d};
+    // 確定命中之外，長店名再多差一個字＝「可能是」，交給人眼對（OCR 偶爾會把「云賀」認成「去次」）
+    const lim=x.length>=8?thr+1:thr;
+    if(d<=lim&&(!best||d-thr<best.over))best={i,over:d-thr};
   }
-  return best?{store:MULTI_STORES[best.i]}:null;
+  return best?{store:MULTI_STORES[best.i],maybe:best.over>0}:null;
 }
 // 一行可能黏了好幾張卡片的店名 → 在「加盟店／直營店」後面切開，每段各自比對，框只框那一段
 function lineSegments(ln){
@@ -265,32 +271,39 @@ async function runShot(blob){
     const w=await getWorker();
     const {data}=await w.recognize(c,{},{blocks:true,text:true});
     const lines=ocrLines(data);
-    const hits=[],others=[],boxes=[];
+    const hits=[],others=[],boxes=[],maybes=[],mboxes=[];
     for(const ln of lines){
       if(!(ln.text||"").trim())continue;
       for(const sg of lineSegments(ln)){
         const r=matchSeg(sg.text);
-        if(r){hits.push({store:r.store,raw:sg.text});boxes.push(sg.box);}
+        if(r&&!r.maybe){hits.push({store:r.store,raw:sg.text});boxes.push(sg.box);}
+        else if(r){maybes.push({store:r.store,raw:sg.text});mboxes.push(sg.box);}
         else if(/加盟店?$|直營店?$/.test(sg.text)&&msLine(sg.text).length>=4)others.push(sg.text);
       }
     }
-    // 原圖上把命中的那行框紅
+    // 原圖上把命中的那段框紅、可能是的框橘
     const cv=document.getElementById("shotCanvas");cv.width=im.width;cv.height=im.height;
     const g=cv.getContext("2d");g.drawImage(im,0,0);
-    g.lineWidth=Math.max(3,im.width/400);g.strokeStyle="#e60000";g.fillStyle="rgba(230,0,0,.12)";
-    for(const b of boxes){const x=b.x0/sc-6,y=b.y0/sc-4,ww=(b.x1-b.x0)/sc+12,hh=(b.y1-b.y0)/sc+8;g.fillRect(x,y,ww,hh);g.strokeRect(x,y,ww,hh);}
+    g.lineWidth=Math.max(3,im.width/400);
+    const draw=(list,stroke,fill)=>{g.strokeStyle=stroke;g.fillStyle=fill;
+      for(const b of list){const x=b.x0/sc-6,y=b.y0/sc-4,ww=(b.x1-b.x0)/sc+12,hh=(b.y1-b.y0)/sc+8;g.fillRect(x,y,ww,hh);g.strokeRect(x,y,ww,hh);}};
+    draw(mboxes,"#e08a00","rgba(224,138,0,.12)");
+    draw(boxes,"#e60000","rgba(230,0,0,.12)");
     const uniq=[...new Map(hits.map(h=>[h.store,h])).values()];
+    const muniq=[...new Map(maybes.filter(m=>!uniq.some(u=>u.store===m.store)).map(h=>[h.store,h])).values()];
     const sum=document.getElementById("shotSum");
-    if(uniq.length){sum.className="shot-sum shot-hit";sum.textContent=`🔴 圖裡有 ${uniq.length} 家是我們的複數店`;}
+    if(uniq.length){sum.className="shot-sum shot-hit";sum.textContent=`🔴 圖裡有 ${uniq.length} 家是我們的複數店`+(muniq.length?`（另有 ${muniq.length} 家要你對一下）`:"");}
+    else if(muniq.length){sum.className="shot-sum sum-mix";sum.textContent=`⚠️ 有 ${muniq.length} 家可能是複數店，字沒認清楚，請對一下`;}
     else{sum.className="shot-sum shot-miss";sum.textContent="圖裡沒認到我們的複數店";}
     let h="";
     for(const u of uniq)h+=`<div class="res-line"><span class="res-ico">🔴</span><div class="res-body"><div class="hit-store">${esc(u.store)}</div><div class="hit-from">圖裡寫：${esc(u.raw.replace(/\s/g,""))}</div></div></div>`;
+    for(const u of muniq)h+=`<div class="res-line"><span class="res-ico">⚠️</span><div class="res-body"><div class="maybe-store">可能是 ${esc(u.store)}</div><div class="hit-from">圖裡認成：${esc(u.raw.replace(/\s/g,""))}（字沒認清楚，看圖上橘框對一下）</div></div></div>`;
     if(others.length)h+=`<details style="margin-top:6px"><summary>其他認到的店名（${others.length}）— 不是複數店</summary>${others.map(o=>`<div class="other">${esc(o)}</div>`).join("")}</details>`;
     h+=`<div class="hint" style="margin-top:8px">相同案件記得先按「載入所有相同案件」再截圖。認錯字時可以把店名打到下面的框裡再查一次。</div>`;
     document.getElementById("shotList").innerHTML=h;
     document.getElementById("shotStatus").style.display="none";
     document.getElementById("shotResult").style.display="block";
-    window.__lastOcr={hits,others,lineCount:lines.length};
+    window.__lastOcr={hits,maybes,others,lineCount:lines.length};
   }catch(e){
     setShot("辨識失敗："+(e&&e.message||e)+"（請重新整理再試一次）",0);
   }finally{busy=false;}
