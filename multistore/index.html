@@ -39,6 +39,20 @@
   .brand.yc{color:#8a2f2f}.brand.uc{color:#c2571d}.brand.yi{color:#1f7a48}.brand.tc{color:#1a5c8a}
   .store{font-size:13.5px;color:#4a4438;padding:4px 0 4px 12px;border-left:3px solid #eee7db;margin:3px 0;line-height:1.45}
   .cnt{font-weight:400;color:#a09884;font-size:12px}
+  .shot-zone{border:2px dashed #d8d0c2;border-radius:12px;padding:18px 12px;text-align:center;cursor:pointer;color:#6b6255;font-size:15px;line-height:1.6;background:#faf8f4}
+  .shot-zone.drag{border-color:#c0392b;background:#fdf3f3}
+  .shot-zone b{color:#1a3a5c}
+  .shot-status{font-size:13.5px;color:#6b6255;margin-top:10px;display:none}
+  .bar{height:6px;background:#eee7db;border-radius:3px;margin-top:6px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:#1a3a5c;transition:width .2s}
+  #shotResult{display:none;margin-top:12px}
+  .shot-sum{text-align:center;font-size:16px;font-weight:800;padding:10px;border-radius:9px;margin-bottom:10px}
+  .shot-hit{background:#fdecec;color:#c0392b;border:1.5px solid #e8a5a5}
+  .shot-miss{background:#f3f1ec;color:#6b6255;border:1px solid #e5dfd5}
+  .hit-store{color:#c0392b;font-weight:800;font-size:15.5px}
+  .hit-from{font-size:12.5px;color:#8a8377;margin-top:1px}
+  .other{font-size:13.5px;color:#8a8377;padding:5px 0 5px 10px;border-left:3px solid #eee7db;margin:4px 0;word-break:break-all}
+  #shotCanvas{width:100%;border-radius:8px;border:1px solid #e5dfd5;margin-top:10px;display:block}
   .foot{text-align:center;font-size:11.5px;color:#b3ab9e;margin-top:18px;line-height:1.7}
 </style>
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
@@ -47,10 +61,21 @@
 <body>
 <div class="wrap">
   <h1>🏘️ 複數店查詢</h1>
-  <div class="sub">貼上店名，馬上告訴你是不是我們聯盟的複數店（共 33 家）</div>
+  <div class="sub">貼截圖或店名，馬上告訴你是不是我們聯盟的複數店（共 33 家）</div>
 
   <div class="card">
-    <textarea id="inp" placeholder="貼店名，例如：&#10;永慶內壢站前&#10;有巢氏房屋中壢SOGO加盟店&#10;（一次貼多行也可以，一行一家）" autofocus></textarea>
+    <div class="shot-zone" id="shotZone">📸 <b>截圖直接貼上</b><br>在這頁按 <b>Ctrl+V</b>，或點這裡選截圖<br><span style="font-size:12.5px;color:#a09884">自動認出圖裡的店名，我們的複數店標紅</span></div>
+    <input type="file" id="shotFile" accept="image/*" hidden>
+    <div class="shot-status" id="shotStatus"><span id="shotMsg"></span><div class="bar"><i id="shotBar"></i></div></div>
+    <div id="shotResult">
+      <div id="shotSum"></div>
+      <div id="shotList"></div>
+      <canvas id="shotCanvas"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <textarea id="inp" placeholder="或直接打／貼店名，例如：&#10;永慶內壢站前&#10;有巢氏房屋中壢SOGO加盟店&#10;（一次貼多行也可以，一行一家）"></textarea>
     <div class="hint">整行貼過來也行（店名混著業務姓名電話沒關係），一次查多家就一行一家。</div>
     <div class="btnrow">
       <button class="btn-main" onclick="run()">查詢</button>
@@ -137,6 +162,151 @@ function clr(){
 document.getElementById("inp").addEventListener("keydown",e=>{
   if(e.key==="Enter"&&!e.shiftKey&&!document.getElementById("inp").value.includes("\n")){e.preventDefault();run();}
 });
+
+// ── 截圖辨識（Tesseract.js，在瀏覽器裡跑，圖不會上傳）──
+const msLine=s=>msNorm(String(s||"").replace(/[^\p{L}\p{N}]/gu,""));
+// 近似子字串比對：pattern 出現在 text 裡最少要改幾個字
+// endAnchored：店名必須剛好結束在 text 尾巴（「加盟店」前面），避免「平鎮南勢中豐」被當成「平鎮環南」
+function approxDist(p,t,endAnchored){
+  let prev=new Array(p.length+1);
+  for(let i=0;i<=p.length;i++)prev[i]=i;
+  let best=prev[p.length];
+  for(let j=1;j<=t.length;j++){
+    const cur=[0];
+    for(let i=1;i<=p.length;i++)
+      cur[i]=Math.min(prev[i]+1,cur[i-1]+1,prev[i-1]+(p[i-1]===t[j-1]?0:1));
+    if(cur[p.length]<best)best=cur[p.length];
+    prev=cur;
+  }
+  return endAnchored?prev[p.length]:best;
+}
+const STORE_WORD=/加盟店|直營店|不動產|房屋|有巢氏|永慶|永義|台慶/;
+const BRAND_RE=/^(永慶|有巢氏|永義|台慶)/,HAS_BRAND=/永慶|有巢|巢氏|永義|台慶/;
+const MS_CORE=MS_NORM.map(x=>x.replace(BRAND_RE,""));
+// seg＝一段店名（已切在「加盟店」前）。有品牌字就要整個店名對上；沒品牌字（例：園區龍慈吉富加盟店）只比品牌後面那段
+function matchSeg(seg){
+  const tail=/(加盟店?|直營店?)$/.test(seg);
+  const L=msLine(seg.replace(/(加盟店?|直營店?)$/,""));
+  if(L.length<4)return null;
+  const branded=HAS_BRAND.test(L);
+  if(!branded&&!tail)return null; // 沒品牌又沒「加盟店」＝地址之類的雜字，不比
+  let best=null;
+  for(let i=0;i<MS_NORM.length;i++){
+    const x=branded?MS_NORM[i]:MS_CORE[i];
+    if(x.length<4)continue;
+    const thr=x.length>=9?2:(x.length>=6?1:0),d=approxDist(x,L,tail);
+    if(d<=thr&&(!best||d<best.d))best={i,d};
+  }
+  return best?{store:MULTI_STORES[best.i]}:null;
+}
+// 一行可能黏了好幾張卡片的店名 → 在「加盟店／直營店」後面切開，每段各自比對，框只框那一段
+function lineSegments(ln){
+  const words=(ln.words&&ln.words.length)?ln.words:[{text:ln.text||"",bbox:ln.bbox}];
+  let flat="";const owner=[];
+  words.forEach((w,wi)=>{for(const ch of String(w.text||"").replace(/\s/g,"")){flat+=ch;owner.push(wi);}});
+  const segs=[],re=/加盟店?|直營店?/g;let start=0,m;
+  while((m=re.exec(flat))){segs.push([start,m.index+m[0].length]);start=m.index+m[0].length;}
+  if(start<flat.length)segs.push([start,flat.length]);
+  return segs.map(([a,b])=>{
+    const ws=[...new Set(owner.slice(a,b))].map(i=>words[i].bbox).filter(Boolean);
+    const box=ws.length?{x0:Math.min(...ws.map(q=>q.x0)),y0:Math.min(...ws.map(q=>q.y0)),x1:Math.max(...ws.map(q=>q.x1)),y1:Math.max(...ws.map(q=>q.y1))}:ln.bbox;
+    return{text:flat.slice(a,b).replace(/^[^\p{L}\p{N}]+/u,""),box};
+  });
+}
+
+let ocrWorker=null;
+async function getWorker(){
+  if(ocrWorker)return ocrWorker;
+  if(!window.Tesseract){
+    await new Promise((ok,ng)=>{const s=document.createElement("script");
+      s.src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js";s.onload=ok;s.onerror=ng;document.head.appendChild(s);});
+  }
+  ocrWorker=await Tesseract.createWorker(["chi_tra","eng"],1,{logger:m=>{
+    if(m.status==="recognizing text")setShot("辨識中…",m.progress);
+    else if(/load|download|initializ/i.test(m.status))setShot("第一次用要下載字庫（約 15MB，之後就快了）…",m.progress||0);
+  }});
+  return ocrWorker;
+}
+function setShot(msg,p){
+  document.getElementById("shotStatus").style.display="block";
+  document.getElementById("shotMsg").textContent=msg;
+  document.getElementById("shotBar").style.width=Math.round((p||0)*100)+"%";
+}
+function loadImg(blob){
+  return new Promise((ok,ng)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=ng;im.src=URL.createObjectURL(blob);});
+}
+// 放大＋去掉淺色浮水印，中文小字才認得出來
+function prepCanvas(im){
+  const sc=Math.min(2,4000/im.width)>1?Math.min(2,4000/im.width):1;
+  const c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);
+  const g=c.getContext("2d");g.imageSmoothingQuality="high";g.drawImage(im,0,0,c.width,c.height);
+  const d=g.getImageData(0,0,c.width,c.height),a=d.data;
+  for(let k=0;k<a.length;k+=4){
+    let y=0.299*a[k]+0.587*a[k+1]+0.114*a[k+2];
+    y=y>185?255:y;a[k]=a[k+1]=a[k+2]=y;
+  }
+  g.putImageData(d,0,0);
+  return{c,sc};
+}
+function ocrLines(data){
+  if(data.lines&&data.lines.length)return data.lines;
+  const out=[];
+  for(const b of data.blocks||[])for(const p of b.paragraphs||[])for(const l of p.lines||[])out.push(l);
+  return out;
+}
+let busy=false;
+async function runShot(blob){
+  if(busy)return;busy=true;
+  document.getElementById("shotResult").style.display="none";
+  try{
+    setShot("準備中…",0);
+    const im=await loadImg(blob);
+    const {c,sc}=prepCanvas(im);
+    const w=await getWorker();
+    const {data}=await w.recognize(c,{},{blocks:true,text:true});
+    const lines=ocrLines(data);
+    const hits=[],others=[],boxes=[];
+    for(const ln of lines){
+      if(!(ln.text||"").trim())continue;
+      for(const sg of lineSegments(ln)){
+        const r=matchSeg(sg.text);
+        if(r){hits.push({store:r.store,raw:sg.text});boxes.push(sg.box);}
+        else if(/加盟店?$|直營店?$/.test(sg.text)&&msLine(sg.text).length>=4)others.push(sg.text);
+      }
+    }
+    // 原圖上把命中的那行框紅
+    const cv=document.getElementById("shotCanvas");cv.width=im.width;cv.height=im.height;
+    const g=cv.getContext("2d");g.drawImage(im,0,0);
+    g.lineWidth=Math.max(3,im.width/400);g.strokeStyle="#e60000";g.fillStyle="rgba(230,0,0,.12)";
+    for(const b of boxes){const x=b.x0/sc-6,y=b.y0/sc-4,ww=(b.x1-b.x0)/sc+12,hh=(b.y1-b.y0)/sc+8;g.fillRect(x,y,ww,hh);g.strokeRect(x,y,ww,hh);}
+    const uniq=[...new Map(hits.map(h=>[h.store,h])).values()];
+    const sum=document.getElementById("shotSum");
+    if(uniq.length){sum.className="shot-sum shot-hit";sum.textContent=`🔴 圖裡有 ${uniq.length} 家是我們的複數店`;}
+    else{sum.className="shot-sum shot-miss";sum.textContent="圖裡沒認到我們的複數店";}
+    let h="";
+    for(const u of uniq)h+=`<div class="res-line"><span class="res-ico">🔴</span><div class="res-body"><div class="hit-store">${esc(u.store)}</div><div class="hit-from">圖裡寫：${esc(u.raw.replace(/\s/g,""))}</div></div></div>`;
+    if(others.length)h+=`<details style="margin-top:6px"><summary>其他認到的店名（${others.length}）— 不是複數店</summary>${others.map(o=>`<div class="other">${esc(o)}</div>`).join("")}</details>`;
+    h+=`<div class="hint" style="margin-top:8px">相同案件記得先按「載入所有相同案件」再截圖。認錯字時可以把店名打到下面的框裡再查一次。</div>`;
+    document.getElementById("shotList").innerHTML=h;
+    document.getElementById("shotStatus").style.display="none";
+    document.getElementById("shotResult").style.display="block";
+    window.__lastOcr={hits,others,lineCount:lines.length};
+  }catch(e){
+    setShot("辨識失敗："+(e&&e.message||e)+"（請重新整理再試一次）",0);
+  }finally{busy=false;}
+}
+function imgFromClipboard(e){
+  for(const it of (e.clipboardData&&e.clipboardData.items)||[])
+    if(it.type.startsWith("image/"))return it.getAsFile();
+  return null;
+}
+document.addEventListener("paste",e=>{const f=imgFromClipboard(e);if(f){e.preventDefault();runShot(f);}});
+const zone=document.getElementById("shotZone"),fileIn=document.getElementById("shotFile");
+zone.addEventListener("click",()=>fileIn.click());
+fileIn.addEventListener("change",()=>{if(fileIn.files[0])runShot(fileIn.files[0]);fileIn.value="";});
+zone.addEventListener("dragover",e=>{e.preventDefault();zone.classList.add("drag");});
+zone.addEventListener("dragleave",()=>zone.classList.remove("drag"));
+zone.addEventListener("drop",e=>{e.preventDefault();zone.classList.remove("drag");const f=[...e.dataTransfer.files].find(f=>f.type.startsWith("image/"));if(f)runShot(f);});
 
 // 完整名單（依品牌分組）
 (function(){
