@@ -1,6 +1,6 @@
 {
   "version": "2026-08-29",
-  "updated": "2026-10-02",
+  "updated": "2026-11-01",
   "note": "暗號唯一真相源。三邊共讀：寫稿 skill／本機 keyword_reply.py／雲端巡留言 routine。",
   "rules": [
     "🔴 不在這張表上、或 status != ready 的暗號，一律不准在第一則留言下——改兩行版（二選一問句＋補一刀）。",
@@ -196,6 +196,17 @@
       "verified": "2026-08-22",
       "reply": "漏水屋自保 SOP 在這，從發現到求償該做哪幾步：\nhttps://pack.cathome.tw/lazypack-%E6%BC%8F%E6%B0%B4%E5%B1%8B%E8%87%AA%E4%BF%9DSOP-20260530.html\n重點在順序，先留證據再談價，反過來做你就沒有籌碼了\n已經簽約才發現的，加 LINE 把屋況跟時間點跟我說，我幫你看還來不來得及主張：https://line.me/R/ti/p/@056ohivi",
       "reply_approved": "2026-08-22"
+    },
+    {
+      "key": "揭露",
+      "type": "deliver",
+      "topic": "賣方漏水揭露",
+      "promise": "賣房子漏水怎麼講・屋主揭露 4 步",
+      "asset": "https://pack.cathome.tw/loushui-seller/",
+      "status": "ready",
+      "verified": "2026-11-01",
+      "reply": "屋主揭露 4 步在這，從找紀錄到寫進合約：\nhttps://pack.cathome.tw/loushui-seller/\n最容易出事的是現況說明書那一格，漏過就照實寫\n你家的狀況不確定怎麼寫，加 LINE 跟我說：https://line.me/R/ti/p/@056ohivi",
+      "reply_approved": "2026-11-01"
     },
     {
       "key": "議價",

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>賣房子漏水怎麼講 · 屋主揭露 4 步 · 中壢專業房仲喵爸</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC",
+                 "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+    background: #FAF8F4;
+    color: #2C2A26;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 120px;
+  }
+
+  /* === 頁首品牌區 === */
+  .brand-header {
+    text-align: center;
+    padding: 16px 0 28px;
+    border-bottom: 2px solid #FCE4E1;
+    margin-bottom: 32px;
+  }
+  .brand-header .brand-logo {
+    width: 72px; height: 72px; display: block; margin: 0 auto 10px;
+  }
+  .brand-header .brand-name {
+    font-size: 15px; color: #2C2A26; font-weight: 700; letter-spacing: 1px;
+  }
+  .brand-header .brand-name .accent { color: #D9342B; }
+
+  /* === 主標題區 === */
+  .header { text-align: center; margin-bottom: 28px; }
+  .header h1 {
+    font-size: 32px; font-weight: 800; color: #2C2A26;
+    line-height: 1.3; margin-bottom: 14px;
+  }
+  .header h1 .highlight {
+    background: linear-gradient(180deg, transparent 60%, #FFE5A0 60%);
+    padding: 0 4px;
+  }
+  .subtitle { font-size: 17px; color: #6B6660; line-height: 1.6; }
+
+  /* === Hero 插圖 === */
+  .hero { margin: 0 auto 30px; display: block; width: 100%; max-width: 420px; }
+
+  /* === 引言 === */
+  .intro {
+    background: #FFF; border-left: 5px solid #D9342B;
+    padding: 20px 22px; margin-bottom: 36px; border-radius: 6px;
+    font-size: 16px; color: #4A463F; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  /* === 判斷表（核心區塊） === */
+  .checklist {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); margin-bottom: 18px;
+    border-top: 5px solid #D9342B;
+  }
+  .checklist-head {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+  }
+  .checklist-head svg { width: 40px; height: 40px; flex: 0 0 40px; }
+  .checklist h2 {
+    font-size: 22px; font-weight: 800; color: #2C2A26; line-height: 1.35;
+  }
+  .checklist .lead {
+    font-size: 15px; color: #6B6660; margin: 10px 0 20px; line-height: 1.7;
+  }
+  .q-row {
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px dashed #E8E1D5;
+  }
+  .q-row:last-of-type { border-bottom: none; }
+  .q-box {
+    flex: 0 0 22px; height: 22px; margin-top: 3px;
+    border: 2px solid #C9BFAE; border-radius: 5px; background: #FDFBF7;
+  }
+  .q-text { font-size: 15.5px; color: #3A3630; line-height: 1.65; }
+  .q-text b { color: #2C2A26; font-weight: 700; }
+  .q-hint { display: block; font-size: 13.5px; color: #8C8477; margin-top: 3px; }
+
+  .verdicts { margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+  .verdict {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px; border-radius: 10px; font-size: 15px; line-height: 1.65;
+  }
+  .verdict .vtag {
+    flex: 0 0 auto; font-weight: 800; font-size: 14px;
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .v-sell { background: #FDECEA; color: #8C2B23; }
+  .v-sell .vtag { background: #D9342B; color: #FFF; }
+  .v-hold { background: #FFF5E0; color: #6B5230; }
+  .v-hold .vtag { background: #F5B946; color: #4A3A18; }
+  .v-wait { background: #EFF3EE; color: #3E4B3C; }
+  .v-wait .vtag { background: #7C8F78; color: #FFF; }
+
+  /* === 重點區塊 === */
+  .points { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .point-card {
+    background: #FFF; border-radius: 14px; padding: 28px 24px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05); position: relative;
+  }
+  .point-icon {
+    position: absolute; top: 22px; right: 22px; width: 38px; height: 38px; opacity: 0.9;
+  }
+  .point-number {
+    font-size: 36px; font-weight: 900; color: #D9342B; line-height: 1;
+    letter-spacing: -1px; margin-bottom: 8px;
+    font-family: "Helvetica Neue", "Arial", sans-serif;
+  }
+  .point-number-bar {
+    display: block; width: 36px; height: 3px; background: #D9342B;
+    margin-bottom: 16px; border-radius: 2px;
+  }
+  .point-title {
+    font-size: 20px; font-weight: 700; color: #2C2A26;
+    margin-bottom: 12px; line-height: 1.4; padding-right: 46px;
+  }
+  .point-body { font-size: 16px; color: #4A463F; line-height: 1.75; }
+  .point-body strong { color: #D9342B; font-weight: 700; }
+  .point-body ul { margin: 12px 0 0 20px; }
+  .point-body li { margin-bottom: 8px; }
+  .point-example {
+    margin-top: 14px; padding: 14px 16px; background: #FFF5E0;
+    border-radius: 10px; font-size: 15px; color: #6B5230;
+    border-left: 3px solid #F5B946;
+  }
+  .point-example::before { content: "💡 "; }
+
+  /* === 時間軸視覺 === */
+  .timeline { width: 100%; height: auto; margin: 18px 0 4px; display: block; }
+
+  /* === 話術框 === */
+  .script-box {
+    margin-top: 14px; padding: 18px 18px 16px; background: #F6F1E8;
+    border-radius: 10px; border: 1px dashed #C9BFAE;
+    font-size: 15.5px; color: #3A3630; line-height: 1.8;
+  }
+  .script-box .who {
+    display: block; font-size: 13px; font-weight: 700; color: #8C7A53;
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
+
+  /* === 文件清單 === */
+  .doc-list { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .doc-list span {
+    font-size: 14px; background: #F1EDE4; color: #5A5348;
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  /* === 免責 === */
+  .disclaimer {
+    font-size: 13.5px; color: #8C8477; line-height: 1.7;
+    background: #F4F1EA; border-radius: 10px; padding: 16px 18px; margin-bottom: 36px;
+  }
+
+  /* === 結論 === */
+  .conclusion {
+    background: linear-gradient(135deg, #2C2A26 0%, #3D3833 100%);
+    color: #FAF8F4; padding: 28px 24px; border-radius: 14px; text-align: center;
+    font-size: 19px; font-weight: 600; line-height: 1.6; margin-bottom: 32px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  }
+  .conclusion .accent { color: #FFD06A; }
+
+  /* === 雙按鈕 CTA === */
+  .cta-section { margin-bottom: 36px; }
+  .community-cta {
+    background: linear-gradient(135deg, #D9342B 0%, #B89968 100%);
+    color: #FFF; padding: 32px 24px; border-radius: 18px; text-align: center;
+    margin-bottom: 16px; box-shadow: 0 6px 20px rgba(217,52,43,0.2);
+  }
+  .community-cta h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+  .community-cta p {
+    font-size: 15px; line-height: 1.7; margin-bottom: 20px; opacity: 0.95;
+  }
+  .community-cta .cta-button {
+    display: inline-block; background: #FFF; color: #2C2A26;
+    padding: 14px 32px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .card-cta {
+    background: #FFF; border: 2px solid #2C2A26; color: #2C2A26;
+    padding: 26px 24px; border-radius: 18px; text-align: center;
+  }
+  .card-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .card-cta .cta-button {
+    display: inline-block; background: #2C2A26; color: #FFF;
+    padding: 13px 30px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 15px;
+  }
+
+  /* === 頁尾品牌區 === */
+  .brand-footer { text-align: center; padding-top: 32px; border-top: 2px solid #FCE4E1; }
+  .brand-footer .footer-logo {
+    width: 44px; height: 44px; display: block; margin: 0 auto 8px; opacity: 0.85;
+  }
+  .brand-footer .footer-name {
+    font-size: 13px; color: #6B6660; letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .brand-footer .footer-name .accent { color: #D9342B; font-weight: 700; }
+  .brand-footer .footer-date { font-size: 12px; color: #A89F92; }
+
+  /* === 浮動按鈕 === */
+  .floating-actions {
+    position: fixed; right: 16px; bottom: 20px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 999;
+  }
+  .floating-actions a {
+    width: 58px; height: 58px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25); text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .floating-actions a:active { transform: scale(0.92); }
+  .floating-actions .fab-line { background: #06C755; }
+  .floating-actions .fab-phone { background: #D9342B; }
+  .floating-actions a svg { width: 28px; height: 28px; fill: #FFF; }
+
+  /* === 桌機微調 === */
+  @media (min-width: 768px) {
+    body { font-size: 17px; }
+    .container { padding: 32px 24px 56px; }
+    .header h1 { font-size: 38px; }
+    .point-title { font-size: 22px; }
+    .point-body { font-size: 17px; }
+    .point-number { font-size: 42px; }
+    .brand-header .brand-logo { width: 80px; height: 80px; }
+    .floating-actions { right: 24px; bottom: 24px; }
+    .floating-actions a { width: 64px; height: 64px; }
+    .floating-actions a svg { width: 32px; height: 32px; }
+  }
+
+  /* ── 四步總覽條（本份新增） ── */
+  .flow { margin-top: 26px; }
+  .flow-title {
+    font-size: 15px; font-weight: 800; color: #5A5348;
+    letter-spacing: 1px; text-align: center; margin-bottom: 14px;
+  }
+  .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .flow-step {
+    background: #FFFFFF; border: 2px solid #E0D7C6; border-radius: 12px;
+    padding: 14px 10px; text-align: center;
+  }
+  .flow-step .fs-num {
+    display: inline-block; font-size: 12px; font-weight: 800; color: #FFF5E0;
+    background: #2C2A26; border-radius: 999px; padding: 3px 10px; letter-spacing: 1px;
+  }
+  .flow-step svg { display: block; width: 34px; height: 34px; margin: 10px auto 8px; }
+  .flow-step .fs-label { font-size: 15px; font-weight: 800; color: #2C2A26; }
+  .flow-step .fs-sub { font-size: 12.5px; color: #6B6660; margin-top: 4px; line-height: 1.5; }
+  @media (min-width: 620px) {
+    .flow-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>
+<!-- 內建瀏覽器提示條（全站標配，必含不可刪） -->
+<script src="https://hub.cathome.tw/line-escape.js" defer></script>
+<!-- SEO-ENTITY:v1 START -->
+<link rel="canonical" href="https://pack.cathome.tw/loushui-seller/">
+<meta name="description" content="房子漏過水要賣，藏起來才會出事。屋主揭露 4 步：紀錄找齊、現況說明書照實寫、帶看前主動講、責任寫進合約，附民法瑕疵擔保白話說明。中壢專業房仲喵爸整理。">
+<meta name="author" content="中壢專業房仲喵爸">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="中壢專業房仲喵爸">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="賣房子漏水怎麼講 · 屋主揭露 4 步 · 中壢專業房仲喵爸">
+<meta property="og:description" content="房子漏過水要賣，藏起來才會出事。屋主揭露 4 步：紀錄找齊、現況說明書照實寫、帶看前主動講、責任寫進合約，附民法瑕疵擔保白話說明。中壢專業房仲喵爸整理。">
+<meta property="og:url" content="https://pack.cathome.tw/loushui-seller/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://cathome.tw/author/anttow/","name":"喵爸","alternateName":["黃舶瑋","中壢專業房仲喵爸"],"jobTitle":"不動產經紀人員","url":"https://cathome.tw/","worksFor":{"@id":"https://cathome.tw/#organization"},"knowsAbout":["中古屋買賣","預售屋換約","房地合一稅","重購退稅","青年安心成家貸款","繼承與贈與","不動產說明書","實價登錄","桃園中壢房市"],"sameAs":["https://www.facebook.com/Willl.Huang.520/","https://www.instagram.com/cat.w.520.y/","https://www.threads.com/@cat.w.520.y","https://youtube.com/@cathome-888"]},{"@type":"RealEstateAgent","@id":"https://cathome.tw/#organization","name":"中壢專業房仲喵爸","url":"https://cathome.tw/","description":"桃園中壢的不動產經紀人，服務範圍以中壢、平鎮、內壢、龍岡為主。提供買賣流程把關、行情分析、稅務與貸款試算，並把常用的判斷工具做成免費網頁公開給一般民眾使用。","telephone":"+886-925-842-111","areaServed":["桃園市","中壢區","平鎮區","內壢","龍岡"],"address":{"@type":"PostalAddress","streetAddress":"龍慈路75號","addressLocality":"中壢區","addressRegion":"桃園市","postalCode":"320","addressCountry":"TW"},"employee":{"@id":"https://cathome.tw/author/anttow/"},"sameAs":["https://cathome.tw/","https://www.facebook.com/cathomev","https://www.instagram.com/cat.w.520.y/","https://www.threads.com/@cat.w.520.y","https://youtube.com/@cathome-888","https://maps.app.goo.gl/zadZVwcD4utx1BTH8","https://line.me/R/ti/p/@056ohivi"]},{"@type":"Article","headline":"賣房子漏水怎麼講 · 屋主揭露 4 步","description":"房子漏過水要賣，藏起來才會出事。屋主揭露 4 步：紀錄找齊、現況說明書照實寫、帶看前主動講、責任寫進合約，附民法瑕疵擔保白話說明。中壢專業房仲喵爸整理。","url":"https://pack.cathome.tw/loushui-seller/","inLanguage":"zh-Hant","datePublished":"2026-11-01","author":{"@id":"https://cathome.tw/author/anttow/"},"publisher":{"@id":"https://cathome.tw/#organization"}}]}
+</script>
+<!-- SEO-ENTITY:v1 END -->
+</head>
+<body>
+  <div class="container">
+
+    <!-- 頁首品牌區 -->
+    <div class="brand-header">
+      <img src="https://pack.cathome.tw/assets/logo.png"
+           srcset="https://pack.cathome.tw/assets/logo@2x.png 2x"
+           alt="中壢專業房仲喵爸" class="brand-logo">
+      <div class="brand-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+    </div>
+
+        
+    <!-- 主標題 -->
+    <div class="header">
+      <h1>賣房子漏水怎麼講 <span class="highlight">屋主揭露 4 步</span></h1>
+      <p class="subtitle">漏過水不代表賣不掉，藏起來才會出事。</p>
+    </div>
+
+    <div class="intro">
+      喵爸陪一位屋主走過一場漏水官司。410 萬的老套房，漏過的地方修好、測過，2 年沒再漏，賣掉之後還是被樓下的新買方提告，從 2022 年一路到 2025 年才結案。修好的都會被找上門，藏起來的更不用說。這份是給正準備賣房的屋主，照順序做，把話講清楚，也把自己保護好。
+    </div>
+
+    <svg class="timeline" viewBox="0 0 330 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="喵爸陪屋主走過的漏水案時間軸：2022 年 3 月成交，5 月區公所調解，8 月起民事法院調解 4 次到 2023 年 12 月，2025 年結案">
+      <line x1="16" y1="28" x2="16" y2="214" stroke="#E0D7C6" stroke-width="4"/>
+      <g font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif">
+        <circle cx="16" cy="28" r="8" fill="#2C2A26"/><text x="36" y="25" font-size="16" font-weight="800" fill="#2C2A26">2022 年 3 月</text><text x="36" y="47" font-size="16" fill="#4A463F">成交，410 萬</text>
+        <circle cx="16" cy="90" r="8" fill="#D9342B"/><text x="36" y="87" font-size="16" font-weight="800" fill="#2C2A26">2022 年 5 月</text><text x="36" y="109" font-size="16" fill="#4A463F">區公所調解，沒有結果</text>
+        <circle cx="16" cy="152" r="8" fill="#D9342B"/><text x="36" y="149" font-size="16" font-weight="800" fill="#2C2A26">2022 年 8 月到 2023 年 12 月</text><text x="36" y="171" font-size="16" fill="#4A463F">民事法院調解 4 次</text>
+        <circle cx="16" cy="214" r="8" fill="#2C2A26"/><text x="36" y="211" font-size="16" font-weight="800" fill="#2C2A26">2025 年</text><text x="36" y="233" font-size="16" fill="#4A463F">結案，保證金才拿回來</text>
+        <text x="0" y="272" font-size="18" font-weight="800" fill="#D9342B">修好、測過的房子，一樣拖到 2025</text>
+      </g>
+    </svg>
+
+    <div class="points">
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><path d="M13 21l5 5 9-11" fill="none" stroke="#D9342B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="point-number">01</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">先把紀錄找齊，這是你的護身符</div>
+        <div class="point-body">
+          漏過水不可怕，拿不出紀錄才可怕。上架之前先把這幾樣收好：
+          <ul>
+            <li><strong>什麼時候漏、漏在哪</strong>：哪一年、哪個位置，有照片最好。</li>
+            <li><strong>怎麼修的、誰修的</strong>：修繕估價單、收據、施工照片、保固書。</li>
+            <li><strong>修完有沒有測</strong>：積水測試、顏料測試的紀錄都算。</li>
+            <li><strong>跟鄰居有沒有爭議</strong>：樓上樓下談過什麼，留下訊息或文字。</li>
+          </ul>
+          <div class="point-example">單據早就丟了也別放棄，找師傅現場看一次，留一份現況紀錄，至少從今天起有東西可以拿出來。</div>
+</div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><line x1="13" y1="16" x2="27" y2="16" stroke="#D9342B" stroke-width="3" stroke-linecap="round"/><line x1="13" y1="24" x2="23" y2="24" stroke="#2C2A26" stroke-width="3" stroke-linecap="round"/></svg>
+        <div class="point-number">02</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">現況說明書那一格，照實寫</div>
+        <div class="point-body">
+          賣房要簽的現況說明書（建物現況確認書）裡有滲漏水這一項，上面有你的簽名，是白紙黑字。
+          <ul>
+            <li><strong>修好的</strong>：寫「曾漏水、已修繕」，加上位置跟修的年份，單據附上。</li>
+            <li><strong>現在還在漏</strong>：寫清楚位置，再寫怎麼處理，是你修好再交屋，還是現況交屋、價格另談。</li>
+            <li><strong>不確定的</strong>：寫不確定，先找師傅查，不要直接勾「無」。</li>
+          </ul>
+          <svg class="timeline" viewBox="0 0 290 196" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="現況說明書滲漏水一格的填寫示範：勾有，位置主臥窗邊，已修繕，寫修繕年份並附單據">
+            <rect x="2" y="2" width="286" height="192" rx="10" fill="#FFFFFF" stroke="#2C2A26" stroke-width="2"/>
+            <g font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="16" fill="#2C2A26">
+              <text x="16" y="32" font-weight="800">是否有滲漏水（填法示範）</text>
+              <text x="16" y="66" fill="#D9342B" font-weight="800">☑ 有</text><text x="90" y="66" fill="#6B6660">☐ 無</text>
+              <text x="16" y="100">位置：主臥窗邊</text>
+              <text x="16" y="132">修繕：○○ 年已修繕</text>
+              <text x="16" y="164">附件：單據、施工照片</text>
+            </g>
+          </svg>
+          <div class="point-example">最常出事的，就是為了好賣，把這一格勾成沒有。</div>
+</div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><path d="M12 15h16v10H20l-5 4v-4h-3z" fill="none" stroke="#D9342B" stroke-width="2.6" stroke-linejoin="round"/></svg>
+        <div class="point-number">03</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">帶看之前就講，不要等買方問</div>
+        <div class="point-body">
+          買方自己發現，跟你先講，是兩種完全不同的場面。先講的人，談的是修繕費；被發現的人，談的是信任。
+          <ul>
+            <li>請房仲帶看前先說，不要等到斡旋、簽約才講。</li>
+            <li>把單據跟照片準備好，買方一問就拿得出來。</li>
+            <li>鄰戶有過的爭議一樣要講，這是最常被漏掉的。</li>
+          </ul>
+          <div class="point-example">可以照這樣講：「這間 ○○ 年主臥窗邊漏過水，○○ 年修好了，單據都在這，到現在沒有再漏。」</div>
+</div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><rect x="13" y="11" width="14" height="18" rx="2" fill="none" stroke="#D9342B" stroke-width="2.6"/><path d="M16 24l3-3 2 2 3-4" fill="none" stroke="#2C2A26" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="point-number">04</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">價格跟責任，全部寫進合約</div>
+        <div class="point-body">
+          口頭說好的，出事那天都不算。談定之後，這幾件要白紙黑字：
+          <ul>
+            <li><strong>修繕費誰出</strong>：你修好再交屋，或從價金裡扣多少。</li>
+            <li><strong>誰負責修、修到什麼程度</strong>：修繕範圍跟點交標準。</li>
+            <li><strong>保固多久</strong>：修完之後，再漏算誰的。</li>
+            <li><strong>有沒有押保證金</strong>：押多少、什麼條件下退。</li>
+          </ul>
+          <div class="point-example">喵爸陪的那一案，成交時為了讓買方安心押了 10 萬保證金，一卡就是 2 年。合約怎麼擬依個案差很多，請地政士或專業人員協助，別自己抓條文。</div>
+</div>
+      </div>
+
+      <div class="point-card">
+        <svg class="point-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#FFF5E0" stroke="#2C2A26" stroke-width="2.4"/><path d="M20 11v18M13 15l-3 8h6zM27 15l-3 8h6zM13 15h14" fill="none" stroke="#D9342B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="point-number">05</div>
+        <span class="point-number-bar"></span>
+        <div class="point-title">故意不講，法律上會怎樣</div>
+        <div class="point-body">
+          白話講民法這幾條，你就知道為什麼不能賭：
+          <ul>
+            <li><strong>賣方要擔保房子沒有瑕疵</strong>（第 354 條）：減少價值或通常效用的瑕疵，你要負責。</li>
+            <li><strong>買方可以主張</strong>（第 359 條）：解除契約，或請求減少價金。</li>
+            <li><strong>「現況交屋、不負責」不一定救得了你</strong>（第 366 條）：寫了免責的約定，如果你是故意不告知瑕疵，這個約定無效。</li>
+            <li><strong>時間也對你不利</strong>（第 365 條）：買方通知後本來有 6 個月的行使期間，故意不告知時這 6 個月的限制不適用，但自交屋起 5 年的上限仍在。</li>
+          </ul>
+          <svg class="timeline" viewBox="0 0 290 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="買方主張時間比較：一般情況通知後 6 個月內行使；故意不告知時 6 個月限制不適用，上限是交屋起 5 年">
+            <g font-family="-apple-system,PingFang TC,Microsoft JhengHei,sans-serif" font-size="16">
+              <text x="0" y="20" font-weight="800" fill="#2C2A26">有告知：通知後 6 個月</text>
+              <rect x="0" y="32" width="60" height="22" rx="5" fill="#F5D9D6"/>
+              <text x="0" y="96" font-weight="800" fill="#2C2A26">故意不講：交屋起 5 年內</text>
+              <rect x="0" y="108" width="290" height="22" rx="5" fill="#D9342B"/>
+            </g>
+          </svg>
+          <div class="point-example">反過來說，你照實告知、留好紀錄，就是站得住腳的本錢。實際怎麼判，個案差很多，以法院判決為準。</div>
+</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      這份是賣房前的實務整理，不是法律意見。現況說明書的格式、契約怎麼約定、責任怎麼認定，個案差異很大，已經有糾紛時請找律師或地政士確認。法條依全國法規資料庫，2026 年 11 月查閱。
+    </div>
+
+    <!-- 結論 -->
+    <div class="conclusion">
+      漏水可以<span class="accent">修</span>，價格可以<span class="accent">談</span>，藏起來的那一刻，就是官司的開始。
+    </div>
+
+    <!-- 雙按鈕 CTA -->
+    <div class="cta-section">
+      <div class="community-cta">
+        <h3>看完還有想問的？</h3>
+        <p>這份只能幫你避開常見的坑。真的遇到哪一間、哪個地段、哪個條件，情況都不一樣。<br>把屋況跟修繕紀錄直接丟給我，我幫你看現況說明書那一格該怎麼寫，不用先講你要不要賣。</p>
+        <a href="https://line.me/R/ti/p/@056ohivi" class="cta-button" target="_blank" rel="noopener">加 LINE 問喵爸 →</a>
+      </div>
+      <div class="card-cta">
+        <h3>自己先玩玩看</h3>
+        <p style="font-size:14px;line-height:1.6;margin:0 0 16px;opacity:.78">房貸試算、青安資格、學區地圖、垃圾車時間，十幾個工具不用註冊</p>
+        <a href="https://tools.cathome.tw" class="cta-button" target="_blank" rel="noopener">免費工具箱 →</a>
+      </div>
+    </div>
+    
+    <!-- 頁尾品牌區 -->
+    <div class="brand-footer">
+      <img src="https://pack.cathome.tw/assets/logo.png"
+           srcset="https://pack.cathome.tw/assets/logo@2x.png 2x"
+           alt="中壢專業房仲喵爸" class="footer-logo">
+      <div class="footer-name">中壢專業房仲 <span class="accent">喵爸</span></div>
+      <div class="footer-date">2026.11.01</div>
+    </div>
+
+  </div>
+
+  
+  </div>
+
+  <!-- 浮動按鈕 -->
+  <div class="floating-actions">
+    <a href="https://line.me/R/ti/p/@056ohivi" class="fab-line" target="_blank" rel="noopener" aria-label="加 LINE 私訊喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+    </a>
+    <a href="tel:0925842111" class="fab-phone" aria-label="撥打電話給喵爸">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+      </svg>
+    </a>
+  </div>
+
+
+</body>
+</html>
