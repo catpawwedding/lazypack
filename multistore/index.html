@@ -74,10 +74,10 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar hide" id="topbar">
+  <div class="topbar" id="topbar">
     <span class="who" id="who"></span>
     <span data-help-slot></span>
-    <button class="btn-out" id="logoutBtn" type="button">登出</button>
+    <button class="btn-out hide" id="logoutBtn" type="button">登出</button>
   </div>
   <h1>🏘️ 複數店查詢</h1>
   <div class="sub" id="subline">貼截圖或店名，馬上告訴你是不是我們聯盟的複數店</div>
@@ -367,7 +367,7 @@ const supa=window.supabase.createClient("https://pkkywkugrjqacuapcdyw.supabase.c
 const GATES=["gateLoading","gateLogin","gateNoAccess","gateError","app"];
 function show(id){GATES.forEach(g=>document.getElementById(g).classList.toggle("hide",g!==id));}
 function showBar(sess){
-  document.getElementById("topbar").classList.remove("hide");
+  document.getElementById("logoutBtn").classList.remove("hide");
   document.getElementById("who").textContent=(sess.user.user_metadata&&(sess.user.user_metadata.name||sess.user.user_metadata.full_name))||(sess.user.email||"").split("@")[0];
 }
 async function boot(){
