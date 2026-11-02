@@ -55,15 +55,54 @@
   .other{font-size:13.5px;color:#8a8377;padding:5px 0 5px 10px;border-left:3px solid #eee7db;margin:4px 0;word-break:break-all}
   #shotCanvas{width:100%;border-radius:8px;border:1px solid #e5dfd5;margin-top:10px;display:block}
   .foot{text-align:center;font-size:11.5px;color:#b3ab9e;margin-top:18px;line-height:1.7}
+  .hide{display:none!important}
+  .topbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;min-height:40px;margin-bottom:6px;font-size:13px;color:#8a8377}
+  .topbar .who{margin-right:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+  .btn-out{flex:0 0 auto;background:#eee7db;color:#6b6255;font-size:14px;font-weight:700;padding:0 14px;min-height:40px;border-radius:9px}
+  .gate{text-align:center;padding:22px 18px;line-height:1.7;font-size:15px;color:#4a4438}
+  .gate h2{font-size:18px;color:#1a3a5c;margin-bottom:6px}
+  .gate p{margin-bottom:14px}
+  .gate .btn-main{padding:13px 28px}
+  #line-login-access button{white-space:nowrap}
+  .btn-google{display:block;width:100%;background:#fff;color:#2b2b2b;border:1.5px solid #d8d0c2;padding:12px 16px}
 </style>
+<meta name="line-login" content="on">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://hub.cathome.tw/line-login.js" defer></script>
 <script src="https://hub.cathome.tw/line-escape.js" defer></script>
 <script src="https://hub.cathome.tw/help.js" data-help="multistore" data-name="複數店查詢" defer></script>
 </head>
 <body>
 <div class="wrap">
+  <div class="topbar hide" id="topbar">
+    <span class="who" id="who"></span>
+    <span data-help-slot></span>
+    <button class="btn-out" id="logoutBtn" type="button">登出</button>
+  </div>
   <h1>🏘️ 複數店查詢</h1>
-  <div class="sub">貼截圖或店名，馬上告訴你是不是我們聯盟的複數店（共 33 家）</div>
+  <div class="sub" id="subline">貼截圖或店名，馬上告訴你是不是我們聯盟的複數店</div>
 
+  <div class="card gate" id="gateLoading">載入中⋯</div>
+
+  <div class="card gate hide" id="gateLogin">
+    <h2>請先登入</h2>
+    <p>用 LINE 或 Google 登入（帳號由喵爸開通）</p>
+    <div data-line-login></div>
+    <button class="btn-google" id="googleBtn" type="button">使用 Google 登入</button>
+  </div>
+
+  <div class="card gate hide" id="gateNoAccess">
+    <h2>🔒 你還沒開通複數店查詢</h2>
+    <p>帳號沒問題，只是這個工具要喵爸開通才能用。<br>按畫面最下面的「申請開通」，開通後這一頁會自己重新整理。</p>
+  </div>
+
+  <div class="card gate hide" id="gateError">
+    <h2>暫時連不上</h2>
+    <p>不是你的問題，名單這次沒有載入成功。</p>
+    <button class="btn-main" type="button" onclick="location.reload()">重新整理</button>
+  </div>
+
+  <div id="app" class="hide">
   <div class="card">
     <div class="shot-zone" id="shotZone">📸 <b>截圖直接貼上</b><br>在這頁按 <b>Ctrl+V</b>，或點這裡選截圖<br><span style="font-size:12.5px;color:#a09884">自動認出圖裡的店名，我們的複數店標紅</span></div>
     <input type="file" id="shotFile" accept="image/*" hidden>
@@ -91,30 +130,21 @@
 
   <div class="card">
     <details>
-      <summary>📋 看完整名單（33 家）</summary>
+      <summary>📋 看完整名單（<span id="listCount"></span> 家）</summary>
       <div id="fulllist"></div>
     </details>
   </div>
 
-  <div class="foot">名單同步自喵爸控台 MULTI_STORES（2026-10-03）<br>加店請找喵爸更新</div>
+  <div class="foot">加店請找喵爸更新</div>
+  </div>
 </div>
 
 <script>
-const MULTI_STORES=[
-"永慶不動產體育園區云賀加盟店","永慶不動產鶯歌鳳鳴站前加盟店","永慶不動產鶯歌建國捷運加盟店","永慶不動產楊梅楊明國小加盟店",
-"永慶不動產高鐵青塘園加盟店","永慶不動產桃園藝文同安加盟店","永慶不動產青埔IKEA加盟店","永慶不動產青埔A19捷運加盟店",
-"永慶不動產林口民視中山加盟店","永慶不動產內壢站前加盟店","永慶不動產內壢忠孝吉富加盟店","永慶不動產中壢過嶺絢耀加盟店",
-"永慶不動產中壢A22中豐加盟店","永慶不動產中路京懋一號加盟店",
-"有巢氏房屋內壢環中加盟店","有巢氏房屋內壢車站加盟店","有巢氏房屋園區龍慈吉富加盟店","有巢氏房屋青埔A18高鐵加盟店",
-"有巢氏房屋林口三井忠孝加盟店","有巢氏房屋中壢環中加盟店","有巢氏房屋中壢後站加盟店","有巢氏房屋中壢SOGO加盟店",
-"有巢氏房屋小檜溪自強加盟店","有巢氏房屋平鎮環南加盟店","有巢氏房屋桃園春日莊敬加盟店",
-"永義房屋桃園南崁台茂加盟店","永義房屋桃園中路吉安加盟店","永義房屋桃園大有寶山加盟店","永義房屋青埔A19領航加盟店",
-"永義房屋中正G10加盟店","永義房屋大竹上興公園加盟店",
-"台慶不動產龍潭宏觀加盟店","台慶不動產桃園風禾公園加盟店"];
+// 名單不寫在網頁裡：開通的人登入後才從資料庫領（multistore_list）
+let MULTI_STORES=[],MS_NORM=[],MS_CORE=[];
 
 // 比對邏輯與喵爸控台完全相同
 const msNorm=s=>String(s||"").replace(/\s|　|不動產|房屋|加盟店|直營店/g,"").toUpperCase();
-const MS_NORM=MULTI_STORES.map(msNorm);
 function matchStore(name){
   const n=msNorm(name);
   if(!n||n.length<4)return{status:"short"};
@@ -183,7 +213,6 @@ function approxDist(p,t,endAnchored){
 }
 const STORE_WORD=/加盟店|直營店|不動產|房屋|有巢氏|永慶|永義|台慶/;
 const BRAND_RE=/^(永慶|有巢氏|永義|台慶)/,HAS_BRAND=/永慶|有巢|巢氏|永義|台慶/;
-const MS_CORE=MS_NORM.map(x=>x.replace(BRAND_RE,""));
 const segBrand=L=>/永慶/.test(L)?"永慶":/有巢|巢氏/.test(L)?"有巢氏":/永義/.test(L)?"永義":/台慶/.test(L)?"台慶":"";
 // seg＝一段店名（已切在「加盟店」前）。有品牌字就要整個店名對上；沒品牌字（例：園區龍慈吉富加盟店）只比品牌後面那段
 function matchSeg(seg){
@@ -262,7 +291,7 @@ function ocrLines(data){
 }
 let busy=false;
 async function runShot(blob){
-  if(busy)return;busy=true;
+  if(busy||!MULTI_STORES.length)return;busy=true;
   document.getElementById("shotResult").style.display="none";
   try{
     setShot("準備中…",0);
@@ -322,7 +351,7 @@ zone.addEventListener("dragleave",()=>zone.classList.remove("drag"));
 zone.addEventListener("drop",e=>{e.preventDefault();zone.classList.remove("drag");const f=[...e.dataTransfer.files].find(f=>f.type.startsWith("image/"));if(f)runShot(f);});
 
 // 完整名單（依品牌分組）
-(function(){
+function renderFullList(){
   const groups=[["永慶不動產","yc"],["有巢氏房屋","uc"],["永義房屋","yi"],["台慶不動產","tc"]];
   let h="";
   for(const[br,cls]of groups){
@@ -331,7 +360,35 @@ zone.addEventListener("drop",e=>{e.preventDefault();zone.classList.remove("drag"
     for(const s of list)h+=`<div class="store">${esc(s)}</div>`;
   }
   document.getElementById("fulllist").innerHTML=h;
-})();
+}
+
+// ── 登入與開通（統一中控 slug=multistore）──
+const supa=window.supabase.createClient("https://pkkywkugrjqacuapcdyw.supabase.co","sb_publishable_sQCYgXGyKsijPERjkdCoMw_gevrBaDR",{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const GATES=["gateLoading","gateLogin","gateNoAccess","gateError","app"];
+function show(id){GATES.forEach(g=>document.getElementById(g).classList.toggle("hide",g!==id));}
+function showBar(sess){
+  document.getElementById("topbar").classList.remove("hide");
+  document.getElementById("who").textContent=(sess.user.user_metadata&&(sess.user.user_metadata.name||sess.user.user_metadata.full_name))||(sess.user.email||"").split("@")[0];
+}
+async function boot(){
+  const sess=(await supa.auth.getSession()).data.session;
+  if(!sess){show("gateLogin");return;}
+  if(!sess.user.email){show("gateLogin");return;} // LINE 還沒開通帳號：line-login.js 會蓋申請表
+  showBar(sess);
+  const {data,error}=await supa.rpc("multistore_list");
+  if(error){show(error.code==="42501"?"gateNoAccess":"gateError");return;} // 查詢失敗≠沒開通
+  if(!data||!data.length){show("gateError");return;}
+  MULTI_STORES=data.map(s=>s.name);
+  MS_NORM=MULTI_STORES.map(msNorm);
+  MS_CORE=MS_NORM.map(x=>x.replace(BRAND_RE,""));
+  document.getElementById("subline").textContent=`貼截圖或店名，馬上告訴你是不是我們聯盟的複數店（共 ${data.length} 家）`;
+  document.getElementById("listCount").textContent=data.length;
+  renderFullList();
+  show("app");
+}
+document.getElementById("googleBtn").addEventListener("click",()=>supa.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}}));
+document.getElementById("logoutBtn").addEventListener("click",()=>supa.auth.signOut({scope:"local"}).then(()=>location.reload()));
+boot().catch(()=>show("gateError"));
 </script>
 </body>
 </html>
