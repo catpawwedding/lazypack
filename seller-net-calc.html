@@ -731,6 +731,7 @@
   <button class="tab" data-tab="park" onclick="switchTab('park')">🚗 車位拆算</button>
   <button class="tab active" data-tab="seller" onclick="switchTab('seller')">💰 賣方實拿速算</button>
   <button class="tab" data-tab="luxury" onclick="switchTab('luxury')">🏰 豪宅稅</button>
+<button class="tab" data-tab="oldinherit" onclick="switchTab('oldinherit')">📜 舊制繼承屋</button>
 </div>
 
 <div class="tab-pane active" data-pane="seller">
@@ -1349,6 +1350,202 @@
       <div class="row" style="font-size:11.5px; color:#888; margin-top:6px;"><span id="lx_rv_note">　</span><span></span></div>
     </div>
   </div>
+</div>
+</div>
+
+<!-- ========== TAB: 舊制繼承屋所得 ========== -->
+<div class="tab-pane" data-pane="oldinherit">
+<div class="card">
+  <div class="section-header-row">
+    <div>
+      <h2 class="card-title">舊制繼承屋所得</h2>
+      <p class="card-sub">爸媽 104 年底前取得、繼承（或受贈）後賣掉的房子 · 成本可依物價指數往上調（財政部 115/7/15 新規）</p>
+    </div>
+    <button class="reset-btn" onclick="resetOldInherit()">↻ 全部清除</button>
+  </div>
+
+  <!-- 日期 -->
+  <div class="section yellow">
+    <h3 class="section-title">兩個日期 <span class="tag">自動帶物價指數</span></h3>
+    <div class="grid-2">
+      <div class="field">
+        <label>繼承（或受贈）年月 <span class="hint">繼承＝過世那個月</span></label>
+        <div class="roc-date">
+          <select id="oi_acqY" onchange="calcOldInherit()"></select>
+          <select id="oi_acqM" onchange="calcOldInherit()"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>出售年月 <span class="hint">簽約那個月</span></label>
+        <div class="roc-date">
+          <select id="oi_sellY" onchange="calcOldInherit()"></select>
+          <select id="oi_sellM" onchange="calcOldInherit()"></select>
+        </div>
+      </div>
+    </div>
+    <div id="oi_cpiInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:white; border-radius:8px; color:var(--ink-soft);">
+      選好兩個年月，自動查主計總處「稅務專用」物價指數
+    </div>
+  </div>
+
+  <!-- 取得成本 -->
+  <div class="section">
+    <h3 class="section-title">繼承時的房屋評定現值 <span class="tag gray">依當年稅單</span></h3>
+    <div class="field">
+      <label>房屋評定現值 <span class="hint">元 · 有持分就填持分後的金額</span></label>
+      <input type="number" id="oi_acqHouse" step="1" placeholder="例如: 920900" oninput="calcOldInherit()" />
+    </div>
+    <p style="font-size:12px; color:var(--ink-soft); margin:10px 0 0;">只算房子，土地不算進成本（土地另外繳土地增值稅）。</p>
+  </div>
+
+  <!-- 售價 -->
+  <div class="section">
+    <h3 class="section-title">出售價格 <span class="tag">要拆出房屋那一塊</span></h3>
+    <div class="seg" id="oiModeSeg">
+      <button class="seg-btn active" onclick="setOiMode('val')">用現值拆房地比</button>
+      <button class="seg-btn" onclick="setOiMode('ratio')">直接填房地比</button>
+      <button class="seg-btn" onclick="setOiMode('split')">合約已分開寫</button>
+    </div>
+
+    <div class="field" style="margin-top:14px;">
+      <label id="oi_priceLabel">房地總價 <span class="hint">萬</span></label>
+      <input type="number" id="oi_price" step="0.01" placeholder="例如: 1000" oninput="calcOldInherit()" />
+    </div>
+
+    <div id="oiValWrap" style="margin-top:12px;">
+      <div class="field">
+        <label>出售時房屋評定現值 <span class="hint">元 · 依房屋稅單</span></label>
+        <input type="number" id="oi_sellHouse" step="1" placeholder="例如: 1000000" oninput="calcOldInherit()" />
+      </div>
+      <p style="font-size:12px; color:var(--ink-soft); margin:12px 0 6px;">出售時土地公告現值（依謄本，三格填完自動相乘；多筆土地請加總後填）</p>
+      <div class="grid-3">
+        <div class="field">
+          <label>土地面積 <span class="hint">平方公尺</span></label>
+          <input type="number" id="oi_landArea" step="0.01" placeholder="例如: 60" oninput="calcOldInherit()" />
+        </div>
+        <div class="field">
+          <label>公告土地現值 <span class="hint">元/m²</span></label>
+          <input type="number" id="oi_landUnit" step="1" placeholder="例如: 150000" oninput="calcOldInherit()" />
+        </div>
+        <div class="field">
+          <label>權利範圍 <span class="hint">如 1/2</span></label>
+          <input type="text" id="oi_landShare" placeholder="例如: 1/1" oninput="calcOldInherit()" />
+        </div>
+      </div>
+    </div>
+
+    <div id="oiRatioWrap" style="display:none; margin-top:12px;">
+      <div class="field">
+        <label>房地比 <span class="hint">% · 房屋占幾成</span></label>
+        <input type="number" id="oi_ratioPct" step="0.01" placeholder="例如: 10" oninput="calcOldInherit()" />
+      </div>
+    </div>
+
+    <div id="oi_ratioInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
+      房地比 = 出售時房屋評定現值 ÷（出售時房屋評定現值 + 出售時土地公告現值）
+    </div>
+  </div>
+
+  <!-- 費用 -->
+  <div class="section">
+    <h3 class="section-title">出售費用 <span class="tag gray">服務費、代書費等</span></h3>
+    <div class="field">
+      <label id="oi_feeLabel">房地一起付的費用合計 <span class="hint">萬 · 會自動拆房地比</span></label>
+      <input type="number" id="oi_fee" step="0.01" placeholder="例如: 40" oninput="calcOldInherit()" />
+    </div>
+  </div>
+
+  <!-- 結果 -->
+  <div class="result-panel">
+    <div class="result-grid">
+      <div class="result-box">
+        <div class="label">物價調整比率</div>
+        <div class="value"><span id="oi_r_cpi">—</span><span class="unit">倍</span></div>
+      </div>
+      <div class="result-box">
+        <div class="label">房地比</div>
+        <div class="value"><span id="oi_r_ratio">—</span><span class="unit">%</span></div>
+      </div>
+      <div class="result-box big">
+        <div class="label">財產交易所得（併入綜所稅）</div>
+        <div class="value"><span id="oi_r_gain">—</span><span class="unit">萬</span></div>
+      </div>
+    </div>
+
+    <div class="detail">
+      <div class="detail-title">計算明細</div>
+      <div class="detail-row"><span class="name" id="oi_d_price_label">房屋售價（總價 × 房地比）</span><span class="num"><span id="oi_d_price">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">減：調整後取得成本（現值 × 物價比率，不拆房地比）</span><span class="num">−<span id="oi_d_cost">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name" id="oi_d_fee_label">減：房屋分到的費用（費用 × 房地比）</span><span class="num">−<span id="oi_d_fee">—</span> 萬</span></div>
+      <div class="detail-row sum"><span class="name">財產交易所得</span><span class="num"><span id="oi_d_gain">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">對照：成本不調物價的舊算法</span><span class="num"><span id="oi_d_old">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">新算法少算的所得</span><span class="num"><span id="oi_d_save">—</span> 萬</span></div>
+    </div>
+
+  </div>
+
+  <!-- 報稅試算 -->
+  <div class="section yellow" style="margin-top:18px;">
+    <h3 class="section-title">明年報稅會多繳多少？ <span class="tag">併入綜所稅</span></h3>
+    <p style="font-size:12px; color:var(--ink-soft); margin:-8px 0 12px;">這筆所得要併進賣出那一年的綜所稅。填家裡狀況，算出「有賣」跟「沒賣」差多少稅。<span id="oi_taxYearNote"></span></p>
+    <div class="seg" id="oiMarSeg">
+      <button class="seg-btn active" onclick="setOiMar(false)">單身</button>
+      <button class="seg-btn" onclick="setOiMar(true)">已婚（夫妻合併申報）</button>
+    </div>
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="field">
+        <label>賣房的人：全年薪水 <span class="hint">萬</span></label>
+        <input type="number" id="oi_salSelf" step="0.1" placeholder="例如: 60" oninput="calcOldInherit()" />
+      </div>
+      <div class="field" id="oiSpouseWrap" style="display:none;">
+        <label>配偶：全年薪水 <span class="hint">萬</span></label>
+        <input type="number" id="oi_salSpouse" step="0.1" placeholder="例如: 45" oninput="calcOldInherit()" />
+      </div>
+      <div class="field">
+        <label>扶養小孩 <span class="hint">人</span></label>
+        <input type="number" id="oi_kids" step="1" min="0" placeholder="0" oninput="calcOldInherit()" />
+      </div>
+      <div class="field">
+        <label>其中未滿 6 歲 <span class="hint">人</span></label>
+        <input type="number" id="oi_kids6" step="1" min="0" placeholder="0" oninput="calcOldInherit()" />
+      </div>
+      <div class="field">
+        <label>扶養 70 歲以上長輩 <span class="hint">人</span></label>
+        <input type="number" id="oi_elders" step="1" min="0" placeholder="0" oninput="calcOldInherit()" />
+      </div>
+    </div>
+
+    <div class="result-grid" style="margin-top:14px;">
+      <div class="result-box">
+        <div class="label">沒賣房：全年綜所稅</div>
+        <div class="value"><span id="oi_t_base">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box">
+        <div class="label">有賣房：全年綜所稅</div>
+        <div class="value"><span id="oi_t_with">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box big">
+        <div class="label">賣這間要多繳的稅</div>
+        <div class="value"><span id="oi_t_extra">—</span><span class="unit">萬</span></div>
+      </div>
+    </div>
+    <div class="detail" style="margin-top:12px;">
+      <div class="detail-title">怎麼算的</div>
+      <div id="oi_t_rows"></div>
+    </div>
+    <p style="font-size:11.5px; color:#888; margin:8px 0 0;">採標準扣除額、薪資之外沒有其他所得；已婚會比較「全部合併」和「配偶分開計稅」取較省的。實際以國稅局核定為準。</p>
+  </div>
+
+  <div id="oi_warn" style="display:none; margin-top:14px; font-size:13px; padding:12px 14px; background:#fff1f0; border:1px solid #f3c2bd; border-radius:8px; color:#a8322a;"></div>
+
+  <div style="margin-top:14px; font-size:12.5px; line-height:1.75; padding:12px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
+    <b>適用條件</b><br>
+    ① 爸媽（被繼承人）104/12/31 以前取得 → 就算 105 年後才繼承，也走舊制<br>
+    ② 115/7/15 以後還沒核課確定的案子都適用（財政部台財稅字第11504549440號令）<br>
+    ③ 105 年後繼承、又符合自住條件的，可以跟房地合一新制比，選划算的<br>
+    <b>常見算錯</b>：把「（總價 − 成本 − 費用）× 房地比」整個括號乘房地比，成本會被打折，所得多算一倍以上。成本只算房子，不能再乘房地比。
+  </div>
+  <p style="font-size:11.5px; color:#888; margin:10px 0 0;">物價指數：主計總處「以各年月為基期之消費者物價總指數－稅務專用」<span id="oi_cpiVer"></span>。試算僅供參考，實際以國稅局核定為準。</p>
 </div>
 </div>
 
@@ -2356,6 +2553,230 @@ function resetLuxury() {
 // 初始化豪宅稅
 calcLuxury();
 
+// ============ 舊制繼承屋所得（物價指數調整成本）============
+// 主計總處「以各年月為基期之消費者物價總指數－稅務專用」：格子值＝以該年月為 100 時，基準月(base)所當之指數
+const OI_CPI = {"base":[115,10],"data":{"48":[1145.0,1135.8,1118.9,1120.0,1118.9,1100.4,1067.1,1011.6,981.7,997.3,1026.4,1027.3],"49":[1018.0,995.6,961.7,917.9,922.4,896.0,889.7,852.1,841.3,848.9,848.2,863.8],"50":[861.8,845.7,845.7,839.4,838.8,838.8,842.5,832.6,819.9,814.6,821.1,828.9],"51":[834.4,825.3,828.3,824.7,814.0,818.7,831.4,822.9,803.6,789.0,799.6,805.9],"52":[797.9,797.3,795.6,790.6,797.3,804.7,814.6,812.8,788.4,789.0,798.4,800.7],"53":[799.6,798.4,801.3,806.4,803.6,809.9,816.3,807.0,795.6,784.0,785.1,795.6],"54":[806.4,808.7,811.6,808.7,804.7,800.7,799.6,795.1,791.2,797.3,795.6,791.2],"55":[793.4,804.7,805.9,800.1,798.4,780.2,779.2,782.9,767.0,761.8,772.2,778.1],"56":[772.2,757.7,771.2,772.8,769.6,763.9,754.2,755.7,747.7,751.7,752.7,745.2],"57":[741.8,747.2,745.2,714.6,711.0,698.2,686.7,669.6,679.7,675.2,688.4,702.6],"58":[696.9,688.0,690.5,687.2,694.8,688.8,674.8,661.8,662.2,607.0,634.6,664.1],"59":[672.0,661.0,656.8,653.7,656.8,662.2,651.5,632.8,616.9,626.5,634.3,640.4],"60":[629.0,631.4,634.6,636.1,635.3,635.3,635.0,624.1,624.4,620.3,622.0,623.4],"61":[632.8,619.6,621.0,620.3,617.3,610.9,605.7,585.0,586.5,610.3,618.3,607.6],"62":[623.8,614.9,616.9,608.0,600.2,593.9,577.5,565.1,542.3,502.7,492.8,490.0],"63":[446.2,387.4,382.2,384.8,388.0,389.2,384.1,379.9,368.1,368.7,363.5,365.6],"64":[369.1,368.6,371.7,369.3,369.1,360.9,360.9,359.7,360.1,355.5,358.4,364.9],"65":[358.6,357.4,354.6,353.7,355.5,356.9,355.4,352.8,353.1,355.0,355.9,352.2],"66":[347.5,342.0,343.3,340.7,339.2,328.9,328.6,314.7,319.1,322.6,328.2,329.8],"67":[324.2,321.8,321.5,315.6,315.8,316.1,317.0,311.3,306.5,304.1,305.1,306.4],"68":[305.4,304.0,299.9,294.0,291.5,288.5,286.0,278.8,270.0,270.7,274.6,272.3],"69":[261.6,256.5,255.1,253.9,249.2,242.7,241.0,235.6,226.8,222.9,222.6,222.9],"70":[213.2,209.7,208.7,207.9,208.7,206.7,205.9,203.9,201.5,202.7,204.0,204.3],"71":[203.0,203.6,203.1,202.6,201.4,201.0,201.1,195.2,197.0,198.6,200.2,199.5],"72":[199.4,197.4,196.6,195.7,197.1,195.6,197.9,198.0,197.3,197.4,199.1,201.9],"73":[201.7,199.7,199.2,198.8,196.4,196.6,197.1,196.4,195.7,196.5,197.6,198.6],"74":[198.5,196.9,196.8,197.8,198.4,198.7,198.5,199.4,196.1,196.3,199.1,201.2],"75":[199.3,198.8,198.8,198.3,198.0,197.6,198.0,197.0,192.1,192.5,195.2,196.1],"76":[196.6,197.0,198.6,197.9,197.8,197.7,195.4,193.9,193.2,194.9,194.4,192.4],"77":[195.5,196.3,197.4,197.2,195.0,193.8,193.8,191.1,190.5,189.1,190.1,190.3],"78":[190.3,188.6,188.1,186.5,185.1,185.6,186.5,184.9,180.2,178.5,183.2,184.5],"79":[183.2,183.5,182.1,180.3,178.4,179.1,177.9,175.0,169.2,172.9,176.3,176.4],"80":[174.5,173.5,174.3,173.2,172.6,172.2,171.0,170.6,170.4,168.7,168.2,169.8],"81":[168.2,166.7,166.5,163.8,163.3,163.7,164.9,165.7,160.5,160.6,163.2,164.2],"82":[162.2,161.7,161.2,159.4,159.9,156.9,159.7,160.3,159.3,158.6,158.3,157.0],"83":[157.7,155.6,156.1,154.7,153.2,153.6,153.3,149.8,149.3,151.0,152.3,152.9],"84":[149.8,150.5,150.3,148.1,148.4,146.8,147.6,147.3,146.4,146.8,146.2,146.2],"85":[146.5,145.0,145.9,144.0,144.2,143.3,145.5,140.2,141.0,141.5,141.6,142.6],"86":[143.6,142.1,144.3,143.3,143.1,140.8,140.8,141.0,140.1,142.0,142.4,142.2],"87":[140.8,141.7,140.8,140.3,140.8,138.8,139.7,140.4,139.5,138.4,137.0,139.3],"88":[140.2,138.8,141.5,140.5,140.1,140.0,140.8,138.8,138.7,137.9,138.3,139.1],"89":[139.5,137.5,139.9,138.7,137.9,138.1,138.8,138.4,136.5,136.5,135.2,136.8],"90":[136.3,138.9,139.3,138.2,138.2,138.3,138.7,137.8,137.2,135.1,136.8,139.2],"91":[138.6,137.0,139.3,137.9,138.5,138.1,138.1,138.2,138.3,137.5,137.5,138.1],"92":[137.2,139.1,139.5,138.0,138.1,138.9,139.5,139.0,138.5,137.6,138.2,138.2],"93":[137.1,138.2,138.3,136.7,136.9,136.5,135.0,135.5,134.8,134.4,136.1,136.0],"94":[136.5,135.6,135.2,134.5,133.8,133.4,131.8,130.9,130.7,130.8,132.8,133.1],"95":[132.9,134.3,134.6,132.9,131.7,131.1,130.8,131.6,132.3,132.3,132.4,132.2],"96":[132.4,132.0,133.5,132.0,131.7,130.9,131.2,129.5,128.3,125.6,126.4,127.9],"97":[128.7,127.0,128.4,127.1,127.0,124.7,124.0,123.7,124.4,122.7,124.0,126.3],"98":[126.8,128.8,128.6,127.6,127.1,127.2,127.0,124.7,125.6,125.1,126.0,126.6],"99":[126.5,125.8,127.0,125.9,126.2,125.7,125.3,125.3,125.2,124.4,124.1,125.1],"100":[125.1,124.2,125.3,124.3,124.1,123.3,123.7,123.7,123.5,122.8,122.9,122.6],"101":[122.2,123.9,123.7,122.6,122.0,121.2,120.7,119.6,120.0,120.0,120.9,120.6],"102":[120.9,120.3,122.1,121.3,121.1,120.5,120.6,120.5,118.9,119.3,120.1,120.2],"103":[119.9,120.3,120.1,119.3,119.1,118.5,118.6,118.0,118.1,118.0,119.1,119.5],"104":[121.0,120.6,120.9,120.3,120.0,119.2,119.3,118.6,117.8,117.7,118.5,119.4],"105":[120.0,117.8,118.5,118.1,118.6,118.1,117.9,117.9,117.4,115.7,116.2,117.4],"106":[117.4,117.8,118.3,118.0,117.8,117.0,117.0,116.8,116.8,116.1,115.8,116.0],"107":[116.4,115.3,116.4,115.7,115.8,115.3,114.9,115.0,114.8,114.7,115.5,116.0],"108":[116.2,115.0,115.8,114.9,114.7,114.4,114.5,114.5,114.4,114.3,114.8,114.7],"109":[114.0,115.3,115.8,116.0,116.2,115.2,115.1,114.9,115.0,114.6,114.7,114.7],"110":[114.3,113.7,114.4,113.6,113.4,113.2,112.9,112.3,112.1,111.8,111.5,111.7],"111":[111.1,111.1,110.8,109.9,109.7,109.2,109.3,109.4,109.1,108.8,109.0,108.8],"112":[107.8,108.5,108.2,107.4,107.5,107.4,107.3,106.7,106.0,105.6,105.9,105.9],"113":[105.9,105.3,105.9,105.4,105.1,104.8,104.6,104.2,104.1,103.8,103.7,103.7],"114":[103.2,103.6,103.5,103.3,103.5,103.4,103.0,102.6,102.8,102.3,102.5,102.4],"115":[102.4,101.8,102.3,101.5,101.3,100.8,100.5,100.5,100.1,100.0,null,null]}};
+let oiMode = 'val';
+
+function oiIdx(y, m) {
+  const row = OI_CPI.data[String(y)];
+  if (!row) return null;
+  const n = row[m - 1];
+  return (n === null || n === undefined) ? null : n;
+}
+
+function oiFillSelects() {
+  const years = Object.keys(OI_CPI.data).map(Number).sort((a, b) => b - a);
+  const yOpts = '<option value="">民國年</option>' + years.map(y => '<option value="' + y + '">' + y + ' 年（' + (y + 1911) + '）</option>').join('');
+  const mOpts = '<option value="">月</option>' + Array.from({ length: 12 }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + ' 月</option>').join('');
+  ['oi_acqY', 'oi_sellY'].forEach(id => document.getElementById(id).innerHTML = yOpts);
+  ['oi_acqM', 'oi_sellM'].forEach(id => document.getElementById(id).innerHTML = mOpts);
+  document.getElementById('oi_sellY').value = String(OI_CPI.base[0]);
+  document.getElementById('oi_sellM').value = String(OI_CPI.base[1]);
+  document.getElementById('oi_cpiVer').textContent = '（' + OI_CPI.base[0] + ' 年 ' + OI_CPI.base[1] + ' 月版）';
+}
+
+function setOiMode(mode) {
+  oiMode = mode;
+  document.getElementById('oiModeSeg').querySelectorAll('.seg-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['val', 'ratio', 'split'][i] === mode);
+  });
+  document.getElementById('oiValWrap').style.display = mode === 'val' ? 'block' : 'none';
+  document.getElementById('oiRatioWrap').style.display = mode === 'ratio' ? 'block' : 'none';
+  document.getElementById('oi_ratioInfo').style.display = mode === 'split' ? 'none' : 'block';
+  document.getElementById('oi_priceLabel').innerHTML = mode === 'split'
+    ? '合約寫的房屋價款 <span class="hint">萬</span>'
+    : '房地總價 <span class="hint">萬</span>';
+  document.getElementById('oi_feeLabel').innerHTML = mode === 'split'
+    ? '房屋分到的費用 <span class="hint">萬 · 已分好就直接填</span>'
+    : '房地一起付的費用合計 <span class="hint">萬 · 會自動拆房地比</span>';
+  document.getElementById('oi_d_price_label').textContent = mode === 'split' ? '房屋售價（合約房屋價款）' : '房屋售價（總價 × 房地比）';
+  document.getElementById('oi_d_fee_label').textContent = mode === 'split' ? '減：房屋分到的費用' : '減：房屋分到的費用（費用 × 房地比）';
+  calcOldInherit();
+}
+
+function oiRatio() {
+  if (oiMode === 'split') return { ok: true, ratio: 1 };
+  if (oiMode === 'ratio') {
+    const p = v('oi_ratioPct');
+    if (p <= 0 || p > 100) return { ok: false, ratio: 0 };
+    return { ok: true, ratio: p / 100 };
+  }
+  const houseVal = v('oi_sellHouse');
+  const share = parseShare(document.getElementById('oi_landShare').value);
+  const landVal = v('oi_landArea') * v('oi_landUnit') * share.val;
+  const info = document.getElementById('oi_ratioInfo');
+  if (houseVal <= 0 || landVal <= 0) {
+    info.textContent = '房地比 = 出售時房屋評定現值 ÷（出售時房屋評定現值 + 出售時土地公告現值）';
+    return { ok: false, ratio: 0 };
+  }
+  const r = houseVal / (houseVal + landVal);
+  info.textContent = '土地公告現值 ' + fmt0(landVal) + ' 元 ｜ 房地比 = ' + fmt0(houseVal) + ' ÷（' + fmt0(houseVal) + ' + ' + fmt0(landVal) + '）= ' + fmt(r * 100) + '%';
+  return { ok: true, ratio: r };
+}
+
+function calcOldInherit() {
+  const set = (id, t) => { document.getElementById(id).textContent = t; };
+  const warn = [];
+  const aY = parseInt(document.getElementById('oi_acqY').value), aM = parseInt(document.getElementById('oi_acqM').value);
+  let sY = parseInt(document.getElementById('oi_sellY').value), sM = parseInt(document.getElementById('oi_sellM').value);
+  const cpiInfo = document.getElementById('oi_cpiInfo');
+
+  // 物價調整比率
+  let cpi = null;
+  if (aY && aM && sY && sM) {
+    if (sY * 12 + sM < aY * 12 + aM) {
+      warn.push('出售年月比繼承年月還早，請檢查日期。');
+    } else {
+      let sIdx = oiIdx(sY, sM), late = false;
+      if (sIdx === null) { // 出售月的指數還沒公布 → 先用最新一期
+        late = true; sIdx = 100;
+      }
+      const aIdx = oiIdx(aY, aM);
+      if (aIdx === null) {
+        warn.push('繼承年月 ' + aY + '/' + aM + ' 的物價指數還沒公布，無法計算。');
+      } else {
+        cpi = aIdx / sIdx;
+        cpiInfo.innerHTML = '繼承 ' + aY + '/' + aM + ' 指數 <b>' + aIdx.toFixed(1) + '</b> ÷ 出售 ' +
+          (late ? OI_CPI.base[0] + '/' + OI_CPI.base[1] : sY + '/' + sM) + ' 指數 <b>' + sIdx.toFixed(1) + '</b> = 物價調整比率 <b>' + cpi.toFixed(4) + '</b>';
+        if (late) warn.push('出售月 ' + sY + '/' + sM + ' 的物價指數還沒公布，先用最新一期（' + OI_CPI.base[0] + '/' + OI_CPI.base[1] + '）估算，正式申報以國稅局為準。');
+      }
+    }
+  }
+  if (cpi === null) cpiInfo.textContent = '選好兩個年月，自動查主計總處「稅務專用」物價指數';
+  set('oi_r_cpi', cpi === null ? '—' : cpi.toFixed(4));
+
+  const rr = oiRatio();
+  set('oi_r_ratio', (rr.ok && oiMode !== 'split') ? fmt(rr.ratio * 100) : (oiMode === 'split' ? '—' : '—'));
+
+  const price = v('oi_price');
+  const acqHouse = v('oi_acqHouse'); // 元
+  const fee = v('oi_fee');
+
+  const housePrice = rr.ok && price > 0 ? price * rr.ratio : null;
+  const houseFee = rr.ok ? fee * rr.ratio : null;
+  const cost = (cpi !== null && acqHouse > 0) ? acqHouse / 10000 * cpi : null;
+
+  set('oi_d_price', housePrice === null ? '—' : fmt(housePrice));
+  set('oi_d_fee', houseFee === null ? '—' : fmt(houseFee));
+  set('oi_d_cost', cost === null ? '—' : fmt(cost));
+
+  let gain = null;
+  if (housePrice !== null && cost !== null) {
+    gain = housePrice - cost - houseFee;
+    const oldGain = housePrice - acqHouse / 10000 - houseFee;
+    set('oi_r_gain', fmt(gain));
+    set('oi_d_gain', fmt(gain));
+    set('oi_d_old', fmt(oldGain));
+    set('oi_d_save', fmt(oldGain - gain));
+    if (cpi !== null && cpi < 1) warn.push('出售時物價比繼承時低，調整比率小於 1，請跟國稅局確認成本認定方式。');
+  } else {
+    ['oi_r_gain', 'oi_d_gain', 'oi_d_old', 'oi_d_save'].forEach(id => set(id, '—'));
+  }
+  oiTaxBlock(gain, sY, warn);
+
+  const w = document.getElementById('oi_warn');
+  w.style.display = warn.length ? 'block' : 'none';
+  w.innerHTML = warn.map(t => '⚠️ ' + t).join('<br>');
+}
+
+// ------- 綜所稅試算（115 年度數額，116 年 5 月申報）-------
+// 財政部 2025/11/27 公告；基本生活費 115 年度尚未公告，暫用 114 年度 21.3 萬
+const OI_TAX = {
+  year: 115, ex: 101000, exOld: 151500, std: [136000, 272000], sal: 227000, basic: 213000, basicNote: '114 年度數額，115 年度未公告前暫用',
+  pre1: 120000, preN: 150000,
+  br: [[610000, 0.05, 0], [1380000, 0.12, 42700], [2770000, 0.20, 153100], [5190000, 0.30, 430100], [Infinity, 0.40, 949100]]
+};
+let oiMar = false;
+
+function oiBr(net) { return OI_TAX.br.find(b => net <= b[0]); }
+function oiTaxOf(net) { if (net <= 0) return 0; const b = oiBr(net); return net * b[1] - b[2]; }
+function oiRateOf(net) { return net <= 0 ? 0 : oiBr(net)[1]; }
+
+// 回傳 {tax, net, rate, method}，金額單位：元
+function oiIncomeTax(salS, salP, other, married, kids, kids6, elders) {
+  const T = OI_TAX;
+  const persons = 1 + (married ? 1 : 0) + kids + elders;
+  const exTotal = T.ex * (1 + (married ? 1 : 0) + kids) + T.exOld * elders;
+  const std = married ? T.std[1] : T.std[0];
+  const preFull = kids6 > 0 ? T.pre1 + T.preN * (kids6 - 1) : 0;
+  const run = (method, pre) => {
+    const basicDiff = Math.max(0, T.basic * persons - (exTotal + std + pre));
+    if (method === 'all') {
+      const net = salS + salP + other - exTotal - std - Math.min(salS, T.sal) - (married ? Math.min(salP, T.sal) : 0) - pre - basicDiff;
+      return { tax: oiTaxOf(net), net: Math.max(0, net), rate: oiRateOf(net), method: married ? '夫妻全部合併' : '單身申報', pre };
+    }
+    const netP = salP - T.ex - Math.min(salP, T.sal);
+    const netS = salS + other - (exTotal - T.ex) - std - Math.min(salS, T.sal) - pre - basicDiff;
+    return { tax: oiTaxOf(netP) + oiTaxOf(netS), net: Math.max(0, netS) + Math.max(0, netP), rate: Math.max(oiRateOf(netP), oiRateOf(netS)), method: '配偶分開計稅', pre };
+  };
+  const methods = married ? ['all', 'sep'] : ['all'];
+  const results = methods.map(m => {
+    let r = run(m, preFull);
+    if (preFull > 0 && r.rate >= 0.20) r = run(m, 0); // 適用稅率 20% 以上不能扣幼兒學前特別扣除
+    return r;
+  });
+  return results.reduce((a, b) => (b.tax < a.tax ? b : a));
+}
+
+function setOiMar(m) {
+  oiMar = m;
+  document.getElementById('oiMarSeg').querySelectorAll('.seg-btn').forEach((b, i) => b.classList.toggle('active', (i === 1) === m));
+  document.getElementById('oiSpouseWrap').style.display = m ? 'block' : 'none';
+  calcOldInherit();
+}
+
+function oiTaxBlock(gain, sellY, warn) {
+  const set = (id, t) => { document.getElementById(id).textContent = t; };
+  const rows = document.getElementById('oi_t_rows');
+  document.getElementById('oi_taxYearNote').textContent =
+    '（用 ' + OI_TAX.year + ' 年度數額：' + OI_TAX.year + ' 年賣出、' + (OI_TAX.year + 1) + ' 年 5 月報稅）';
+  const int = id => Math.max(0, Math.floor(v(id)));
+  const salS = v('oi_salSelf') * 10000, salP = oiMar ? v('oi_salSpouse') * 10000 : 0;
+  const kids = int('oi_kids'), kids6 = Math.min(int('oi_kids6'), int('oi_kids')), elders = int('oi_elders');
+  if (int('oi_kids6') > int('oi_kids')) warn.push('「未滿 6 歲」人數不能比扶養小孩多，已用小孩人數計算。');
+  if (sellY && sellY !== OI_TAX.year) warn.push('報稅試算用的是 ' + OI_TAX.year + ' 年度的免稅額與級距，' + sellY + ' 年賣出的數額可能略有不同。');
+  if (gain === null) {
+    ['oi_t_base', 'oi_t_with', 'oi_t_extra'].forEach(id => set(id, '—'));
+    rows.innerHTML = '<div class="detail-row"><span class="name">上面算出所得後就會出來</span><span class="num">—</span></div>';
+    return;
+  }
+  const g = Math.max(0, gain) * 10000;
+  const base = oiIncomeTax(salS, salP, 0, oiMar, kids, kids6, elders);
+  const withG = oiIncomeTax(salS, salP, g, oiMar, kids, kids6, elders);
+  const extra = withG.tax - base.tax;
+  const w = n => fmt(n / 10000);
+  set('oi_t_base', w(base.tax));
+  set('oi_t_with', w(withG.tax));
+  set('oi_t_extra', w(extra));
+  const pct = r => Math.round(r * 100) + '%';
+  const row = (name, num) => '<div class="detail-row"><span class="name">' + name + '</span><span class="num">' + num + '</span></div>';
+  rows.innerHTML =
+    row('沒賣房：所得淨額／適用稅率', w(base.net) + ' 萬／' + pct(base.rate)) +
+    row('有賣房：所得淨額／適用稅率', w(withG.net) + ' 萬／' + pct(withG.rate)) +
+    row('申報方式（自動挑較省的）', withG.method) +
+    (kids6 > 0 ? row('幼兒學前特別扣除', withG.pre > 0 ? w(withG.pre) + ' 萬' : '稅率 20% 以上，不能扣') : '') +
+    row('這筆所得實際被課的比例', g > 0 ? fmt(extra / g * 100, 1) + '%' : '—') +
+    row('基本生活費', '每人 ' + fmt0(OI_TAX.basic) + ' 元（' + OI_TAX.basicNote + '）');
+  if (gain <= 0) warn.push('算出來沒有所得（虧損），這筆不用多繳稅。');
+}
+
+function resetOldInherit() {
+  if (!confirm('清空這頁所有輸入？')) return;
+  ['oi_acqHouse', 'oi_price', 'oi_sellHouse', 'oi_landArea', 'oi_landUnit', 'oi_landShare', 'oi_ratioPct', 'oi_fee', 'oi_salSelf', 'oi_salSpouse', 'oi_kids', 'oi_kids6', 'oi_elders'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('oi_acqY').value = '';
+  document.getElementById('oi_acqM').value = '';
+  document.getElementById('oi_sellY').value = String(OI_CPI.base[0]);
+  document.getElementById('oi_sellM').value = String(OI_CPI.base[1]);
+  oiMar = false;
+  document.getElementById('oiMarSeg').querySelectorAll('.seg-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.getElementById('oiSpouseWrap').style.display = 'none';
+  setOiMode('val');
+}
+
+oiFillSelects();
+calcOldInherit();
+
 // ------- 列印給客戶：把目前算好的數字填進「客戶列印版」再叫出列印 -------
 function printForClient() {
   const txt = id => { const e = document.getElementById(id); return e ? e.textContent.trim() : '—'; };
@@ -2430,7 +2851,7 @@ function printForClient() {
 (function(){
   try{
     var only = new URLSearchParams(location.search).get('only');
-    var valid = ['capgain','afford','loan','fees','area','park','seller','luxury'];
+    var valid = ['capgain','afford','loan','fees','area','park','seller','luxury','oldinherit'];
     if (only && valid.indexOf(only) >= 0){
       if (typeof switchTab === 'function') switchTab(only);
       document.querySelectorAll('.tab').forEach(function(b){
