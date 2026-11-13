@@ -28,6 +28,7 @@
   .res-q{font-weight:700;word-break:break-all}
   .res-match{font-size:13px;color:#1f7a48;margin-top:2px}
   .res-no{font-size:13px;color:#b05a3c;margin-top:2px}
+  .res-maybe{font-size:13px;color:#a8741a;margin-top:2px}
   .res-short{font-size:13px;color:#a09884;margin-top:2px}
   .summary{text-align:center;font-size:14px;font-weight:700;padding:9px;border-radius:9px;margin-bottom:10px}
   .sum-hit{background:#effaf3;color:#1f7a48;border:1px solid #bfe6cf}
@@ -145,13 +146,31 @@ let MULTI_STORES=[],MS_NORM=[],MS_CORE=[];
 
 // 比對邏輯與喵爸控台完全相同
 const msNorm=s=>String(s||"").replace(/\s|　|不動產|房屋|加盟店|直營店/g,"").toUpperCase();
+// 打字查詢：模糊比對。品牌字、不動產/房屋/加盟/直營/分店/結尾「店」、符號全部去掉，只比「店名核心」
+// 例：「中路向陽公園店」「向陽公園」「永慶中路向陽公園」都對得到「永慶不動產中路向陽公園加盟店」
+const qCore=s=>String(s||"").replace(/[^\p{L}\p{N}]/gu,"").toUpperCase()
+  .replace(/不動產|房屋|仲介|經紀|有限公司|加盟店?|直營店?|分店|門市|永慶|有巢氏|有巢|永義|台慶/g,"")
+  .replace(/店$/,"");
 function matchStore(name){
-  const n=msNorm(name);
-  if(!n||n.length<4)return{status:"short"};
-  for(let i=0;i<MS_NORM.length;i++){
-    const x=MS_NORM[i];
-    if(x===n||x.includes(n)||n.includes(x))return{status:"hit",store:MULTI_STORES[i]};
+  const q=qCore(name),brand=segBrand(String(name||"").replace(/\s/g,""));
+  if(q.length<2)return{status:"short"};
+  const sure=[],maybe=[];
+  for(let i=0;i<MS_CORE.length;i++){
+    const c=MS_CORE[i];if(!c)continue;
+    const bad=brand&&!MULTI_STORES[i].startsWith(brand); // 打的品牌跟名單不同 → 最多只算「可能是」
+    let lv=0;
+    if(c===q||(q.length>=3&&c.includes(q))||(c.length>=3&&q.includes(c)))lv=2;
+    else if(q.length===2&&c.includes(q))lv=1;                       // 只打兩個字（例：內壢）→ 列出可能的
+    else{
+      const tc=c.length>=8?2:(c.length>=5?1:0),tq=q.length>=8?2:(q.length>=5?1:0); // 4 個字以下的短店名不容錯（平鎮環南≠平鎮南勢）
+      if((tc&&approxDist(c,q,false)<=tc)||(tq&&q.length<=c.length&&approxDist(q,c,false)<=tq))lv=1; // 打錯／漏一兩個字
+    }
+    if(!lv)continue;
+    if(lv===2&&!bad)sure.push(i);else maybe.push({i,bad});
   }
+  if(sure.length===1)return{status:"hit",store:MULTI_STORES[sure[0]]};
+  const cand=sure.map(i=>({i,bad:false})).concat(maybe);
+  if(cand.length)return{status:"maybe",list:cand.slice(0,6).map(x=>MULTI_STORES[x.i]+(x.bad?"（品牌跟你打的不一樣）":""))};
   return{status:"miss"};
 }
 
@@ -160,24 +179,26 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",
 function run(){
   const lines=document.getElementById("inp").value.split("\n").map(s=>s.trim()).filter(Boolean);
   if(!lines.length)return;
-  let hit=0,miss=0,short=0,html="";
+  let hit=0,miss=0,short=0,mb=0,html="";
   for(const ln of lines){
     const r=matchStore(ln);
     if(r.status==="hit"){hit++;
       html+=`<div class="res-line"><span class="res-ico">✅</span><div class="res-body"><div class="res-q">${esc(ln)}</div><div class="res-match">是我們的複數店 → ${esc(r.store)}</div></div></div>`;
+    }else if(r.status==="maybe"){mb++;
+      html+=`<div class="res-line"><span class="res-ico">🟡</span><div class="res-body"><div class="res-q">${esc(ln)}</div><div class="res-maybe">可能是我們的複數店，對一下是不是這家：<br>${r.list.map(esc).join("<br>")}</div></div></div>`;
     }else if(r.status==="short"){short++;
-      html+=`<div class="res-line"><span class="res-ico">⚠️</span><div class="res-body"><div class="res-q">${esc(ln)}</div><div class="res-short">字太少不好判斷，請貼完整一點的店名（至少 4 個字）</div></div></div>`;
+      html+=`<div class="res-line"><span class="res-ico">⚠️</span><div class="res-body"><div class="res-q">${esc(ln)}</div><div class="res-short">字太少不好判斷，請多打幾個字（例：向陽公園、內壢站前）</div></div></div>`;
     }else{miss++;
       html+=`<div class="res-line"><span class="res-ico">❌</span><div class="res-body"><div class="res-q">${esc(ln)}</div><div class="res-no">不在複數店名單裡</div></div></div>`;
     }
   }
   const sum=document.getElementById("summary");
   if(lines.length===1){
-    sum.className="summary "+(hit?"sum-hit":(short?"sum-mix":"sum-miss"));
-    sum.textContent=hit?"✅ 是我們的複數店":(short?"⚠️ 請貼完整一點的店名":"❌ 不是複數店");
+    sum.className="summary "+(hit?"sum-hit":((short||mb)?"sum-mix":"sum-miss"));
+    sum.textContent=hit?"✅ 是我們的複數店":(mb?"🟡 可能是，對一下下面的店名":(short?"⚠️ 請多打幾個字":"❌ 不是複數店"));
   }else{
-    sum.className="summary "+(miss===0&&short===0?"sum-hit":(hit===0?"sum-miss":"sum-mix"));
-    sum.textContent=`共 ${lines.length} 家：✅ ${hit} 家是複數店、❌ ${miss} 家不是`+(short?`、⚠️ ${short} 家看不出來`:"");
+    sum.className="summary "+(miss===0&&short===0&&mb===0?"sum-hit":(hit===0&&mb===0?"sum-miss":"sum-mix"));
+    sum.textContent=`共 ${lines.length} 家：✅ ${hit} 家是複數店`+(mb?`、🟡 ${mb} 家可能是`:"")+`、❌ ${miss} 家不是`+(short?`、⚠️ ${short} 家看不出來`:"");
   }
   document.getElementById("lines").innerHTML=html;
   document.getElementById("result").style.display="block";
