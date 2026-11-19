@@ -732,6 +732,7 @@
   <button class="tab active" data-tab="seller" onclick="switchTab('seller')">💰 賣方實拿速算</button>
   <button class="tab" data-tab="luxury" onclick="switchTab('luxury')">🏰 豪宅稅</button>
 <button class="tab" data-tab="oldinherit" onclick="switchTab('oldinherit')">📜 舊制繼承屋</button>
+<button class="tab" data-tab="oldreal" onclick="switchTab('oldreal')">🧾 舊制核實課稅</button>
 </div>
 
 <div class="tab-pane active" data-pane="seller">
@@ -1230,7 +1231,7 @@
   <div class="section-header-row">
     <div>
       <h2 class="card-title">豪宅稅</h2>
-      <p class="card-sub">舊制高價住宅（豪宅）賣方實拿速算 · 豪宅稅 = 售價 × 房地比 × 20%</p>
+      <p class="card-sub">舊制高價住宅（豪宅）賣方實拿速算 · 房屋交易所得 = 售價 × 房地比 × 20%，再併入屋主綜所稅（不是直接繳 20%）</p>
     </div>
     <button class="reset-btn" onclick="resetLuxury()">↻ 全部清除</button>
   </div>
@@ -1241,6 +1242,13 @@
     <div class="field">
       <label>屋主預計出售價格 <span class="hint">萬</span></label>
       <input type="number" id="lx_price" step="0.01" placeholder="例如: 8000" oninput="calcLuxury()" />
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label>權狀坪數 <span class="hint">坪 · 可不填，用來判斷每坪 50 萬</span></label>
+      <input type="number" id="lx_ping" step="0.01" placeholder="例如: 60" oninput="calcLuxury()" />
+    </div>
+    <div id="lx_thInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
+      桃園市門檻：成交總價 3,000 萬以上，或每坪單價 50 萬以上（任一個符合就算）
     </div>
   </div>
 
@@ -1307,6 +1315,38 @@
     <p style="font-size:12px; color:var(--ink-soft); margin:12px 0 0;">代書費（潤筆）、實價登錄、履保費、塗銷費會自動帶入下方明細，不用手動填。</p>
   </div>
 
+  <!-- 報稅狀況 -->
+  <div class="section yellow" style="margin-top:18px;">
+    <h3 class="section-title">屋主的報稅狀況 <span class="tag">算綜所稅用</span></h3>
+    <p style="font-size:12px; color:var(--ink-soft); margin:-8px 0 12px;">20% 算出來的是「所得」，要併進屋主賣出那一年的綜所稅，照級距課稅。填屋主家裡狀況才算得準。<span id="lx_taxYearNote"></span></p>
+    <div class="seg" id="lxMarSeg">
+      <button class="seg-btn active" onclick="setTxMar('lx', false)">單身</button>
+      <button class="seg-btn" onclick="setTxMar('lx', true)">已婚（夫妻合併申報）</button>
+    </div>
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="field">
+        <label>賣房的人：全年薪水 <span class="hint">萬</span></label>
+        <input type="number" id="lx_salSelf" step="0.1" placeholder="例如: 60" oninput="calcLuxury()" />
+      </div>
+      <div class="field" id="lxSpouseWrap" style="display:none;">
+        <label>配偶：全年薪水 <span class="hint">萬</span></label>
+        <input type="number" id="lx_salSpouse" step="0.1" placeholder="例如: 45" oninput="calcLuxury()" />
+      </div>
+      <div class="field">
+        <label>扶養小孩 <span class="hint">人</span></label>
+        <input type="number" id="lx_kids" step="1" min="0" placeholder="0" oninput="calcLuxury()" />
+      </div>
+      <div class="field">
+        <label>其中未滿 6 歲 <span class="hint">人</span></label>
+        <input type="number" id="lx_kids6" step="1" min="0" placeholder="0" oninput="calcLuxury()" />
+      </div>
+      <div class="field">
+        <label>扶養 70 歲以上長輩 <span class="hint">人</span></label>
+        <input type="number" id="lx_elders" step="1" min="0" placeholder="0" oninput="calcLuxury()" />
+      </div>
+    </div>
+  </div>
+
   <!-- 結果 -->
   <div class="result-panel">
     <div class="result-grid">
@@ -1315,11 +1355,19 @@
         <div class="value"><span id="lx_r_ratio">—</span><span class="unit">%</span></div>
       </div>
       <div class="result-box">
-        <div class="label">豪宅稅</div>
+        <div class="label">房屋交易所得（併入綜所稅）</div>
+        <div class="value"><span id="lx_r_gain">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box">
+        <div class="label">賣這間要多繳的綜所稅（估）</div>
         <div class="value"><span id="lx_r_tax">—</span><span class="unit">萬</span></div>
       </div>
+      <div class="result-box">
+        <div class="label">這筆所得實際被課的比例</div>
+        <div class="value"><span id="lx_r_eff">—</span><span class="unit">%</span></div>
+      </div>
       <div class="result-box big">
-        <div class="label">屋主實拿（扣豪宅稅 + 服務費 + 土增稅 + 雜費）</div>
+        <div class="label">屋主實拿（扣綜所稅 + 服務費 + 土增稅 + 雜費）</div>
         <div class="value"><span id="lx_r_net">—</span><span class="unit">萬</span></div>
       </div>
     </div>
@@ -1327,7 +1375,8 @@
     <div class="detail">
       <div class="detail-title">計算明細</div>
       <div class="detail-row"><span class="name">出售價格</span><span class="num"><span id="lx_d_price">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">豪宅稅（售價 × 房地比 × 20%）</span><span class="num"><span id="lx_d_tax">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">房屋交易所得（參考，不扣）</span><span class="num"><span id="lx_d_gain">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">綜所稅多繳（估）</span><span class="num"><span id="lx_d_tax">—</span> 萬</span></div>
       <div class="detail-row"><span class="name"><span id="lx_d_svc_label">服務費（售價 × 4%）</span></span><span class="num"><span id="lx_d_svc">—</span> 萬</span></div>
       <div class="detail-row"><span class="name">土地增值稅</span><span class="num"><span id="lx_d_landTax">—</span> 萬</span></div>
       <div class="detail-row"><span class="name">代書費（潤筆）</span><span class="num"><span id="lx_d_run">—</span> 萬</span></div>
@@ -1336,6 +1385,21 @@
       <div class="detail-row"><span class="name">塗銷費 + 稅籍資料</span><span class="num"><span id="lx_d_clr">—</span> 萬</span></div>
       <div class="detail-row sum"><span class="name">合計扣除</span><span class="num"><span id="lx_d_sum">—</span> 萬</span></div>
     </div>
+    <div class="detail" style="margin-top:12px;">
+      <div class="detail-title">綜所稅怎麼算的</div>
+      <div id="lx_t_rows"></div>
+    </div>
+    <p style="font-size:11.5px; color:#888; margin:8px 0 0;">採標準扣除額、薪資之外沒有其他所得；已婚會比較「全部合併」和「配偶分開計稅」取較省的。實際以國稅局核定為準。</p>
+  </div>
+
+  <div id="lx_warn" style="display:none; margin-top:14px; font-size:13px; padding:12px 14px; background:#fff1f0; border:1px solid #f3c2bd; border-radius:8px; color:#a8322a;"></div>
+
+  <div style="margin-top:14px; font-size:12.5px; line-height:1.75; padding:12px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
+    <b>適用條件</b><br>
+    ① 104/12/31 以前取得的房子（舊制）；105 年以後取得走房地合一，用「📐 房地合一」那頁<br>
+    ② 桃園市：成交總價 3,000 萬以上，或每坪單價 50 萬以上，任一個符合就算<br>
+    ③ 這是屋主「拿不出買進成本」時國稅局用的標準。拿得出成本、而且算起來比較低 → 用「🧾 舊制核實課稅」那頁申報<br>
+    <b>常見算錯</b>：把 售價 × 房地比 × 20% 當成要繳的稅。它是「所得」，要併進綜所稅照 5%～40% 級距課，實際多繳的通常少很多。
   </div>
 
   <!-- 反推 -->
@@ -1546,6 +1610,167 @@
     <b>常見算錯</b>：把「（總價 − 成本 − 費用）× 房地比」整個括號乘房地比，成本會被打折，所得多算一倍以上。成本只算房子，不能再乘房地比。
   </div>
   <p style="font-size:11.5px; color:#888; margin:10px 0 0;">物價指數：主計總處「以各年月為基期之消費者物價總指數－稅務專用」<span id="oi_cpiVer"></span>。試算僅供參考，實際以國稅局核定為準。</p>
+</div>
+</div>
+
+<!-- ========== TAB: 舊制核實課稅 ========== -->
+<div class="tab-pane" data-pane="oldreal">
+<div class="card">
+  <div class="section-header-row">
+    <div>
+      <h2 class="card-title">舊制核實課稅</h2>
+      <p class="card-sub">104 年底前買的房子、拿得出當年買進價格 → 用實際賺多少算所得 · 所得 =（成交價 − 取得價 − 費用）× 房地比</p>
+    </div>
+    <button class="reset-btn" onclick="resetOldReal()">↻ 全部清除</button>
+  </div>
+
+  <!-- 買賣價格 -->
+  <div class="section yellow">
+    <h3 class="section-title">買賣價格 <span class="tag">算利潤</span></h3>
+    <div class="grid-2">
+      <div class="field">
+        <label>成交價 <span class="hint">萬 · 這次賣多少</span></label>
+        <input type="number" id="oc_price" step="0.01" placeholder="例如: 1500" oninput="calcOldReal()" />
+      </div>
+      <div class="field">
+        <label>取得價 <span class="hint">萬 · 屋主當年買多少</span></label>
+        <input type="number" id="oc_buy" step="0.01" placeholder="例如: 1052" oninput="calcOldReal()" />
+      </div>
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label>相關費用 <span class="hint">萬 · 仲介費、代書費等，可不填</span></label>
+      <input type="number" id="oc_fee" step="0.01" placeholder="例如: 60（沒有就空著）" oninput="calcOldReal()" />
+    </div>
+  </div>
+
+  <!-- 房地比 -->
+  <div class="section">
+    <h3 class="section-title">房地比 <span class="tag gray">出售時，依稅單／謄本</span></h3>
+    <div class="seg" id="ocModeSeg">
+      <button class="seg-btn active" onclick="setOcMode('val')">用現值算房地比</button>
+      <button class="seg-btn" onclick="setOcMode('ratio')">直接填房地比</button>
+    </div>
+    <div id="ocValWrap" style="margin-top:14px;">
+      <div class="field">
+        <label>出售時房屋評定現值 <span class="hint">元 · 依房屋稅單</span></label>
+        <input type="number" id="oc_sellHouse" step="1" placeholder="例如: 1000000" oninput="calcOldReal()" />
+      </div>
+      <p style="font-size:12px; color:var(--ink-soft); margin:12px 0 6px;">出售時土地公告現值（依謄本，三格填完自動相乘；多筆土地請加總後填）</p>
+      <div class="grid-3">
+        <div class="field">
+          <label>土地面積 <span class="hint">平方公尺</span></label>
+          <input type="number" id="oc_landArea" step="0.01" placeholder="例如: 60" oninput="calcOldReal()" />
+        </div>
+        <div class="field">
+          <label>公告土地現值 <span class="hint">元/m²</span></label>
+          <input type="number" id="oc_landUnit" step="1" placeholder="例如: 150000" oninput="calcOldReal()" />
+        </div>
+        <div class="field">
+          <label>權利範圍 <span class="hint">如 1/2</span></label>
+          <input type="text" id="oc_landShare" placeholder="例如: 1/1" oninput="calcOldReal()" />
+        </div>
+      </div>
+    </div>
+    <div id="ocRatioWrap" style="display:none; margin-top:14px;">
+      <div class="field">
+        <label>房地比 <span class="hint">% · 房屋占幾成</span></label>
+        <input type="number" id="oc_ratioPct" step="0.01" placeholder="例如: 30" oninput="calcOldReal()" />
+      </div>
+    </div>
+    <div id="oc_ratioInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
+      房地比 = 房屋評定現值 ÷（房屋評定現值 + 土地公告現值）
+    </div>
+  </div>
+
+  <!-- 結果 -->
+  <div class="result-panel">
+    <div class="result-grid">
+      <div class="result-box">
+        <div class="label">利潤（成交價 − 取得價 − 費用）</div>
+        <div class="value"><span id="oc_r_profit">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box">
+        <div class="label">房地比</div>
+        <div class="value"><span id="oc_r_ratio">—</span><span class="unit">%</span></div>
+      </div>
+      <div class="result-box big">
+        <div class="label">財產交易所得（併入綜所稅）</div>
+        <div class="value"><span id="oc_r_gain">—</span><span class="unit">萬</span></div>
+      </div>
+    </div>
+    <div class="detail">
+      <div class="detail-title">計算明細</div>
+      <div class="detail-row"><span class="name">成交價</span><span class="num"><span id="oc_d_price">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">減：取得價</span><span class="num">−<span id="oc_d_buy">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">減：相關費用</span><span class="num">−<span id="oc_d_fee">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">利潤</span><span class="num"><span id="oc_d_profit">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">× 房地比（只課房子那塊）</span><span class="num"><span id="oc_d_ratio">—</span> %</span></div>
+      <div class="detail-row sum"><span class="name">財產交易所得</span><span class="num"><span id="oc_d_gain">—</span> 萬</span></div>
+    </div>
+  </div>
+
+  <!-- 報稅試算 -->
+  <div class="section yellow" style="margin-top:18px;">
+    <h3 class="section-title">明年報稅會多繳多少？ <span class="tag">併入綜所稅</span></h3>
+    <p style="font-size:12px; color:var(--ink-soft); margin:-8px 0 12px;">這筆所得要併進賣出那一年的綜所稅。填家裡狀況，算出「有賣」跟「沒賣」差多少稅。<span id="oc_taxYearNote"></span></p>
+    <div class="seg" id="ocMarSeg">
+      <button class="seg-btn active" onclick="setTxMar('oc', false)">單身</button>
+      <button class="seg-btn" onclick="setTxMar('oc', true)">已婚（夫妻合併申報）</button>
+    </div>
+    <div class="grid-2" style="margin-top:14px;">
+      <div class="field">
+        <label>賣房的人：全年薪水 <span class="hint">萬</span></label>
+        <input type="number" id="oc_salSelf" step="0.1" placeholder="例如: 60" oninput="calcOldReal()" />
+      </div>
+      <div class="field" id="ocSpouseWrap" style="display:none;">
+        <label>配偶：全年薪水 <span class="hint">萬</span></label>
+        <input type="number" id="oc_salSpouse" step="0.1" placeholder="例如: 45" oninput="calcOldReal()" />
+      </div>
+      <div class="field">
+        <label>扶養小孩 <span class="hint">人</span></label>
+        <input type="number" id="oc_kids" step="1" min="0" placeholder="0" oninput="calcOldReal()" />
+      </div>
+      <div class="field">
+        <label>其中未滿 6 歲 <span class="hint">人</span></label>
+        <input type="number" id="oc_kids6" step="1" min="0" placeholder="0" oninput="calcOldReal()" />
+      </div>
+      <div class="field">
+        <label>扶養 70 歲以上長輩 <span class="hint">人</span></label>
+        <input type="number" id="oc_elders" step="1" min="0" placeholder="0" oninput="calcOldReal()" />
+      </div>
+    </div>
+    <div class="result-grid" style="margin-top:14px;">
+      <div class="result-box">
+        <div class="label">沒賣房：全年綜所稅</div>
+        <div class="value"><span id="oc_t_base">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box">
+        <div class="label">有賣房：全年綜所稅</div>
+        <div class="value"><span id="oc_t_with">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box big">
+        <div class="label">賣這間要多繳的稅</div>
+        <div class="value"><span id="oc_t_extra">—</span><span class="unit">萬</span></div>
+      </div>
+    </div>
+    <div class="detail" style="margin-top:12px;">
+      <div class="detail-title">怎麼算的</div>
+      <div id="oc_t_rows"></div>
+    </div>
+    <p style="font-size:11.5px; color:#888; margin:8px 0 0;">採標準扣除額、薪資之外沒有其他所得；已婚會比較「全部合併」和「配偶分開計稅」取較省的。實際以國稅局核定為準。</p>
+  </div>
+
+  <div id="oc_warn" style="display:none; margin-top:14px; font-size:13px; padding:12px 14px; background:#fff1f0; border:1px solid #f3c2bd; border-radius:8px; color:#a8322a;"></div>
+
+  <div style="margin-top:14px; font-size:12.5px; line-height:1.75; padding:12px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
+    <b>適用條件</b><br>
+    ① 104/12/31 以前取得的房子（舊制）；105 年以後取得走房地合一，用「📐 房地合一」那頁<br>
+    ② 要拿得出當年買進的證明（買賣契約、付款紀錄）；101/8/1 以後買的有實價登錄，國稅局通常直接用實價核實<br>
+    ③ 拿不出成本 → 一般房子按「房屋評定現值 × 核定稅率」（中壢 33%）；豪宅用「🏰 豪宅稅」那頁。兩種都能算的，選低的報<br>
+    ④ 算出來是虧損 → 不用繳；虧損 3 年內可以拿來扣其他財產交易所得<br>
+    ⑤ 繼承來的房子成本算法不同，用「📜 舊制繼承屋」那頁
+  </div>
+  <p style="font-size:11.5px; color:#888; margin:10px 0 0;">試算僅供參考，實際以國稅局核定為準。</p>
 </div>
 </div>
 
@@ -2445,113 +2670,8 @@ function lxRatio() {
   return { ok: true, ratio: houseVal / (houseVal + landVal), landVal };
 }
 
-function calcLuxury() {
-  const price = v('lx_price'); // 萬
-  const rr = lxRatio();
+// calcLuxury／reverseLuxury／resetLuxury 已移到下方「共用：併入綜所稅試算」之後（要用 OI_TAX）
 
-  // 土地公告現值說明
-  const landInfo = document.getElementById('lx_landInfo');
-  if (rr.landVal > 0) {
-    landInfo.innerHTML = `土地公告現值 = <b>${fmt(v('lx_landArea'))}</b> m² × <b>${fmt0(v('lx_landUnit'))}</b> 元 × 權利範圍 = <b style="color:var(--gold-deep)">${fmt0(rr.landVal)}</b> 元`;
-  } else {
-    landInfo.textContent = '土地公告現值 = 面積 × 每m²現值 × 權利範圍';
-  }
-
-  // 房地比說明
-  const ratioInfo = document.getElementById('lx_ratioInfo');
-  if (rr.ok) {
-    ratioInfo.innerHTML = `房地比 = 房屋 <b>${fmt0(v('lx_houseVal'))}</b> ÷（房屋 + 土地 <b>${fmt0(rr.landVal)}</b>）= <b style="color:var(--gold-deep)">${(rr.ratio*100).toFixed(2)}%</b>`;
-  } else {
-    ratioInfo.textContent = '房地比 = 房屋評定現值 ÷（房屋評定現值 + 土地公告現值）';
-  }
-
-  // 服務費
-  const service = lxSvc === 'manual' ? v('lx_svcManual') : price * 0.04;
-  const svcInfo = document.getElementById('lx_svcInfo');
-  if (lxSvc === 'p4') {
-    svcInfo.innerHTML = price > 0
-      ? `服務費 = 出售價 <b>${fmt(price)}</b> 萬 × 4% = <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`
-      : '服務費 = 出售價格 × 4%';
-  } else {
-    svcInfo.innerHTML = `服務費 = 手動輸入 <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`;
-  }
-
-  // 價格或房地比不齊 → 清結果
-  const clearIds = ['lx_r_tax','lx_r_net','lx_d_price','lx_d_tax','lx_d_svc','lx_d_landTax','lx_d_run','lx_d_reg','lx_d_esc','lx_d_clr','lx_d_sum'];
-  if (price <= 0 || !rr.ok) {
-    clearIds.forEach(id => document.getElementById(id).textContent = '—');
-    document.getElementById('lx_r_ratio').textContent = rr.ok ? (rr.ratio*100).toFixed(2) : '—';
-    return;
-  }
-
-  const luxTax = price * rr.ratio * 0.20; // 萬
-  const landTax = v('lx_landTax');
-  const run = FIXED.run, reg = FIXED.reg, clr = FIXED.clr;
-  const escrow = price * FIXED.escrowRate; // 履保 售價×萬分之三
-  const sumDeduct = luxTax + service + landTax + run + reg + escrow + clr;
-  const net = price - sumDeduct;
-
-  document.getElementById('lx_r_ratio').textContent = (rr.ratio*100).toFixed(2);
-  document.getElementById('lx_r_tax').textContent = fmt(luxTax);
-  document.getElementById('lx_r_net').textContent = fmt(net);
-
-  document.getElementById('lx_d_price').textContent = fmt(price);
-  document.getElementById('lx_d_tax').textContent = fmt(luxTax);
-  document.getElementById('lx_d_svc').textContent = fmt(service);
-  document.getElementById('lx_d_svc_label').textContent = lxSvc === 'p4' ? '服務費（售價 × 4%）' : '服務費（手動輸入）';
-  document.getElementById('lx_d_landTax').textContent = fmt(landTax);
-  document.getElementById('lx_d_run').textContent = fmt(run);
-  document.getElementById('lx_d_reg').textContent = fmt(reg);
-  document.getElementById('lx_d_esc').textContent = fmt(escrow);
-  document.getElementById('lx_d_clr').textContent = fmt(clr);
-  document.getElementById('lx_d_sum').textContent = fmt(sumDeduct);
-}
-
-// 反推：net = X − X·R·0.2 − 服務費 − 土增 − 潤筆 − 實登 − X·履保率 − 塗銷
-function reverseLuxury() {
-  const out = document.getElementById('lx_reverseOut');
-  const target = v('lx_targetNet');
-  if (target <= 0) { out.style.display = 'none'; return; }
-  const rr = lxRatio();
-  out.style.display = 'block';
-  if (!rr.ok) {
-    document.getElementById('lx_rv_total').textContent = '—';
-    document.getElementById('lx_rv_note').textContent = '⚠ 請先填土地公告現值三格與房屋評定現值（算房地比）';
-    return;
-  }
-  const landTax = v('lx_landTax');
-  const e = FIXED.escrowRate;
-  const fixedSum = FIXED.run + FIXED.reg + FIXED.clr; // 潤筆+實登+塗銷（固定）
-  const k = rr.ratio * 0.20; // 豪宅稅係數
-  let X, note = '';
-  if (lxSvc === 'manual') {
-    const F = v('lx_svcManual');
-    X = (target + landTax + F + fixedSum) / (1 - k - e);
-    note = `＊房地比 ${(rr.ratio*100).toFixed(2)}%、服務費固定 ${fmt(F)} 萬`;
-  } else {
-    const denom = 1 - k - 0.04 - e;
-    if (denom <= 0) {
-      document.getElementById('lx_rv_total').textContent = '無解';
-      document.getElementById('lx_rv_note').textContent = '參數異常（房地比過高）';
-      return;
-    }
-    X = (target + landTax + fixedSum) / denom;
-    note = `＊房地比 ${(rr.ratio*100).toFixed(2)}%、服務費 4%`;
-  }
-  document.getElementById('lx_rv_total').textContent = fmt(X);
-  document.getElementById('lx_rv_note').textContent = note;
-}
-
-function resetLuxury() {
-  if (!confirm('清空豪宅稅所有輸入？')) return;
-  ['lx_price','lx_landArea','lx_landUnit','lx_landShare','lx_houseVal','lx_svcManual','lx_landTax','lx_targetNet'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('lx_reverseOut').style.display = 'none';
-  setLxSvc('p4');
-  calcLuxury();
-}
-
-// 初始化豪宅稅
-calcLuxury();
 
 // ============ 舊制繼承屋所得（物價指數調整成本）============
 // 主計總處「以各年月為基期之消費者物價總指數－稅務專用」：格子值＝以該年月為 100 時，基準月(base)所當之指數
@@ -2777,6 +2897,284 @@ function resetOldInherit() {
 oiFillSelects();
 calcOldInherit();
 
+// ============ 共用：併入綜所稅試算（豪宅稅、舊制核實課稅共用；沿用 OI_TAX／oiIncomeTax）============
+const TXMAR = { lx: false, oc: false };
+const TXCB = { lx: () => calcLuxury(), oc: () => calcOldReal() };
+
+function setTxMar(p, m) {
+  TXMAR[p] = m;
+  document.getElementById(p + 'MarSeg').querySelectorAll('.seg-btn').forEach((b, i) => b.classList.toggle('active', (i === 1) === m));
+  document.getElementById(p + 'SpouseWrap').style.display = m ? 'block' : 'none';
+  TXCB[p]();
+}
+
+function txFamily(p, warn) {
+  const int = id => Math.max(0, Math.floor(v(id)));
+  const married = TXMAR[p];
+  const kids = int(p + '_kids');
+  if (warn && int(p + '_kids6') > kids) warn.push('「未滿 6 歲」人數不能比扶養小孩多，已用小孩人數計算。');
+  return {
+    salS: v(p + '_salSelf') * 10000, salP: married ? v(p + '_salSpouse') * 10000 : 0, married,
+    kids, kids6: Math.min(int(p + '_kids6'), kids), elders: int(p + '_elders')
+  };
+}
+
+// 回傳 {base, withG, extra, g}，金額單位：元
+function txExtra(f, gainWan) {
+  const g = Math.max(0, gainWan) * 10000;
+  const base = oiIncomeTax(f.salS, f.salP, 0, f.married, f.kids, f.kids6, f.elders);
+  const withG = oiIncomeTax(f.salS, f.salP, g, f.married, f.kids, f.kids6, f.elders);
+  return { base, withG, extra: withG.tax - base.tax, g };
+}
+
+function txRender(p, gainWan, warn) {
+  const set = (id, t) => { const e = document.getElementById(id); if (e) e.textContent = t; };
+  const rows = document.getElementById(p + '_t_rows');
+  const yn = document.getElementById(p + '_taxYearNote');
+  if (yn) yn.textContent = '（用 ' + OI_TAX.year + ' 年度數額：' + OI_TAX.year + ' 年賣出、' + (OI_TAX.year + 1) + ' 年 5 月報稅）';
+  const f = txFamily(p, warn);
+  if (gainWan === null) {
+    [p + '_t_base', p + '_t_with', p + '_t_extra'].forEach(id => set(id, '—'));
+    rows.innerHTML = '<div class="detail-row"><span class="name">上面算出所得後就會出來</span><span class="num">—</span></div>';
+    return null;
+  }
+  const r = txExtra(f, gainWan);
+  const w = n => fmt(n / 10000);
+  set(p + '_t_base', w(r.base.tax));
+  set(p + '_t_with', w(r.withG.tax));
+  set(p + '_t_extra', w(r.extra));
+  const pct = x => Math.round(x * 100) + '%';
+  const row = (name, num) => '<div class="detail-row"><span class="name">' + name + '</span><span class="num">' + num + '</span></div>';
+  rows.innerHTML =
+    row('沒賣房：全年綜所稅', w(r.base.tax) + ' 萬') +
+    row('有賣房：全年綜所稅', w(r.withG.tax) + ' 萬') +
+    row('沒賣房：所得淨額／適用稅率', w(r.base.net) + ' 萬／' + pct(r.base.rate)) +
+    row('有賣房：所得淨額／適用稅率', w(r.withG.net) + ' 萬／' + pct(r.withG.rate)) +
+    row('申報方式（自動挑較省的）', r.withG.method) +
+    (f.kids6 > 0 ? row('幼兒學前特別扣除', r.withG.pre > 0 ? w(r.withG.pre) + ' 萬' : '稅率 20% 以上，不能扣') : '') +
+    row('這筆所得實際被課的比例', r.g > 0 ? fmt(r.extra / r.g * 100, 1) + '%' : '—') +
+    row('基本生活費', '每人 ' + fmt0(OI_TAX.basic) + ' 元（' + OI_TAX.basicNote + '）');
+  if (gainWan <= 0) warn.push('算出來沒有所得（虧損），這筆不用多繳稅。');
+  else if (f.salS === 0 && f.salP === 0) warn.push('報稅狀況還沒填薪水 → 先當作沒有其他所得，多繳的稅會算得偏低；有薪水請填進去。');
+  return r;
+}
+
+function txWarn(p, warn) {
+  const el = document.getElementById(p + '_warn');
+  el.style.display = warn.length ? 'block' : 'none';
+  el.innerHTML = warn.map(t => '⚠️ ' + t).join('<br>');
+}
+
+function txReset(p) {
+  ['_salSelf', '_salSpouse', '_kids', '_kids6', '_elders'].forEach(s => document.getElementById(p + s).value = '');
+  TXMAR[p] = false;
+  document.getElementById(p + 'MarSeg').querySelectorAll('.seg-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.getElementById(p + 'SpouseWrap').style.display = 'none';
+}
+
+// ============ 豪宅稅（舊制高價宅）：所得 = 售價 × 房地比 × 20%，併入綜所稅 ============
+function calcLuxury() {
+  const price = v('lx_price'); // 萬
+  const ping = v('lx_ping');
+  const rr = lxRatio();
+  const warn = [];
+
+  const landInfo = document.getElementById('lx_landInfo');
+  if (rr.landVal > 0) {
+    landInfo.innerHTML = `土地公告現值 = <b>${fmt(v('lx_landArea'))}</b> m² × <b>${fmt0(v('lx_landUnit'))}</b> 元 × 權利範圍 = <b style="color:var(--gold-deep)">${fmt0(rr.landVal)}</b> 元`;
+  } else {
+    landInfo.textContent = '土地公告現值 = 面積 × 每m²現值 × 權利範圍';
+  }
+  const ratioInfo = document.getElementById('lx_ratioInfo');
+  if (rr.ok) {
+    ratioInfo.innerHTML = `房地比 = 房屋 <b>${fmt0(v('lx_houseVal'))}</b> ÷（房屋 + 土地 <b>${fmt0(rr.landVal)}</b>）= <b style="color:var(--gold-deep)">${(rr.ratio*100).toFixed(2)}%</b>`;
+  } else {
+    ratioInfo.textContent = '房地比 = 房屋評定現值 ÷（房屋評定現值 + 土地公告現值）';
+  }
+
+  // 門檻：總價 3,000 萬以上，或每坪 50 萬以上
+  const th = document.getElementById('lx_thInfo');
+  if (price > 0) {
+    const unit = ping > 0 ? price / ping : null;
+    const byTotal = price >= 3000, byUnit = unit !== null && unit >= 50;
+    const unitTxt = unit !== null ? '每坪 <b>' + fmt(unit) + '</b> 萬' : '每坪單價（沒填坪數）';
+    if (byTotal || byUnit) {
+      th.innerHTML = '✅ 適用高價住宅標準：總價 <b>' + fmt(price) + '</b> 萬' + (byTotal ? '（≥ 3,000 萬）' : '') + '，' + unitTxt + (byUnit ? '（≥ 50 萬）' : '');
+    } else {
+      th.innerHTML = '總價 <b>' + fmt(price) + '</b> 萬，' + unitTxt + ' → 未達門檻';
+      warn.push(ping > 0
+        ? '總價未滿 3,000 萬、每坪也未滿 50 萬，不適用豪宅標準。拿得出成本用「🧾 舊制核實課稅」；拿不出來一般按「房屋評定現值 × 核定稅率」（中壢 33%）。'
+        : '總價未滿 3,000 萬。如果每坪單價有 50 萬以上也算豪宅，請填坪數判斷。');
+    }
+  } else {
+    th.textContent = '桃園市門檻：成交總價 3,000 萬以上，或每坪單價 50 萬以上（任一個符合就算）';
+  }
+
+  const service = lxSvc === 'manual' ? v('lx_svcManual') : price * 0.04;
+  const svcInfo = document.getElementById('lx_svcInfo');
+  if (lxSvc === 'p4') {
+    svcInfo.innerHTML = price > 0
+      ? `服務費 = 出售價 <b>${fmt(price)}</b> 萬 × 4% = <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`
+      : '服務費 = 出售價格 × 4%';
+  } else {
+    svcInfo.innerHTML = `服務費 = 手動輸入 <b style="color:var(--gold-deep)">${fmt(service)}</b> 萬`;
+  }
+
+  const clearIds = ['lx_r_gain','lx_r_tax','lx_r_eff','lx_r_net','lx_d_price','lx_d_gain','lx_d_tax','lx_d_svc','lx_d_landTax','lx_d_run','lx_d_reg','lx_d_esc','lx_d_clr','lx_d_sum'];
+  if (price <= 0 || !rr.ok) {
+    clearIds.forEach(id => document.getElementById(id).textContent = '—');
+    document.getElementById('lx_r_ratio').textContent = rr.ok ? (rr.ratio*100).toFixed(2) : '—';
+    txRender('lx', null, warn);
+    txWarn('lx', warn);
+    return;
+  }
+
+  const gain = price * rr.ratio * 0.20; // 萬：房屋交易所得（不是稅）
+  const tx = txRender('lx', gain, warn);
+  const tax = tx.extra / 10000; // 萬：實際多繳綜所稅
+  const landTax = v('lx_landTax');
+  const run = FIXED.run, reg = FIXED.reg, clr = FIXED.clr;
+  const escrow = price * FIXED.escrowRate;
+  const sumDeduct = tax + service + landTax + run + reg + escrow + clr;
+  const net = price - sumDeduct;
+
+  document.getElementById('lx_r_ratio').textContent = (rr.ratio*100).toFixed(2);
+  document.getElementById('lx_r_gain').textContent = fmt(gain);
+  document.getElementById('lx_r_tax').textContent = fmt(tax);
+  document.getElementById('lx_r_eff').textContent = tx.g > 0 ? fmt(tx.extra / tx.g * 100, 1) : '—';
+  document.getElementById('lx_r_net').textContent = fmt(net);
+
+  document.getElementById('lx_d_price').textContent = fmt(price);
+  document.getElementById('lx_d_gain').textContent = fmt(gain);
+  document.getElementById('lx_d_tax').textContent = fmt(tax);
+  document.getElementById('lx_d_svc').textContent = fmt(service);
+  document.getElementById('lx_d_svc_label').textContent = lxSvc === 'p4' ? '服務費（售價 × 4%）' : '服務費（手動輸入）';
+  document.getElementById('lx_d_landTax').textContent = fmt(landTax);
+  document.getElementById('lx_d_run').textContent = fmt(run);
+  document.getElementById('lx_d_reg').textContent = fmt(reg);
+  document.getElementById('lx_d_esc').textContent = fmt(escrow);
+  document.getElementById('lx_d_clr').textContent = fmt(clr);
+  document.getElementById('lx_d_sum').textContent = fmt(sumDeduct);
+  txWarn('lx', warn);
+  if (document.getElementById('lx_targetNet').value !== '') reverseLuxury();
+}
+
+// 開價 X 時屋主實拿（萬）
+function lxNetAt(X, ratio, f) {
+  const svc = lxSvc === 'manual' ? v('lx_svcManual') : X * 0.04;
+  const tax = txExtra(f, X * ratio * 0.20).extra / 10000;
+  return X - tax - svc - v('lx_landTax') - FIXED.run - FIXED.reg - FIXED.clr - X * FIXED.escrowRate;
+}
+
+// 反推：綜所稅是累進的，用二分法找開價
+function reverseLuxury() {
+  const out = document.getElementById('lx_reverseOut');
+  const target = v('lx_targetNet');
+  if (target <= 0) { out.style.display = 'none'; return; }
+  const rr = lxRatio();
+  out.style.display = 'block';
+  if (!rr.ok) {
+    document.getElementById('lx_rv_total').textContent = '—';
+    document.getElementById('lx_rv_note').textContent = '⚠ 請先填土地公告現值三格與房屋評定現值（算房地比）';
+    return;
+  }
+  const f = txFamily('lx');
+  let lo = 0, hi = Math.max(target * 2, 100);
+  while (lxNetAt(hi, rr.ratio, f) < target && hi < 1e7) hi *= 2;
+  if (lxNetAt(hi, rr.ratio, f) < target) {
+    document.getElementById('lx_rv_total').textContent = '無解';
+    document.getElementById('lx_rv_note').textContent = '參數異常，請檢查輸入';
+    return;
+  }
+  for (let i = 0; i < 80; i++) {
+    const mid = (lo + hi) / 2;
+    if (lxNetAt(mid, rr.ratio, f) >= target) hi = mid; else lo = mid;
+  }
+  const svcNote = lxSvc === 'manual' ? '服務費固定 ' + fmt(v('lx_svcManual')) + ' 萬' : '服務費 4%';
+  document.getElementById('lx_rv_total').textContent = fmt(hi);
+  document.getElementById('lx_rv_note').textContent = '＊房地比 ' + (rr.ratio*100).toFixed(2) + '%、' + svcNote + '、綜所稅依上方報稅狀況估';
+}
+
+function resetLuxury() {
+  if (!confirm('清空豪宅稅所有輸入？')) return;
+  ['lx_price','lx_ping','lx_landArea','lx_landUnit','lx_landShare','lx_houseVal','lx_svcManual','lx_landTax','lx_targetNet'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('lx_reverseOut').style.display = 'none';
+  txReset('lx');
+  setLxSvc('p4');
+}
+
+// ============ 舊制核實課稅：所得 =（成交價 − 取得價 − 費用）× 房地比 ============
+let ocMode = 'val';
+
+function setOcMode(mode) {
+  ocMode = mode;
+  document.getElementById('ocModeSeg').querySelectorAll('.seg-btn').forEach((b, i) => b.classList.toggle('active', ['val', 'ratio'][i] === mode));
+  document.getElementById('ocValWrap').style.display = mode === 'val' ? 'block' : 'none';
+  document.getElementById('ocRatioWrap').style.display = mode === 'ratio' ? 'block' : 'none';
+  calcOldReal();
+}
+
+function ocRatio() {
+  const info = document.getElementById('oc_ratioInfo');
+  if (ocMode === 'ratio') {
+    const p = v('oc_ratioPct');
+    info.textContent = '直接填房地比：房屋占總價幾成（可問代書或看估價）';
+    if (p <= 0 || p > 100) return { ok: false, ratio: 0 };
+    return { ok: true, ratio: p / 100 };
+  }
+  const houseVal = v('oc_sellHouse');
+  const share = parseShare(document.getElementById('oc_landShare').value);
+  const landVal = v('oc_landArea') * v('oc_landUnit') * share.val;
+  if (houseVal <= 0 || landVal <= 0) {
+    info.textContent = '房地比 = 房屋評定現值 ÷（房屋評定現值 + 土地公告現值）';
+    return { ok: false, ratio: 0 };
+  }
+  const r = houseVal / (houseVal + landVal);
+  info.innerHTML = '土地公告現值 <b>' + fmt0(landVal) + '</b> 元 ｜ 房地比 = ' + fmt0(houseVal) + ' ÷（' + fmt0(houseVal) + ' + ' + fmt0(landVal) + '）= <b style="color:var(--gold-deep)">' + fmt(r * 100) + '%</b>';
+  return { ok: true, ratio: r };
+}
+
+function calcOldReal() {
+  const set = (id, t) => { document.getElementById(id).textContent = t; };
+  const warn = [];
+  const price = v('oc_price'), buy = v('oc_buy'), fee = v('oc_fee');
+  const rr = ocRatio();
+  set('oc_r_ratio', rr.ok ? fmt(rr.ratio * 100) : '—');
+  set('oc_d_ratio', rr.ok ? fmt(rr.ratio * 100) : '—');
+  set('oc_d_price', price > 0 ? fmt(price) : '—');
+  set('oc_d_buy', buy > 0 ? fmt(buy) : '—');
+  set('oc_d_fee', fmt(fee));
+
+  let gain = null;
+  if (price > 0 && buy > 0) {
+    const profit = price - buy - fee;
+    set('oc_r_profit', fmt(profit));
+    set('oc_d_profit', fmt(profit));
+    if (rr.ok) {
+      gain = profit * rr.ratio;
+      set('oc_r_gain', fmt(gain));
+      set('oc_d_gain', fmt(gain));
+    } else {
+      set('oc_r_gain', '—'); set('oc_d_gain', '—');
+    }
+  } else {
+    ['oc_r_profit', 'oc_d_profit', 'oc_r_gain', 'oc_d_gain'].forEach(id => set(id, '—'));
+  }
+  txRender('oc', gain, warn);
+  txWarn('oc', warn);
+}
+
+function resetOldReal() {
+  if (!confirm('清空這頁所有輸入？')) return;
+  ['oc_price', 'oc_buy', 'oc_fee', 'oc_sellHouse', 'oc_landArea', 'oc_landUnit', 'oc_landShare', 'oc_ratioPct'].forEach(id => document.getElementById(id).value = '');
+  txReset('oc');
+  setOcMode('val');
+}
+
+// 初始化（要放在 OI_TAX 定義之後）
+calcLuxury();
+calcOldReal();
+
 // ------- 列印給客戶：把目前算好的數字填進「客戶列印版」再叫出列印 -------
 function printForClient() {
   const txt = id => { const e = document.getElementById(id); return e ? e.textContent.trim() : '—'; };
@@ -2851,7 +3249,7 @@ function printForClient() {
 (function(){
   try{
     var only = new URLSearchParams(location.search).get('only');
-    var valid = ['capgain','afford','loan','fees','area','park','seller','luxury','oldinherit'];
+    var valid = ['capgain','afford','loan','fees','area','park','seller','luxury','oldinherit','oldreal'];
     if (only && valid.indexOf(only) >= 0){
       if (typeof switchTab === 'function') switchTab(only);
       document.querySelectorAll('.tab').forEach(function(b){
