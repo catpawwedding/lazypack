@@ -1615,32 +1615,39 @@
 
 <!-- ========== TAB: 舊制核實課稅 ========== -->
 <div class="tab-pane" data-pane="oldreal">
+<style>[data-pane="oldreal"] .detail-row .num,[data-pane="luxury"] .detail-row .num{white-space:nowrap;padding-left:10px}</style>
 <div class="card">
   <div class="section-header-row">
     <div>
       <h2 class="card-title">舊制核實課稅</h2>
-      <p class="card-sub">104 年底前買的房子、拿得出當年買進價格 → 用實際賺多少算所得 · 所得 =（成交價 − 取得價 − 費用）× 房地比</p>
+      <p class="card-sub">104 年底前買的房子、拿得出當年買進價格 → 用實際賺多少算所得 · 所得 =（成交價 − 取得價 − 費用）× 房地比，再併入屋主綜所稅</p>
     </div>
     <button class="reset-btn" onclick="resetOldReal()">↻ 全部清除</button>
   </div>
 
-  <!-- 買賣價格 -->
+  <!-- 出售價格 -->
+  <div class="section">
+    <h3 class="section-title">出售價格 <span class="tag">影響全部</span></h3>
+    <div class="field">
+        <label>成交價 <span class="hint">萬 · 這次賣多少</span></label>
+        <input type="number" id="oc_price" step="0.01" placeholder="例如: 10532" oninput="calcOldReal()" />
+      </div>
+  </div>
+
+  <!-- 取得 -->
   <div class="section yellow">
-    <h3 class="section-title">買賣價格 <span class="tag">算利潤</span></h3>
+    <h3 class="section-title">當年買進 <span class="tag">要拿得出證明</span></h3>
     <div class="grid-2">
       <div class="field">
-        <label>成交價 <span class="hint">萬 · 這次賣多少</span></label>
-        <input type="number" id="oc_price" step="0.01" placeholder="例如: 1500" oninput="calcOldReal()" />
+        <label>取得價 <span class="hint">萬 · 屋主當年買多少</span></label>
+        <input type="number" id="oc_buy" step="0.01" placeholder="例如: 9000" oninput="calcOldReal()" />
       </div>
       <div class="field">
-        <label>取得價 <span class="hint">萬 · 屋主當年買多少</span></label>
-        <input type="number" id="oc_buy" step="0.01" placeholder="例如: 1052" oninput="calcOldReal()" />
+        <label>買進時的費用 <span class="hint">萬 · 契稅、代書費等，可不填</span></label>
+        <input type="number" id="oc_buyFee" step="0.01" placeholder="例如: 26.8" oninput="calcOldReal()" />
       </div>
     </div>
-    <div class="field" style="margin-top:12px;">
-      <label>相關費用 <span class="hint">萬 · 仲介費、代書費等，可不填</span></label>
-      <input type="number" id="oc_fee" step="0.01" placeholder="例如: 60（沒有就空著）" oninput="calcOldReal()" />
-    </div>
+    <div id="oc_buyInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:white; border-radius:8px; color:var(--ink-soft);">取得成本 = 取得價 + 買進時的費用</div>
   </div>
 
   <!-- 房地比 -->
@@ -1653,23 +1660,24 @@
     <div id="ocValWrap" style="margin-top:14px;">
       <div class="field">
         <label>出售時房屋評定現值 <span class="hint">元 · 依房屋稅單</span></label>
-        <input type="number" id="oc_sellHouse" step="1" placeholder="例如: 1000000" oninput="calcOldReal()" />
+        <input type="number" id="oc_sellHouse" step="0.01" placeholder="例如: 2248700" oninput="calcOldReal()" />
       </div>
       <p style="font-size:12px; color:var(--ink-soft); margin:12px 0 6px;">出售時土地公告現值（依謄本，三格填完自動相乘；多筆土地請加總後填）</p>
       <div class="grid-3">
         <div class="field">
-          <label>土地面積 <span class="hint">平方公尺</span></label>
-          <input type="number" id="oc_landArea" step="0.01" placeholder="例如: 60" oninput="calcOldReal()" />
-        </div>
-        <div class="field">
-          <label>公告土地現值 <span class="hint">元/m²</span></label>
-          <input type="number" id="oc_landUnit" step="1" placeholder="例如: 150000" oninput="calcOldReal()" />
-        </div>
-        <div class="field">
-          <label>權利範圍 <span class="hint">如 1/2</span></label>
-          <input type="text" id="oc_landShare" placeholder="例如: 1/1" oninput="calcOldReal()" />
-        </div>
+        <label>土地面積 <span class="hint">平方公尺</span></label>
+        <input type="number" id="oc_landArea" step="0.01" placeholder="例如: 152" oninput="calcOldReal()" />
       </div>
+        <div class="field">
+        <label>公告土地現值 <span class="hint">元/m²</span></label>
+        <input type="number" id="oc_landUnit" step="0.01" placeholder="例如: 241789" oninput="calcOldReal()" />
+      </div>
+        <div class="field">
+        <label>權利範圍 <span class="hint">如 1/2</span></label>
+        <input type="text" id="oc_landShare"  placeholder="例如: 1/1" oninput="calcOldReal()" />
+      </div>
+      </div>
+      <div id="oc_landInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:white; border-radius:8px; color:var(--ink-soft);">土地公告現值 = 面積 × 每m²現值 × 權利範圍</div>
     </div>
     <div id="ocRatioWrap" style="display:none; margin-top:14px;">
       <div class="field">
@@ -1677,42 +1685,39 @@
         <input type="number" id="oc_ratioPct" step="0.01" placeholder="例如: 30" oninput="calcOldReal()" />
       </div>
     </div>
-    <div id="oc_ratioInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">
-      房地比 = 房屋評定現值 ÷（房屋評定現值 + 土地公告現值）
-    </div>
+    <div id="oc_ratioInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">房地比 = 房屋評定現值 ÷（房屋評定現值 + 土地公告現值）</div>
   </div>
 
-  <!-- 結果 -->
-  <div class="result-panel">
-    <div class="result-grid">
-      <div class="result-box">
-        <div class="label">利潤（成交價 − 取得價 − 費用）</div>
-        <div class="value"><span id="oc_r_profit">—</span><span class="unit">萬</span></div>
-      </div>
-      <div class="result-box">
-        <div class="label">房地比</div>
-        <div class="value"><span id="oc_r_ratio">—</span><span class="unit">%</span></div>
-      </div>
-      <div class="result-box big">
-        <div class="label">財產交易所得（併入綜所稅）</div>
-        <div class="value"><span id="oc_r_gain">—</span><span class="unit">萬</span></div>
+  <!-- 服務費 -->
+  <div class="section">
+    <h3 class="section-title">服務費用計算方式 <span class="tag">影響所得＋實拿</span></h3>
+    <div class="seg" id="ocSvcSeg">
+      <button class="seg-btn active" onclick="setOcSvc('p4')">預設 4%</button>
+      <button class="seg-btn" onclick="setOcSvc('manual')">手動輸入</button>
+    </div>
+    <div id="ocSvcManualWrap" style="display:none; margin-top:12px;">
+      <div class="field">
+        <label>服務費金額 <span class="hint">萬</span></label>
+        <input type="number" id="oc_svcManual" step="0.01" placeholder="例如實付 300 萬就填 300" oninput="calcOldReal()" />
       </div>
     </div>
-    <div class="detail">
-      <div class="detail-title">計算明細</div>
-      <div class="detail-row"><span class="name">成交價</span><span class="num"><span id="oc_d_price">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">減：取得價</span><span class="num">−<span id="oc_d_buy">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">減：相關費用</span><span class="num">−<span id="oc_d_fee">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">利潤</span><span class="num"><span id="oc_d_profit">—</span> 萬</span></div>
-      <div class="detail-row"><span class="name">× 房地比（只課房子那塊）</span><span class="num"><span id="oc_d_ratio">—</span> %</span></div>
-      <div class="detail-row sum"><span class="name">財產交易所得</span><span class="num"><span id="oc_d_gain">—</span> 萬</span></div>
-    </div>
+    <div id="oc_svcInfo" style="margin-top:10px; font-size:13px; padding:10px 14px; background:var(--gold-bg); border-radius:8px; color:var(--ink-soft);">服務費 = 成交價 × 4%</div>
   </div>
 
-  <!-- 報稅試算 -->
+  <!-- 土增稅 -->
+  <div class="section">
+    <h3 class="section-title">土地增值稅 <span class="tag gray">依稅單填入</span></h3>
+    <div class="field">
+        <label>土地增值稅 <span class="hint">萬 · 依稅單</span></label>
+        <input type="number" id="oc_landTax" step="0.01" placeholder="例如: 50" oninput="calcOldReal()" />
+      </div>
+    <p style="font-size:12px; color:var(--ink-soft); margin:12px 0 0;">代書費（潤筆）、實價登錄、履保費、塗銷費會自動帶入，也會算進「費用」扣所得。土增稅只扣實拿、不扣所得（土地那塊本來就不課所得稅）。</p>
+  </div>
+
+  <!-- 報稅狀況 -->
   <div class="section yellow" style="margin-top:18px;">
-    <h3 class="section-title">明年報稅會多繳多少？ <span class="tag">併入綜所稅</span></h3>
-    <p style="font-size:12px; color:var(--ink-soft); margin:-8px 0 12px;">這筆所得要併進賣出那一年的綜所稅。填家裡狀況，算出「有賣」跟「沒賣」差多少稅。<span id="oc_taxYearNote"></span></p>
+    <h3 class="section-title">屋主的報稅狀況 <span class="tag">算綜所稅用</span></h3>
+    <p style="font-size:12px; color:var(--ink-soft); margin:-8px 0 12px;">財產交易所得要併進屋主賣出那一年的綜所稅，照級距課稅。填屋主家裡狀況才算得準。<span id="oc_taxYearNote"></span></p>
     <div class="seg" id="ocMarSeg">
       <button class="seg-btn active" onclick="setTxMar('oc', false)">單身</button>
       <button class="seg-btn" onclick="setTxMar('oc', true)">已婚（夫妻合併申報）</button>
@@ -1720,7 +1725,7 @@
     <div class="grid-2" style="margin-top:14px;">
       <div class="field">
         <label>賣房的人：全年薪水 <span class="hint">萬</span></label>
-        <input type="number" id="oc_salSelf" step="0.1" placeholder="例如: 60" oninput="calcOldReal()" />
+        <input type="number" id="oc_salSelf" step="0.01" placeholder="例如: 60" oninput="calcOldReal()" />
       </div>
       <div class="field" id="ocSpouseWrap" style="display:none;">
         <label>配偶：全年薪水 <span class="hint">萬</span></label>
@@ -1728,36 +1733,81 @@
       </div>
       <div class="field">
         <label>扶養小孩 <span class="hint">人</span></label>
-        <input type="number" id="oc_kids" step="1" min="0" placeholder="0" oninput="calcOldReal()" />
+        <input type="number" id="oc_kids" step="0.01" placeholder="0" oninput="calcOldReal()" />
       </div>
       <div class="field">
         <label>其中未滿 6 歲 <span class="hint">人</span></label>
-        <input type="number" id="oc_kids6" step="1" min="0" placeholder="0" oninput="calcOldReal()" />
+        <input type="number" id="oc_kids6" step="0.01" placeholder="0" oninput="calcOldReal()" />
       </div>
       <div class="field">
         <label>扶養 70 歲以上長輩 <span class="hint">人</span></label>
-        <input type="number" id="oc_elders" step="1" min="0" placeholder="0" oninput="calcOldReal()" />
+        <input type="number" id="oc_elders" step="0.01" placeholder="0" oninput="calcOldReal()" />
       </div>
     </div>
-    <div class="result-grid" style="margin-top:14px;">
+  </div>
+
+  <!-- 結果 -->
+  <div class="result-panel">
+    <div class="result-grid">
       <div class="result-box">
-        <div class="label">沒賣房：全年綜所稅</div>
-        <div class="value"><span id="oc_t_base">—</span><span class="unit">萬</span></div>
+        <div class="label">房地比</div>
+        <div class="value"><span id="oc_r_ratio">—</span><span class="unit">%</span></div>
       </div>
       <div class="result-box">
-        <div class="label">有賣房：全年綜所稅</div>
-        <div class="value"><span id="oc_t_with">—</span><span class="unit">萬</span></div>
+        <div class="label">財產交易所得（併入綜所稅）</div>
+        <div class="value"><span id="oc_r_gain">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box">
+        <div class="label">賣這間要多繳的綜所稅（估）</div>
+        <div class="value"><span id="oc_r_tax">—</span><span class="unit">萬</span></div>
+      </div>
+      <div class="result-box">
+        <div class="label">這筆所得實際被課的比例</div>
+        <div class="value"><span id="oc_r_eff">—</span><span class="unit">%</span></div>
       </div>
       <div class="result-box big">
-        <div class="label">賣這間要多繳的稅</div>
-        <div class="value"><span id="oc_t_extra">—</span><span class="unit">萬</span></div>
+        <div class="label">屋主實拿（扣綜所稅 + 服務費 + 土增稅 + 雜費）</div>
+        <div class="value"><span id="oc_r_net">—</span><span class="unit">萬</span></div>
       </div>
     </div>
+
+    <div class="detail">
+      <div class="detail-title">所得怎麼算</div>
+      <div id="oc_f_rows"></div>
+    </div>
+
     <div class="detail" style="margin-top:12px;">
-      <div class="detail-title">怎麼算的</div>
+      <div class="detail-title">屋主實拿明細</div>
+      <div class="detail-row"><span class="name">成交價</span><span class="num"><span id="oc_d_price">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">綜所稅多繳（估）</span><span class="num">−<span id="oc_d_tax">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name"><span id="oc_d_svc_label">服務費（成交價 × 4%）</span></span><span class="num">−<span id="oc_d_svc">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">土地增值稅</span><span class="num">−<span id="oc_d_landTax">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">代書費（潤筆）</span><span class="num">−<span id="oc_d_run">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">實價登錄費</span><span class="num">−<span id="oc_d_reg">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">履保費（成交價 × 萬分之三）</span><span class="num">−<span id="oc_d_esc">—</span> 萬</span></div>
+      <div class="detail-row"><span class="name">塗銷費 + 稅籍資料</span><span class="num">−<span id="oc_d_clr">—</span> 萬</span></div>
+      <div class="detail-row sum"><span class="name">合計扣除</span><span class="num"><span id="oc_d_sum">—</span> 萬</span></div>
+      <div class="detail-row sum"><span class="name">屋主實拿</span><span class="num"><span id="oc_d_net">—</span> 萬</span></div>
+    </div>
+
+    <div class="detail" style="margin-top:12px;">
+      <div class="detail-title">綜所稅怎麼算的</div>
       <div id="oc_t_rows"></div>
     </div>
     <p style="font-size:11.5px; color:#888; margin:8px 0 0;">採標準扣除額、薪資之外沒有其他所得；已婚會比較「全部合併」和「配偶分開計稅」取較省的。實際以國稅局核定為準。</p>
+  </div>
+
+  <!-- 反推 -->
+  <div class="reverse-card">
+    <div class="title">🔄 反推實拿：屋主說「我要拿 ___ 萬」</div>
+    <div class="sub">輸入屋主想實拿的金額，反推應開的成交價（取得價、房地比、土增稅需先填好）</div>
+    <div class="input-row">
+      <input type="number" id="oc_targetNet" step="0.01" placeholder="例如：屋主想拿 9800 萬" oninput="reverseOldReal()" />
+    </div>
+    <div class="reverse-out" id="oc_reverseOut" style="display:none;">
+      <div class="row"><span>應開成交價</span><span class="num"><span id="oc_rv_total">—</span> 萬</span></div>
+      <div class="row" style="font-size:11.5px; color:#888; margin-top:6px;"><span id="oc_rv_note">　</span><span></span></div>
+    </div>
   </div>
 
   <div id="oc_warn" style="display:none; margin-top:14px; font-size:13px; padding:12px 14px; background:#fff1f0; border:1px solid #f3c2bd; border-radius:8px; color:#a8322a;"></div>
@@ -3105,6 +3155,7 @@ function resetLuxury() {
 
 // ============ 舊制核實課稅：所得 =（成交價 − 取得價 − 費用）× 房地比 ============
 let ocMode = 'val';
+let ocSvc = 'p4';
 
 function setOcMode(mode) {
   ocMode = mode;
@@ -3114,60 +3165,146 @@ function setOcMode(mode) {
   calcOldReal();
 }
 
+function setOcSvc(mode) {
+  ocSvc = mode;
+  document.getElementById('ocSvcSeg').querySelectorAll('.seg-btn').forEach((b, i) => b.classList.toggle('active', ['p4', 'manual'][i] === mode));
+  document.getElementById('ocSvcManualWrap').style.display = mode === 'manual' ? 'block' : 'none';
+  calcOldReal();
+}
+
 function ocRatio() {
   const info = document.getElementById('oc_ratioInfo');
+  const landInfo = document.getElementById('oc_landInfo');
   if (ocMode === 'ratio') {
     const p = v('oc_ratioPct');
-    info.textContent = '直接填房地比：房屋占總價幾成（可問代書或看估價）';
-    if (p <= 0 || p > 100) return { ok: false, ratio: 0 };
+    if (p <= 0 || p > 100) { info.textContent = '直接填房地比：房屋占總價幾成'; return { ok: false, ratio: 0 }; }
+    info.innerHTML = '房地比 = 直接填入 <b style="color:var(--gold-deep)">' + fmt(p) + '%</b>';
     return { ok: true, ratio: p / 100 };
   }
   const houseVal = v('oc_sellHouse');
   const share = parseShare(document.getElementById('oc_landShare').value);
   const landVal = v('oc_landArea') * v('oc_landUnit') * share.val;
+  landInfo.innerHTML = landVal > 0
+    ? '土地公告現值 = <b>' + fmt(v('oc_landArea')) + '</b> m² × <b>' + fmt0(v('oc_landUnit')) + '</b> 元 × 權利範圍 = <b style="color:var(--gold-deep)">' + fmt0(landVal) + '</b> 元'
+    : '土地公告現值 = 面積 × 每m²現值 × 權利範圍';
   if (houseVal <= 0 || landVal <= 0) {
     info.textContent = '房地比 = 房屋評定現值 ÷（房屋評定現值 + 土地公告現值）';
     return { ok: false, ratio: 0 };
   }
   const r = houseVal / (houseVal + landVal);
-  info.innerHTML = '土地公告現值 <b>' + fmt0(landVal) + '</b> 元 ｜ 房地比 = ' + fmt0(houseVal) + ' ÷（' + fmt0(houseVal) + ' + ' + fmt0(landVal) + '）= <b style="color:var(--gold-deep)">' + fmt(r * 100) + '%</b>';
+  info.innerHTML = '房地比 = 房屋 <b>' + fmt0(houseVal) + '</b> ÷（房屋 + 土地 <b>' + fmt0(landVal) + '</b>）= <b style="color:var(--gold-deep)">' + fmt(r * 100) + '%</b>';
   return { ok: true, ratio: r };
+}
+
+// 成交價 X 時的各項（萬）
+function ocParts(X, ratio, f) {
+  const svc = ocSvc === 'manual' ? v('oc_svcManual') : X * 0.04;
+  const esc = X * FIXED.escrowRate;
+  const misc = FIXED.run + FIXED.reg + esc + FIXED.clr;      // 自動雜費
+  const cost = v('oc_buy') + v('oc_buyFee');                  // 取得成本
+  const fee = svc + misc;                                      // 出售費用
+  const profit = X - cost - fee;
+  const gain = profit * ratio;
+  const tx = f ? txExtra(f, gain) : null;
+  const tax = tx ? tx.extra / 10000 : 0;
+  const landTax = v('oc_landTax');
+  const sum = tax + svc + landTax + misc;
+  return { svc, esc, misc, cost, fee, profit, gain, tx, tax, landTax, sum, net: X - sum };
 }
 
 function calcOldReal() {
   const set = (id, t) => { document.getElementById(id).textContent = t; };
   const warn = [];
-  const price = v('oc_price'), buy = v('oc_buy'), fee = v('oc_fee');
+  const price = v('oc_price'), buy = v('oc_buy'), buyFee = v('oc_buyFee');
   const rr = ocRatio();
   set('oc_r_ratio', rr.ok ? fmt(rr.ratio * 100) : '—');
-  set('oc_d_ratio', rr.ok ? fmt(rr.ratio * 100) : '—');
-  set('oc_d_price', price > 0 ? fmt(price) : '—');
-  set('oc_d_buy', buy > 0 ? fmt(buy) : '—');
-  set('oc_d_fee', fmt(fee));
 
-  let gain = null;
-  if (price > 0 && buy > 0) {
-    const profit = price - buy - fee;
-    set('oc_r_profit', fmt(profit));
-    set('oc_d_profit', fmt(profit));
-    if (rr.ok) {
-      gain = profit * rr.ratio;
-      set('oc_r_gain', fmt(gain));
-      set('oc_d_gain', fmt(gain));
-    } else {
-      set('oc_r_gain', '—'); set('oc_d_gain', '—');
-    }
-  } else {
-    ['oc_r_profit', 'oc_d_profit', 'oc_r_gain', 'oc_d_gain'].forEach(id => set(id, '—'));
+  document.getElementById('oc_buyInfo').innerHTML = buy > 0
+    ? '取得成本 = 取得價 <b>' + fmt(buy) + '</b> 萬 + 買進時的費用 <b>' + fmt(buyFee) + '</b> 萬 = <b style="color:var(--gold-deep)">' + fmt(buy + buyFee) + '</b> 萬'
+    : '取得成本 = 取得價 + 買進時的費用';
+
+  const svcNow = ocSvc === 'manual' ? v('oc_svcManual') : price * 0.04;
+  document.getElementById('oc_svcInfo').innerHTML = ocSvc === 'manual'
+    ? '服務費 = 手動輸入 <b style="color:var(--gold-deep)">' + fmt(svcNow) + '</b> 萬'
+    : (price > 0 ? '服務費 = 成交價 <b>' + fmt(price) + '</b> 萬 × 4% = <b style="color:var(--gold-deep)">' + fmt(svcNow) + '</b> 萬' : '服務費 = 成交價 × 4%');
+
+  const ids = ['oc_r_gain', 'oc_r_tax', 'oc_r_eff', 'oc_r_net', 'oc_d_price', 'oc_d_tax', 'oc_d_svc', 'oc_d_landTax', 'oc_d_run', 'oc_d_reg', 'oc_d_esc', 'oc_d_clr', 'oc_d_sum', 'oc_d_net'];
+  const rowsEl = document.getElementById('oc_f_rows');
+  const row = (name, num, sum) => '<div class="detail-row' + (sum ? ' sum' : '') + '"><span class="name">' + name + '</span><span class="num">' + num + '</span></div>';
+
+  if (price <= 0 || buy <= 0 || !rr.ok) {
+    ids.forEach(id => set(id, '—'));
+    rowsEl.innerHTML = row(price <= 0 ? '先填成交價' : buy <= 0 ? '先填取得價' : '先填房地比（房屋評定現值＋土地三格）', '—');
+    txRender('oc', null, warn);
+    txWarn('oc', warn);
+    return;
   }
-  txRender('oc', gain, warn);
+
+  const f = txFamily('oc', warn);
+  const p = ocParts(price, rr.ratio, f);
+  txRender('oc', p.gain, warn);
+
+  rowsEl.innerHTML =
+    row('① 成交價', fmt(price) + ' 萬') +
+    row('② 減：取得成本（取得價 ' + fmt(buy) + ' + 買進費用 ' + fmt(buyFee) + '）', '−' + fmt(p.cost) + ' 萬') +
+    row('③ 減：出售費用（服務費 ' + fmt(p.svc) + ' + 代書 ' + fmt(FIXED.run) + ' + 實登 ' + fmt(FIXED.reg) + ' + 履保 ' + fmt(p.esc) + ' + 塗銷 ' + fmt(FIXED.clr) + '）', '−' + fmt(p.fee) + ' 萬') +
+    row('利潤 = ① − ② − ③', fmt(p.profit) + ' 萬', true) +
+    row('× 房地比（只課房子那塊）', fmt(rr.ratio * 100) + ' %') +
+    row('財產交易所得 = ' + fmt(p.profit) + ' × ' + fmt(rr.ratio * 100) + '%', fmt(p.gain) + ' 萬', true);
+
+  set('oc_r_gain', fmt(p.gain));
+  set('oc_r_tax', fmt(p.tax));
+  set('oc_r_eff', p.tx && p.tx.g > 0 ? fmt(p.tx.extra / p.tx.g * 100, 1) : '—');
+  set('oc_r_net', fmt(p.net));
+  set('oc_d_price', fmt(price));
+  set('oc_d_tax', fmt(p.tax));
+  set('oc_d_svc', fmt(p.svc));
+  set('oc_d_svc_label', ocSvc === 'p4' ? '服務費（成交價 × 4%）' : '服務費（手動輸入）');
+  set('oc_d_landTax', fmt(p.landTax));
+  set('oc_d_run', fmt(FIXED.run));
+  set('oc_d_reg', fmt(FIXED.reg));
+  set('oc_d_esc', fmt(p.esc));
+  set('oc_d_clr', fmt(FIXED.clr));
+  set('oc_d_sum', fmt(p.sum));
+  set('oc_d_net', fmt(p.net));
   txWarn('oc', warn);
+  if (document.getElementById('oc_targetNet').value !== '') reverseOldReal();
+}
+
+function reverseOldReal() {
+  const out = document.getElementById('oc_reverseOut');
+  const target = v('oc_targetNet');
+  if (target <= 0) { out.style.display = 'none'; return; }
+  out.style.display = 'block';
+  const rr = ocRatio();
+  if (!rr.ok || v('oc_buy') <= 0) {
+    document.getElementById('oc_rv_total').textContent = '—';
+    document.getElementById('oc_rv_note').textContent = '⚠ 請先填取得價與房地比';
+    return;
+  }
+  const f = txFamily('oc');
+  const netAt = X => ocParts(X, rr.ratio, f).net;
+  let lo = 0, hi = Math.max(target * 2, 100);
+  while (netAt(hi) < target && hi < 1e7) hi *= 2;
+  if (netAt(hi) < target) {
+    document.getElementById('oc_rv_total').textContent = '無解';
+    document.getElementById('oc_rv_note').textContent = '參數異常，請檢查輸入';
+    return;
+  }
+  for (let i = 0; i < 80; i++) { const mid = (lo + hi) / 2; if (netAt(mid) >= target) hi = mid; else lo = mid; }
+  const svcNote = ocSvc === 'manual' ? '服務費固定 ' + fmt(v('oc_svcManual')) + ' 萬' : '服務費 4%';
+  document.getElementById('oc_rv_total').textContent = fmt(hi);
+  document.getElementById('oc_rv_note').textContent = '＊房地比 ' + fmt(rr.ratio * 100) + '%、' + svcNote + '、綜所稅依上方報稅狀況估';
 }
 
 function resetOldReal() {
   if (!confirm('清空這頁所有輸入？')) return;
-  ['oc_price', 'oc_buy', 'oc_fee', 'oc_sellHouse', 'oc_landArea', 'oc_landUnit', 'oc_landShare', 'oc_ratioPct'].forEach(id => document.getElementById(id).value = '');
+  ['oc_price', 'oc_buy', 'oc_buyFee', 'oc_sellHouse', 'oc_landArea', 'oc_landUnit', 'oc_landShare', 'oc_ratioPct', 'oc_svcManual', 'oc_landTax', 'oc_targetNet'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('oc_reverseOut').style.display = 'none';
   txReset('oc');
+  ocSvc = 'p4';
+  document.getElementById('ocSvcSeg').querySelectorAll('.seg-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  document.getElementById('ocSvcManualWrap').style.display = 'none';
   setOcMode('val');
 }
 
